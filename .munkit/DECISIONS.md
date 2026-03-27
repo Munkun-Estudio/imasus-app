@@ -15,3 +15,7 @@ The project needs the shortest path to a maintainable public foundation, and the
 ## 2026-03-27: Use git sources for Munkit gems in this public repository
 
 This repository is meant to be public, so private GitHub Packages authentication would create friction for contributors and CI. Using public git sources keeps Munkit tooling available without changing the gem-based workflow.
+
+## 2026-03-27: Use GitHub Project 6 for Symphony tracking
+
+Symphony in this repository should target the GitHub Project at https://github.com/orgs/Munkun-Estudio/projects/6 unless the team explicitly changes tracker strategy later.

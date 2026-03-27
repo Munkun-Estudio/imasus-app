@@ -4,7 +4,7 @@ tracker:
   endpoint: https://api.github.com/graphql
   api_key: $GITHUB_TOKEN
   project_owner: Munkun-Estudio
-  project_number: 1 # Replace with the actual GitHub Project number before using Symphony.
+  project_number: 6
   status_field_name: Status
   active_states:
     - Todo
