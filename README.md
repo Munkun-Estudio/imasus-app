@@ -35,8 +35,8 @@ The default Rails health endpoint is available at `/up`.
 
 Before making non-trivial changes:
 
-1. Read [AGENTS.md](/Users/pablo/projects/imasus-app/AGENTS.md).
-2. Review the active spec under [.munkit/specs](/Users/pablo/projects/imasus-app/.munkit/specs).
+1. Read [AGENTS.md](AGENTS.md).
+2. Review the active spec under [.munkit/specs](.munkit/specs).
 3. Update Munkit memory or decisions when you introduce durable project knowledge.
 
 Repository conventions:
@@ -57,7 +57,7 @@ bin/ci
 
 ## Contributing
 
-See [CONTRIBUTING.md](/Users/pablo/projects/imasus-app/CONTRIBUTING.md) for setup and collaboration expectations.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and collaboration expectations.
 
 ## Credits
 
