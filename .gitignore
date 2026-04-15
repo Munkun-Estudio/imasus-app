@@ -35,3 +35,6 @@
 
 /docs/
 .DS_Store
+
+# Local, personal Claude Code instructions — not for the public repo
+/CLAUDE.local.md

@@ -59,6 +59,12 @@ bin/ci
 
 See [CONTRIBUTING.md](/Users/pablo/projects/imasus-app/CONTRIBUTING.md) for setup and collaboration expectations.
 
+## Credits
+
+Agent skill definitions under `.munkit/skills/` are adapted from [igmarin/rails-agent-skills](https://github.com/igmarin/rails-agent-skills) (MIT-licensed, Copyright (c) 2026 Ismael G Marin C). They have been translated to Minitest, pruned to the skills relevant to this project, and rewritten to fit the Munkit-based workflow used here. Upstream attribution, the derivation commit, and a summary of modifications are in [NOTICE](NOTICE).
+
 ## License
 
 License selection is still pending. Do not add a license file until the project owners choose one.
+
+The `NOTICE` file tracks attribution for third-party material included in this repository, independently of the project's own license.

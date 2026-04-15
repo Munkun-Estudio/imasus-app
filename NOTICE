@@ -1,0 +1,85 @@
+IMASUS App
+==========
+
+This project includes material adapted from third-party open-source projects.
+Attribution and license details are recorded below.
+
+---
+
+Rails Agent Skills
+------------------
+
+The skill definitions under `.munkit/skills/rails-*` and
+`.munkit/skills/yard-documentation`, `.munkit/skills/refactor-safely` are
+adapted from:
+
+    igmarin/rails-agent-skills
+    https://github.com/igmarin/rails-agent-skills
+    License:  MIT
+    Derived from upstream commit: a255cff5410331ebef355908b303d4fa955d8ba9
+
+Skills adapted in this project:
+
+    rails-code-conventions
+    rails-stack-conventions
+    rails-migration-safety
+    rails-security-review
+    rails-architecture-review
+    rails-code-review
+    rails-review-response
+    yard-documentation
+    refactor-safely
+    rails-bug-triage
+
+Summary of modifications applied to every adapted skill:
+
+  - Test framework references translated from RSpec to Minitest
+    (bin/rails test, test/** paths, fixtures).
+  - RSpec-only sections removed where no Minitest analogue exists
+    (e.g. let / let_it_be / test-prof guidance).
+  - Workflow references changed from "PRD → Tasks" to "Munkit spec".
+  - Cross-references pruned to the set of skills actually adopted here;
+    pointers to non-adopted skills (rspec-best-practices, rails-tdd-slices,
+    ruby-service-objects, ruby-api-client-integration, ddd-*,
+    rails-engine-*, create-prd, generate-tasks, ticket-planning,
+    rails-skills-orchestrator, api-rest-collection, rails-graphql-*,
+    strategy-factory-null-calculator) and pointers to upstream sibling
+    files (PATTERNS.md, PITFALLS.md, EXAMPLES.md, BOUNDARY_GUIDE.md,
+    ADVANCED_TAGS.md, HEURISTICS.md, INTEGRATION.md, REVIEW_CHECKLIST.md)
+    have been removed to avoid dangling links.
+  - Sections specific to workflows not used here (Jira ticket planning,
+    DDD bounded contexts, Rails engines, REST/GraphQL APIs, Serializers,
+    APM instrumentation opinions) have been removed or softened.
+  - Some code examples have been rewritten in domain terms that match
+    this project's epics (materials, training modules, log entries,
+    prototypes) instead of the upstream examples (orders, shelters).
+  - Auth opinions softened: upstream recommends Devise + Pundit; this
+    project has deliberately not chosen an auth library (see Epic 8),
+    so guidance refers to "the project's chosen auth approach" without
+    prescribing one.
+
+Upstream license text (MIT) is reproduced below.
+
+--- UPSTREAM LICENSE (igmarin/rails-agent-skills) ---
+
+MIT License
+
+Copyright (c) 2026 Ismael G Marin C
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
