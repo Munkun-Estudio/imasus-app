@@ -5,6 +5,6 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     get root_url
 
     assert_response :success
-    assert_includes response.body, "Imagineering tools for students"
+    assert_includes response.body, I18n.t("home.index.heading")
   end
 end
