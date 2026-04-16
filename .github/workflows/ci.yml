@@ -13,17 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-      
+
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
-      
+
   scan_js:
     runs-on: ubuntu-latest
 
@@ -31,8 +36,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -47,8 +57,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -91,8 +106,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -130,8 +150,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
+        env:
+          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 

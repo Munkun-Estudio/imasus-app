@@ -1,0 +1,36 @@
+<nav aria-label="<%= t("nav.aria_label") %>" class="flex flex-col h-full">
+  <div class="px-4 py-6 text-center">
+    <a href="<%= root_path %>">
+      <%= image_tag "logo.svg", alt: "IMASUS", class: "h-10 inline-block" %>
+    </a>
+  </div>
+
+  <div class="flex-1 overflow-y-auto px-4 pt-2 pb-5 space-y-2">
+    <% nav_items.each do |item| %>
+      <%= link_to item[:path], class: nav_swatch_classes(item[:path], item[:color]) do %>
+        <span class="block text-xs font-medium <%= swatch_dark_bg?(item[:color]) ? 'text-white/60' : 'text-imasus-dark-green/40' %>">
+          <%= item[:number] %>
+        </span>
+        <span class="block text-sm font-bold mt-1 <%= swatch_dark_bg?(item[:color]) ? 'text-white' : 'text-imasus-dark-green' %>">
+          <%= t("nav.#{item[:key]}") %>
+        </span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%# Locale switcher %>
+  <div class="border-t border-imasus-dark-green/10 p-4" data-controller="locale-switcher">
+    <p class="mb-2 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/40">
+      <%= t("locale_switcher.label") %>
+    </p>
+    <div class="flex flex-wrap gap-1">
+      <% I18n.available_locales.each do |loc| %>
+        <a href="<%= url_for(locale: loc) %>"
+           class="rounded px-2 py-1 text-xs font-bold transition
+                  <%= loc.to_s == I18n.locale.to_s ? 'bg-imasus-dark-green text-white' : 'text-imasus-dark-green/50 hover:bg-imasus-dark-green/5' %>">
+          <%= loc.to_s.upcase %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</nav>

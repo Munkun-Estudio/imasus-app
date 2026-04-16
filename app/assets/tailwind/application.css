@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+/* General Sans — self-hosted from app/assets/fonts/ */
+@font-face {
+  font-family: "General Sans";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("/general-sans-light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "General Sans";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/general-sans-medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "General Sans";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/general-sans-bold.woff2") format("woff2");
+}
+
+/* IMASUS brand palette tokens and font */
+@theme {
+  --color-imasus-dark-green: #1F3D3F;
+  --color-imasus-navy: #252645;
+  --color-imasus-red: #FA3449;
+  --color-imasus-mint: #AFE0C7;
+  --color-imasus-light-blue: #AFCEDE;
+  --color-imasus-light-pink: #FFC2D7;
+
+  --font-sans: "General Sans", Arial, sans-serif;
+}
