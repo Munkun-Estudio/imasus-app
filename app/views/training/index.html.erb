@@ -1,5 +1,20 @@
-<% content_for :title, t(".title") %>
+<% content_for :title, t("training.index.title") %>
 
-<div class="py-12 px-4 sm:px-6 lg:px-8">
-  <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t("training.index.title") %></h1>
+
+  <% if @about %>
+    <div class="prose prose-stone mt-6 max-w-3xl">
+      <%= sanitize TrainingModule::Renderer.call(@about.body), tags: %w[h1 h2 h3 h4 h5 h6 p br em strong b i a ul ol li blockquote pre code img table thead tbody tr th td hr span sup sub], attributes: %w[href src alt loading class id target rel] %>
+    </div>
+  <% end %>
+
+  <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <% @modules.each do |mod| %>
+      <%= link_to training_show_path(slug: mod.slug, section: "training-module"),
+            class: "block rounded-xl border border-imasus-dark-green/10 bg-white p-6 transition hover:shadow-md hover:scale-[1.02]" do %>
+        <h2 class="text-lg font-bold text-imasus-dark-green"><%= mod.title %></h2>
+      <% end %>
+    <% end %>
+  </div>
 </div>

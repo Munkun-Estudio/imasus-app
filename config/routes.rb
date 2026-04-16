@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   resources :materials, only: :index
   resources :training, only: :index
+  get "training/:slug/:section", to: "training#show", as: :training_show,
+      constraints: { slug: /[a-z0-9-]+/, section: /[a-z0-9-]+/ }
   resources :workshops, only: :index
   resources :log, only: :index
   resources :prototype, only: :index

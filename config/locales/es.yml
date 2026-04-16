@@ -42,6 +42,15 @@ es:
   training:
     index:
       title: "Formación"
+    show:
+      module_nav_label: "Navegación de módulos"
+      section_nav_label: "Navegación de secciones"
+      previous: "Anterior"
+      next: "Siguiente"
+    sections:
+      training_module: "Módulo de formación"
+      case_study: "Caso de estudio"
+      toolkit: "Kit de herramientas"
   workshops:
     index:
       title: "Talleres"
