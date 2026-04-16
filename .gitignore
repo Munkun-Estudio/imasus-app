@@ -38,3 +38,6 @@
 
 # Local, personal Claude Code instructions — not for the public repo
 /CLAUDE.local.md
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
