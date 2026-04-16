@@ -14,10 +14,18 @@ bin/dev
 ## Working Agreement
 
 - Prefer Rails conventions and existing dependencies before proposing new libraries.
-- For non-trivial work, start from the active Munkit spec or create a new one.
+- For non-trivial work, start from the active spec under `.munkit/specs/` or add a new one before implementation.
 - Keep branches short-lived and descriptive, for example `feature/workshop-intake` or `fix/root-layout`.
 - Prefer conventional commits when practical.
 - Keep PRs focused and easy to review.
+
+## Parallel Worktrees
+
+- Use one branch per worktree.
+- Keep each worktree focused on one discrete slice of work.
+- Avoid editing the same files concurrently across worktrees.
+- Re-sync from `main` before starting a new slice and after another worktree lands changes you depend on.
+- Write down durable findings in `.munkit/MEMORY.md`, `.munkit/DECISIONS.md`, or the relevant spec notes instead of leaving them only in chat.
 
 ## Before Opening a PR
 

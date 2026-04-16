@@ -7,7 +7,7 @@ IMASUS App is the Rails application for the [IMASUS project](https://imasus.eu/)
 This repository currently contains the project foundation:
 
 - Rails 8 application scaffolded with PostgreSQL and the default Hotwire stack
-- Munkit workspace and Symphony workflow scaffolding
+- Durable project context under `.munkit/`, including specs, decisions, and project memory
 - Public-repo setup documents for contribution and review hygiene
 - A minimal landing page while the workshop product is defined
 
@@ -18,7 +18,6 @@ This repository currently contains the project foundation:
 - PostgreSQL
 - Hotwire with Importmap
 - Solid Queue, Solid Cache, and Solid Cable
-- Munkit and Munkit Symphony for project context and orchestration
 
 ## Getting Started
 
@@ -37,7 +36,7 @@ Before making non-trivial changes:
 
 1. Read [AGENTS.md](AGENTS.md).
 2. Review the active spec under [.munkit/specs](.munkit/specs).
-3. Update Munkit memory or decisions when you introduce durable project knowledge.
+3. Update the relevant `.munkit/` files when you introduce durable project knowledge.
 
 Repository conventions:
 
@@ -49,8 +48,6 @@ Repository conventions:
 ## Key Commands
 
 ```bash
-bin/munkit status
-bin/symphony --help
 bin/rails test
 bin/ci
 ```
