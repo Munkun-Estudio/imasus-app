@@ -1,46 +1,64 @@
-<% content_for :title, "IMASUS App" %>
+<% content_for :title, t(".title") %>
 
-<main class="landing">
-  <div class="landing__shell">
-    <section class="landing__hero">
-      <p class="landing__eyebrow">IMASUS Workshops</p>
-      <h1 class="landing__title">Imagineering tools for students working on real-world challenges.</h1>
-      <p class="landing__lead">
-        IMASUS App is the workshop platform for students and facilitators developing new responses to large
-        challenges through the imagineering approach inspired by Diane Nijs.
-      </p>
-      <div class="landing__actions">
-        <a class="button button--primary" href="https://imasus.eu/" rel="noreferrer" target="_blank">Visit IMASUS</a>
-        <a class="button button--secondary" href="https://imasus.eu/blog/imagineering-expert-diane-nijs-interview/" rel="noreferrer" target="_blank">Read the Imagineering Interview</a>
-      </div>
-      <p class="landing__status">Project foundation in progress</p>
-    </section>
+<div class="px-6 py-16 sm:px-10 lg:px-16 lg:py-24">
+  <div class="max-w-3xl">
+    <p class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50"><%= t(".eyebrow") %></p>
 
-    <section class="landing__grid" aria-label="Project overview">
-      <article class="landing__panel">
-        <h2>Why this app exists</h2>
-        <p>
-          The application will support workshop journeys where students move from a broad challenge to structured
-          reflection, concept development, and early solution framing.
-        </p>
-      </article>
+    <h1 class="mt-4 text-4xl font-bold leading-[1.1] tracking-tight text-imasus-dark-green sm:text-5xl lg:text-6xl">
+      <%= t(".heading") %>
+    </h1>
 
-      <article class="landing__panel">
-        <h2>What is ready now</h2>
-        <ul>
-          <li>Rails 8 foundation with PostgreSQL</li>
-          <li>Munkit and Symphony workflow scaffolding</li>
-          <li>Contributor guidance for a public repository</li>
-        </ul>
-      </article>
+    <p class="mt-8 max-w-xl text-base leading-relaxed text-imasus-dark-green/60">
+      <%= t(".lead") %>
+    </p>
 
-      <article class="landing__panel">
-        <h2>What comes next</h2>
-        <p>
-          The next product step is to define the first real workshop flow and the domain concepts that should anchor
-          the student experience.
-        </p>
-      </article>
-    </section>
+    <div class="mt-10 flex flex-wrap gap-3">
+      <a class="inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-bold text-white transition hover:bg-imasus-navy"
+         href="https://imasus.eu/" rel="noreferrer" target="_blank"><%= t(".visit_imasus") %></a>
+      <a class="inline-flex items-center rounded-full border border-imasus-dark-green/15 px-5 py-2.5 text-sm font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30"
+         href="https://imasus.eu/blog/imagineering-expert-diane-nijs-interview/" rel="noreferrer" target="_blank"><%= t(".read_interview") %></a>
+    </div>
   </div>
-</main>
+
+  <%# Divider %>
+  <div class="mt-16 border-t border-imasus-dark-green/10"></div>
+
+  <div class="mt-12 grid gap-12 sm:grid-cols-3 sm:gap-8">
+    <div>
+      <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-imasus-mint/40 text-imasus-dark-green">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+        </svg>
+      </div>
+      <h2 class="text-sm font-bold uppercase tracking-wide text-imasus-dark-green/40"><%= t(".why_title") %></h2>
+      <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/60"><%= t(".why_text") %></p>
+    </div>
+
+    <div>
+      <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-imasus-light-blue/40 text-imasus-dark-green">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+        </svg>
+      </div>
+      <h2 class="text-sm font-bold uppercase tracking-wide text-imasus-dark-green/40"><%= t(".who_title") %></h2>
+      <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/60"><%= t(".who_text") %></p>
+    </div>
+
+    <div>
+      <div class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-imasus-light-pink/40 text-imasus-dark-green">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+        </svg>
+      </div>
+      <h2 class="text-sm font-bold uppercase tracking-wide text-imasus-dark-green/40"><%= t(".what_title") %></h2>
+      <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/60"><%= t(".what_text") %></p>
+    </div>
+  </div>
+
+  <div class="mt-12">
+    <p class="inline-flex items-center gap-2 text-sm font-bold text-imasus-dark-green/60">
+      <span class="inline-block h-2.5 w-2.5 rounded-full bg-imasus-mint"></span>
+      <%= t(".status") %>
+    </p>
+  </div>
+</div>
