@@ -42,6 +42,15 @@ el:
   training:
     index:
       title: "Εκπαίδευση"
+    show:
+      module_nav_label: "Πλοήγηση ενοτήτων"
+      section_nav_label: "Πλοήγηση τμημάτων"
+      previous: "Προηγούμενο"
+      next: "Επόμενο"
+    sections:
+      training_module: "Εκπαιδευτική ενότητα"
+      case_study: "Μελέτη περίπτωσης"
+      toolkit: "Εργαλειοθήκη"
   workshops:
     index:
       title: "Εργαστήρια"

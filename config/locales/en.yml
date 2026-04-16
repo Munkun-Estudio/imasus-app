@@ -42,6 +42,15 @@ en:
   training:
     index:
       title: "Training"
+    show:
+      module_nav_label: "Module navigation"
+      section_nav_label: "Section navigation"
+      previous: "Previous"
+      next: "Next"
+    sections:
+      training_module: "Training Module"
+      case_study: "Case Study"
+      toolkit: "Toolkit"
   workshops:
     index:
       title: "Workshops"

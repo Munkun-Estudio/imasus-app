@@ -1,0 +1,74 @@
+<% content_for :title, @section.title %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <%# Module and section header %>
+  <div class="mb-8">
+    <p class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+      <%= @section.module_title %>
+    </p>
+    <h1 class="mt-2 text-3xl font-bold text-imasus-dark-green"><%= @section.title %></h1>
+  </div>
+
+  <%# Module navigation (tabs) %>
+  <nav class="mb-8 flex flex-wrap gap-2" aria-label="<%= t("training.show.module_nav_label") %>">
+    <% @section.available_modules.each do |mod_slug| %>
+      <% active = mod_slug == @section.module_slug %>
+      <%= link_to mod_slug.titleize,
+            training_show_path(slug: mod_slug, section: @section.volume),
+            class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{active ? 'bg-imasus-dark-green text-white' : 'border border-imasus-dark-green/15 text-imasus-dark-green/60 hover:border-imasus-dark-green/30'}" %>
+    <% end %>
+  </nav>
+
+  <%# Section tabs %>
+  <nav class="mb-10 flex gap-4 border-b border-imasus-dark-green/10" aria-label="<%= t("training.show.section_nav_label") %>">
+    <% @section.available_sections.each do |vol| %>
+      <% active = vol == @section.volume %>
+      <%= link_to t("training.sections.#{vol.underscore}"),
+            training_show_path(slug: @section.module_slug, section: vol),
+            class: "pb-3 text-sm font-bold transition #{active ? 'border-b-2 border-imasus-dark-green text-imasus-dark-green' : 'text-imasus-dark-green/40 hover:text-imasus-dark-green/60'}" %>
+    <% end %>
+  </nav>
+
+  <%# Rendered markdown content %>
+  <article class="prose prose-stone max-w-3xl">
+    <%= sanitize @rendered_body, tags: %w[h1 h2 h3 h4 h5 h6 p br em strong b i a ul ol li blockquote pre code img table thead tbody tr th td hr span sup sub figure figcaption], attributes: %w[href src alt loading class id target rel width height] %>
+  </article>
+
+  <%# Chapter navigation (Previous / Next) %>
+  <nav class="mt-12 flex items-center justify-between border-t border-imasus-dark-green/10 pt-6">
+    <% if @previous_section %>
+      <%= link_to training_show_path(slug: @section.module_slug, section: @previous_section),
+            class: "flex items-center gap-2 text-sm font-bold text-imasus-dark-green/60 hover:text-imasus-dark-green",
+            data: { nav: "previous" } do %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        <%= t("training.show.previous") %>: <%= t("training.sections.#{@previous_section.underscore}") %>
+      <% end %>
+    <% else %>
+      <span></span>
+    <% end %>
+
+    <% if @next_section %>
+      <%= link_to training_show_path(slug: @section.module_slug, section: @next_section),
+            class: "flex items-center gap-2 text-sm font-bold text-imasus-dark-green/60 hover:text-imasus-dark-green",
+            data: { nav: "next" } do %>
+        <%= t("training.show.next") %>: <%= t("training.sections.#{@next_section.underscore}") %>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <% end %>
+    <% end %>
+  </nav>
+
+  <%# Locale switcher for training %>
+  <div class="mt-8" data-training-locale-switcher>
+    <p class="mb-2 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/40">
+      <%= t("locale_switcher.label") %>
+    </p>
+    <div class="flex flex-wrap gap-1">
+      <% @section.available_locales.each do |loc| %>
+        <% active = loc == I18n.locale.to_s %>
+        <%= link_to loc.upcase,
+              training_show_path(slug: @section.module_slug, section: @section.volume, locale: loc),
+              class: "rounded px-2 py-1 text-xs font-bold transition #{active ? 'bg-imasus-dark-green text-white' : 'text-imasus-dark-green/50 hover:bg-imasus-dark-green/5'}" %>
+      <% end %>
+    </div>
+  </div>
+</div>
