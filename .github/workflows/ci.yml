@@ -8,6 +8,8 @@ on:
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
 
     steps:
       - name: Checkout code
@@ -20,12 +22,14 @@ jobs:
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-      
+
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
-      
+
   scan_js:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
 
     steps:
       - name: Checkout code
@@ -42,6 +46,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
+      BUNDLE_WITHOUT: development
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
       - name: Checkout code
@@ -67,6 +72,8 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
 
     services:
       postgres:
@@ -106,6 +113,8 @@ jobs:
 
   system-test:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITHOUT: development
 
     services:
       postgres:
