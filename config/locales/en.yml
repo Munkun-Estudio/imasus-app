@@ -1,31 +1,56 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  nav:
+    home: "Home"
+    materials: "Materials DB"
+    training: "Training"
+    workshops: "Workshops"
+    log: "Log"
+    prototype: "Prototype"
+    glossary: "Glossary"
+    aria_label: "Main navigation"
+    toggle_menu: "Toggle menu"
+  locale_switcher:
+    label: "Language"
+  footer:
+    project_name: "IMASUS"
+    eu_notice: "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or the European Education and Culture Executive Agency (EACEA). Neither the European Union nor EACEA can be held responsible for them."
+    copyright: "© 2024–2026 IMASUS Project."
+    partners_label: "Partners"
+    partners:
+      inma: "INMA (CSIC)"
+      lottozero: "Lottozero"
+      echn: "ECHN"
+      munkun: "Munkun"
+  home:
+    index:
+      title: "Home"
+      eyebrow: "IMASUS Workshops"
+      heading: "Imagineering tools for students working on real-world challenges."
+      lead: "IMASUS App is the workshop platform for students and facilitators developing new responses to large challenges through the imagineering approach inspired by Diane Nijs."
+      visit_imasus: "Visit IMASUS"
+      read_interview: "Read the Imagineering Interview"
+      status: "Project foundation in progress"
+      why_title: "Why this app exists"
+      why_text: "IMASUS App supports workshop journeys where students move from a broad challenge to structured reflection, concept development, and early solution framing — using the imagineering approach."
+      who_title: "Who is it for"
+      who_text: "Students and facilitators participating in IMASUS workshops across Greece, Italy, and Spain. Each workshop brings together interdisciplinary teams to tackle real sustainability challenges in the textile industry."
+      what_title: "What you can do"
+      what_text: "Explore a materials database, work through training modules, log your process with photos and videos, develop prototypes, and publish a public project page summarising your journey."
+  materials:
+    index:
+      title: "Materials DB"
+  training:
+    index:
+      title: "Training"
+  workshops:
+    index:
+      title: "Workshops"
+  log:
+    index:
+      title: "Log"
+  prototype:
+    index:
+      title: "Prototype"
+  glossary:
+    index:
+      title: "Glossary"

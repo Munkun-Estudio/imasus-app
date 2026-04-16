@@ -1,0 +1,56 @@
+it:
+  nav:
+    home: "Home"
+    materials: "Database materiali"
+    training: "Formazione"
+    workshops: "Workshop"
+    log: "Registro"
+    prototype: "Prototipo"
+    glossary: "Glossario"
+    aria_label: "Navigazione principale"
+    toggle_menu: "Apri menu"
+  locale_switcher:
+    label: "Lingua"
+  footer:
+    project_name: "IMASUS"
+    eu_notice: "Finanziato dall'Unione Europea. I punti di vista e le opinioni espresse sono tuttavia esclusivamente quelli dell'autore o degli autori e non riflettono necessariamente quelli dell'Unione Europea o dell'Agenzia esecutiva europea per l'istruzione e la cultura (EACEA). Né l'Unione Europea né l'EACEA possono essere ritenute responsabili."
+    copyright: "© 2024–2026 Progetto IMASUS."
+    partners_label: "Partner"
+    partners:
+      inma: "INMA (CSIC)"
+      lottozero: "Lottozero"
+      echn: "ECHN"
+      munkun: "Munkun"
+  home:
+    index:
+      title: "Home"
+      eyebrow: "Workshop IMASUS"
+      heading: "Strumenti di immaginazione per studenti che affrontano sfide reali."
+      lead: "IMASUS App è la piattaforma workshop per studenti e facilitatori che sviluppano nuove risposte a grandi sfide attraverso l'approccio di immaginazione ispirato a Diane Nijs."
+      visit_imasus: "Visita IMASUS"
+      read_interview: "Leggi l'intervista sull'immaginazione"
+      status: "Progetto in fase di sviluppo"
+      why_title: "Perché esiste questa applicazione"
+      why_text: "IMASUS App supporta percorsi di workshop in cui gli studenti passano da una sfida ampia alla riflessione strutturata, allo sviluppo di concetti e alla prima formulazione di soluzioni, utilizzando l'approccio di immaginazione."
+      who_title: "A chi è rivolta"
+      who_text: "Studenti e facilitatori che partecipano ai workshop IMASUS in Grecia, Italia e Spagna. Ogni workshop riunisce team interdisciplinari per affrontare sfide reali di sostenibilità nell'industria tessile."
+      what_title: "Cosa puoi fare"
+      what_text: "Esplorare un database di materiali, lavorare con moduli di formazione, documentare il tuo processo con foto e video, sviluppare prototipi e pubblicare una pagina pubblica del progetto che riassume il tuo percorso."
+  materials:
+    index:
+      title: "Database materiali"
+  training:
+    index:
+      title: "Formazione"
+  workshops:
+    index:
+      title: "Workshop"
+  log:
+    index:
+      title: "Registro"
+  prototype:
+    index:
+      title: "Prototipo"
+  glossary:
+    index:
+      title: "Glossario"
