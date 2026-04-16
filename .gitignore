@@ -33,7 +33,8 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
-/docs/
+/docs/*
+!/docs/image-hosting.md
 .DS_Store
 
 # Local, personal Claude Code instructions — not for the public repo
