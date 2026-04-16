@@ -8,12 +8,13 @@ on:
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
-    env:
-      BUNDLE_WITHOUT: development
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -28,12 +29,13 @@ jobs:
 
   scan_js:
     runs-on: ubuntu-latest
-    env:
-      BUNDLE_WITHOUT: development
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -46,11 +48,13 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     env:
-      BUNDLE_WITHOUT: development
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -72,8 +76,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    env:
-      BUNDLE_WITHOUT: development
 
     services:
       postgres:
@@ -97,6 +99,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -113,8 +118,6 @@ jobs:
 
   system-test:
     runs-on: ubuntu-latest
-    env:
-      BUNDLE_WITHOUT: development
 
     services:
       postgres:
@@ -138,6 +141,9 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v6
+
+      - name: Strip private git gems
+        run: sed -i '/munkit/d' Gemfile
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
