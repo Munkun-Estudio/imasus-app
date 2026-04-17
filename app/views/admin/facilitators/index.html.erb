@@ -1,0 +1,16 @@
+<h1><%= t("admin.facilitators.index.title", default: "Facilitators") %></h1>
+
+<p><%= link_to t("admin.facilitators.index.new", default: "Invite a facilitator"), new_admin_facilitator_path %></p>
+
+<ul>
+  <% @facilitators.each do |facilitator| %>
+    <li>
+      <strong><%= facilitator.name %></strong> — <%= facilitator.email %>
+      <% if facilitator.invitation_accepted_at.present? %>
+        <em><%= t("admin.facilitators.index.active", default: "active") %></em>
+      <% else %>
+        <em><%= t("admin.facilitators.index.pending", default: "invitation pending") %></em>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

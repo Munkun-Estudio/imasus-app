@@ -1,9 +1,34 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
+# Idempotent seed data for the IMASUS app.
 #
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# The admin user is read from environment variables so credentials never land
+# in the repository. In development these can be set via `.env` or exported
+# before running `bin/rails db:seed`. In production they come from the host.
+
+admin_email = ENV.fetch("IMASUS_ADMIN_EMAIL", "admin@imasus.local")
+admin_name  = ENV.fetch("IMASUS_ADMIN_NAME", "IMASUS Admin")
+admin_password = ENV["IMASUS_ADMIN_PASSWORD"].presence ||
+                 (Rails.env.development? ? "changeme-dev" : nil)
+
+if admin_password.nil?
+  warn "Skipping admin seed: set IMASUS_ADMIN_PASSWORD to create the admin user."
+else
+  admin = User.find_or_initialize_by(email: admin_email.downcase)
+  admin.name ||= admin_name
+  admin.role = :admin
+  admin.password = admin_password
+  admin.password_confirmation = admin_password
+  admin.invitation_accepted_at ||= Time.current
+  admin.save!
+  puts "Seeded admin user: #{admin.email}"
+end
+
+[
+  { title: "Greece Workshop", location: "Athens, Greece", slug: "greece" },
+  { title: "Italy Workshop",  location: "Prato, Italy",   slug: "italy"  },
+  { title: "Spain Workshop",  location: "Madrid, Spain",  slug: "spain"  }
+].each do |attrs|
+  workshop = Workshop.find_or_initialize_by(slug: attrs[:slug])
+  workshop.assign_attributes(attrs)
+  workshop.save!
+end
+puts "Seeded #{Workshop.count} workshops."

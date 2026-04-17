@@ -1,0 +1,7 @@
+<%= t("facilitator_invitation_mailer.invite.greeting", default: "Hi %{name},", name: @user.name) %>
+
+<%= t("facilitator_invitation_mailer.invite.body", default: "You have been invited to IMASUS as a facilitator. Open the link below within 7 days to set your password and activate your account:") %>
+
+<%= @url %>
+
+<%= t("facilitator_invitation_mailer.invite.help", default: "If you were not expecting this invitation, please contact the IMASUS administrator.") %>

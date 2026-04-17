@@ -1,0 +1,9 @@
+<h1><%= t("password_resets.new.title", default: "Reset your password") %></h1>
+
+<%= form_with url: password_resets_path, local: true do |f| %>
+  <div>
+    <%= f.label :email, t("password_resets.new.email", default: "Email") %>
+    <%= f.email_field :email, required: true, autofocus: true %>
+  </div>
+  <%= f.submit t("password_resets.new.submit", default: "Send reset link") %>
+<% end %>
