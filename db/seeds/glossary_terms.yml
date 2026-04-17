@@ -1,0 +1,236 @@
+# IMASUS glossary seed data.
+#
+# Each entry must carry an English `term` and `definition` — these are the
+# required, source-of-truth values. `es`, `it`, and `el` are stub slots: fill
+# them in over time. Missing locale values fall back to English at read time
+# via the Translatable concern.
+#
+# Re-running this seed is idempotent: entries are matched by the slug derived
+# from the English term, so renaming `term.en` will create a new record (and
+# leave the old one intact). Update `term.en` cautiously.
+
+- term:
+    en: Imagineering
+    es: Imagineering
+    it: Imagineering
+    el: Imagineering
+  category: methodology
+  definition:
+    en: >
+      A complexity-informed design discipline — a portmanteau of Imagination and
+      Engineering, developed by Diane Nijs at Breda University of Applied
+      Sciences — that moves beyond conventional problem-solving toward the
+      co-design of new realities through shared vision and emergent action.
+  examples:
+    en:
+      - "Imagineering frames the workshop's ABCD design steps"
+      - "Applying an imagineering lens to the textile industry"
+
+- term:
+    en: Framework
+    es: Marco
+    it: Quadro
+    el: Πλαίσιο
+  category: methodology
+  definition:
+    en: >
+      A shared structure of concepts, principles, or tools that guides how a
+      challenge is approached. In IMASUS, frameworks include the Imagineering
+      ABCD steps and the four design lenses (zero waste, recyclability,
+      modularity, longevity).
+  examples:
+    en:
+      - "The four-lens design framework"
+      - "An imagineering framework for systemic change"
+
+- term:
+    en: Creative Tension Engine
+    es: Motor de Tensión Creativa
+    it: Motore di Tensione Creativa
+  category: methodology
+  definition:
+    en: >
+      A shared generative vision formulated as three elements — Name, Promise,
+      and Principle — used in Imagineering Step C to reframe a challenge and
+      guide decentralised action by everyone who engages with it.
+  examples:
+    en:
+      - "A CTE reframes a broad challenge as a generative direction"
+      - "The team presented their CTE: name, promise, principle"
+
+- term:
+    en: Workshop
+    es: Taller
+    it: Workshop
+    el: Εργαστήριο
+  category: application
+  definition:
+    en: >
+      The IMASUS design workshop, spanning before, during, and after a physical
+      session. Participants register via invitation, browse materials and
+      training, create a project, log their process, and publish a public page.
+  examples:
+    en:
+      - "The IMASUS Greece workshop runs across several weeks"
+      - "During the in-person workshop day"
+
+- term:
+    en: Project
+    es: Proyecto
+    it: Progetto
+    el: Έργο
+  category: application
+  definition:
+    en: >
+      The central collaborative object of an IMASUS workshop. A project is
+      created by a participant, optionally linked to a challenge, accumulates
+      log entries, and can be published as a public case-study page. It has one
+      or more members.
+  examples:
+    en:
+      - "A project belongs to a workshop and accumulates log entries"
+      - "Publishing the project produces a public case study"
+
+- term:
+    en: Team
+    es: Equipo
+    it: Squadra
+    el: Ομάδα
+  category: application
+  definition:
+    en: >
+      The set of participants who are members of a project. Teams are typically
+      formed during the in-person workshop around shared challenges. Membership
+      is open to any registered participant the project owner invites.
+  examples:
+    en:
+      - "The team grew from two to four members during the workshop"
+      - "Team members share access to the project log"
+
+- term:
+    en: Log entry
+    es: Entrada de registro
+    it: Voce di registro
+  category: application
+  definition:
+    en: >
+      A dated item in a project's process log — rich text with optional photos,
+      videos, and material references — visible to all project members and to
+      the workshop facilitator. Not published unless the team selects it for
+      the public page.
+  examples:
+    en:
+      - "The team's first log entry documented the sourcing research"
+      - "Adding a log entry with a photo of the material sample"
+
+- term:
+    en: Challenge
+    es: Desafío
+    it: Sfida
+    el: Πρόκληση
+  category: application
+  definition:
+    en: >
+      One of the industry-framed prompts (C1–C10) derived from the IMASUS
+      Industry Needs Report. A project may optionally pick a challenge as its
+      starting point; teams often form around shared challenges.
+  examples:
+    en:
+      - "Challenge C3 frames the recyclability-versus-cost tension"
+      - "The team picked an industry challenge as their starting point"
+
+- term:
+    en: Facilitator
+    es: Facilitador
+    it: Facilitatore
+    el: Διευκολυντής
+  category: application
+  definition:
+    en: >
+      The workshop role responsible for managing a workshop, inviting
+      participants, and coaching projects. Facilitators do not evaluate or
+      grade; they circulate as mentors and can moderate in case of conflict.
+  examples:
+    en:
+      - "The facilitator reviewed the team's CTE draft"
+      - "Participants contact their facilitator for help, not for evaluation"
+
+- term:
+    en: Participant
+    es: Participante
+    it: Partecipante
+    el: Συμμετέχων
+  category: application
+  definition:
+    en: >
+      The primary workshop role — a student or young professional who joins via
+      invitation from a facilitator, creates projects, and documents their
+      process through log entries. Participants may join multiple workshops.
+  examples:
+    en:
+      - "Each participant registers via an invitation link"
+      - "Participants may join multiple workshops and projects"
+
+- term:
+    en: Zero Waste Design
+    es: Diseño Cero Residuos
+    it: Progettazione a Zero Rifiuti
+  category: industry
+  definition:
+    en: >
+      A design strategy that minimises material waste during patternmaking,
+      cutting, and construction. Roughly 15–30% of fabric is wasted before a
+      garment reaches anyone; zero waste patternmaking drives this toward zero.
+  examples:
+    en:
+      - "The Holly McQuillan case study illustrates zero waste patternmaking"
+      - "A zero waste approach rethinks cutting logic from the start"
+
+- term:
+    en: Design for Recyclability
+    es: Diseño para la Reciclabilidad
+    it: Progettazione per la Riciclabilità
+  category: industry
+  definition:
+    en: >
+      A design strategy anchored in end-of-life thinking: choosing fibres,
+      constructions, and components so the finished product can be
+      disassembled and its materials recovered. Less than 1% of textiles are
+      currently recycled into new clothing.
+  examples:
+    en:
+      - "The Rifò Lab case study anchors the recyclability module"
+      - "Mono-material garments are often easier to recycle"
+
+- term:
+    en: Biomaterial
+    es: Biomaterial
+    it: Biomateriale
+    el: Βιοϋλικό
+  category: science
+  definition:
+    en: >
+      A material derived from biological sources — plant-based fibres, fungal
+      and mycelium networks, bacterial cellulose, protein fibres, seaweed — used
+      as a sustainable alternative to petrochemical feedstocks.
+  examples:
+    en:
+      - "Mycelium leather is a biomaterial alternative to animal leather"
+      - "Bacterial cellulose is a biomaterial grown in a lab"
+
+- term:
+    en: Micrograph
+    es: Micrografía
+    it: Micrografia
+    el: Μικρογραφία
+  category: science
+  definition:
+    en: >
+      A photograph captured through a microscope, typically a Scanning Electron
+      Microscope (SEM). In the IMASUS Materials Database, micrographs produced
+      at CSIC reveal each material's structure at microscopic level, making its
+      properties tangible.
+  examples:
+    en:
+      - "The SEM micrograph revealed the fibre's hollow structure"
+      - "A material's micrograph can explain its thermal behaviour"
