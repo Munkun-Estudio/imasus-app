@@ -1,0 +1,14 @@
+<% content_for :title, @workshop.title %>
+
+<div class="py-12 px-4 sm:px-6 lg:px-8">
+  <h1 class="text-3xl font-bold text-imasus-dark-green"><%= @workshop.title %></h1>
+  <p class="mt-2 text-stone-700"><%= @workshop.location %></p>
+
+  <% if current_user && (current_user.facilitator? || current_user.admin?) %>
+    <p class="mt-6">
+      <%= link_to t("workshops.show.invite_participants", default: "Invite participants"),
+                  new_workshop_invitation_path(@workshop),
+                  class: "inline-block rounded bg-imasus-dark-green px-4 py-2 text-white" %>
+    </p>
+  <% end %>
+</div>

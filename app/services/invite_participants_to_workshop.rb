@@ -49,9 +49,12 @@ class InviteParticipantsToWorkshop
       user = User.find_by("LOWER(email) = ?", email)
 
       if user
-        # Existing user: ensure they are attached to the workshop but skip the
-        # email and account creation.
-        WorkshopParticipation.find_or_create_by!(user: user, workshop: @workshop)
+        # Only attach existing users who are already participants. Admin and
+        # facilitator accounts pasted into the textarea are skipped entirely
+        # so role/membership semantics stay clean.
+        if user.participant?
+          WorkshopParticipation.find_or_create_by!(user: user, workshop: @workshop)
+        end
         already_registered << email
       else
         ApplicationRecord.transaction do

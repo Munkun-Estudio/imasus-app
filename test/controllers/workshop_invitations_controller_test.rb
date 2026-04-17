@@ -85,6 +85,20 @@ class WorkshopInvitationsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "POST create skips admin and facilitator accounts without creating participations" do
+    sign_in(@facilitator)
+
+    assert_no_difference -> { WorkshopParticipation.count } do
+      assert_no_emails do
+        post workshop_invitations_path(@workshop),
+             params: { emails: "#{@admin.email}\n#{@facilitator.email}" }
+      end
+    end
+
+    assert_not_includes @workshop.participants.reload, @admin
+    assert_not_includes @workshop.participants, @facilitator
+  end
+
   test "POST create does not duplicate an existing workshop participation" do
     sign_in(@facilitator)
     WorkshopParticipation.create!(user: @participant, workshop: @workshop)
