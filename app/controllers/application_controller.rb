@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
   private
 
   def store_return_to
-    session[:return_to] = request.fullpath if request.get?
+    session[:return_to] = request.fullpath if request.get? || request.head?
   end
 
   def consume_return_to(default)
