@@ -22,32 +22,32 @@ The project already uses AWS for the IMASUS newsletter, so S3 is the natural sto
 
 ### Decision
 
-- [ ] A `DECISIONS.md` entry records the chosen architecture: storage backend, CDN, image processing library, and variant strategy.
-- [ ] The decision considers and documents trade-offs between at least two CDN/optimisation options (e.g., CloudFront + Active Storage variants vs. imgproxy vs. Cloudflare Images).
-- [ ] Cost, complexity, and Rails-native compatibility are weighed explicitly.
+- [x] A `DECISIONS.md` entry records the chosen architecture: storage backend, CDN, image processing library, and variant strategy.
+- [x] The decision considers and documents trade-offs between at least two CDN/optimisation options (e.g., CloudFront + Active Storage variants vs. imgproxy vs. Cloudflare Images).
+- [x] Cost, complexity, and Rails-native compatibility are weighed explicitly.
 
 ### Configuration
 
-- [ ] `config/storage.yml` is configured with an S3 service for production (bucket, region, credentials via Rails credentials or env).
-- [ ] Development uses the local disk service (Rails default). Test uses the test service (Rails default).
-- [ ] Active Storage is installed and configured (`rails active_storage:install` if not already run).
-- [ ] Image processing library is configured: `image_processing` gem with either `vips` (preferred for performance) or `mini_magick` as the backend. Choice documented.
+- [x] `config/storage.yml` is configured with an S3 service for production (bucket, region, credentials via Rails credentials or env).
+- [x] Development uses the local disk service (Rails default). Test uses the test service (Rails default).
+- [x] Active Storage is installed and configured (`rails active_storage:install` if not already run).
+- [x] Image processing library is configured: `image_processing` gem with either `vips` (preferred for performance) or `mini_magick` as the backend. Choice documented.
 
 ### Variant Pipeline
 
-- [ ] A set of standard image variants is defined and documented (e.g., `thumbnail`, `card`, `detail`, `hero`). Each has a target size, format, and quality.
-- [ ] Variants are generated lazily (on first request) and cached by the CDN / Active Storage.
-- [ ] Image format: use the Rails default (JPEG/PNG passthrough with resize). WebP or AVIF conversion is a future optimisation, not a requirement for this spec.
+- [x] A set of standard image variants is defined and documented (e.g., `thumbnail`, `card`, `detail`, `hero`). Each has a target size, format, and quality.
+- [x] Variants are generated lazily (on first request) and cached by the CDN / Active Storage.
+- [x] Image format: use the Rails default (JPEG/PNG passthrough with resize). WebP or AVIF conversion is a future optimisation, not a requirement for this spec.
 
 ### Proof of Concept
 
-- [ ] A test (not a throwaway model or scaffold) demonstrates the pipeline end-to-end: attach an image fixture via Active Storage, generate a variant, and assert the variant URL is present. This can be a standalone integration test with a test-only attachment, or it can use the Material model if spec 4 is in progress.
-- [ ] The standard variants are defined as a reusable concern (e.g., `ImageVariants`) that any model with images can include.
+- [x] A test (not a throwaway model or scaffold) demonstrates the pipeline end-to-end: attach an image fixture via Active Storage, generate a variant, and assert the variant URL is present. This can be a standalone integration test with a test-only attachment, or it can use the Material model if spec 4 is in progress.
+- [x] The standard variants are defined as a reusable concern (e.g., `ImageVariants`) that any model with images can include.
 
 ### Performance
 
-- [ ] Images in views use `loading="lazy"` and appropriate `width`/`height` attributes or aspect-ratio CSS to prevent layout shift.
-- [ ] A documented approach exists for serving images through a CDN (CloudFront, Cloudflare, or the chosen solution). This can be a configuration guide rather than a deployed CDN — deployment is a separate concern.
+- [x] Images in views use `loading="lazy"` and appropriate `width`/`height` attributes or aspect-ratio CSS to prevent layout shift.
+- [x] A documented approach exists for serving images through a CDN (CloudFront, Cloudflare, or the chosen solution). This can be a configuration guide rather than a deployed CDN — deployment is a separate concern.
 
 ## Out of Scope
 
