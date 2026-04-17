@@ -15,6 +15,9 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Keep pull requests small, reviewable, and explicit about what changed, how it was tested, and what remains open.
 - All user-facing strings go through `t(...)` from day one. Four locales: en, es, it, el.
 - Action Text (Trix) for rich content in log entries and published project pages. Material/training embeds via toolbar buttons.
+- Translatable model fields use JSONB columns named `<attribute>_translations` backed by the `Translatable` concern. Reuse the concern for every translatable model (glossary, materials, challenges). See DECISIONS.md (2026-04-17).
+- Turbo-modal confirmation pattern: layout exposes a top-level `<turbo-frame id="modal">`; a dedicated GET action renders a partial wrapped in that frame. Cancel/backdrop/Escape dismiss via `modal_controller.js`. Prefer this over `data-turbo-confirm` for accessible, styled confirmations.
+- Multi-locale forms use a locale-tabs pattern: current `I18n.locale` is default-active and first in tab order; remaining locales follow the fixed `en → es → it → el` sequence. Panels stay in the DOM so unsaved input in inactive tabs is preserved.
 
 ## Gotchas
 

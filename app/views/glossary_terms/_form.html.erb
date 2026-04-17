@@ -1,0 +1,119 @@
+<%
+  # Locale tabs: current locale first, then the remaining available locales in
+  # the canonical en → es → it → el order. Tabs are purely presentational —
+  # hidden panels still submit their inputs, so unsaved edits survive tab
+  # switches.
+  available = I18n.available_locales.map(&:to_s)
+  current   = I18n.locale.to_s
+  ordered   = ([ current ] + available).uniq
+%>
+
+<%= form_with model: glossary_term, url: form_url, data: { controller: "locale-tabs" } do |f| %>
+  <% if glossary_term.errors.any? %>
+    <div class="mb-6 rounded-md border border-imasus-red/30 bg-imasus-red/5 p-4" role="alert">
+      <h2 class="text-sm font-semibold text-imasus-red">
+        <%= t("glossary_terms.form.errors_heading", count: glossary_term.errors.count) %>
+      </h2>
+      <ul class="mt-2 list-disc pl-5 text-sm text-imasus-red">
+        <% glossary_term.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <%= f.label :slug, t("glossary_terms.form.slug_label"),
+            class: "block text-sm font-medium text-imasus-dark-green" %>
+      <%= f.text_field :slug,
+            placeholder: t("glossary_terms.form.slug_hint"),
+            class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+    </div>
+
+    <div>
+      <%= f.label :category, t("glossary_terms.form.category_label"),
+            class: "block text-sm font-medium text-imasus-dark-green" %>
+      <%= f.select :category,
+            GlossaryTerm::CATEGORIES.map { |c| [ t("glossary_terms.categories.#{c}"), c ] },
+            { include_blank: true },
+            class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <div role="tablist"
+         aria-label="<%= t("glossary_terms.form.locale_tabs_label") %>"
+         class="flex flex-wrap gap-1 border-b border-imasus-dark-green/10">
+      <% ordered.each_with_index do |locale, i| %>
+        <button type="button"
+                role="tab"
+                id="locale-tab-<%= locale %>"
+                aria-controls="locale-panel-<%= locale %>"
+                aria-selected="<%= i == 0 %>"
+                tabindex="<%= i == 0 ? 0 : -1 %>"
+                data-locale-tabs-target="tab"
+                data-locale="<%= locale %>"
+                data-action="click->locale-tabs#select keydown->locale-tabs#key"
+                class="px-4 py-2 text-sm font-medium border-b-2 -mb-px
+                       <%= i == 0 ? 'border-imasus-dark-green text-imasus-dark-green' : 'border-transparent text-imasus-dark-green/50 hover:text-imasus-dark-green' %>">
+          <%= locale.upcase %>
+        </button>
+      <% end %>
+    </div>
+
+    <% ordered.each_with_index do |locale, i| %>
+      <div role="tabpanel"
+           id="locale-panel-<%= locale %>"
+           aria-labelledby="locale-tab-<%= locale %>"
+           data-locale-tabs-target="panel"
+           data-locale="<%= locale %>"
+           <%= "hidden" unless i == 0 %>
+           class="pt-6 space-y-4">
+        <div>
+          <label for="glossary_term_term_translations_<%= locale %>"
+                 class="block text-sm font-medium text-imasus-dark-green">
+            <%= t("glossary_terms.form.term_label") %> — <%= locale.upcase %>
+          </label>
+          <%= text_field_tag "glossary_term[term_translations][#{locale}]",
+                glossary_term.term_in(locale),
+                id: "glossary_term_term_translations_#{locale}",
+                class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+        </div>
+
+        <div>
+          <label for="glossary_term_definition_translations_<%= locale %>"
+                 class="block text-sm font-medium text-imasus-dark-green">
+            <%= t("glossary_terms.form.definition_label") %> — <%= locale.upcase %>
+          </label>
+          <%= text_area_tag "glossary_term[definition_translations][#{locale}]",
+                glossary_term.definition_in(locale),
+                id: "glossary_term_definition_translations_#{locale}",
+                rows: 4,
+                class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+        </div>
+
+        <div>
+          <label for="glossary_term_examples_translations_<%= locale %>"
+                 class="block text-sm font-medium text-imasus-dark-green">
+            <%= t("glossary_terms.form.examples_label") %> — <%= locale.upcase %>
+          </label>
+          <%= text_area_tag "glossary_term[examples_translations][#{locale}]",
+                Array(glossary_term.examples_in(locale)).join("\n"),
+                id: "glossary_term_examples_translations_#{locale}",
+                rows: 3,
+                placeholder: t("glossary_terms.form.examples_hint"),
+                class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 flex items-center gap-3">
+    <%= f.submit glossary_term.persisted? ? t("glossary_terms.form.submit_update") : t("glossary_terms.form.submit_create"),
+          class: "rounded-md bg-imasus-dark-green px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-dark-green/90" %>
+    <%= link_to t("glossary_terms.form.cancel"),
+          cancel_url,
+          class: "text-sm text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+  </div>
+<% end %>

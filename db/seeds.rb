@@ -32,3 +32,6 @@ end
   workshop.save!
 end
 puts "Seeded #{Workshop.count} workshops."
+
+GlossaryTerm.seed_from_yaml!
+puts "Seeded #{GlossaryTerm.count} glossary terms."

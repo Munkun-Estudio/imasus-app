@@ -7,7 +7,14 @@ class ApplicationController < ActionController::Base
 
   around_action :set_locale
 
-  helper_method :current_user, :logged_in?
+  helper_method :current_user, :logged_in?, :curator?
+
+  # True when the signed-in user may curate shared content (admin or facilitator).
+  #
+  # @return [Boolean]
+  def curator?
+    logged_in? && %w[admin facilitator].include?(current_user.role)
+  end
 
   # Returns the signed-in user for the current request, or nil. Memoised.
   #

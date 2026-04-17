@@ -1,0 +1,77 @@
+<% content_for :title, t(".title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <header class="flex flex-wrap items-start justify-between gap-4">
+    <div class="max-w-3xl">
+      <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
+      <p class="mt-3 text-base text-imasus-dark-green/70"><%= t(".lead") %></p>
+    </div>
+
+    <% if curator? %>
+      <%= link_to t("glossary_terms.actions.add"),
+            new_glossary_term_path,
+            data: { role: "add-glossary-term" },
+            class: "inline-flex shrink-0 items-center rounded-md bg-imasus-dark-green px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-dark-green/90" %>
+    <% end %>
+  </header>
+
+  <nav class="mt-8" aria-label="<%= t(".category_filter_label") %>">
+    <ul class="flex flex-wrap gap-2">
+      <li>
+        <%= link_to t(".all_categories"),
+              glossary_terms_path,
+              class: "inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium #{@active_category.nil? ? "bg-imasus-dark-green text-white" : "bg-white text-imasus-dark-green border border-imasus-dark-green/20 hover:bg-imasus-mint/20"}" %>
+      </li>
+      <% @available_categories.each do |category| %>
+        <li>
+          <%= link_to t("glossary_terms.categories.#{category}"),
+                glossary_terms_path(category: category),
+                class: "inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium #{@active_category == category ? "bg-imasus-dark-green text-white" : "bg-white text-imasus-dark-green border border-imasus-dark-green/20 hover:bg-imasus-mint/20"}" %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+
+  <nav class="mt-8 sticky top-0 z-10 -mx-6 bg-stone-100/90 px-6 py-3 backdrop-blur supports-[backdrop-filter]:bg-stone-100/70 sm:-mx-10 sm:px-10 lg:-mx-16 lg:px-16"
+       aria-label="<%= t(".letters_label") %>">
+    <ol class="flex flex-wrap gap-1 text-sm font-medium">
+      <% ("A".."Z").each do |letter| %>
+        <% active = @available_letters.include?(letter) %>
+        <li>
+          <% if active %>
+            <a href="#letter-<%= letter %>"
+               data-glossary-letter="<%= letter %>"
+               class="inline-flex h-7 w-7 items-center justify-center rounded text-imasus-dark-green hover:bg-imasus-mint/30">
+              <%= letter %>
+            </a>
+          <% else %>
+            <span data-glossary-letter="<%= letter %>"
+                  aria-disabled="true"
+                  class="inline-flex h-7 w-7 items-center justify-center rounded text-imasus-dark-green/25">
+              <%= letter %>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+  </nav>
+
+  <% if @terms.empty? %>
+    <p class="mt-12 text-imasus-dark-green/60"><%= t(".empty") %></p>
+  <% else %>
+    <div class="mt-8 space-y-10">
+      <% @terms_by_letter.sort.each do |letter, letter_terms| %>
+        <section id="letter-<%= letter %>" class="scroll-mt-24">
+          <h2 class="text-xl font-bold text-imasus-dark-green"><%= letter %></h2>
+          <ul class="mt-4 divide-y divide-imasus-dark-green/10 border-t border-imasus-dark-green/10">
+            <% letter_terms.each do |term| %>
+              <li>
+                <%= render "term_row", term: term %>
+              </li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+    </div>
+  <% end %>
+</div>

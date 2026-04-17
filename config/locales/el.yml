@@ -60,6 +60,55 @@ el:
   prototype:
     index:
       title: "Πρωτότυπο"
-  glossary:
+  glossary_terms:
     index:
       title: "Γλωσσάρι"
+      lead: "Κοινό λεξιλόγιο για το περιεχόμενο των εργαστηρίων IMASUS. Φιλτράρετε ανά κατηγορία ή μεταβείτε σε γράμμα."
+      all_categories: "Όλες"
+      category_filter_label: "Φιλτράρισμα ανά κατηγορία"
+      letters_label: "Μετάβαση σε γράμμα"
+      empty: "Δεν υπάρχουν ακόμη όροι στο γλωσσάρι."
+    show:
+      back_to_index: "Επιστροφή στο γλωσσάρι"
+      category_label: "Κατηγορία"
+      examples_label: "Παραδείγματα"
+      meta_description: "Ορισμός γλωσσαρίου για %{term} στο λεξιλόγιο του εργαστηρίου IMASUS."
+    categories:
+      methodology: "Μεθοδολογία"
+      application: "Εφαρμογή"
+      industry: "Βιομηχανία"
+      science: "Επιστήμη"
+    new:
+      title: "Νέος όρος γλωσσαρίου"
+    edit:
+      title: "Επεξεργασία όρου γλωσσαρίου"
+    create:
+      notice: "Ο όρος του γλωσσαρίου δημιουργήθηκε."
+    update:
+      notice: "Ο όρος του γλωσσαρίου ενημερώθηκε."
+    destroy:
+      notice: "Ο όρος του γλωσσαρίου διαγράφηκε."
+    form:
+      slug_label: "Slug"
+      slug_hint: "Αφήστε το κενό για να προκύψει από τον όρο στα αγγλικά."
+      category_label: "Κατηγορία"
+      term_label: "Όρος"
+      definition_label: "Ορισμός"
+      examples_label: "Παραδείγματα"
+      examples_hint: "Ένα ανά γραμμή."
+      submit_create: "Δημιουργία όρου"
+      submit_update: "Αποθήκευση αλλαγών"
+      cancel: "Άκυρο"
+      errors_heading:
+        one: "1 σφάλμα εμπόδισε την αποθήκευση αυτού του όρου:"
+        other: "%{count} σφάλματα εμπόδισαν την αποθήκευση αυτού του όρου:"
+      locale_tabs_label: "Γλώσσα"
+    actions:
+      add: "Προσθήκη όρου"
+      edit: "Επεξεργασία"
+      delete: "Διαγραφή"
+      delete_confirm_title: "Διαγραφή όρου γλωσσαρίου;"
+      delete_confirm_body: "Η διαγραφή του «%{term}» δεν μπορεί να αναιρεθεί."
+      delete_confirm_submit: "Διαγραφή"
+  errors:
+    access_denied: "Δεν έχετε εξουσιοδότηση για να δείτε αυτήν τη σελίδα."

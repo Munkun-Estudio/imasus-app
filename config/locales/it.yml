@@ -60,6 +60,55 @@ it:
   prototype:
     index:
       title: "Prototipo"
-  glossary:
+  glossary_terms:
     index:
       title: "Glossario"
+      lead: "Vocabolario condiviso per i contenuti dei workshop IMASUS. Filtra per categoria o salta per lettera."
+      all_categories: "Tutte"
+      category_filter_label: "Filtra per categoria"
+      letters_label: "Salta alla lettera"
+      empty: "Nessun termine nel glossario per il momento."
+    show:
+      back_to_index: "Torna al glossario"
+      category_label: "Categoria"
+      examples_label: "Esempi"
+      meta_description: "Definizione del glossario per %{term} nel vocabolario del workshop IMASUS."
+    categories:
+      methodology: "Metodologia"
+      application: "Applicazione"
+      industry: "Industria"
+      science: "Scienza"
+    new:
+      title: "Nuovo termine del glossario"
+    edit:
+      title: "Modifica termine del glossario"
+    create:
+      notice: "Termine del glossario creato."
+    update:
+      notice: "Termine del glossario aggiornato."
+    destroy:
+      notice: "Termine del glossario eliminato."
+    form:
+      slug_label: "Slug"
+      slug_hint: "Lascia vuoto per derivarlo dal termine in inglese."
+      category_label: "Categoria"
+      term_label: "Termine"
+      definition_label: "Definizione"
+      examples_label: "Esempi"
+      examples_hint: "Uno per riga."
+      submit_create: "Crea termine"
+      submit_update: "Salva le modifiche"
+      cancel: "Annulla"
+      errors_heading:
+        one: "1 errore ha impedito il salvataggio di questo termine:"
+        other: "%{count} errori hanno impedito il salvataggio di questo termine:"
+      locale_tabs_label: "Lingua"
+    actions:
+      add: "Aggiungi termine"
+      edit: "Modifica"
+      delete: "Elimina"
+      delete_confirm_title: "Eliminare il termine del glossario?"
+      delete_confirm_body: "L'eliminazione di «%{term}» non può essere annullata."
+      delete_confirm_submit: "Elimina"
+  errors:
+    access_denied: "Non sei autorizzato a visualizzare questa pagina."

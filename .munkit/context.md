@@ -83,7 +83,7 @@ Four locales: **en** (base), **es**, **it**, **el** (Greek — ISO 639-1 code, n
 
 - All user-facing strings go through `t(...)` from day one.
 - Training module content is already multilingual (files per locale).
-- Materials, challenges, glossary: translatable fields (approach TBD — locale-suffixed columns or JSONB).
+- Materials, challenges, glossary: translatable model attributes use JSONB columns named `<attribute>_translations`, accessed via the reusable `Translatable` concern (locale readers with I18n fallbacks). First implementation landed with the glossary spec; materials and challenges must reuse the same concern. See `DECISIONS.md` (2026-04-17).
 
 ### What is explicitly out of scope
 
@@ -179,7 +179,7 @@ Specs are created under `.munkit/specs/` as work begins. This list is the agreed
 | 2 | `training-modules` | PORO loader, markdown renderer, controller (index + show), locale switcher, chapter nav (prev/next). Copy content from Bridgetown repo. | 1 |
 | 3 | `image-hosting-strategy` | Architecture decision: S3 + CDN config, Active Storage integration, image variant pipeline, lazy loading approach | — |
 | 4 | `materials-database` | Material model, CSV seed task, Tag/Tagging, category filter, search, catalogue page, material detail page. Placeholder images until spec 3 is done. | 1, 3 |
-| 5 | `glossary` | GlossaryTerm model, seed, glossary page with alphabetical nav + category pills, Stimulus popover for inline term highlighting | 1 |
+| 5 | `glossary` ✅ | GlossaryTerm model, seed, glossary page with alphabetical nav + category pills, Stimulus popover for inline term highlighting | 1 |
 | 6 | `challenge-cards` | Challenge model (C1–C10), seed, index grouped by category, reusable card component | 1 |
 | 7 | `home-page` | Prompt cards, featured material, training carousel, CTAs. Pulls live data. | 2, 4 |
 | 8 | `authentication` | User model (has_secure_password), admin/facilitator/participant roles, invitation flow, transactional emails | 1 |

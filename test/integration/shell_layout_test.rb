@@ -13,7 +13,7 @@ class ShellLayoutTest < ActionDispatch::IntegrationTest
       assert_select "a[href=?]", workshops_path
       assert_select "a[href=?]", log_index_path
       assert_select "a[href=?]", prototype_index_path
-      assert_select "a[href=?]", glossary_index_path
+      assert_select "a[href=?]", glossary_terms_path
     end
   end
 

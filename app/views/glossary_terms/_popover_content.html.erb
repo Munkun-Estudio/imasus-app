@@ -1,0 +1,7 @@
+<div class="glossary-popover__body">
+  <h3 class="glossary-popover__term"><%= glossary_term.term %></h3>
+  <p class="glossary-popover__definition"><%= glossary_term.definition %></p>
+  <%= link_to t("glossary_terms.show.back_to_index"),
+        glossary_term_path(glossary_term.slug),
+        class: "glossary-popover__link" %>
+</div>

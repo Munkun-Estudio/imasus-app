@@ -1,0 +1,35 @@
+<%= turbo_frame_tag dom_id(term) do %>
+  <div class="py-4">
+    <div class="flex items-start justify-between gap-4">
+      <div class="min-w-0 flex-1">
+        <%= link_to glossary_term_path(term.slug), class: "group block" do %>
+          <span class="text-lg font-semibold text-imasus-dark-green group-hover:underline">
+            <%= term.term %>
+          </span>
+          <span class="ml-2 inline-flex items-center rounded-full bg-imasus-light-pink/60 px-2 py-0.5 text-xs font-medium text-imasus-dark-green">
+            <%= t("glossary_terms.categories.#{term.category}") %>
+          </span>
+        <% end %>
+        <% if term.definition.present? %>
+          <p class="mt-1 line-clamp-2 text-sm text-imasus-dark-green/70">
+            <%= term.definition %>
+          </p>
+        <% end %>
+      </div>
+
+      <% if curator? %>
+        <div class="flex shrink-0 items-start gap-2">
+          <%= link_to t("glossary_terms.actions.edit"),
+                edit_glossary_term_path(term.slug),
+                data: { role: "edit-glossary-term", turbo_frame: dom_id(term) },
+                class: "rounded-md border border-imasus-dark-green/20 px-3 py-1 text-xs font-medium text-imasus-dark-green hover:bg-imasus-mint/20" %>
+
+          <%= link_to t("glossary_terms.actions.delete"),
+                delete_confirmation_glossary_term_path(term.slug),
+                data: { role: "delete-glossary-term", turbo_frame: "modal" },
+                class: "rounded-md border border-imasus-red/40 px-3 py-1 text-xs font-medium text-imasus-red hover:bg-imasus-red/10" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
