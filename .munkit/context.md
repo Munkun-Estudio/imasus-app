@@ -197,3 +197,11 @@ Specs are created under `.munkit/specs/` as work begins. This list is the agreed
 - Target: **Fly.io** with PostgreSQL.
 - Image storage: **AWS S3** via Active Storage (existing AWS relationship from IMASUS newsletter).
 - CDN / image optimisation strategy: TBD (spec 3).
+
+## Concerns
+
+Active cross-spec or cross-project concerns worth revisiting.
+Keep entries short here and point to the detailed notes elsewhere.
+Remove resolved items or promote them to MEMORY.md / DECISIONS.md when they become durable.
+
+- Dependabot bundler updates fail: private munkit / munkit-symphony git sources unreachable from Dependabot's resolver. CI is mitigated by stripping munkit from Gemfile + regenerating Gemfile.lock; Dependabot itself needs a 'registries:' block in .github/dependabot.yml pointing at a PAT secret. Deferred — user will add the PAT.
