@@ -1,0 +1,19 @@
+<h1><%= t("admin.facilitators.new.title", default: "Invite a facilitator") %></h1>
+
+<% if @user.errors.any? %>
+  <ul role="alert">
+    <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @user, url: admin_facilitators_path, local: true do |f| %>
+  <div>
+    <%= f.label :name, t("admin.facilitators.new.name", default: "Name") %>
+    <%= f.text_field :name, required: true, autofocus: true %>
+  </div>
+  <div>
+    <%= f.label :email, t("admin.facilitators.new.email", default: "Email") %>
+    <%= f.email_field :email, required: true %>
+  </div>
+  <%= f.submit t("admin.facilitators.new.submit", default: "Send invitation") %>
+<% end %>

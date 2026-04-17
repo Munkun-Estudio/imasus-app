@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_16_141651) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_17_100100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -42,6 +42,48 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_16_141651) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "users", force: :cascade do |t|
+    t.text "bio"
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.string "institution"
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_sent_at"
+    t.string "invitation_token"
+    t.text "links"
+    t.string "name", null: false
+    t.string "password_digest"
+    t.datetime "password_reset_sent_at"
+    t.string "password_reset_token"
+    t.integer "role", default: 2, null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, where: "(invitation_token IS NOT NULL)"
+    t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, where: "(password_reset_token IS NOT NULL)"
+  end
+
+  create_table "workshop_participations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "workshop_id", null: false
+    t.index ["user_id", "workshop_id"], name: "index_workshop_participations_on_user_id_and_workshop_id", unique: true
+    t.index ["user_id"], name: "index_workshop_participations_on_user_id"
+    t.index ["workshop_id"], name: "index_workshop_participations_on_workshop_id"
+  end
+
+  create_table "workshops", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "location", null: false
+    t.string "slug"
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_workshops_on_slug", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "workshop_participations", "users"
+  add_foreign_key "workshop_participations", "workshops"
 end

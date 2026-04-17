@@ -5,7 +5,7 @@ Edit this file as you learn things worth preserving across sessions.
 
 ## Overview
 
-IMASUS App is the student-facing workshop application for the IMASUS project. It supports imagineering-based learning and solution development, helping students and facilitators work through large challenges in a structured, collaborative, and reflective way.
+IMASUS App is the participant-facing workshop application for the IMASUS project. It supports imagineering-based learning and solution development, helping participants (students and young professionals) and facilitators work through large challenges in a structured, collaborative, and reflective way.
 
 ## Key Patterns
 
@@ -27,9 +27,10 @@ IMASUS App is the student-facing workshop application for the IMASUS project. It
 
 - Imagineering: the Diane Nijs-inspired approach used in IMASUS workshops to connect imagination, experience design, and challenge-led innovation.
 - Challenge: one of 10 industry challenges (C1–C10) used to focus team work during workshops.
-- Facilitator: the teacher, mentor, or organizer guiding students through the workshop process.
+- Participant: a workshop attendee — a student or young professional. The `:participant` role covers both groups. Do not use "student" as a role name in code or UI.
+- Facilitator: the teacher, mentor, or organizer guiding participants through the workshop process.
 - Workshop: a physical event (Greece, Italy, or Spain) with pre/during/after digital activity in the app.
-- Project: the central collaborative object — created by a student, optionally with team members, accumulates log entries, and culminates in a published public page.
+- Project: the central collaborative object — created by a participant, optionally with team members, accumulates log entries, and culminates in a published public page.
 - Published page: a Behance-style public case study summarising a project's process and results.
 
 ## Tech Stack

@@ -1,0 +1,9 @@
+<%= t("participant_invitation_mailer.invite.greeting", default: "Hi,") %>
+
+<%= t("participant_invitation_mailer.invite.body",
+      default: "You have been invited to join the %{workshop} IMASUS workshop. Open the link below within 14 days to complete your registration:",
+      workshop: @workshop.title) %>
+
+<%= @url %>
+
+<%= t("participant_invitation_mailer.invite.help", default: "If you were not expecting this invitation, please contact your facilitator.") %>

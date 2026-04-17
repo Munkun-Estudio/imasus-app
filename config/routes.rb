@@ -15,8 +15,28 @@ Rails.application.routes.draw do
   resources :training, only: :index
   get "training/:slug/:section", to: "training#show", as: :training_show,
       constraints: { slug: /[a-z0-9-]+/, section: /[a-z0-9-]+/ }
-  resources :workshops, only: :index
+  resources :workshops, only: [ :index, :show ] do
+    resources :invitations, only: [ :new, :create ], controller: "workshop_invitations"
+  end
   resources :log, only: :index
   resources :prototype, only: :index
   resources :glossary, only: :index
+
+  resource :session, only: [ :new, :create, :destroy ]
+
+  get   "password_reset/new",  to: "password_resets#new",    as: :new_password_reset
+  post  "password_reset",      to: "password_resets#create", as: :password_resets
+  get   "password_resets/:token/edit", to: "password_resets#edit",   as: :edit_password_reset
+  patch "password_resets/:token",      to: "password_resets#update", as: :password_reset
+
+  namespace :admin do
+    root to: "dashboard#index"
+    resources :facilitators, only: [ :index, :new, :create ]
+  end
+
+  get   "facilitator_invitations/:token/edit", to: "facilitator_invitations#edit",   as: :edit_facilitator_invitation
+  patch "facilitator_invitations/:token",      to: "facilitator_invitations#update", as: :facilitator_invitation
+
+  get   "participant_invitations/:token/edit", to: "participant_invitations#edit",   as: :edit_participant_invitation
+  patch "participant_invitations/:token",      to: "participant_invitations#update", as: :participant_invitation
 end

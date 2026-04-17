@@ -1,0 +1,7 @@
+<%= t("password_reset_mailer.reset.greeting", default: "Hi %{name},", name: @user.name) %>
+
+<%= t("password_reset_mailer.reset.body", default: "To reset your IMASUS password, open the following link within 2 hours:") %>
+
+<%= @url %>
+
+<%= t("password_reset_mailer.reset.ignore", default: "If you did not request a password reset, you can safely ignore this email.") %>

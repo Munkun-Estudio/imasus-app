@@ -1,0 +1,12 @@
+<h1><%= t("workshop_invitations.new.title", default: "Invite participants to %{workshop}", workshop: @workshop.title) %></h1>
+
+<p><%= t("workshop_invitations.new.hint",
+         default: "Paste one email per line. Existing IMASUS users will be linked to this workshop without receiving a new invitation.") %></p>
+
+<%= form_with url: workshop_invitations_path(@workshop), local: true do |f| %>
+  <div>
+    <%= f.label :emails, t("workshop_invitations.new.emails", default: "Participant emails") %>
+    <%= f.text_area :emails, rows: 8, required: true, autofocus: true %>
+  </div>
+  <%= f.submit t("workshop_invitations.new.submit", default: "Send invitations") %>
+<% end %>

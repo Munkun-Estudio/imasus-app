@@ -63,3 +63,78 @@ en:
   glossary:
     index:
       title: "Glossary"
+  sessions:
+    new:
+      title: "Log in"
+      email: "Email"
+      password: "Password"
+      submit: "Log in"
+      forgot: "Forgot your password?"
+    create:
+      invalid: "Invalid email or password."
+    destroy:
+      notice: "You are now logged out."
+  password_resets:
+    new:
+      title: "Reset your password"
+      email: "Email"
+      submit: "Send reset link"
+    create:
+      notice: "If an account exists for that email, a reset link is on its way."
+    edit:
+      title: "Choose a new password"
+      password: "New password"
+      password_confirmation: "Confirm new password"
+      submit: "Update password"
+    update:
+      notice: "Your password has been updated."
+    token_invalid: "That password reset link is invalid or has expired. Request a new one."
+  admin:
+    dashboard:
+      index:
+        title: "Admin dashboard"
+    facilitators:
+      index:
+        title: "Facilitators"
+        new: "Invite facilitator"
+      new:
+        title: "Invite a new facilitator"
+        name: "Full name"
+        email: "Email"
+        submit: "Send invitation"
+      create:
+        notice: "Invitation sent to %{email}."
+  facilitator_invitations:
+    edit:
+      title: "Complete your IMASUS facilitator account"
+      email: "Email"
+      name: "Full name"
+      password: "Password"
+      password_confirmation: "Confirm password"
+      submit: "Complete registration"
+    update:
+      notice: "Welcome to IMASUS. Your facilitator account is ready."
+    token_invalid: "That invitation link is invalid or has expired. Please contact the IMASUS admin."
+  participant_invitations:
+    edit:
+      title: "Complete your IMASUS registration"
+      email: "Email"
+      name: "Full name"
+      institution: "Institution"
+      country: "Country"
+      bio: "Short bio"
+      links: "Links (one URL per line)"
+      password: "Password"
+      password_confirmation: "Confirm password"
+      submit: "Complete registration"
+    update:
+      notice: "Welcome to IMASUS. You can start exploring the workshop now."
+    token_invalid: "That invitation link is invalid or has expired. Please contact your facilitator."
+  workshop_invitations:
+    new:
+      title: "Invite participants to %{workshop}"
+      hint: "Paste one email per line. Existing IMASUS users will be linked to this workshop without receiving a new invitation."
+      emails: "Participant emails"
+      submit: "Send invitations"
+    create:
+      notice: "%{invited} invited, %{skipped} already registered, %{invalid} invalid email(s)."

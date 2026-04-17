@@ -5,7 +5,7 @@ this file is free-form for anything agents should know about the product shape.
 
 ---
 
-IMASUS App should feel like a serious but inviting workshop tool. It is not an LMS clone and not a generic admin dashboard. The product needs to support collaborative learning, reflection, and challenge-framing without overwhelming students with operational complexity.
+IMASUS App should feel like a serious but inviting workshop tool. It is not an LMS clone and not a generic admin dashboard. The product needs to support collaborative learning, reflection, and challenge-framing without overwhelming participants with operational complexity.
 
 ## Product Model
 
@@ -13,17 +13,17 @@ IMASUS App should feel like a serious but inviting workshop tool. It is not an L
 
 The app is used **before, during, and after** the physical workshop:
 
-- **Before:** students register (via invitation link from facilitator), browse the materials database, complete training modules, explore challenges.
-- **During:** students create a project (solo or team), pick a challenge, take photos and videos, write log entries documenting their process, reference materials and training content.
-- **After:** students reflect on their experience and publish a public project page — a Behance-style case study summarising their process and results. This is a portfolio piece, not an evaluated submission.
+- **Before:** participants register (via invitation link from facilitator), browse the materials database, complete training modules, explore challenges.
+- **During:** participants create a project (solo or team), pick a challenge, take photos and videos, write log entries documenting their process, reference materials and training content.
+- **After:** participants reflect on their experience and publish a public project page — a Behance-style case study summarising their process and results. This is a portfolio piece, not an evaluated submission.
 
 ### The central object is the Project
 
-A Project is created by a student during a workshop. It accumulates log entries (text, photos, videos, material references) and culminates in a published public page. The project is the unit of work, collaboration, and publication.
+A Project is created by a participant during a workshop. It accumulates log entries (text, photos, videos, material references) and culminates in a published public page. The project is the unit of work, collaboration, and publication.
 
 - A project belongs to a workshop and optionally links to a challenge.
-- A project has one or more members (students). The creator is the owner; they can add other registered students at any time.
-- A student can belong to multiple projects (no restriction).
+- A project has one or more members (participants). The creator is the owner; they can add other registered participants at any time.
+- A participant can belong to multiple projects (no restriction).
 - The process log belongs to the project, not the individual. All members contribute to the same log.
 - No private notes — everything in a project is visible to all members and to the workshop facilitator.
 - Projects start as **draft** (work-in-progress, visible within the workshop) and can be **published** (public URL, visible to anyone). Publishing includes a guided reflection/wizard step to help students curate their process into a presentable summary.
@@ -32,20 +32,20 @@ A Project is created by a student during a workshop. It accumulates log entries 
 
 - **Within a workshop:** all participants see all projects. You can browse other teams' work, but only edit your own.
 - **Published projects:** visible to anyone via public URL. No login required. The IMASUS website can list workshops and link to published project pages.
-- **Log entries:** visible to project members and facilitators only (not published unless the student includes them in the public page summary).
+- **Log entries:** visible to project members and facilitators only (not published unless the participant includes them in the public page summary).
 - **Materials, training modules, glossary, and challenges:** public content, no login required.
 
 ### Roles
 
-Three roles: **admin**, **facilitator**, **student**.
+Three roles: **admin**, **facilitator**, **participant**.
 
 - **Admin** (project owner): creates facilitator accounts, has full access.
-- **Facilitator:** creates and manages workshops; invites students (sends email with registration link); can view all projects in their workshops; can moderate (disable students or projects in case of conflict). Does not evaluate or grade.
-- **Student:** self-registers via invitation link from a facilitator. Joins workshops, creates projects, logs process, publishes. Can participate in multiple workshops and projects.
+- **Facilitator:** creates and manages workshops; invites participants (sends email with registration link); can view all projects in their workshops; can moderate (disable participants or projects in case of conflict). Does not evaluate or grade.
+- **Participant:** a student or young professional. Self-registers via invitation link from a facilitator. Joins workshops, creates projects, logs process, publishes. Can participate in multiple workshops and projects.
 
 ### Registration and invitation
 
-- Students register via **invitation-only**: facilitator enters student emails → app sends invitation email with a token link → student clicks, lands on registration form pre-associated with the workshop.
+- Participants register via **invitation-only**: facilitator enters participant emails → app sends invitation email with a token link → participant clicks, lands on registration form pre-associated with the workshop.
 - Registration collects: full name, email, password, institution, country, short bio/interests, links (LinkedIn, Instagram, Behance, etc. — open-ended).
 - Facilitators are created by admin and receive an email to set up their account.
 - Transactional emails only: registration, password recovery, invitation. No notifications.
@@ -53,12 +53,12 @@ Three roles: **admin**, **facilitator**, **student**.
 ### Rich content and embeds
 
 - Log entries and the published project page use **Action Text** (Trix) for rich text editing.
-- A toolbar button allows students to **quote/embed materials** from the database and **reference training module passages** — rendering as rich link cards with thumbnail, title, and key properties.
+- A toolbar button allows participants to **quote/embed materials** from the database and **reference training module passages** — rendering as rich link cards with thumbnail, title, and key properties.
 - Material embeds and training module references should render as recognisable, styled cards within the text flow.
 
 ### Media and images
 
-- Students upload photos and videos in log entries.
+- Participants upload photos and videos in log entries.
 - Materials have multiple images (professional photos + micrographs with SEM metadata) and videos.
 - **Image hosting:** AWS S3 via Active Storage (the project already uses AWS for the IMASUS newsletter). CDN strategy for image variants and optimisation to be decided in a dedicated spec, before any image-heavy feature is built.
 - Micrographs are a large dataset — performance and lazy loading matter.
@@ -68,7 +68,7 @@ Three roles: **admin**, **facilitator**, **student**.
 - Three known workshops: Greece, Italy, Spain. Seeded from provided data.
 - Each workshop has a title, location, partner, dates, description, and a custom agenda page.
 - All content (materials, training, glossary, challenges) is shared across workshops. Only the agenda differs per location.
-- No formal phases/states — when students register, they can access available workshops and participate immediately.
+- No formal phases/states — when participants register, they can access available workshops and participate immediately.
 
 ### Content sources
 
@@ -98,7 +98,7 @@ Four locales: **en** (base), **es**, **it**, **el** (Greek — ISO 639-1 code, n
 
 ### Users
 
-- Primary users are students participating in IMASUS workshops.
+- Primary users are participants (students and young professionals) attending IMASUS workshops.
 - Secondary users are facilitators who guide the workshop process and need clarity on progress, prompts, and outputs.
 - The product is used in educational and collaborative contexts where participants are trying to move from a broad challenge to concrete ideas and early solution concepts.
 
@@ -124,7 +124,7 @@ Four locales: **en** (base), **es**, **it**, **el** (Greek — ISO 639-1 code, n
 
 ### Review Priorities
 
-- Focus reviews on clarity of progression, accessibility, and whether each screen helps students understand the current workshop step.
+- Focus reviews on clarity of progression, accessibility, and whether each screen helps participants understand the current workshop step.
 - Do not regress the onboarding and workshop navigation surfaces once they exist; those are likely to become the core orientation layer.
 
 ---
@@ -134,7 +134,7 @@ Four locales: **en** (base), **es**, **it**, **el** (Greek — ISO 639-1 code, n
 This is a working sketch, not a migration plan. It will evolve as specs are implemented.
 
 ```
-User (name, email, password_digest, role [admin/facilitator/student],
+User (name, email, password_digest, role [admin/facilitator/participant],
       institution, country, bio, links)
   │
   ├── WorkshopParticipation (join: user ↔ workshop)
@@ -182,12 +182,12 @@ Specs are created under `.munkit/specs/` as work begins. This list is the agreed
 | 5 | `glossary` | GlossaryTerm model, seed, glossary page with alphabetical nav + category pills, Stimulus popover for inline term highlighting | 1 |
 | 6 | `challenge-cards` | Challenge model (C1–C10), seed, index grouped by category, reusable card component | 1 |
 | 7 | `home-page` | Prompt cards, featured material, training carousel, CTAs. Pulls live data. | 2, 4 |
-| 8 | `authentication` | User model (has_secure_password or chosen library), admin/facilitator/student roles, invitation flow, transactional emails | 1 |
+| 8 | `authentication` | User model (has_secure_password), admin/facilitator/participant roles, invitation flow, transactional emails | 1 |
 | 9 | `workshops` | Workshop model, seed for 3 known workshops, index + detail + per-country agenda page, WorkshopParticipation join | 1, 8 |
 | 10 | `projects-and-teams` | Project model, ProjectMembership, create project (solo or team), add members, link to workshop + challenge | 8, 9 |
 | 11 | `process-log` | LogEntry with Action Text, timeline view, create entries with photos/videos/material references. Belongs to project. | 3, 10 |
 | 12 | `project-publication` | Publishing wizard (guided reflection), draft→published lifecycle, public URL, Behance-style page with material/training embeds | 10, 11 |
-| 13 | `facilitator-tools` | Workshop management, student invitation UI, project moderation (disable student/project), view all projects in a workshop | 8, 9, 10 |
+| 13 | `facilitator-tools` | Workshop management, participant invitation UI, project moderation (disable participant/project), view all projects in a workshop | 8, 9, 10 |
 | 14 | `workshops-public-listing` | Public page listing workshops and their published projects (no login required) | 9, 12 |
 
 ---
