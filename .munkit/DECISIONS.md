@@ -55,3 +55,7 @@ Within a workshop, all participants see all projects but only edit their own. Pu
 ## 2026-04-16: Adapt Rails agent skills from igmarin/rails-agent-skills (MIT)
 
 10 skills lifted and adapted for Minitest + Munkit workflow, stored under `.munkit/skills/`. Attribution in NOTICE and README. See CLAUDE.md for the catalog.
+
+## 2026-04-16: Use S3 proxy URLs and mini_magick for image variants
+
+S3 matches the existing AWS footprint, proxy URLs keep the app CDN-ready, and mini_magick is the pragmatic processor choice for the current contributor/CI environment because ImageMagick is already available while vips is not.
