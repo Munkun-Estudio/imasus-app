@@ -1,2 +1,55 @@
 /* Application-specific styles that supplement Tailwind CSS.
    Brand palette tokens and font configuration live in app/assets/tailwind/application.css. */
+
+/* Glossary term trigger — inline button produced by GlossaryHighlighter. */
+.glossary-term {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  cursor: help;
+}
+
+.glossary-term:focus-visible {
+  outline: 2px solid var(--color-imasus-dark-green, #1F3D3F);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Popover surface positioned by the GlossaryPopoverController. */
+.glossary-popover {
+  max-width: 22rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #1F3D3F;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border: 1px solid rgb(31 61 63 / 0.1);
+}
+
+.glossary-popover__term {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.glossary-popover__definition {
+  margin: 0.5rem 0 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: rgb(31 61 63 / 0.85);
+}
+
+.glossary-popover__link {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1F3D3F;
+  text-decoration: underline;
+}

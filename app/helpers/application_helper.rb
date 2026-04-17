@@ -11,7 +11,7 @@ module ApplicationHelper
       { key: "workshops",  path: workshops_path,       number: "03", color: "bg-imasus-dark-green" },
       { key: "log",        path: log_index_path,       number: "04", color: "bg-imasus-light-blue" },
       { key: "prototype",  path: prototype_index_path, number: "05", color: "bg-imasus-mint" },
-      { key: "glossary",   path: glossary_index_path,  number: "06", color: "bg-imasus-light-pink" }
+      { key: "glossary",   path: glossary_terms_path,  number: "06", color: "bg-imasus-light-pink" }
     ]
   end
 

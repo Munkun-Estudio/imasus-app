@@ -1,0 +1,16 @@
+<% content_for :title, t(".title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <div class="max-w-3xl">
+    <%= turbo_frame_tag dom_id(@glossary_term) do %>
+      <h1 class="text-2xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
+
+      <div class="mt-6">
+        <%= render "form",
+              glossary_term: @glossary_term,
+              form_url:      glossary_term_path(@glossary_term.slug),
+              cancel_url:    glossary_term_path(@glossary_term.slug) %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -20,7 +20,12 @@ Rails.application.routes.draw do
   end
   resources :log, only: :index
   resources :prototype, only: :index
-  resources :glossary, only: :index
+  resources :glossary_terms, path: "glossary", param: :slug do
+    member do
+      get :delete_confirmation
+      get :popover
+    end
+  end
 
   resource :session, only: [ :new, :create, :destroy ]
 

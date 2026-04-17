@@ -60,9 +60,56 @@ en:
   prototype:
     index:
       title: "Prototype"
-  glossary:
+  glossary_terms:
     index:
       title: "Glossary"
+      lead: "A shared vocabulary for IMASUS workshop content. Filter by category or jump by letter."
+      all_categories: "All"
+      category_filter_label: "Filter by category"
+      letters_label: "Jump to letter"
+      empty: "No glossary terms yet."
+    show:
+      back_to_index: "Back to glossary"
+      category_label: "Category"
+      examples_label: "Examples"
+      meta_description: "Glossary definition for %{term} in the IMASUS workshop vocabulary."
+    categories:
+      methodology: "Methodology"
+      application: "Application"
+      industry: "Industry"
+      science: "Science"
+    new:
+      title: "New glossary term"
+    edit:
+      title: "Edit glossary term"
+    create:
+      notice: "Glossary term created."
+    update:
+      notice: "Glossary term updated."
+    destroy:
+      notice: "Glossary term deleted."
+    form:
+      slug_label: "Slug"
+      slug_hint: "Leave blank to derive from the English term."
+      category_label: "Category"
+      term_label: "Term"
+      definition_label: "Definition"
+      examples_label: "Examples"
+      examples_hint: "One per line."
+      submit_create: "Create term"
+      submit_update: "Save changes"
+      cancel: "Cancel"
+      errors_heading:
+        one: "1 error prevented this glossary term from saving:"
+        other: "%{count} errors prevented this glossary term from saving:"
+      locale_tabs_label: "Locale"
+    actions:
+      add: "Add term"
+      edit: "Edit"
+      delete: "Delete"
+      delete_confirm_title: "Delete glossary term?"
+      delete_confirm_body: "Deleting “%{term}” cannot be undone."
+      delete_confirm_submit: "Delete"
   sessions:
     new:
       title: "Log in"
@@ -130,6 +177,8 @@ en:
     update:
       notice: "Welcome to IMASUS. You can start exploring the workshop now."
     token_invalid: "That invitation link is invalid or has expired. Please contact your facilitator."
+  errors:
+    access_denied: "You are not authorised to view that page."
   workshop_invitations:
     new:
       title: "Invite participants to %{workshop}"

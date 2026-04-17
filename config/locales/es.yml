@@ -60,6 +60,55 @@ es:
   prototype:
     index:
       title: "Prototipo"
-  glossary:
+  glossary_terms:
     index:
       title: "Glosario"
+      lead: "Vocabulario compartido para el contenido de los talleres IMASUS. Filtra por categoría o salta por letra."
+      all_categories: "Todas"
+      category_filter_label: "Filtrar por categoría"
+      letters_label: "Saltar a la letra"
+      empty: "Todavía no hay términos en el glosario."
+    show:
+      back_to_index: "Volver al glosario"
+      category_label: "Categoría"
+      examples_label: "Ejemplos"
+      meta_description: "Definición de glosario para %{term} en el vocabulario del taller IMASUS."
+    categories:
+      methodology: "Metodología"
+      application: "Aplicación"
+      industry: "Industria"
+      science: "Ciencia"
+    new:
+      title: "Nuevo término del glosario"
+    edit:
+      title: "Editar término del glosario"
+    create:
+      notice: "Término del glosario creado."
+    update:
+      notice: "Término del glosario actualizado."
+    destroy:
+      notice: "Término del glosario eliminado."
+    form:
+      slug_label: "Slug"
+      slug_hint: "Déjalo en blanco para derivarlo del término en inglés."
+      category_label: "Categoría"
+      term_label: "Término"
+      definition_label: "Definición"
+      examples_label: "Ejemplos"
+      examples_hint: "Uno por línea."
+      submit_create: "Crear término"
+      submit_update: "Guardar cambios"
+      cancel: "Cancelar"
+      errors_heading:
+        one: "1 error impidió guardar este término:"
+        other: "%{count} errores impidieron guardar este término:"
+      locale_tabs_label: "Idioma"
+    actions:
+      add: "Añadir término"
+      edit: "Editar"
+      delete: "Eliminar"
+      delete_confirm_title: "¿Eliminar el término del glosario?"
+      delete_confirm_body: "Eliminar «%{term}» no se puede deshacer."
+      delete_confirm_submit: "Eliminar"
+  errors:
+    access_denied: "No tienes autorización para ver esa página."

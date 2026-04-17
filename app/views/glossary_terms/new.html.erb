@@ -1,0 +1,14 @@
+<% content_for :title, t(".title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <div class="max-w-3xl">
+    <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
+
+    <div class="mt-8">
+      <%= render "form",
+            glossary_term: @glossary_term,
+            form_url:      glossary_terms_path,
+            cancel_url:    glossary_terms_path %>
+    </div>
+  </div>
+</div>
