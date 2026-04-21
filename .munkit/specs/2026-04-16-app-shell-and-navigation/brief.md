@@ -17,19 +17,19 @@ Every subsequent spec nests inside this shell. Building it first means:
 
 ## Acceptance Criteria
 
-- [ ] Application layout wraps all pages in a shell with sidebar navigation and footer.
-- [ ] Sidebar has 7 navigation items: Home, Materials DB, Training, Workshops, Log, Prototype, Glossary. Each links to a named route.
-- [ ] Active navigation item is visually distinguished.
-- [ ] Desktop (≥1024px): fixed left sidebar, main content area fills remaining width.
-- [ ] Mobile (<1024px): sidebar collapses to a top bar with a hamburger menu that toggles the sidebar as an overlay. A Stimulus controller handles the open/close toggle.
-- [ ] Footer displays: IMASUS project name, EU funding notice (exact text from the Bridgetown site footer — see notes), partner organisations (CSIC, Lottozero, ECHN, Munkun), copyright. Logo assets are sourced from the mockup repo's `public/` directory or the Bridgetown site.
-- [ ] Tailwind config defines brand palette tokens: `imasus-dark-green` (#1F3D3F), `imasus-navy` (#252645), `imasus-red` (#FA3449), `imasus-mint` (#AFE0C7), `imasus-light-blue` (#AFCEDE), `imasus-light-pink` (#FFC2D7). No hard-coded hex in templates.
-- [ ] General Sans font loaded (with Arial fallback). Applied as the default body font.
-- [ ] I18n: `config/locales/` has `en.yml`, `es.yml`, `it.yml`, `el.yml`. At minimum, navigation item labels and the footer text are translated in all four locales.
-- [ ] A locale switcher is present in the shell (header or footer) and changes the UI language. Locale is set via a `?locale=` URL param, persisted in a cookie, and restored via an `around_action` in `ApplicationController` that sets `I18n.locale`.
-- [ ] Placeholder controller and view exist for each of the 7 sections (home already exists; the other 6 return a heading with the section name).
-- [ ] Routes are RESTful where applicable. Named route helpers exist for all 7 sections.
-- [ ] Tests cover: shell renders with sidebar and footer; each navigation link resolves; locale switch works; mobile breakpoint behaviour (system test if needed).
+- [x] Application layout wraps all pages in a shell with sidebar navigation and footer.
+- [x] Sidebar has 7 navigation items: Home, Materials DB, Training, Workshops, Log, Prototype, Glossary. Each links to a named route.
+- [x] Active navigation item is visually distinguished.
+- [x] Desktop (≥1024px): fixed left sidebar, main content area fills remaining width.
+- [x] Mobile (<1024px): sidebar collapses to a top bar with a hamburger menu that toggles the sidebar as an overlay. A Stimulus controller handles the open/close toggle.
+- [x] Footer displays: IMASUS project name, EU funding notice (exact text from the Bridgetown site footer — see notes), partner organisations (CSIC, Lottozero, ECHN, Munkun), copyright. Logo assets are sourced from the mockup repo's `public/` directory or the Bridgetown site.
+- [x] Tailwind config defines brand palette tokens: `imasus-dark-green` (#1F3D3F), `imasus-navy` (#252645), `imasus-red` (#FA3449), `imasus-mint` (#AFE0C7), `imasus-light-blue` (#AFCEDE), `imasus-light-pink` (#FFC2D7). No hard-coded hex in templates.
+- [x] General Sans font loaded (with Arial fallback). Applied as the default body font.
+- [x] I18n: `config/locales/` has `en.yml`, `es.yml`, `it.yml`, `el.yml`. At minimum, navigation item labels and the footer text are translated in all four locales.
+- [x] A locale switcher is present in the shell (header or footer) and changes the UI language. Locale is set via a `?locale=` URL param, persisted in a cookie, and restored via an `around_action` in `ApplicationController` that sets `I18n.locale`.
+- [x] Placeholder controller and view exist for each of the 7 sections (home already exists; the other 6 return a heading with the section name).
+- [x] Routes are RESTful where applicable. Named route helpers exist for all 7 sections.
+- [x] Tests cover: shell renders with sidebar and footer; each navigation link resolves; locale switch works; mobile breakpoint behaviour (system test if needed).
 
 ## Out of Scope
 

@@ -22,104 +22,104 @@ The data in `docs/` is messy, partial, and non-authoritative. This spec treats i
 
 ### Data model
 
-- [ ] A single `Material` model. No `MaterialOrigin`, no `MaterialSubtype` model — origin and variant information live as plain string / array fields or as tags.
-- [ ] Plain-string fields: `slug` (unique, URL-safe, derived from `trade_name`), `trade_name`, `supplier_name`, `supplier_url`, `material_of_origin` (e.g. "Cypress", "Mushroom" — granular, displayed on the card + detail, not a filter chip).
-- [ ] Translatable JSONB fields (reusing the `Translatable` concern from the glossary spec): `description_translations`, `interesting_properties_translations`, `structure_translations`, `sensorial_qualities_translations`, `what_problem_it_solves_translations`. Each holds `{ en, es, it, el }`. Missing locales fall back via `I18n.fallbacks`.
-- [ ] Enum `availability_status` with values `commercial`, `in_development`, `research_only`. Drives a small badge on the card and derives from the source docs' "availability / not available" hints at seed time.
-- [ ] Integer `position` for curated ordering on the index (editorial control, not alphabetical). Lower = earlier in the grid.
-- [ ] Validations: presence of `trade_name` and `slug`; case-insensitive uniqueness of `slug`; presence of `availability_status`; presence of base-locale (`en`) `description`. Nothing else is required — the UI tolerates sparse records.
+- [x] A single `Material` model. No `MaterialOrigin`, no `MaterialSubtype` model — origin and variant information live as plain string / array fields or as tags.
+- [x] Plain-string fields: `slug` (unique, URL-safe, derived from `trade_name`), `trade_name`, `supplier_name`, `supplier_url`, `material_of_origin` (e.g. "Cypress", "Mushroom" — granular, displayed on the card + detail, not a filter chip).
+- [x] Translatable JSONB fields (reusing the `Translatable` concern from the glossary spec): `description_translations`, `interesting_properties_translations`, `structure_translations`, `sensorial_qualities_translations`, `what_problem_it_solves_translations`. Each holds `{ en, es, it, el }`. Missing locales fall back via `I18n.fallbacks`.
+- [x] Enum `availability_status` with values `commercial`, `in_development`, `research_only`. Drives a small badge on the card and derives from the source docs' "availability / not available" hints at seed time.
+- [x] Integer `position` for curated ordering on the index (editorial control, not alphabetical). Lower = earlier in the grid.
+- [x] Validations: presence of `trade_name` and `slug`; case-insensitive uniqueness of `slug`; presence of `availability_status`; presence of base-locale (`en`) `description`. Nothing else is required — the UI tolerates sparse records.
 
 ### Tags (multi-facet, multi-select)
 
-- [ ] A `Tag` model with `slug`, `facet` (enum: `origin_type`, `textile_imitating`, `application`), and a translatable `name_translations` JSONB field. Uniqueness is `(facet, slug)`.
-- [ ] A `MaterialTagging` join (`material_id`, `tag_id`) with a unique index on the pair.
-- [ ] `Material has_many :taggings, has_many :tags through: :taggings`. Convenience scopes `tags_for(:origin_type)` / `:textile_imitating` / `:application`.
-- [ ] Three facets, seeded vocabulary:
+- [x] A `Tag` model with `slug`, `facet` (enum: `origin_type`, `textile_imitating`, `application`), and a translatable `name_translations` JSONB field. Uniqueness is `(facet, slug)`.
+- [x] A `MaterialTagging` join (`material_id`, `tag_id`) with a unique index on the pair.
+- [x] `Material has_many :taggings, has_many :tags through: :taggings`. Convenience scopes `tags_for(:origin_type)` / `:textile_imitating` / `:application`.
+- [x] Three facets, seeded vocabulary:
   - `origin_type`: Plants, Fungi, Animals, Recycled materials, Seaweed, Bacteria, Protein, Microbial.
   - `textile_imitating`: Leather, Denim, Silk, Conventional nylon, Conventional polyester, Wool, Conventional cotton, Synthetic fibres, Synthetic rubber, Conventional linen, …  (derive from the source docs).
   - `application`: Clothes, Accessories, Footwear, Filling, Home textiles, Automotive, Technical textiles, Safety equipment, … (derive from the source docs).
 
 ### Media attachments (Active Storage)
 
-- [ ] `has_many_attached :photos` — card rotator + detail page gallery.
-- [ ] `has_one_attached :clip` — short MP4 / WebM, autoplayed muted/looped on the card when the card is in the viewport. Direct-served from S3, no variant pipeline (tracked in `notes.md` as a follow-up if needed).
-- [ ] `has_many_attached :micrographs` — SEM / ESEM imagery shown on the detail page, with their existing `ImageVariants`-powered thumbnail/medium/large variants.
-- [ ] All attachments are optional. Cards and detail sections render graceful placeholders when attachments are absent.
+- [x] `has_many_attached :photos` — card rotator + detail page gallery.
+- [x] `has_one_attached :clip` — short MP4 / WebM, autoplayed muted/looped on the card when the card is in the viewport. Direct-served from S3, no variant pipeline (tracked in `notes.md` as a follow-up if needed).
+- [x] `has_many_attached :micrographs` — SEM / ESEM imagery shown on the detail page, with their existing `ImageVariants`-powered thumbnail/medium/large variants.
+- [x] All attachments are optional. Cards and detail sections render graceful placeholders when attachments are absent.
 
 ### Seed
 
-- [ ] `db/seeds/materials.yml` holds ~30 canonical entries reconciled from `docs/materials-db.csv` + `docs/DB-materials-humanized-texts.md`. Entries with only English prose are loaded as-is; locales that aren't present in the source are simply not set, and the `Translatable` fallback handles the rest. Obvious stubs (empty humanized-doc sections) are skipped rather than imported blank.
-- [ ] `db/seeds/material_tags.yml` holds the tag vocabulary per facet, with translatable names.
-- [ ] `Material.seed_from_yaml!` and `Tag.seed_from_yaml!` are idempotent (find-or-initialize by slug) and safe to re-run.
-- [ ] No images, clips, or micrographs are seeded — assets land in a separate content-ingestion pass (tracked in `notes.md`).
+- [x] `db/seeds/materials.yml` holds ~30 canonical entries reconciled from `docs/materials-db.csv` + `docs/DB-materials-humanized-texts.md`. Entries with only English prose are loaded as-is; locales that aren't present in the source are simply not set, and the `Translatable` fallback handles the rest. Obvious stubs (empty humanized-doc sections) are skipped rather than imported blank.
+- [x] `db/seeds/material_tags.yml` holds the tag vocabulary per facet, with translatable names.
+- [x] `Material.seed_from_yaml!` and `Tag.seed_from_yaml!` are idempotent (find-or-initialize by slug) and safe to re-run.
+- [x] No images, clips, or micrographs are seeded — assets land in a separate content-ingestion pass (tracked in `notes.md`).
 
 ### Public index (`GET /materials`)
 
-- [ ] Editorial card grid, responsive (1 / 2 / 3 columns at the app's usual breakpoints).
-- [ ] Each card shows: primary photo (placeholder if absent), `trade_name`, supplier, `material_of_origin`, an availability-status badge, and up to two tag chips.
-- [ ] **Card media behaviour** — a Stimulus controller (`card-media`):
+- [x] Editorial card grid, responsive (1 / 2 / 3 columns at the app's usual breakpoints).
+- [x] Each card shows: primary photo (placeholder if absent), `trade_name`, supplier, `material_of_origin`, an availability-status badge, and up to two tag chips.
+- [x] **Card media behaviour** — a Stimulus controller (`card-media`):
   - When a card enters the viewport (IntersectionObserver): if a `clip` attachment exists, start playing it muted + looping. When it leaves, pause.
   - Photos cycle on a slow interval (or on hover on devices with a pointer) when no clip is present and the card has more than one photo.
   - Reduced-motion preference (`prefers-reduced-motion`) is respected: no autoplay, no cycling.
-- [ ] **Chip-filter rail** above the grid — three chip groups, one per facet (`origin_type`, `textile_imitating`, `application`). Each chip toggles on / off. Multi-select within a facet = OR; across facets = AND. Active chips show a visible toggled state and a count of matches. A "Clear all" control resets the rail.
-- [ ] Filter state is URL-bound (`?origin_type=plants,fungi&application=clothes`) so URLs are shareable and the back button works.
-- [ ] A simple search input on the rail performs case-insensitive `ILIKE` on `trade_name` and on the current-locale `description` JSONB key. Combined with chip filters via AND.
-- [ ] Empty-state copy when filters match no materials ("No materials match your filters. Try clearing some chips.").
-- [ ] Default ordering on the index is `position ASC`.
+- [x] **Chip-filter rail** above the grid — three chip groups, one per facet (`origin_type`, `textile_imitating`, `application`). Each chip toggles on / off. Multi-select within a facet = OR; across facets = AND. Active chips show a visible toggled state and a count of matches. A "Clear all" control resets the rail.
+- [x] Filter state is URL-bound (`?origin_type=plants,fungi&application=clothes`) so URLs are shareable and the back button works.
+- [x] A simple search input on the rail performs case-insensitive `ILIKE` on `trade_name` and on the current-locale `description` JSONB key. Combined with chip filters via AND.
+- [x] Empty-state copy when filters match no materials ("No materials match your filters. Try clearing some chips.").
+- [x] Default ordering on the index is `position ASC`.
 
 ### Preview sidebar (eye icon)
 
-- [ ] Each card shows an **eye icon** affordance. Clicking it opens a **slide-in preview sidebar** populated by a Turbo Frame (`<turbo-frame id="preview">` mounted in the layout).
-- [ ] Desktop: right-hand panel overlaying the grid (grid stays visible and scrollable in the remainder). Mobile: bottom sheet covering ~85% of the viewport.
-- [ ] Sidebar content: hero photo or first frame of the clip, `trade_name`, supplier, availability badge, one-paragraph `description`, tag chips, and an "Open full page →" link to `/materials/:slug`.
-- [ ] Dismissal: Escape, backdrop click (desktop) / drag-down (mobile, if cheap; otherwise an X button), the X button, or clicking the same eye icon again. Focus returns to the triggering card on close.
-- [ ] Only one preview is open at a time. Opening another replaces the current content (Turbo Frame swap).
-- [ ] ARIA: the sidebar is `role="dialog"` with `aria-modal="false"` (it's a peek, not a modal) and a labelled heading.
+- [x] Each card shows an **eye icon** affordance. Clicking it opens a **slide-in preview sidebar** populated by a Turbo Frame (`<turbo-frame id="preview">` mounted in the layout).
+- [x] Desktop: right-hand panel overlaying the grid (grid stays visible and scrollable in the remainder). Mobile: bottom sheet covering ~85% of the viewport.
+- [x] Sidebar content: hero photo or first frame of the clip, `trade_name`, supplier, availability badge, one-paragraph `description`, tag chips, and an "Open full page →" link to `/materials/:slug`.
+- [x] Dismissal: Escape, backdrop click (desktop) / drag-down (mobile, if cheap; otherwise an X button), the X button, or clicking the same eye icon again. Focus returns to the triggering card on close.
+- [x] Only one preview is open at a time. Opening another replaces the current content (Turbo Frame swap).
+- [x] ARIA: the sidebar is `role="dialog"` with `aria-modal="false"` (it's a peek, not a modal) and a labelled heading.
 
 ### Public detail (`GET /materials/:slug`)
 
-- [ ] Editorial layout — hero photo or clip, `trade_name`, supplier + link, availability badge, tag chips, `material_of_origin`.
-- [ ] Sections render conditionally and collapse when empty:
+- [x] Editorial layout — hero photo or clip, `trade_name`, supplier + link, availability badge, tag chips, `material_of_origin`.
+- [x] Sections render conditionally and collapse when empty:
   - `description`
   - `sensorial_qualities` (warm / soft / breathable prose from the humanized doc — a differentiator the CSV lacks).
   - `what_problem_it_solves`
   - `interesting_properties`
   - `structure`
   - Micrograph gallery (renders only when `micrographs` are attached; uses `ImageVariants` thumbnails, opens to a full-size view).
-- [ ] Glossary-term highlighting is applied to the long-form prose sections (`description`, `sensorial_qualities`, `what_problem_it_solves`, `interesting_properties`, `structure`), via the `glossary_highlight` helper from spec 5.
-- [ ] Unknown slug → 404.
-- [ ] Localised `<title>` and `<meta description>`; indexable.
+- [x] Glossary-term highlighting is applied to the long-form prose sections (`description`, `sensorial_qualities`, `what_problem_it_solves`, `interesting_properties`, `structure`), via the `glossary_highlight` helper from spec 5.
+- [x] Unknown slug → 404.
+- [x] Localised `<title>` and `<meta description>`; indexable.
 
 ### Navigation
 
-- [ ] The existing "Materials DB" sidebar item now routes to `/materials` (currently wired to the stub `materials/index`).
+- [x] The existing "Materials DB" sidebar item now routes to `/materials` (currently wired to the stub `materials/index`).
 
 ### I18n
 
-- [ ] All chrome strings (filter rail labels, chip group headings, "Open full page", empty states, availability badges, "Clear all", search placeholder, preview sidebar close label, section headings on the detail page) go through `t(…)`. `en` filled; `es`, `it`, `el` stubbed (same pattern as the glossary spec).
-- [ ] Switching the request locale swaps the translatable fields (description, sensorial qualities, etc.) where the target-locale value exists; falls back to `en` otherwise, with no "translation missing" leakage in user-visible copy.
-- [ ] Tag names are localised via the `Translatable` concern's reader.
+- [x] All chrome strings (filter rail labels, chip group headings, "Open full page", empty states, availability badges, "Clear all", search placeholder, preview sidebar close label, section headings on the detail page) go through `t(…)`. `en` filled; `es`, `it`, `el` stubbed (same pattern as the glossary spec).
+- [x] Switching the request locale swaps the translatable fields (description, sensorial qualities, etc.) where the target-locale value exists; falls back to `en` otherwise, with no "translation missing" leakage in user-visible copy.
+- [x] Tag names are localised via the `Translatable` concern's reader.
 
 ### Tests (Minitest — tests gate implementation)
 
-- [ ] Model: validations (trade_name, slug, availability_status, base-locale description); slug generation; uniqueness; `tags_for(facet)` scope; locale-aware reader fallback.
-- [ ] `Tag` model: uniqueness per `(facet, slug)`; translatable name reader.
-- [ ] Seed: `Material.seed_from_yaml!` and `Tag.seed_from_yaml!` are idempotent (running twice doesn't duplicate); unknown tag slugs in a material entry raise a clear error.
-- [ ] Request: `GET /materials` renders every seeded material; chip filters narrow correctly (single-facet OR, cross-facet AND); `?origin_type=plants,fungi` reflects in the rendered chip state; unknown chip values are ignored; search narrows by `trade_name`; unknown slug on `/materials/:slug` returns 404.
-- [ ] Request: `GET /materials/:slug/preview` (the Turbo Frame target) renders the preview partial without the application layout; unknown slug → 404.
-- [ ] Controller test: locale swap changes the rendered description on the detail page.
-- [ ] Glossary-highlight integration: the detail page wraps known glossary terms as popover triggers.
-- [ ] System test: visit `/materials`, toggle two chips in different facets, verify the grid narrows; open a preview sidebar, verify content and Escape dismissal; navigate from preview to detail page; verify an in-view card starts playing its clip (pragmatic: assert the `<video>` element has `autoplay` / the controller has connected, not actual playback).
+- [x] Model: validations (trade_name, slug, availability_status, base-locale description); slug generation; uniqueness; `tags_for(facet)` scope; locale-aware reader fallback.
+- [x] `Tag` model: uniqueness per `(facet, slug)`; translatable name reader.
+- [x] Seed: `Material.seed_from_yaml!` and `Tag.seed_from_yaml!` are idempotent (running twice doesn't duplicate); unknown tag slugs in a material entry raise a clear error.
+- [x] Request: `GET /materials` renders every seeded material; chip filters narrow correctly (single-facet OR, cross-facet AND); `?origin_type=plants,fungi` reflects in the rendered chip state; unknown chip values are ignored; search narrows by `trade_name`; unknown slug on `/materials/:slug` returns 404.
+- [x] Request: `GET /materials/:slug/preview` (the Turbo Frame target) renders the preview partial without the application layout; unknown slug → 404.
+- [x] Controller test: locale swap changes the rendered description on the detail page.
+- [x] Glossary-highlight integration: the detail page wraps known glossary terms as popover triggers.
+- [x] System test: visit `/materials`, toggle two chips in different facets, verify the grid narrows; open a preview sidebar, verify content and Escape dismissal; navigate from preview to detail page; verify an in-view card starts playing its clip (pragmatic: assert the `<video>` element has `autoplay` / the controller has connected, not actual playback).
 
 ### YARD
 
-- [ ] Public methods on `Material`, `Tag`, and any new helper (`materials_filter_url`, `card_media` Stimulus bridge helpers if we add any) documented in English.
+- [x] Public methods on `Material`, `Tag`, and any new helper (`materials_filter_url`, `card_media` Stimulus bridge helpers if we add any) documented in English.
 
 ### Docs
 
-- [ ] `.munkit/MEMORY.md` **Key Patterns** gets a one-liner for the **chip-filter rail** and for the **preview-sidebar** interaction, since log-entry material embeds (spec 11) and challenge cards (spec 6) will reuse both.
-- [ ] `.munkit/context.md` "Implementation Plan" entry for spec 4 is marked complete when the PR merges.
-- [ ] `.munkit/specs/2026-04-17-materials-database/notes.md` records: the reconciled seed strategy, the chip-filter OR/AND semantics, the decision to treat the source docs as non-authoritative, and deferred items (asset ingestion, video variants, full-text search, curator CRUD).
+- [x] `.munkit/MEMORY.md` **Key Patterns** gets a one-liner for the **chip-filter rail** and for the **preview-sidebar** interaction, since log-entry material embeds (spec 11) and challenge cards (spec 6) will reuse both.
+- [x] `.munkit/context.md` "Implementation Plan" entry for spec 4 is marked complete when the PR merges.
+- [x] `.munkit/specs/2026-04-17-materials-database/notes.md` records: the reconciled seed strategy, the chip-filter OR/AND semantics, the decision to treat the source docs as non-authoritative, and deferred items (asset ingestion, video variants, full-text search, curator CRUD).
 
 ## Out of Scope
 

@@ -49,27 +49,27 @@ available_volumes: ["training-module", "toolkit", "case-study"]
 
 ## Acceptance Criteria
 
-- [ ] Markdown content is copied into `content/training-modules/` following the existing directory structure.
-- [ ] A `TrainingModule::Loader` PORO exists that can enumerate all modules, their available locales, and their sections. It reads from the filesystem and parses YAML frontmatter.
-- [ ] A `TrainingModule::Section` value object (or similar) holds the parsed metadata and body for a given module/section/locale.
-- [ ] A markdown rendering helper converts the content for display. Choose Kramdown (already a Ruby stdlib-adjacent dependency) or Redcarpet — whichever is lighter. The renderer must handle: headings, paragraphs, lists, bold/italic, links, images, code blocks.
-- [ ] **Embedded image handling:** the source markdown contains raw `<img>` tags with `src="/assets/training-modules/media/..."` paths and inline `style` attributes (widths in inches). The renderer must:
+- [x] Markdown content is copied into `content/training-modules/` following the existing directory structure.
+- [x] A `TrainingModule::Loader` PORO exists that can enumerate all modules, their available locales, and their sections. It reads from the filesystem and parses YAML frontmatter.
+- [x] A `TrainingModule::Section` value object (or similar) holds the parsed metadata and body for a given module/section/locale.
+- [x] A markdown rendering helper converts the content for display. Choose Kramdown (already a Ruby stdlib-adjacent dependency) or Redcarpet — whichever is lighter. The renderer must handle: headings, paragraphs, lists, bold/italic, links, images, code blocks.
+- [x] **Embedded image handling:** the source markdown contains raw `<img>` tags with `src="/assets/training-modules/media/..."` paths and inline `style` attributes (widths in inches). The renderer must:
   - Allow these `<img>` tags through (not strip them).
   - Rewrite `src` paths to point to the correct location in the Rails app (e.g., `/content/training-modules/media/...` served as static files, or an asset path).
   - Strip or replace inline `style` attributes with responsive CSS classes (the inch-based widths from the DOCX conversion are not usable in a web context).
   - Add `loading="lazy"` to all images.
-- [ ] The 616 media files from `imasus/src/assets/training-modules/media/` are copied into this project alongside the markdown content and served as static files (e.g., from `public/` or via a controller). They are static assets, not Active Storage attachments.
-- [ ] `TrainingModulesController` with `index` and `show` actions.
+- [x] The 616 media files from `imasus/src/assets/training-modules/media/` are copied into this project alongside the markdown content and served as static files (e.g., from `public/` or via a controller). They are static assets, not Active Storage attachments.
+- [x] `TrainingModulesController` with `index` and `show` actions.
   - `index` lists all 4 modules with their titles and available sections.
   - `show` renders a specific module/section/locale combination.
-- [ ] Routes: `GET /training` (index), `GET /training/:slug/:section` (show). Locale comes from the app-wide locale param/cookie (spec 1).
-- [ ] **Locale switcher** on the training view links to the same module/section in another locale. Available locales come from the frontmatter's `available_languages` field.
-- [ ] **Chapter navigation** (Previous / Next) between sections within a module: training-module → case-study → toolkit. Section order comes from frontmatter's `available_volumes` field.
-- [ ] **Module navigation** between the 4 modules (sidebar or tab-style). Order comes from frontmatter's `available_modules` field.
-- [ ] The "about training" page (`content/training-modules/{locale}/about.md`) is rendered at `GET /training` as an introduction above or before the module list.
-- [ ] All UI strings (nav labels, "Previous", "Next", section names) use `t(...)` in all 4 locales.
-- [ ] YARD documentation on all public methods of `TrainingModule::Loader` and related classes.
-- [ ] Tests cover:
+- [x] Routes: `GET /training` (index), `GET /training/:slug/:section` (show). Locale comes from the app-wide locale param/cookie (spec 1).
+- [x] **Locale switcher** on the training view links to the same module/section in another locale. Available locales come from the frontmatter's `available_languages` field.
+- [x] **Chapter navigation** (Previous / Next) between sections within a module: training-module → case-study → toolkit. Section order comes from frontmatter's `available_volumes` field.
+- [x] **Module navigation** between the 4 modules (sidebar or tab-style). Order comes from frontmatter's `available_modules` field.
+- [x] The "about training" page (`content/training-modules/{locale}/about.md`) is rendered at `GET /training` as an introduction above or before the module list.
+- [x] All UI strings (nav labels, "Previous", "Next", section names) use `t(...)` in all 4 locales.
+- [x] YARD documentation on all public methods of `TrainingModule::Loader` and related classes.
+- [x] Tests cover:
   - Loader enumerates modules, sections, and locales correctly.
   - Loader returns `nil` for missing content (unknown slug, unavailable locale). It does not raise — callers (the controller) are responsible for handling nil with a 404.
   - Controller renders index and show successfully.
