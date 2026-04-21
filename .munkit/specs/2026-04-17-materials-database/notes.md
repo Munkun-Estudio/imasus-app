@@ -338,6 +338,259 @@ After PR (c), add a short Key Patterns entry noting:
   "what would toggling this add" interpretation) per the spec plan
   section above.
 
+## PR (d) plan — detail page + glossary highlight + SEO meta
+
+On a fresh branch `feat/materials-detail-page`, targeting `main` after
+PR #11 merged. Replaces the current `show.html.erb` stub (trade_name +
+"coming soon" copy under `materials.show.coming_soon`) with the full
+editorial layout.
+
+### Page structure
+
+Single-column editorial layout, prose column max-width ~768 px, hero
+breaking out a little wider.
+
+1. **Back link** → `materials_path`, top-left, subdued.
+2. **Hero** — macro at `preset: :hero` (1600×900 cap). Mint placeholder
+   block when no macro is attached, so empty-state looks intentional.
+3. **Header** — `trade_name` (H1), supplier line (linked if
+   `supplier_url`), availability badge, `material_of_origin`, tag chips
+   grouped by facet (same chip styling as the preview sidebar).
+4. **Prose sections**, in reading order, each hidden when its
+   locale-fallback value is blank:
+   1. `description`
+   2. `sensorial_qualities`
+   3. `what_problem_it_solves`
+   4. `interesting_properties`
+   5. `structure`
+5. **Micrograph gallery** — grid of microscopies at `preset: :detail`,
+   each wrapped in `<a href=rails_blob_url(...) target=_blank
+   rel=noopener>` so the native browser view handles zoom. Section
+   hides entirely when `material.microscopies` is empty.
+
+### Prose rendering pipeline
+
+```erb
+<%= glossary_highlight(
+      sanitize(
+        simple_format(material.description_in(I18n.locale) ||
+                      material.description_in(Material::BASE_LOCALE)),
+        tags: %w[p br]
+      )
+    ) %>
+```
+
+- `simple_format` paragraph-breaks → `<p>`.
+- `sanitize` allow-list restricted to `p`/`br` (seeded prose is plain
+  text).
+- `glossary_highlight` wraps known terms last, returns a safe buffer.
+
+Extract a `material_prose(material, field)` helper to avoid repeating
+the pipeline five times in the view.
+
+### Video: deferred
+
+Cards on the index already autoplay clips. A still hero on the reading
+page is calmer and matches the editorial tone. Ship video on the detail
+page as a follow-up only if SMEs or usability testing ask for it.
+
+### Micrograph full-size: new-tab link, not lightbox
+
+Each `:detail` variant sits inside `<a target=_blank rel=noopener>`
+linking to the blob URL. No lightbox Stimulus controller in this PR —
+escalate to a modal viewer later if participants want prev/next/zoom.
+
+### SEO meta
+
+- `content_for :title` → `@material.trade_name`; layout interpolates
+  the site suffix.
+- Add `<meta name="description">` slot to the application layout if
+  missing. Detail page sets it via `content_for :meta_description` to
+  the first ~155 chars of the locale-fallback description, stripped of
+  HTML.
+- Page is indexable; no `noindex` directive.
+
+### I18n
+
+- **Remove** `materials.show.coming_soon` in all four locale files.
+- Keep `materials.show.back_to_index`.
+- Add `materials.show.sections.description`, `.sensorial_qualities`,
+  `.what_problem_it_solves`, `.interesting_properties`, `.structure`,
+  `.micrographs` for section headings.
+- Add `materials.show.micrograph_alt` (interpolated alt text with
+  material name + index).
+- `en` filled; `es`/`it`/`el` mirror with English copy pending
+  translation.
+
+### Tests (gate before implementation)
+
+- **Request tests** on `GET /materials/:slug`:
+  - 200 with `@material.trade_name` as H1 text
+  - `<meta name="description">` rendered with a non-blank content attr
+  - unknown slug → 404 (regression over what PR (c) already asserted
+    for the preview route — now on the show path)
+  - `I18n.with_locale(:es) { get material_path(...) }` renders the
+    Spanish description when present, base-locale when not
+  - no "translation missing" leakage in any rendered section heading
+  - sections hidden when locale-fallback value is blank (fixture
+    material carrying only `description_translations`)
+- **Glossary-highlight integration** — create a `GlossaryTerm`, create
+  a material whose description contains its `display_term`, assert the
+  rendered HTML wraps the token with the term's popover trigger
+  element.
+- **System test**:
+  - visit `/materials/:slug`, verify H1, supplier link, availability
+    badge, one prose section, at least one tag chip
+  - micrograph gallery renders N thumbnails when fixture has N
+    microscopies, each thumbnail's link points to the blob URL
+  - "Back to materials" link lands on `/materials`
+
+### YARD
+
+- `MaterialsController#show` — 404 behaviour, locale swap.
+- `material_prose(material, field)` helper — pipeline contract.
+
+### Deferred past this PR
+
+- Hero-as-video / autoplay on the detail page.
+- Lightbox viewer for micrographs (prev/next, zoom).
+- Related-materials rail ("more from this facet", "same supplier").
+- Share button for copying canonical URL.
+- Content-pass to fill sparse `sensorial_qualities` entries.
+
+## PR (d) outcomes
+
+Shipped on `feat/materials-detail-page`. Replaces the show stub with the
+full editorial layout; closes the last slice of the materials-database
+spec.
+
+- **Model constant** — `Material::TRANSLATED_ATTRIBUTES` lists the five
+  prose fields in reading order, so the view iterates instead of
+  repeating the pipeline.
+- **Helpers** — `material_prose` runs
+  `*_in(locale) || *_in(BASE_LOCALE) → simple_format → sanitize(p/br) →
+  glossary_highlight`, returns `nil` when blank so the section hides.
+  `material_meta_description` strips/squishes/truncates the fallback
+  description to 155 chars for the meta slot.
+- **Layout meta slot** — `application.html.erb` renders
+  `<meta name="description">` only when `content_for?(:meta_description)`,
+  strips tags and squishes at render time as defence-in-depth.
+- **View structure** — back link → hero (`preset: :hero`, mint
+  placeholder when no macro) → header (H1, supplier chip with
+  `open_supplier` fallback label when URL present but name absent,
+  availability badge, `material_of_origin`, tag chips grouped per facet
+  via `[data-role="detail-facet"][data-facet="<facet>"]`) → prose
+  sections wrapped in `[data-role="section-<attribute>"]` → micrograph
+  gallery `[data-role="micrograph-gallery"]`, each thumbnail a
+  `target=_blank` link to `rails_blob_url(micrograph.file)`.
+- **Controller** — `set_material` eager-loads `assets: { file_attachment:
+  :blob }, tags: {}` to cover both hero and gallery; added YARD on
+  `#show` explaining 404 and locale behaviour.
+- **I18n** — removed `materials.show.coming_soon` in all four locales;
+  added `materials.show.sections.{description,sensorial_qualities,
+  what_problem_it_solves,interesting_properties,structure,micrographs}`,
+  `micrograph_alt`, `open_supplier`, `tags_heading`. `es`/`it`/`el`
+  translations landed in this PR (not placeholders).
+- **Tests**
+  - Request: 13 assertions covering H1, back link, per-attribute section
+    data-role presence/hiding, locale read via `?locale=es`
+    (ApplicationController's `set_locale` around_action reads params, so
+    `I18n.with_locale` blocks around `get` do *not* work — pass locale
+    as a URL param), base-locale fallback, translation-missing leakage
+    check, meta description non-blank, `<title>` match, tag-chip markup,
+    glossary popover wrapping inside `[data-role="section-description"]`,
+    empty micrograph gallery hidden.
+  - System (11 runs total including existing): H1 + prose + back link,
+    back link navigates to index, supplier link present when
+    `supplier_url` set (uses Pyratex Musa 1 which has URL but no
+    supplier_name — forced the `open_supplier` fallback label).
+- **Final suite** — 305 runs, 2027 assertions, 0 failures; RuboCop clean;
+  Brakeman clean.
+
+### Gotchas captured
+
+- Locale in controller tests must be URL-param, not block: the
+  `around_action :set_locale` in `ApplicationController` reads
+  `params[:locale] || cookies[:locale]` and overrides anything set
+  outside the request.
+- `assert_select` takes the message as a **positional** argument, not a
+  keyword. `assert_select sel, 0, message: "..."` raises ArgumentError.
+
+## PR (d) design iteration (2026-04-21)
+
+After first sight of the detail page the user flagged three issues that
+warranted a follow-up pass still inside PR (d):
+
+1. Index card didn't link to the detail page — only the preview icon was
+   actionable.
+2. Layout was text-heavy for a catalogue page; needed to put media
+   front-and-centre and reserve space for the full micrograph set + the
+   product video.
+3. Meta data (supplier, origin, availability, tag chips) was a loose
+   inline row with no labels — hard to read, chips looked disconnected.
+
+**Decisions:**
+
+- **Covering-link card** — whole-card hit target via a stretched
+  pseudo-element on the title `<a>` (`before:absolute before:inset-0`).
+  The preview affordance and supplier link stay independently clickable
+  by placing them on a higher stacking level (`relative z-10` or
+  `absolute ... z-10`). No JS, no event-propagation hacks.
+- **Gallery** — replaces the old top-of-page hero + bottom-of-page
+  micrograph grid with a single side-by-side gallery: large main viewer
+  on the left, vertical thumbnail strip on the right (stacks to rows on
+  mobile). Default active item is **video if present, else macro**,
+  even though the video lives at the bottom of the thumbnail order
+  per user sketch intent. Thumbnails run in priority order: video →
+  macro → microscopies by `position`.
+- **Thumbnail swap** — `material-gallery` Stimulus controller. All
+  media elements render inside the viewer; the controller toggles
+  `hidden` and pauses any off-screen `<video>` so only the active one
+  can play. Data contract: `data-material-gallery-target="media"` +
+  `data-media-key` on each media element, matching
+  `data-media-key` on the `data-material-gallery-target="thumb"`
+  buttons. Thumbnails carry `data-gallery-active="true|false"` rather
+  than an `active` CSS class so tests don't couple to styling.
+- **Meta sidebar** — three-row `<dl>` with Heroicons + label + value:
+  supplier (external-link-arrow when it's a link), availability (pill
+  badge), raw material. Each row marked with `data-role="meta-…"` for
+  stable test selectors.
+- **Tag groups** — chips are now grouped under a facet heading
+  (reusing the index facet titles — `materials.index.facets.<facet>.title`)
+  rather than a flat list. Wrapper marker
+  `[data-role="detail-facet-group"][data-facet="<facet>"]`, with the
+  existing `[data-role="detail-facet"][data-facet]` UL kept inside for
+  backwards-compatibility with older selectors.
+- **Section icons** — one Heroicon per prose section (document-text,
+  sparkles, light-bulb, beaker, squares-2x2). Inlined via a tiny
+  `heroicon(name, options)` helper in `IconsHelper`; paths captured
+  verbatim from the outline variant on heroicons.com.
+
+**Tests:**
+
+- Card covering link — every card contains an `<a>` to
+  `material_path(slug)`.
+- Gallery absence when no assets, presence when 1+ assets, thumbnail
+  stack only when 2+ assets, default-active video-over-macro, default
+  macro when no video. Attaching files in tests uses `assets.build` +
+  `file.attach` before `save!` (the `file_must_be_attached` validator
+  rejects `create!` with no attachment).
+- Meta sidebar rows present for supplier / availability / origin.
+- Tag group wrapper + facet heading + chip UL nested correctly.
+- System test: attach macro + microscopy, visit page, assert macro is
+  default active, click the microscopy thumb, assert active flips and
+  the macro media element gains `.hidden`.
+- Final suite: 312 runs, 2180 assertions, 0 failures. RuboCop clean;
+  Brakeman clean.
+
+**Deferred (explicitly):**
+
+- Real video posters — the video thumb currently overlays a play icon
+  on the macro image; when the importer starts extracting real posters
+  we'll swap that in.
+- Lightbox/fullscreen for the main viewer.
+- Pinch-to-zoom on micrographs.
+
 ## PR (a) outcomes
 
 ### Source-of-truth decision

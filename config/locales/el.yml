@@ -62,7 +62,23 @@ el:
       open_full_page: "Άνοιγμα πλήρους σελίδας →"
     show:
       back_to_index: "← Πίσω στα υλικά"
-      coming_soon: "Η πλήρης σελίδα λεπτομερειών αυτού του υλικού έρχεται σύντομα."
+      view_detail: "Άνοιγμα %{name}"
+      sections:
+        description: "Περιγραφή"
+        sensorial_qualities: "Αισθητηριακές ιδιότητες"
+        what_problem_it_solves: "Ποιο πρόβλημα λύνει"
+        interesting_properties: "Ενδιαφέρουσες ιδιότητες"
+        structure: "Δομή"
+      gallery_label: "Πολυμέσα υλικού"
+      macro_alt: "%{name} — μακροσκοπική όψη"
+      micrograph_alt: "Μικρογραφία %{index} του %{name}"
+      video_thumb_label: "Βίντεο του %{name}"
+      open_supplier: "Επίσκεψη προμηθευτή"
+      tags_heading: "Ετικέτες"
+      meta:
+        supplier: "Προμηθευτής"
+        availability: "Διαθεσιμότητα"
+        material_of_origin: "Πρώτη ύλη"
   training:
     index:
       title: "Εκπαίδευση"

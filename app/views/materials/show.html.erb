@@ -1,14 +1,210 @@
 <% content_for :title, @material.trade_name %>
+<% meta = material_meta_description(@material) %>
+<% content_for(:meta_description, meta) if meta.present? %>
 
-<div class="px-6 py-12 sm:px-10 lg:px-16">
+<% section_icons = {
+     description:            :document_text,
+     sensorial_qualities:    :sparkles,
+     what_problem_it_solves: :light_bulb,
+     interesting_properties: :beaker,
+     structure:              :squares_2x2
+   } %>
+
+<% gallery_items = material_gallery_items(@material) %>
+<% tag_groups    = Tag::FACETS.map { |f| [ f, @material.tags_for(f) ] }.reject { |_, ts| ts.empty? } %>
+
+<article class="px-6 py-10 sm:px-10 lg:px-16">
   <%= link_to t("materials.show.back_to_index"), materials_path,
         class: "text-sm text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
 
-  <h1 class="mt-4 text-3xl font-bold text-imasus-dark-green">
-    <%= @material.trade_name %>
-  </h1>
+  <header class="mt-6">
+    <h1 class="text-3xl font-bold text-imasus-dark-green sm:text-4xl">
+      <%= @material.trade_name %>
+    </h1>
+  </header>
 
-  <p class="mt-4 max-w-2xl text-base text-imasus-dark-green/70">
-    <%= t("materials.show.coming_soon") %>
-  </p>
-</div>
+  <% if gallery_items.any? %>
+    <section data-role="material-gallery"
+             data-controller="material-gallery"
+             aria-label="<%= t("materials.show.gallery_label") %>"
+             class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+      <%# Main viewer — renders every media element, hides all but the first. %>
+      <div data-role="gallery-viewer"
+           class="relative flex-1 overflow-hidden rounded-2xl bg-imasus-mint/20 aspect-[16/10]">
+        <% gallery_items.each_with_index do |item, index| %>
+          <% hidden_class = index.zero? ? "" : "hidden" %>
+          <% if item[:kind] == "video" %>
+            <video data-material-gallery-target="media"
+                   data-media-key="<%= item[:key] %>"
+                   class="h-full w-full object-cover <%= hidden_class %>"
+                   controls
+                   preload="metadata"
+                   playsinline>
+              <source src="<%= rails_blob_url(item[:asset].file) %>"
+                      type="<%= item[:asset].file.content_type %>">
+            </video>
+          <% else %>
+            <%= image_variant_tag item[:asset].file,
+                  preset: :hero,
+                  alt: item[:alt],
+                  data: {
+                    material_gallery_target: "media",
+                    media_key: item[:key]
+                  },
+                  class: "h-full w-full object-cover #{hidden_class}" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if gallery_items.size > 1 %>
+        <ul class="flex w-full flex-row gap-2 overflow-x-auto sm:w-28 sm:flex-col sm:overflow-y-auto">
+          <% gallery_items.each_with_index do |item, index| %>
+            <li class="shrink-0">
+              <button type="button"
+                      data-role="gallery-thumb"
+                      data-kind="<%= item[:kind] %>"
+                      data-media-key="<%= item[:key] %>"
+                      data-gallery-active="<%= index.zero? %>"
+                      data-material-gallery-target="thumb"
+                      data-action="material-gallery#select"
+                      aria-label="<%= item[:alt] %>"
+                      class="relative block h-20 w-28 overflow-hidden rounded-lg bg-imasus-mint/20 ring-2 ring-transparent transition hover:ring-imasus-dark-green/40 focus:outline-none focus:ring-imasus-dark-green/60 data-[gallery-active=true]:ring-imasus-dark-green">
+                <% if item[:kind] == "video" %>
+                  <% poster = @material.macro_asset %>
+                  <% if poster&.file&.attached? %>
+                    <%= image_variant_tag poster.file,
+                          preset: :thumbnail,
+                          alt: "",
+                          class: "h-full w-full object-cover opacity-70" %>
+                  <% end %>
+                  <span class="absolute inset-0 flex items-center justify-center text-white">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full bg-imasus-dark-green/80">
+                      <%= heroicon :play, class: "h-4 w-4" %>
+                    </span>
+                  </span>
+                <% else %>
+                  <%= image_variant_tag item[:asset].file,
+                        preset: :thumbnail,
+                        alt: "",
+                        class: "h-full w-full object-cover" %>
+                <% end %>
+              </button>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </section>
+  <% end %>
+
+  <div class="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+    <div class="max-w-2xl space-y-10">
+      <% Material::TRANSLATED_ATTRIBUTES.each do |attribute| %>
+        <% prose = material_prose(@material, attribute) %>
+        <% next unless prose %>
+        <section data-role="section-<%= attribute %>" class="space-y-3">
+          <h2 class="flex items-center gap-2 border-b border-imasus-dark-green/10 pb-2 text-sm font-semibold uppercase tracking-wide text-imasus-dark-green/70">
+            <span class="text-imasus-dark-green/50">
+              <%= heroicon section_icons.fetch(attribute), class: "h-4 w-4" %>
+            </span>
+            <%= t("materials.show.sections.#{attribute}") %>
+          </h2>
+          <div class="prose prose-sm max-w-none text-imasus-dark-green/80">
+            <%= prose %>
+          </div>
+        </section>
+      <% end %>
+    </div>
+
+    <aside class="space-y-8 lg:sticky lg:top-8 lg:self-start">
+      <dl class="divide-y divide-imasus-dark-green/10 rounded-xl bg-imasus-mint/10 px-5">
+        <% if @material.supplier_name.present? || @material.supplier_url.present? %>
+          <div data-role="meta-supplier" class="flex items-start gap-3 py-4">
+            <span class="pt-0.5 text-imasus-dark-green/60">
+              <%= heroicon :building_office_2 %>
+            </span>
+            <div class="flex-1 min-w-0">
+              <dt class="text-xs uppercase tracking-wide text-imasus-dark-green/60">
+                <%= t("materials.show.meta.supplier") %>
+              </dt>
+              <dd class="mt-0.5 break-words text-sm text-imasus-dark-green">
+                <% label = @material.supplier_name.presence || t("materials.show.open_supplier") %>
+                <% if @material.supplier_url.present? %>
+                  <%= link_to @material.supplier_url,
+                        target: "_blank", rel: "noopener noreferrer",
+                        class: "inline-flex items-center gap-1 font-medium underline decoration-imasus-dark-green/30 underline-offset-2 hover:decoration-imasus-dark-green" do %>
+                    <%= label %>
+                    <%= heroicon :arrow_top_right_on_square, class: "h-3.5 w-3.5" %>
+                  <% end %>
+                <% else %>
+                  <span class="font-medium"><%= label %></span>
+                <% end %>
+              </dd>
+            </div>
+          </div>
+        <% end %>
+
+        <div data-role="meta-availability" class="flex items-start gap-3 py-4">
+          <span class="pt-0.5 text-imasus-dark-green/60">
+            <%= heroicon :check_badge %>
+          </span>
+          <div class="flex-1 min-w-0">
+            <dt class="text-xs uppercase tracking-wide text-imasus-dark-green/60">
+              <%= t("materials.show.meta.availability") %>
+            </dt>
+            <dd class="mt-0.5" data-role="availability">
+              <span class="inline-flex items-center rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-imasus-dark-green">
+                <%= t("materials.index.availability.#{@material.availability_status}") %>
+              </span>
+            </dd>
+          </div>
+        </div>
+
+        <% if @material.material_of_origin.present? %>
+          <div data-role="meta-origin" class="flex items-start gap-3 py-4">
+            <span class="pt-0.5 text-imasus-dark-green/60">
+              <%= heroicon :cube %>
+            </span>
+            <div class="flex-1 min-w-0">
+              <dt class="text-xs uppercase tracking-wide text-imasus-dark-green/60">
+                <%= t("materials.show.meta.material_of_origin") %>
+              </dt>
+              <dd class="mt-0.5 text-sm text-imasus-dark-green">
+                <%= @material.material_of_origin %>
+              </dd>
+            </div>
+          </div>
+        <% end %>
+      </dl>
+
+      <% if tag_groups.any? %>
+        <section class="space-y-3">
+          <h2 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-imasus-dark-green/60">
+            <%= heroicon :tag, class: "h-3.5 w-3.5" %>
+            <%= t("materials.show.tags_heading") %>
+          </h2>
+          <dl class="space-y-3">
+            <% tag_groups.each do |facet, tags| %>
+              <div data-role="detail-facet-group" data-facet="<%= facet %>">
+                <dt class="text-xs font-medium text-imasus-dark-green/60">
+                  <%= t("materials.index.facets.#{facet}.title") %>
+                </dt>
+                <dd class="mt-1">
+                  <ul data-role="detail-facet" data-facet="<%= facet %>"
+                      class="flex flex-wrap gap-1.5">
+                    <% tags.each do |tag| %>
+                      <li>
+                        <span class="inline-flex items-center rounded-full border border-imasus-dark-green/15 bg-white px-2.5 py-0.5 text-xs text-imasus-dark-green/80">
+                          <%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %>
+                        </span>
+                      </li>
+                    <% end %>
+                  </ul>
+                </dd>
+              </div>
+            <% end %>
+          </dl>
+        </section>
+      <% end %>
+    </aside>
+  </div>
+</article>

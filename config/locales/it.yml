@@ -62,7 +62,23 @@ it:
       open_full_page: "Apri pagina completa →"
     show:
       back_to_index: "← Torna ai materiali"
-      coming_soon: "La pagina di dettaglio completa di questo materiale arriverà presto."
+      view_detail: "Apri %{name}"
+      sections:
+        description: "Descrizione"
+        sensorial_qualities: "Qualità sensoriali"
+        what_problem_it_solves: "Quale problema risolve"
+        interesting_properties: "Proprietà interessanti"
+        structure: "Struttura"
+      gallery_label: "Media del materiale"
+      macro_alt: "%{name} — vista macro"
+      micrograph_alt: "Micrografia %{index} di %{name}"
+      video_thumb_label: "Video di %{name}"
+      open_supplier: "Visita il fornitore"
+      tags_heading: "Tag"
+      meta:
+        supplier: "Fornitore"
+        availability: "Disponibilità"
+        material_of_origin: "Materia prima"
   training:
     index:
       title: "Formazione"
