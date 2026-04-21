@@ -18,6 +18,7 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Translatable model fields use JSONB columns named `<attribute>_translations` backed by the `Translatable` concern. Reuse the concern for every translatable model (glossary, materials, challenges). See DECISIONS.md (2026-04-17).
 - Turbo-modal confirmation pattern: layout exposes a top-level `<turbo-frame id="modal">`; a dedicated GET action renders a partial wrapped in that frame. Cancel/backdrop/Escape dismiss via `modal_controller.js`. Prefer this over `data-turbo-confirm` for accessible, styled confirmations.
 - Multi-locale forms use a locale-tabs pattern: current `I18n.locale` is default-active and first in tab order; remaining locales follow the fixed `en → es → it → el` sequence. Panels stay in the DOM so unsaved input in inactive tabs is preserved.
+- Materials Drive asset nomenclature: SMEs author material media in Drive with one folder per material (e.g. `Lifematerials-Kapok/`, `Pyratex-Musa-1/`). Folder name lowercased equals `Material#slug`. Inside: `<Folder>.png|jpg` is the macro (hero); `<Folder>-m1`…`-mN.tif|jpg` are microscopies ordered from max-zoom (`m1`) to min; `<Folder>.mp4` is the video. Pre-processing before import: TIF/PNG → JPG, downscale macros to 3000–4000 px, microscopies to 2000–3000 px, then ImageOptim. Originals stay on Drive.
 
 ## Gotchas
 

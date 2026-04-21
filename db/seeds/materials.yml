@@ -1,0 +1,1111 @@
+---
+- trade_name: Pyratex Musa 1
+  material_of_origin: Abaca
+  availability_status: commercial
+  description:
+    en: The PYRATEX® musa 1 rib is made from organic cotton and abaca fiber, one of the strongest natural fibers. It stands out for its high tensile strength, making it highly durable and longer-lasting than many other fibers.
+  interesting_properties:
+    en: Abaca comes from a banana plant that grows in the Philippines and is harvested by small local farmers. It is a hardy plant that needs no pesticides or extra irrigation.
+  structure: {}
+  what_problem_it_solves:
+    en: It is a very resilient plant that requires no pesticides or additional irrigation, making it a sustainable crop.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swaknribmu001-swatch-pyratex-r-musa-1-74
+  slug: pyratex-musa-1
+- trade_name: Lifematerials-Cypress Denim
+  material_of_origin: Cypress
+  availability_status: commercial
+  description:
+    en: Cypress Denim weaves nature into every thread — blending 94% recycled cotton with the essence of Japanese cypress, a tree long revered for its purity and strength. This fabric isn’t just sustainable — it carries the quiet power of ancient forests, offering designers a chance to create garments that feel grounded, clean, and deeply connected to the natural world.
+  interesting_properties:
+    en: Woven with care, Cypress Denim protects as it dresses — its natural antibacterial and antiseptic properties bring wellness into every stitch.
+  structure:
+    en: Structured twill
+  what_problem_it_solves:
+    en: It might offer a new path forward for designers who believe that fashion can heal as well as inspire.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - denim
+    application:
+    - clothing
+    - accessories
+    - home_textiles
+  supplier_url: https://lifematerials.eu/shop/cypress-denim/
+  supplier_name: LifeMaterials, Cypress denim
+  slug: lifematerials-cypress-denim
+- trade_name: Pyratex Freshness 1
+  material_of_origin: Bamboo
+  availability_status: commercial
+  description:
+    en: PYRATEX® freshness 1 brings together softness and functionality in a textile fabric that helps keep the body fresh and protected, thanks to its antibacterial properties, UV protection, and ability to regulate temperature and enhance breathability. It is made from bamboo viscose and elastane.
+  interesting_properties:
+    en: The bamboo comes from Sichuan, China, where it is grown without harsh pesticides and certified by FSC and OEKO-TEX®, ensuring responsible sourcing and a clean production process.
+  structure: {}
+  what_problem_it_solves: {}
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  slug: pyratex-freshness-1
+- trade_name: Pyratex Seacell 7
+  material_of_origin: Bamboo
+  availability_status: commercial
+  description:
+    en: PYRATEX® seacell 7 is a mesh made from seacell, bamboo viscose, and elastane. It is a bio-based alternative to conventional meshes, which are usually made from synthetic fibers or silk. The result is a mesh fabric with a distinctive finish and a more natural origin.
+  interesting_properties: {}
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® seacell 7 replaces traditional mesh fabrics made from synthetic fibers or silk with a more natural alternative based on seacell, bamboo viscose, and elastane.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    - seaweed
+    textile_imitating:
+    - mesh
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swaknmescs007-swatch-pyratex-r-seacell-7-54
+  slug: pyratex-seacell-7
+- trade_name: Lifematerials-Muskin
+  material_of_origin: Mushroom
+  availability_status: commercial
+  description:
+    en: MuSkin is not just a material — it's nature's answer to leather. Grown from the cap of the wild Phellinus ellipsoideus fungus, this remarkable vegan alternative transforms something living into something lasting, without harming animals or the planet. Free from oil, toxins, and cruelty. Each piece is one-of-a-kind, shaped by nature’s hand, making your designs not only sustainable but deeply personal. It’s more than fabric — it’s a story, a statement, a future.
+  interesting_properties:
+    en: Naturally breathable, MuSkin allows your designs to feel as alive as they look. With the simple touch of eco-friendly waxes, it transforms — gaining water resistance while staying true to its sustainable roots. It’s protection with purpose, innovation with integrity.
+  structure:
+    en: Numerous filaments in no particular order. Compact filaments.
+  what_problem_it_solves:
+    en: It answers the urgent call for alternatives to leather that are kind to both animals and the planet. Unlike synthetic vegan leathers, which rely on plastics, MuSkin is 100% natural, biodegradable, and free from toxins. It replaces cruelty with care, pollution with purity, and mass production with individuality
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - fungi
+    textile_imitating:
+    - leather
+    application:
+    - footwear
+    - accessories
+    - furniture
+    - home_textiles
+  supplier_url: https://lifematerials.eu/shop/muskin-cruelty-free-and-oil-free-vegan-leatherette-alternative-to-animal-based-leather/
+  supplier_name: LifeMaterials MuSkin
+  slug: lifematerials-muskin
+- trade_name: Pyratex Element 1
+  material_of_origin: Nettle
+  availability_status: commercial
+  description:
+    en: PYRATEX® element 1 is a textile made from a blend of organic cotton and nettle that grows wild in the mountain forests of the Himalayas. Nettle cultivation has a very low environmental impact, as it requires no irrigation or pesticides and is based on regenerative farming that helps maintain soil fertility and local biodiversity.
+  interesting_properties:
+    en: The fiber is mechanically extracted from the plant’s stalk. It also has a positive social impact, providing additional income for local farmers.
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX element 1 addresses the use of high-impact textile fibers by replacing them with nettle and organic cotton.
+  sensorial_qualities: {}
+  tags:
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swaknjerel001-swatch-pyratex-r-element-1-62
+  slug: pyratex-element-1
+- trade_name: Lifematerials - Kapok
+  material_of_origin: Kapok
+  availability_status: commercial
+  description:
+    en: Kapok is a material born from the seeds of the Ceiba tree — nature’s own masterpiece of softness and strength. Composed of hollow cellulose fibres, it feels almost weightless against the skin, like wearing air. Its delicate touch hides powerful insulating properties, offering warmth without bulk. Light, breathable, and beautifully organic, Kapok invites designers to explore a new kind of elegance — one that’s rooted in nature and crafted for comfort.
+  interesting_properties:
+    en: Naturally odourless, non-toxic, and hypoallergenic, it offers comfort even to the most sensitive skin. Its hollow fibre structure not only provides exceptional insulation — it also makes the material incredibly buoyant, able to support up to 30 times its own weight. Even after 30 days, it retains 90% of its buoyancy, making it an ideal choice for life-saving designs like life jackets. With Kapol, safety meets softness, and innovation stays beautifully natural.
+  structure:
+    en: Numerous filaments in no order. Scattered filaments.
+  what_problem_it_solves:
+    en: Kapok solves the problem of finding a natural, lightweight, and breathable stuffing material. Unlike synthetic fibers, kapok is eco-friendly and biodegradable, making it a sustainable choice. Its softness and ability to resist moisture help create comfortable pillows and cushions that stay cool and dry.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - filling
+    - safety_equipment
+  supplier_url: https://lifematerials.eu/shop/life-materials-full-kit/
+  supplier_name: LifeMaterials
+  slug: lifematerials-kapok
+- trade_name: Pyratex Tropic 3
+  material_of_origin: Kapok
+  availability_status: commercial
+  description:
+    en: PYRATEX® tropic 3 is a textile made from a blend of modal and kapok fiber, a plant-based alternative to wool thanks to its insulating, breathable, and quick-drying properties. Similar to cotton, kapok fiber is a type of cellulosic fiber that comes from seeds. It is soft and silky to the touch.
+  interesting_properties:
+    en: Kapok grows in tropical forests without irrigation, pesticides, or fertilizers, supports biodiversity.
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® tropic 3 reduces the environmental impact of traditional fibers by avoiding irrigation, pesticides, and intensive processing, as kapok is naturally harvested without harming the tree. It also provides a plant-based alternative to wool.
+  sensorial_qualities: {}
+  tags:
+    application:
+    - clothing
+  slug: pyratex-tropic-3
+- trade_name: Econyl catalogue
+  material_of_origin: Recycled nylon
+  availability_status: commercial
+  description:
+    en: Econyl is more than just a fabric — it’s a chance to design with purpose. Made from recycled industrial and post-consumer waste, Econyl offers the same strength and versatility as traditional nylon, but with a far lighter impact on the planet. Available in a wide range of colors and patterns, it gives fashion students the freedom to create boldly while supporting a circular future. With Econyl, sustainability and style go hand in hand.
+  interesting_properties:
+    en: Offering the same performance as virgin nylon, it’s just as durable, flexible, and waterproof — ready to meet the demands of modern design. For fashion students, it’s an invitation to innovate responsibly, blending high performance with low impact.
+  structure:
+    en: 'Econyl HEE 421, Econyl HDE 101, Econyl HCE406, Econyl EFX004: Disordered filaments of the same size (threads). Econyl-3600-92AE: Clustered filaments, composed of three different types of fibres as they have different thicknesses.'
+  what_problem_it_solves:
+    en: Econyl tackles the growing problem of plastic waste by turning it into a valuable resource. Made from discarded fishing nets, fabric scraps, and other nylon waste, it helps reduce pollution in oceans and landfills. At the same time, it offers designers a sustainable alternative to virgin nylon, without sacrificing quality or performance. Econyl supports a circular fashion model, where materials are reused instead of wasted.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+    - technical_textiles
+    - accessories
+  supplier_url: https://econyl.aquafil.com/
+  supplier_name: Econyl
+  slug: econyl-catalogue
+- trade_name: ECOALF-fishing nets
+  material_of_origin: Recycled nylon
+  availability_status: commercial
+  description:
+    en: One innovative way to create nylon without using oil is by recycling abandoned fishing nets from the ocean—an approach championed by brands like Ecoalf. Since these nets are limited in supply, recycled nylon also comes from industrial fabric scraps and post-consumer waste. Compared to traditional nylon, it requires fewer production steps, making it a more efficient and eco-friendly alternative.
+  interesting_properties:
+    en: This process reduction leads to a reduction in CO2 emissions and water consumption. Recycled nylon can be recycled again when garments reach the end of their useful life
+  structure: {}
+  what_problem_it_solves:
+    en: Using recycled nylon helps tackle ocean pollution, especially from abandoned fishing nets, which are dangerous to marine life. It also reduces our dependence on oil and lowers the carbon footprint of textile production.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - conventional_nylon
+    application:
+    - clothing
+    - footwear
+  supplier_url: https://ecoalf.com/pages/materiales
+  supplier_name: Ecoalf
+  slug: ecoalf-fishing-nets
+- trade_name: Revoltech LOVR
+  material_of_origin: Hemp
+  availability_status: commercial
+  description:
+    en: LOVRTM is more than a material — it's a statement of strength and sustainability. Derived from hemp, one of nature’s most resilient plants, LOVR brings durability to the forefront of design. With natural resistance to heat, abrasion, and tension, it empowers designers to push boundaries without compromising the planet. It’s built to endure — just like the bold ideas behind every great fashion revolution.
+  interesting_properties:
+    en: Hemp is a sustainability champion — requiring little water, no pesticides, and absorbing large amounts of CO2. Choosing it means designing with purpose, where every material decision supports a healthier planet.
+  structure:
+    en: Structure composed of filaments grouped together with circular holes.
+  what_problem_it_solves:
+    en: 'Compared to traditional leather: LOVR is more water resistant, requires less maintenance. The resulting colours are matt or faded, and have a natural look.'
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - footwear
+    - accessories
+    - clothing
+    - automotive
+  supplier_url: https://www.revoltech.com/lovr
+  supplier_name: Revoltech LOVRTM
+  slug: revoltech-lovr
+- trade_name: Pyratex bio 3
+  material_of_origin: Hemp
+  availability_status: commercial
+  description:
+    en: PYRATEX® bio 3 is a textile made with PLA, a bio-based material (Polylactic Acid). PLA makes a real difference, as they are not using any petroleum nor any harmful chemicals in the process. It is made with corn, cassava, sugar cane or beets. The hemp fiber in this fabric is of European origin.
+  interesting_properties: {}
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® bio 3 reduces the reliance on petroleum-based materials in textiles by replacing them with plant-based PLA and hemp.
+  sensorial_qualities: {}
+  tags:
+    application:
+    - clothing
+  supplier_url: https://www.pyratex.com/
+  slug: pyratex-bio-3
+- trade_name: Torné Grup COTHEMPMAT-305
+  material_of_origin: Hemp
+  availability_status: commercial
+  description:
+    en: They offer different materials on their website, and material COTHEMPMAT‑305 is composed of 85% organic cotton and 15% hemp
+  interesting_properties:
+    en: TORNE GRUP, through its TNTEX brand, provides an extensive selection of sustainable fabrics and materials designed for the fashion and textile industry. Every product is certified according to the Oeko-Tex® Standard 100, guaranteeing that they are free from harmful substances and safe for people. **Structure:x**
+  structure: {}
+  what_problem_it_solves:
+    en: This textile helps reduce the environmental impact of textiles by offering a low-impact, natural alternative to synthetic fibers, lowering water use, chemical inputs, and plastic pollution. At the same time, the addition of hemp improves durability and scalability, making it a more viable option for circular and industrial textile applications.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+  supplier_url: https://tntex.es/
+  slug: torne-grup-cothempmat-305
+- trade_name: Revoltech MATTR
+  material_of_origin: Algae
+  availability_status: commercial
+  description:
+    en: MATTRTM is more than just a material — it’s a vision of the future. Harvested from algae, it transforms one of nature’s simplest organisms into something revolutionary. With the flexibility to shape bold silhouettes and the strength to endure real-world wear, MATTRTM invites designers to rethink what’s possible. It's not just eco-conscious — it's a creative ally for those who believe fashion should move, feel, and evolve with the planet.
+  interesting_properties:
+    en: This remarkable algae is a fast-growing, renewable resource — a living solution that captures CO2 and thrives even in wastewater. It’s nature’s quiet rebel, transforming pollution into possibility and proving that sustainability can start from the ground up — or even the water down.
+  structure:
+    en: Clustered filaments, composed of three different types of fibres as they have different thicknesses.
+  what_problem_it_solves:
+    en: Made entirely from plants and designed for circularity, it eliminates plastic, pollution, and compromise.Begin kind to the planet, it empowers designers to create with both beauty and responsibility — proving that innovation and ethics can be woven into every stitch.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - seaweed
+    textile_imitating:
+    - leather
+    application:
+    - clothing
+    - furniture
+  supplier_url: https://www.revoltech.com/mattr
+  supplier_name: Revoltech MATTRTM
+  slug: revoltech-mattr
+- trade_name: B.Zornoza- Chitosan
+  material_of_origin: Chitosan
+  availability_status: research_only
+  description:
+    en: Chitosan is an innovative biopolymer derived from the shells of crustaceans — a natural material being reimagined for the future of fashion. Through a process of transformation, it forms a delicate yellowish membrane with exciting potential in textiles. Still in the early stages of development, chitosan invites bold designers to explore new possibilities at the intersection of science and style. It's not just a material — it's a glimpse into what sustainable fashion could become.
+  interesting_properties:
+    en: This forward-thinking project was developed by Beatriz Zonorza, a researcher in the Chemical Engineering Department at the University of Zaragoza. Her work brings science and sustainability together, opening new doors for innovative materials.
+  structure:
+    en: Smooth material which is not composed of fibres, since it is a sheet not obtained by the use of fabric or yarn. In the ESEM images, small defects of unknown composition are visible.
+  what_problem_it_solves:
+    en: Chitosan’s unique membrane-like texture and plastic-like feel make it a promising natural alternative to petroleum-based plastics. It could be used to create sustainable clothing and accessories such as raincoats or bags, offering eco-friendly options that reduce reliance on traditional plastics while maintaining durability and functionality.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - animals
+  slug: b-zornoza-chitosan
+- trade_name: Crabyon fibre
+  material_of_origin: Chitosan
+  availability_status: commercial
+  description:
+    en: Crabyon Viscose yarn is made from natural cellulose and enriched with chitin, giving it antibacterial and hypoallergenic qualities. Its blend can be adjusted and combined with cotton or wool, offering endless possibilities.This is a reminder that innovation in materials allows us to create fabrics that are healthy, and sustainable.
+  interesting_properties:
+    en: This substance comes from recycling of the shellfish carapace through a particular production process, patented worldwide. Chitosan is the world’s second most abundant polymer and its derivative chitin has a similar structure to cellulose.
+  structure: {}
+  what_problem_it_solves:
+    en: By using chitin derived from shellfish waste, it reduces industrial waste and promotes the recycling of natural resources. Its antibacterial and hypoallergenic properties make it ideal for healthier textiles, reducing the need for chemical treatments. Additionally, the fibre can be blended with cotton, wool, or other materials, allowing designers to create sustainable, functional, and innovative fabrics while supporting a more circular and eco-conscious textile industry.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - animals
+    application:
+    - technical_textiles
+    - clothing
+  supplier_url: https://omikenshi.co.jp/pdf/english/CRABYON\_English.pdf
+  supplier_name: "\\-OMIKENSHI"
+  slug: crabyon-fibre
+- trade_name: B.Zornoza-Starch
+  material_of_origin: Starch
+  availability_status: research_only
+  description:
+    en: Starch is a white, granular compound that stores the energy of plants such as potatoes. From it, thin transparent membranes can be developed with the potential to become new textile materials.Science and fashion come together to create sustainable materials and transform nature into design.
+  interesting_properties:
+    en: This innovative project was led by Beatriz Zonorza, a researcher from the Chemical Engineering Department at the University of Zaragoza, who is exploring the hidden potential of everyday materials to inspire the next generation of sustainable fashion.
+  structure:
+    en: Macroscopically smooth surface, although micro images show a multitude of defects that could be related to its synthesis.
+  what_problem_it_solves:
+    en: Starch can provide a sustainable alternative to synthetic materials like plastics in fashion and textiles. It helps reduce environmental impact by using natural, renewable resources to create innovative materials.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+  supplier_name: "\\- Not available"
+  slug: b-zornoza-starch
+- trade_name: Orange fiber
+  material_of_origin: Orange
+  availability_status: commercial
+  description:
+    en: Orange Fiber is an Italian brand turning citrus waste into a vision of sustainable luxury. Drawing on “pastazzo” — the peels, seeds, and pulp left over after juice production — the company transforms this often-overlooked by-product into a soft, cellulose-based thread. The resulting fiber can stand alone or be blended with other materials, offering designers a beautiful, biodegradable alternative for conscious fashion. From fruit waste to fabric, Orange Fiber shows how creativity and circularity can reshape the future of textiles.
+  interesting_properties:
+    en: Orange Fiber has already caught the attention of major fashion houses, with brands like H\&M and Salvatore Ferragamo incorporating it into past collections. While it's not currently available on the market, its early adoption signals strong potential for future use in sustainable fashion.
+  structure: {}
+  what_problem_it_solves:
+    en: 'Orange Fiber helps tackle two major problems in the fashion industry: waste and resource overuse. By transforming citrus by-products into textiles, it reduces food industry waste that would otherwise be discarded. At the same time, it offers a sustainable alternative to virgin fibers like cotton or silk, helping lower water use, pesticide reliance, and environmental impact. It''s a step toward a more circular, responsible fashion system.'
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - silk
+    application:
+    - clothing
+    - accessories
+  supplier_url: https://orangefiber.it/contact/
+  supplier_name: Orange fiber web
+  slug: orange-fiber
+- trade_name: Pyratex citrea 3
+  material_of_origin: Orange
+  availability_status: commercial
+  description:
+    en: PYRATEX® citrea 3 is a soft, fluid interlock fabric made from 100% orange fiber. This fiber is derived from discarded orange peels blended with wood pulp through a lyocell-like process, resulting in a luxurious-feel material inspired by nature that transforms organic waste into an innovative textile.
+  interesting_properties: {}
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® citrea 3 reduces food industry waste by turning discarded orange peels into textile fiber, giving them a second life instead of becoming waste.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swatch-pyratex-r-citrea-3-933
+  slug: pyratex-citrea-3
+- trade_name: Squeeze the orange
+  material_of_origin: Orange
+  availability_status: commercial
+  description:
+    en: Squeeze The Orange is a project that researches and shares biomaterials made from food waste, creating compostable bioplastics. One of its flagship projects within the Barcelona neighbourhood waste challenge was the creation of a raincoat made from orange waste, a piece that was later presented at the Matter Matters exhibition, showing how waste can be transformed into design objects with cultural and environmental value.
+  interesting_properties:
+    en: |-
+      The project has been recognized with the STARTS Prize of the European Commission (2021) and has been a finalist in S4Fashion (2022) and Foodture Barcelona (2023), as well as featured in the exhibition *Designing with the World* at Hub Barcelona.
+
+      **Structure:XRetails: ** They don’t sell products.
+
+      **x**
+  structure: {}
+  what_problem_it_solves:
+    en: Transform food waste into biomaterials through an innovative and sustainable approach.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  slug: squeeze-the-orange
+- trade_name: Piñatex - Ananas Anam
+  material_of_origin: Pineapple
+  availability_status: commercial
+  description:
+    en: Piñatex is an innovative textile born from the transformation of pineapple leaves — a natural by-product turned into a sustainable alternative to leather. Light, flexible, and breathable, it offers designers a cruelty-free material that blends performance with purpose. With Piñatex, waste becomes a possibility, and nature meets innovation in every stitch.
+  interesting_properties:
+    en: Celebrated as a sustainable alternative to conventional leather, Piñatex requires no additional water or pesticides, making it a low-impact material that respects both the planet and its resources.
+  structure: {}
+  what_problem_it_solves:
+    en: Piñatex addresses major issues in the fashion and materials industry by providing a sustainable, cruelty-free alternative to conventional leather. It reduces the need for resource-intensive animal farming, which consumes large amounts of water and often relies on pesticides and chemicals. By using pineapple leaf waste, Piñatex also helps reduce agricultural waste that would otherwise go unused or be burned, lowering environmental pollution.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - accessories
+    - clothing
+    - footwear
+    - home_textiles
+    - automotive
+  supplier_url: https://store.ananas-anam.com/
+  supplier_name: Ananas Anam, Piñatex
+  slug: pinatex-ananas-anam
+- trade_name: Hiblatech
+  material_of_origin: Pineapple
+  availability_status: in_development
+  description:
+    en: HiblaTech transforms pineapple leaf waste into sustainable textiles, creating fibers and innovative materials from what was previously discarded.
+  interesting_properties:
+    en: 'Pineapple farming in the Philippines produces over 2.6 million tons of leaf waste.Pineapple fiber is biodegradeable. Pineapple leaf fiber extraction could reduce greenhouse gases otherwise released into the environment when leaves are left to decompose after pineapple fruit is harvested **Structure: X**'
+  structure: {}
+  what_problem_it_solves:
+    en: HiblaTech converts pineapple leaf waste into sustainable fibers used to produce fibers or textiles.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - wool
+    application:
+    - accessories
+    - clothing
+    - home_textiles
+  slug: hiblatech
+- trade_name: Lifematerials-Banana Skin
+  material_of_origin: Banana
+  availability_status: commercial
+  description:
+    en: Banana peel fibers, harvested from fallen banana plants, unlock new creative possibilities by transforming natural waste into a surprisingly strong and versatile material. These fibers provide a durable and eco-friendly resource for innovative fashion designs, supporting sustainable production through the effective reuse of agricultural by-products.
+  interesting_properties:
+    en: Among its properties, it offers resistance to both water and fire, enhancing its durability and expanding its potential applications in fashion and textiles.
+  structure: {}
+  what_problem_it_solves: {}
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - accessories
+    - clothing
+  supplier_url: https://lifematerials.eu/shop/banana-skin/
+  supplier_name: LifeMaterials Banana Skin
+  slug: lifematerials-banana-skin
+- trade_name: Banana plant waste-Pilar Ureña
+  material_of_origin: Banana
+  availability_status: commercial
+  description:
+    en: Banana fiber is a plant-based material derived from the agricultural waste of banana cultivation in the Canary Islands, Europe’s leading banana-producing region. For every ton of fruit harvested, approximately four times more biomass is generated, revealing a largely untapped resource with strong potential for contemporary design. Its transformation from waste into raw material is carried out manually, with no water or energy consumption, resulting in a fiber that is strong, flexible, and extremely lightweight, featuring a natural chromatic range from beige to chocolate brown. These structural and aesthetic qualities make it particularly suitable for sustainable applications in fashion and design.
+  interesting_properties:
+    en: 'Functional properties Strong and flexible, suitable for fashion, textiles, basketry, and interior design Extremely lightweight and durable Versatile: can be cut, braided, layered, or transformed into thread or panels Aesthetic properties Unique color range: beige to chocolate brown Organic texture, providing visual and tactile richness Corrugated layers allow volume, pattern, and dimensional play Natural variation enhances authenticity and artisanal value'
+  structure: {}
+  what_problem_it_solves:
+    en: 'Waste valorization: transforms an agricultural by-product into a valuable material Low-impact processing: fully manual, water- and energy-free Biodegradable & chemical-free: 100% natural fiber Circular economy: promotes sustainable design and reuse of local resources'
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+    - footwear
+    - accessories
+    - home_textiles
+  slug: banana-plant-waste-pilar-urena
+- trade_name: Fibras naturales Canarias - Musapiel
+  material_of_origin: Banana
+  availability_status: commercial
+  description:
+    en: Musapiel is a plant-based leather from the Canary Islands, plastic-free, with a neutral water footprint, and compostable. It combines different products, all natural, with 89% being plant-based and derived from the waste of banana plant pseudostems. Our unique formula is key to ensuring we use neither tap water nor distilled water.
+  interesting_properties:
+    en: Banana plantations are one of the largest crops in the world, found on virtually every continent, and are a very abundant food source.
+  structure: {}
+  what_problem_it_solves:
+    en: Biodegradable/Compostable Product ≥ 90% in 90 days (Home Compost) Sustainable product with low environmental impact, made almost entirely from natural resources.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - clothing
+    - footwear
+    - accessories
+    - home_textiles
+  slug: fibras-naturales-canarias-musapiel
+- trade_name: Pyratex element 4
+  material_of_origin: Banana
+  availability_status: commercial
+  description:
+    en: PYRATEX® element 4 is made from organic cotton and banana waste fiber. It uses the stems left over from the food industry, turning them into textile material instead of throwing them away. This reduces agricultural waste and adds value to a natural by-product. Banana fiber has a low environmental impact because the plant needs little water and no pesticides or fertilizers. It can also be grown in the same place every year.
+  interesting_properties:
+    en: India is one of the largest banana producers in the world, with over 30 million tonnes per year. For every tonne of fruit, around four tonnes of stem waste are generated, making this agricultural by-product a highly abundant raw material for new fibers.
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® element 4 solves the issue of large waste generated by the banana industry by turning discarded stems into usable textile fiber. This reduces agricultural waste and avoids the use of extra resources, giving value to a by-product that was previously unused.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+  supplier_url: https://eshop.pyratex.com/shop/swaknfleel004-swatch-pyratex-r-element-4-462
+  slug: pyratex-element-4
+- trade_name: ECOALF-Coffe
+  material_of_origin: Coffee
+  availability_status: in_development
+  description:
+    en: By using discarded coffee grounds from coffee shops, we can turn waste into innovation. When mixed with recycled polyester or nylon, these grounds become thread with natural properties like quick-drying, UV protection, and odor resistance—without any extra chemicals. This proves that everyday waste can inspire sustainable, functional, and creative fashion design.
+  interesting_properties:
+    en: This thread carries the natural powers of coffee—quick-drying, UV protection, and odor resistance—without any extra chemicals. It shows how everyday waste can become a source of innovation, encouraging designers to create sustainable, functional, and exciting new fashion materials.
+  structure: {}
+  what_problem_it_solves:
+    en: Ecoalf transforms used coffee grounds into sustainable fabrics, combined with recycled materials like PET or nylon, creating textiles that dry quickly, offer UV protection, and control odors. This initiative reduces waste and chemical use in clothing, supporting their mission to produce high-quality garments from recycled, low-impact materials.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_name: "\\-Ecoalf"
+  slug: ecoalf-coffe
+- trade_name: Lenzing
+  material_of_origin: Lyocell Tencel
+  availability_status: commercial
+  description:
+    en: Lyocell, produced from the cellulose of trees like eucalyptus, oak, birch, or bamboo, transforms natural wood pulp into versatile, high-performance fibers. This sustainable material combines innovation and nature, offering remarkable qualities such as antibacterial properties and exceptional water absorption.
+  interesting_properties:
+    en: In addition to being elastic and strong, this material is so light that it does not need ironing.
+  structure: {}
+  what_problem_it_solves:
+    en: TENCEL is made from sustainably grown trees. It uses little water and chemicals, is biodegradable, and naturally keeps you dry and clean—making it a good, eco-friendly fabric for designers.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://lenzingpro.com/en/portal/c/TX?query=:relevance:allCategories:TX:fiberType:CLY
+  supplier_name: "\\-Lyocell garments are currently available."
+  slug: lenzing
+- trade_name: Organic linen
+  material_of_origin: Linen
+  availability_status: commercial
+  description:
+    en: Organic linen is a strong, biodegradable natural fiber that requires little water and no dyes. It repels moisture, resists high temperatures, and helps keep skin free from sweat and bacteria—offering a sustainable, versatile canvas to create stylish, eco-conscious designs that respect both people and the planet.
+  interesting_properties:
+    en: This type of flax can be grown on low quality soils and 100% of the plant is used.
+  structure: {}
+  what_problem_it_solves:
+    en: This flax can grow on poor soils, and the whole plant is used—proving that even simple resources can create beautiful, sustainable designs.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - conventional_linen
+    application:
+    - clothing
+  supplier_url: https://www.organicfabriccompany.com/collections/linen?srsltid=AfmBOorFba1a3xjtOVt8gXKwBEOZCTN14yPAd9fDFaUgcZ8402696Gl9
+  supplier_name: "\\-Some shops, like Mango or Ecoalf, now sell organic linen garments on sites certified with GOTS or OEKO-TEX®."
+  slug: organic-linen
+- trade_name: Pyratex lino 1
+  material_of_origin: Linen
+  availability_status: commercial
+  description:
+    en: PYRATEX® lino is a fabric range made from European flax, a strong and versatile fiber ideal for long-lasting garments. It is produced with European manufacturers to ensure full traceability and close control of the supply chain.
+  interesting_properties:
+    en: By avoiding the common cottonization process, it remains free from additives with a fully transparent origin.
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® lino addresses the lack of traceability and the use of industrial processes with additives in conventional linen.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://www.pyratex.com/lino
+  slug: pyratex-lino-1
+- trade_name: Torné Grup COTTLINMAT-236
+  material_of_origin: Linen
+  availability_status: commercial
+  description:
+    en: They offer different materials on their website, and material COTLINMAT-236 is composed of 70% organic cotton and 30% linen.
+  interesting_properties:
+    en: 'TORNE GRUP, through its TNTEX brand, provides an extensive selection of sustainable fabrics and materials designed for the fashion and textile industry. Every product is certified according to the Oeko-Tex® Standard 100, guaranteeing that they are free from harmful substances and safe for people. **Structure: x**'
+  structure: {}
+  what_problem_it_solves:
+    en: It addresses the environmental impact of textiles by combining low-impact, plant-based fibers that require less water and fewer chemicals than conventional materials. The addition of linen enhances strength, breathability, and durability, making it a more sustainable and practical option for scalable textile and interior applications.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+    - accessories
+  slug: torne-grup-cottlinmat-236
+- trade_name: Vegea
+  material_of_origin: Grapes
+  availability_status: in_development
+  description:
+    en: Vegea is a next-generation alternative to traditional leather, crafted from the by-products of winemaking—transforming grape skins and seeds into a luxurious, plant-based material. With its standout water-repellent properties and elegant finish, Vegea invites designers to merge sustainability with style, turning waste into wear with purpose and creativity.
+  interesting_properties:
+    en: Vegea offers a range of finishes, each with its own unique character—varying in thickness, weight, and texture—giving designers the freedom to explore diverse applications while staying true to sustainable values.
+  structure: {}
+  what_problem_it_solves:
+    en: Vegea addresses key environmental and ethical problems in the fashion and materials industry. By transforming winemaking by-products into a plant-based leather alternative, it reduces agricultural waste and supports circular production. It also eliminates the need for animal hides and the harsh chemicals used in traditional leather tanning, offering a cruelty-free, low-impact option.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - accessories
+    - clothing
+    - footwear
+    - furniture
+    - automotive
+  supplier_url: https://www.vegeacompany.com/contacts/
+  supplier_name: "\\-"
+  slug: vegea
+- trade_name: ECOALF-Recycled cotton 1(2)
+  material_of_origin: Recycled cotton
+  availability_status: commercial
+  description:
+    en: Cotton is a fiber that comes from the seeds of the cotton plant, one of the most widely used fabrics thanks to its lightness, durability, and breathability. Its versatility and comfort make it a timeless material, inviting creativity while supporting sustainable choices and thoughtful design.
+  interesting_properties:
+    en: Recycled cotton avoids new cultivation, saving water and reducing CO2—turning waste into stylish, sustainable fabric.
+  structure: {}
+  what_problem_it_solves:
+    en: Recycled cotton helps the environment by using leftover fabric instead of growing new cotton. It saves water, reduces CO₂, and avoids chemicals, turning waste into a useful, eco-friendly material.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - conventional_cotton
+    application:
+    - accessories
+    - clothing
+  supplier_url: https://ecoalf.com/pages/materiales
+  supplier_name: Recycled cotton garments are currently available in shops such as Ecoalf.
+  slug: ecoalf-recycled-cotton-1-2
+- trade_name: Pyratex recover 1
+  material_of_origin: Recycled cotton
+  availability_status: commercial
+  description:
+    en: PYRATEX® recover 1 is a fabric developed with Recover using recycled cotton from textile waste and organic cotton. Recover is the company that collects and transforms post-consumer textile waste into new high-quality cotton fibers through mechanical recycling. The fibers are spun and knitted into unique structures by PYRATEX®
+  interesting_properties:
+    en: PYRATEX®’s collaboration with Recover™ has expanded its ability to offer clients responsible alternatives to conventional fibers through 100% traceable recycled cotton blends.
+  structure: {}
+  what_problem_it_solves:
+    en: Recover’s advanced recycling process converts textile waste into high-quality, low-impact cotton fiber while using very little water and few chemicals.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+  slug: pyratex-recover-1
+- trade_name: Pyratex upcycled 2
+  material_of_origin: Recycled cotton
+  availability_status: commercial
+  description:
+    en: PYRATEX® upcycled is a fabric range made from organic cotton and recycled cotton sourced from post-industrial textile waste. Production leftovers are collected and mechanically recycled without chemicals, keeping the fiber as cotton. The process uses a high share of solar energy and avoids the water consumption of virgin cotton.
+  interesting_properties:
+    en: PYRATEX® upcycled fabrics are made from recycled cotton sourced from post-industrial textile waste collected globally.
+  structure: {}
+  what_problem_it_solves:
+    en: |-
+      It reduces textile waste by reusing production leftovers that are usually discarded.
+
+      .
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+  slug: pyratex-upcycled-2
+- trade_name: Torné Grup R1615ABN
+  material_of_origin: Recycled cotton
+  availability_status: commercial
+  description:
+    en: They offer different materials on their website, and material R1615ABN is composed of 60% recycled cotton, 15% recycled polyester and 25% virgin cotton.
+  interesting_properties:
+    en: TORNE GRUP, through its TNTEX brand, provides an extensive selection of sustainable fabrics and materials designed for the fashion and textile industry. Every product is certified according to the Oeko-Tex® Standard 100, guaranteeing that they are free from harmful substances and safe for people. **Structure:x**
+  structure: {}
+  what_problem_it_solves:
+    en: This textile helps reduce textile waste and resource consumption by incorporating a high percentage of recycled fibers. At the same time, the inclusion of polyester and virgin cotton improves material strength and consistency, making it more suitable for durable, scalable applications while partially lowering reliance on new raw materials.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://tntex.es/
+  supplier_name: "[https://tntex.es/](https://tntex.es/)"
+  slug: torne-grup-r1615abn
+- trade_name: Spider silk
+  material_of_origin: Silk
+  availability_status: in_development
+  description:
+    en: Spider silk is made of amino acid chains, producing fibers that are ultra-light and extremely strong—showing how nature inspires innovative materials.
+  interesting_properties:
+    en: One of the disadvantages of making natural silk is that spiders are difficult to breed as they tend to kill each other. In addition, it takes around 400 spiders to make 0.85 square metres of web.
+  structure: {}
+  what_problem_it_solves: {}
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - animals
+    textile_imitating:
+    - silk
+  slug: spider-silk
+- trade_name: Qmilk
+  material_of_origin: Milk
+  availability_status: in_development
+  description:
+    en: "**Qmilk is a unique material made from milk that can’t be consumed.** Instead of letting it go to waste, the milk is repurposed to extract casein, a natural protein, which is then used to create fibers—without the need for any pesticides. The result is a fabric that’s incredibly fine, naturally antibacterial, and soft as silk. It feels gentle on the skin, making it not only comfortable to wear but also safe and skin-friendly."
+  interesting_properties:
+    en: Qmilk can be blended with natural fibers like cotton or viscose, unlocking even more possibilities for beautiful, sustainable design. Whether it's used in clothing or home textiles, it brings comfort, elegance, and a touch of innovation to everyday life.
+  structure: {}
+  what_problem_it_solves:
+    en: Qmilk transforms waste milk into a soft, biodegradable fiber, helping reduce food waste and environmental impact. Its naturally antibacterial, skin-friendly properties make it ideal for sensitive textiles without the need for chemicals.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - animals
+    textile_imitating:
+    - synthetic_fibres
+    application:
+    - clothing
+  supplier_url: https://www.qmilkfiber.eu/qmilk-faser-modische-anwendung?lang=en
+  slug: qmilk
+- trade_name: Bacterial cellulose
+  material_of_origin: Bacteria
+  availability_status: in_development
+  description:
+    en: Bacterial cellulose is made by fermenting microorganisms and is composed of long chains of glucose. It’s biodegradable and clean, giving designers a new material to create sustainable fashion.
+  interesting_properties:
+    en: Another property is that it can be dyed with natural pigments.
+  structure: {}
+  what_problem_it_solves:
+    en: Bacterial cellulose is a sustainable, cruelty-free material that addresses multiple challenges in fashion and design. It is biodegradable, non-toxic, and produced through fermentation, avoiding plastics, harmful chemicals, and animal exploitation.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - bacteria
+  slug: bacterial-cellulose
+- trade_name: Qmonos
+  material_of_origin: Bacteria
+  availability_status: in_development
+  description:
+    en: Spiber Inc. has developed Qmonos, a groundbreaking artificial silk inspired by the incredible strength and lightness of spider silk. By harnessing genetically modified bacteria to produce fibroin—the protein that gives natural silk its remarkable qualities—they’ve created a next-generation material that merges biology and technology, opening bold new possibilities for sustainable and high-performance design.
+  interesting_properties:
+    en: In 2013, Spiber unveiled a dress made from Qmonos—named after the Japanese word *kumonosu*, meaning "spider’s web." To develop this innovative and resilient fabric, they studied the silk of various spider species, blending nature’s engineering with cutting-edge biotechnology to create fashion rooted in science and imagination.
+  structure: {}
+  what_problem_it_solves:
+    en: Qmonos tackles major challenges in sustainability and material innovation by offering a biologically produced, cruelty-free alternative to traditional silk and synthetic fibers. It reduces reliance on resource-intensive silk farming and petrochemical-based textiles, cutting down water use, land impact, and harmful chemicals.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - bacteria
+    textile_imitating:
+    - silk
+  slug: qmonos
+- trade_name: Nukak
+  material_of_origin: Recycled Tyres
+  availability_status: in_development
+  description:
+    en: This material is created from recycled tyres. The rubber is carefully separated from the other components and compacted without any glues or adhesives, giving designers a sustainable, versatile material to explore and create with.
+  interesting_properties:
+    en: Tyres are made of natural and synthetic rubber, nylon, rayon, or polyester, which makes recycling them complex. Yet, within every challenge lies an opportunity to imagine more sustainable solutions.
+  structure:
+    en: Tyres consist of many components such as natural and synthetic rubber, nylon, rayon or polyester, this mixture complicates its recycling.
+  what_problem_it_solves:
+    en: Recycling tires helps the environment by keeping them out of landfills and reducing pollution. Old tires can be turned into new products like rubber, asphalt, or playground surfaces. It also lowers the risk of fires and turns waste into useful materials, helping us live more sustainably.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - synthetic_rubber
+    application:
+    - footwear
+    - accessories
+  supplier_url: https://www.nukak.es/
+  supplier_name: It is available in Nukak
+  slug: nukak
+- trade_name: ECOALF- Recycled polyester 1 (2)
+  material_of_origin: Recycled Polyester
+  availability_status: in_development
+  description:
+    en: Unlike conventional polyester, which is obtained from petroleum derivatives, recycled polyester can be obtained from plastic bottles. These are compacted and broken down into small fibres, which are then transformed into fabric. The chance to give new life to what used to be waste, creating thoughtful and sustainable fashion.
+  interesting_properties:
+    en: It helps to reduce plastic in landfills and generate less pollution.
+  structure: {}
+  what_problem_it_solves:
+    en: Recycled polyester helps reduce plastic waste, keeping bottles out of landfills and oceans. It lowers the need for petroleum-based materials, saving resources and cutting emissions. It transforms discarded plastics into usable fabric for fashion and other products.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - conventional_polyester
+    application:
+    - clothing
+  supplier_url: https://ecoalf.com/pages/materiales
+  supplier_name: "\\-Ecoalf"
+  slug: ecoalf-recycled-polyester-1-2
+- trade_name: Brewed Protein™
+  material_of_origin: Protein
+  availability_status: in_development
+  description:
+    en: Brewed Protein is a registered brand of sustainable proteins developed by Spiber Inc. These proteins are created through microbial fermentation, turning plant sugars into valuable materials with the help of specially designed microorganisms. It’s a reminder that science and creativity can come together to produce innovation.
+  interesting_properties:
+    en: It is made to be biodegradable in nature, so it can break down without leaving microplastics or harmful chemicals. Because it comes from plant sugars, it also has a much smaller carbon footprint than regular synthetic fibres. It shows that we can make materials that are good for people and the planet.
+  structure: {}
+  what_problem_it_solves:
+    en: Brewed Protein is made from plant sugars and breaks down naturally without leaving harmful waste. It shows that we can make strong, useful materials that are better for the planet.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - microbial
+  supplier_url: https://spiber.inc/en/protein
+  supplier_name: "\\-Spiber Inc."
+  slug: brewed-protein
+- trade_name: Azlon
+  material_of_origin: Protein
+  availability_status: in_development
+  description:
+    en: Azlon is a synthetic fiber made from proteins found in natural sources like soy. The raw material is turned into a liquid, which is then pushed through tiny holes in a device called a spinneret to create fibers. These fibers are stretched to line up their molecules for added strength. However, Azlon tends to be weaker when it’s wet.
+  interesting_properties: {}
+  structure: {}
+  what_problem_it_solves:
+    en: "**-**"
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - protein
+    application:
+    - clothing
+  slug: azlon
+- trade_name: Risa Ueno
+  material_of_origin: Protein
+  availability_status: commercial
+  description:
+    en: A bioplastic material made from milk and vegetables that sparks a discussion about the positive and negative aspects of producing and consuming it.
+  interesting_properties:
+    en: "**Structure:x** It serves multisensory experience through knitted textile using protein based edible plastic yarn that is able to recreate people’s own DNA, re-informing their identity to their selves, inside of their bodies as knitting, eating, using, thus its form of consumption."
+  structure: {}
+  what_problem_it_solves:
+    en: This could reduce the amount of milk waste as well as plastic waste as it's bioplastic, people can eat. And also It reduces to consume chemically made plastic.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+    - footwear
+    - accessories
+    - home_textiles
+    - safety_equipment
+    - art
+  supplier_name: 'Available as art: participatory performance'
+  slug: risa-ueno
+- trade_name: AKROMID® NEXT fibres
+  material_of_origin: Plants
+  availability_status: commercial
+  description:
+    en: AKROMID® NEXT is a new generation of nylon materials developed by German company AKRO-PLASTIC GmbH, combining high technical performance with a lower environmental impact. Unlike traditional nylons, it's made using bio-based, biomass-balanced, or chemically recycled raw materials, making it a more sustainable choice. With different formulations—like PA 6.9, PA 5.6, or PA 11—it can be tailored for strength, stiffness, moisture resistance, or thermal stability, depending on the need.
+  interesting_properties:
+    en: It comes in the form of industrial granules and can be reinforced with glass or carbon fibers, making it ideal for high-performance applications in sectors like automotive, electronics, sports, and technical textiles. Some versions can even be processed into fibers, allowing it to be used in sustainable fabrics that offer the durability of nylon—but with a much lower carbon footprint.
+  structure: {}
+  what_problem_it_solves:
+    en: AKROMID® NEXT helps reduce the environmental impact of high-performance plastics by replacing fossil-based raw materials with bio-based or recycled alternatives. It supports industries that need strong, durable materials—like automotive or electronics—while significantly lowering carbon emissions. By offering a more sustainable nylon alternative, it also helps move technical textiles toward a greener future.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+  supplier_url: https://akro-plastic.com/en/compounds/akromid-next
+  supplier_name: AKRO-PLASTIC
+  slug: akromid-next-fibres
+- trade_name: OnceMore®
+  material_of_origin: Recycled materials
+  availability_status: commercial
+  description:
+    en: Södra's OnceMore® is an innovation in the textile industry. This Swedish is an iniciative industrial-scale process to recycle fabrics containing fibre blends. This brand combines this recycled material with cellulose from wood (from responsibly managed forests) to produce solvent pulp of textile quality.
+  interesting_properties:
+    en: When launched in 2019, OnceMore® had only \~3 % recycled textile content. Now it is already at \~20 % recycled textile content and 80 % renewable wood, but their target is to reach 50 % recycled textile \+ 50 % wood.
+  structure: {}
+  what_problem_it_solves:
+    en: It allows for the industrial-scale recycling of these fabrics by separating and recovering the cotton, turning it into new textile fibers. This helps reduce landfill waste, lowers the need for virgin cotton, and supports a more circular and sustainable fashion industry.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+  supplier_url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+  supplier_name: SÖDRA
+  slug: oncemore
+- trade_name: CellTexx®
+  material_of_origin: Recycled materials
+  availability_status: commercial
+  description:
+    en: CellTexx® is a sustainable material made from recycled cotton-based textiles, giving old clothes a second life. Developed by Australian company BlockTexx®, it’s created through their innovative S.O.F.T. (Separation of Fibre Technology) process, which separates cotton and polyester from blended fabrics. The recovered cotton becomes CellTexx®, a regenerated cellulose material, while the polyester is turned into PolyTexx®, a recycled polyester in pellet form.
+  interesting_properties:
+    en: The main objective of CellTexx® is to close the textile cycle, preventing tons of clothing from ending up in landfills. This type of innovation is part of the circular economy in the fashion and textile industry.
+  structure: {}
+  what_problem_it_solves:
+    en: CellTexx® helps tackle the huge problem of textile waste, especially from blended fabrics that are hard to recycle. By recovering cotton from discarded clothing, it reduces landfill pollution, saves natural resources, and supports a circular textile economy. It also gives new value to materials that would otherwise be thrown away.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+  supplier_url: https://www.blocktexx.com/contact
+  supplier_name: Block Texx®
+  slug: celltexx
+- trade_name: CIRCULOSE®
+  material_of_origin: Recycled materials
+  availability_status: commercial
+  description:
+    en: CIRCULOSE is made by Renewcell and comes from recycled materials. It can be turned into fibers like viscose or lyocell, which are then made into yarns and fabrics to create high-quality clothes. It shows how recycling can give old materials a new life in fashion.
+  interesting_properties:
+    en: It helps people find high-quality textile products made from recycled materials.
+  structure: {}
+  what_problem_it_solves:
+    en: CIRCULOSE helps reduce textile waste by turning old clothes into new fibers. These fibers can be made into yarns and fabrics for new clothes. It shows how old materials can get a second life and help the planet.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+  supplier_url: https://www.renewcell.com/en/contacts/
+  supplier_name: "\\-Renecell"
+  slug: circulose
+- trade_name: MyFi
+  material_of_origin: Mycelium biomass
+  availability_status: research_only
+  description:
+    en: This European project aims to create myco-fibres with up to 90% chitin. Using leftover materials, they make mycelium fabrics with very low CO2 emissions, using little energy from renewable sources, and recycling most of the water. It shows how we can make sustainable fabrics that are good for both people and the planet.
+  interesting_properties:
+    en: Chitin and its derivatives are usually made from shellfish waste using chemical treatments. This process uses a lot of energy and creates toxic waste, which makes it harder to use chitin fibres in some products.
+  structure: {}
+  what_problem_it_solves:
+    en: MYFI solves several problems in textiles and sustainability. It reduces waste by using residues as raw materials and avoids harmful chemical processes.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - fungi
+    textile_imitating:
+    - leather
+    application:
+    - automotive
+  supplier_url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+  supplier_name: My-Fi project, European Union’s Horizon 2020
+  slug: myfi
+- trade_name: Fabric Forest
+  material_of_origin: Paper yarn
+  availability_status: commercial
+  description:
+    en: Fabric Forest produces different materials made from 100% paper yarn sourced from Swedish forests. They offer different materials such as LignaTex which can be braided, offering great variation and many possibilities. It gives a natural impression which is ideal for several uses. Other materials produced are; ArborTex, TerraTex, TimbraTex, and Braided String.The unique production technique used, replaces fossil-based products with renewable ones, helping reduce greenhouse gas emissions and mitigate climate change impacts associated with textile manufacturing.
+  interesting_properties:
+    en: These materials have a low carbon footprint of 1.89 kg CO2/kg fabric and requires only 417 litres of water per kg of fabric. This compares favourably to the nearly 10,000 litres of water required to produce one kilo of cotton.
+  structure: {}
+  what_problem_it_solves:
+    en: Fabric Forest textiles, made from Swedish forest-based raw materials, offer a sustainable alternative to cotton and synthetic fibers. They help reduce reliance on water- and pesticide-intensive crops like cotton, and avoid the use of fossil-based materials. By using renewable, locally sourced wood, they also support forest stewardship and lower the carbon footprint of textile production.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - home_textiles
+    - furniture
+  supplier_url: https://fabric-forest.se/en/fabrics-lignatex/fabric-lignatex/
+  supplier_name: Fabric Forest
+  slug: fabric-forest
+- trade_name: WINT Design Lab
+  material_of_origin: Collagen textiles
+  availability_status: research_only
+  description:
+    en: This innovative material comes from a design research project that explores cow gut tissue as a source for creating high-performance, sustainable textiles. By using collagen-based fibers, it introduces a new way of making fabrics that’s bio-based, renewable, and aligned with the shift toward more eco-conscious production in fashion. It’s a step toward building a biosynthetic future for the industry—where performance and sustainability go hand in hand.
+  interesting_properties:
+    en: Building on traditional textile techniques, the team explored modern fabrication methods like robotic yarn laying and material lamination. Their experiments led to a step-by-step process—a kind of "making map"—which they documented through videos and material samples, offering a clear look at how the materials evolved.
+  structure: {}
+  what_problem_it_solves:
+    en: Switching from petroleum-based textiles to collagen-based ones tackles the problem of relying on fossil fuels, which contribute to pollution and climate change. Collagen textiles come from renewable, natural sources, reducing harmful environmental impact and waste. They also open up possibilities for biodegradable, skin-friendly fabrics that can make fashion more sustainable and healthier for both people and the planet.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - animals
+    application:
+    - technical_textiles
+    - art
+    - clothing
+  supplier_url: https://www.wintdesignlab.de/gold\#Footer
+  supplier_name: WINT Design Lab
+  slug: wint-design-lab
+- trade_name: SOYSILK
+  material_of_origin: Soybean residue
+  availability_status: commercial
+  description:
+    en: Soy Silk is a fiber that is made from the waste produced by soy milk and tofu production. Through a heated, wet spinning process, a liquid form of the soy protein, called okara, is forced through a spinneret and cooled to produce filaments. The resulting fiber is slick, smooth, and best spun at a high twist unless blended. It has a stronger tensile strength than wool and a lovely drape. While prone to piling over time, it has the same moisture absorption as cotton.
+  interesting_properties:
+    en: No petrochemicals are used to make this fibre, so it is completely natural and renewable. The chemicals that are used are saved and recycled back into the process.
+  structure: {}
+  what_problem_it_solves:
+    en: It is renewable, made without chemicals, and helps reduce waste while giving a better option than regular fibres**.**
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - silk
+    application:
+    - clothing
+  supplier_name: "\\-Unknown"
+  slug: soysilk
+- trade_name: SeaCell™
+  material_of_origin: Seaweed
+  availability_status: commercial
+  description:
+    en: SeaCell™ is a fiber made from cellulose that contains nourishing seaweed. It’s created using only renewable materials like wood and seaweed through a clean, eco-friendly process—similar to how Lyocell is made. The production happens in a closed loop, so no harmful chemicals are released into the environment.
+  interesting_properties:
+    en: SeaCell™ is carbon neutral and fully biodegradable. A patented high-tech process that guarantees long-lasting quality, even after several washing cycles.
+  structure: {}
+  what_problem_it_solves:
+    en: As it uses renewable materials like wood and seaweed to create eco-friendly fibers. Its closed-loop process minimizes pollution by avoiding chemical waste. Plus, the seaweed adds natural skin benefits, making it a sustainable and gentle fabric choice.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - seaweed
+  supplier_url: https://duvalli.com/es/contactos-es/
+  supplier_name: DUVALLI
+  slug: seacell
+- trade_name: Pyratex Seacell 5
+  material_of_origin: Seaweed
+  availability_status: commercial
+  description:
+    en: PYRATEX® seacell 5 is an unbrushed fleece made from organic cotton, recycled cotton, and seaweed-based fiber. This fiber has antioxidant properties that help protect the skin from free radicals. The seaweed is gently harvested without damaging the plant, allowing it to regenerate, and is processed in a low-impact closed-loop system. It is a versatile fabric designed for garments such as hoodies, joggers, and sweatshirts, with added skin benefits.
+  interesting_properties:
+    en: It is a versatile fabric designed for garments such as hoodies, joggers, and sweatshirts, with added skin benefits.
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® seacell 5 reduces the impact of conventional textiles by using recycled materials and seaweed in a low-impact, chemical-free production system.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - seaweed
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swaknflecs005-swatch-pyratex-r-seacell-5-52
+  slug: pyratex-seacell-5
+- trade_name: Pyratex Seacell 6
+  material_of_origin: Seaweed
+  availability_status: commercial
+  description:
+    en: PYRATEX® seacell 6 is textile made with Seacell, seaweed-based fiber.This fiber has antioxidant properties that help protect the skin from free radicals. The seaweed comes from the Northern Atlantic and is turned into a fiber that improves skin comfort through soothing and anti-irritation properties.
+  interesting_properties:
+    en: It also offers a more natural and functional textile alternative, with seaweed benefits that remain even after washing.
+  structure: {}
+  what_problem_it_solves:
+    en: PYRATEX® seacell 6 improves skin comfort compared to conventional fabrics, helping reduce irritation, itching, and inflammation thanks to seaweed properties.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - seaweed
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/pyratex-r-seacell-6-260
+  slug: pyratex-seacell-6
+- trade_name: Regenerated wool
+  material_of_origin: Wool
+  availability_status: commercial
+  description:
+    en: Regenerated wool is made by recycling old wool clothes to reduce textile waste. Because the wool is already dyed, new clothes don’t need dyeing, saving water and CO2. It is also kinder to the environment because it doesn’t need extra land for sheep farming.
+  interesting_properties:
+    en: Regenerated wool is an extremely environmentally friendly solution, as is part of the slow fashion belief. It also involves a reduction in animal and human exploitation.
+  structure: {}
+  what_problem_it_solves:
+    en: |-
+      Regenerated wool solves several problems in fashion and the environment. It reduces textile waste by recycling old wool garments.It also helps reduce animal and human exploitation, supporting a more ethical and eco-friendly fashion industry.
+
+      [image1]: <data:image/png;base64,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>
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - wool
+    application:
+    - clothing
+  supplier_url: https://comistra.com/news/regenerated-wool-a-way-to-save-the-planet/
+  supplier_name: Comistra
+  slug: regenerated-wool
