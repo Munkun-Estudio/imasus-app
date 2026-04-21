@@ -21,6 +21,14 @@ class Material < ApplicationRecord
 
   BASE_LOCALE = "en"
 
+  # Translatable narrative fields rendered as prose sections on the detail
+  # page. Ordered for reading: description → sensorial_qualities →
+  # what_problem_it_solves → interesting_properties → structure.
+  TRANSLATED_ATTRIBUTES = %i[
+    description sensorial_qualities what_problem_it_solves
+    interesting_properties structure
+  ].freeze
+
   SEED_PATH = Rails.root.join("db", "seeds", "materials.yml")
 
   enum :availability_status, AVAILABILITY_STATUSES.each_with_index.to_h

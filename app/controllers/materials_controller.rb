@@ -28,10 +28,11 @@ class MaterialsController < ApplicationController
 
   # GET /materials/:slug
   #
-  # Stub detail page. PR (d) replaces this view with the full editorial
-  # layout (sensorial qualities, micrographs, glossary highlighting, SEO
-  # meta). The route exists now so the preview sidebar's "Open full page"
-  # link has a target.
+  # Renders the full editorial detail page: macro hero, header with
+  # supplier and tag chips, prose sections (localised, with glossary-term
+  # highlighting), and a micrograph gallery when microscopies are attached.
+  # Unknown slug raises `ActiveRecord::RecordNotFound` via `set_material`
+  # and surfaces as a 404.
   def show
   end
 
@@ -49,7 +50,9 @@ class MaterialsController < ApplicationController
   private
 
   def set_material
-    @material = Material.find_by!(slug: params[:slug])
+    @material = Material
+                  .includes(assets: { file_attachment: :blob }, tags: {})
+                  .find_by!(slug: params[:slug])
   end
 
   def selected_slugs_by_facet
