@@ -54,4 +54,55 @@ class MaterialsIndexTest < ApplicationSystemTestCase
     assert_selector "[data-controller~='card-media'][data-material]",
                     minimum: 1
   end
+
+  test "eye icon opens the preview sidebar, Escape dismisses it" do
+    visit materials_url
+
+    first_card = first("[data-material]")
+    slug = first_card["data-material"]
+    within(first_card) do
+      find("[data-role='open-preview']").click
+    end
+
+    assert_selector "turbo-frame#preview [role='dialog']"
+    assert_selector "turbo-frame#preview a[href='#{material_path(slug)}']"
+
+    find("body").send_keys(:escape)
+
+    assert_no_selector "turbo-frame#preview [role='dialog']"
+  end
+
+  test "re-clicking the same eye icon after closing re-opens the preview" do
+    material = Material.order(:position).first
+    visit materials_url
+
+    within("[data-material='#{material.slug}']") do
+      find("[data-role='open-preview']").click
+    end
+    assert_selector "turbo-frame#preview [role='dialog']"
+
+    find("body").send_keys(:escape)
+    assert_no_selector "turbo-frame#preview [role='dialog']"
+
+    within("[data-material='#{material.slug}']") do
+      find("[data-role='open-preview']").click
+    end
+    assert_selector "turbo-frame#preview [role='dialog']"
+  end
+
+  test "preview sidebar link navigates to the material detail page" do
+    material = Material.order(:position).first
+    visit materials_url
+
+    within("[data-material='#{material.slug}']") do
+      find("[data-role='open-preview']").click
+    end
+
+    within("turbo-frame#preview") do
+      click_link I18n.t("materials.preview.open_full_page")
+    end
+
+    assert_current_path material_path(material.slug)
+    assert_selector "h1", text: material.trade_name
+  end
 end

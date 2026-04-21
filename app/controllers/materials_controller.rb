@@ -5,6 +5,8 @@
 # and a grid of material cards. Unknown facets and unknown chip slugs are
 # silently ignored so shareable URLs stay robust as the vocabulary evolves.
 class MaterialsController < ApplicationController
+  before_action :set_material, only: [ :show, :preview ]
+
   # GET /materials
   # GET /materials?origin_type=plants,fungi&application=clothing&q=cypress
   def index
@@ -24,7 +26,31 @@ class MaterialsController < ApplicationController
     @any_filters_active = @selected_tag_ids_by_facet.any? || @query.present?
   end
 
+  # GET /materials/:slug
+  #
+  # Stub detail page. PR (d) replaces this view with the full editorial
+  # layout (sensorial qualities, micrographs, glossary highlighting, SEO
+  # meta). The route exists now so the preview sidebar's "Open full page"
+  # link has a target.
+  def show
+  end
+
+  # GET /materials/:slug/preview
+  #
+  # Returns the preview-sidebar partial as a bare HTML fragment intended
+  # for the layout-level `<turbo-frame id="preview">` slot. No application
+  # layout — same pattern as {GlossaryTermsController#popover}.
+  def preview
+    render partial: "materials/preview",
+           locals:  { material: @material },
+           layout:  false
+  end
+
   private
+
+  def set_material
+    @material = Material.find_by!(slug: params[:slug])
+  end
 
   def selected_slugs_by_facet
     Tag::FACETS.each_with_object({}) do |facet, acc|

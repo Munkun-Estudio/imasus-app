@@ -1,0 +1,14 @@
+<% content_for :title, @material.trade_name %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <%= link_to t("materials.show.back_to_index"), materials_path,
+        class: "text-sm text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+
+  <h1 class="mt-4 text-3xl font-bold text-imasus-dark-green">
+    <%= @material.trade_name %>
+  </h1>
+
+  <p class="mt-4 max-w-2xl text-base text-imasus-dark-green/70">
+    <%= t("materials.show.coming_soon") %>
+  </p>
+</div>

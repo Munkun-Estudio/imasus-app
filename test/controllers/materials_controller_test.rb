@@ -205,4 +205,62 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     get materials_url
     assert_select "[data-controller~='card-media']", minimum: Material.count
   end
+
+  # --- Cards expose an eye-icon affordance for the preview sidebar ---------
+
+  test "each card renders an open-preview affordance targeting the preview frame" do
+    get materials_url
+    Material.find_each do |material|
+      assert_select %([data-material="#{material.slug}"] [data-role="open-preview"][href=?][data-turbo-frame="preview"]),
+                    preview_material_path(material.slug)
+    end
+  end
+
+  # --- Preview (Turbo Frame) ------------------------------------------------
+
+  test "GET /materials/:slug/preview returns 200" do
+    material = Material.order(:position).first
+    get preview_material_url(material.slug)
+    assert_response :success
+  end
+
+  test "GET /materials/:slug/preview renders trade name, description, and full-page link" do
+    material = Material.order(:position).first
+    get preview_material_url(material.slug)
+    assert_includes response.body, material.trade_name
+    assert_includes response.body, material.description_in(:en).to_s.strip[0, 40]
+    assert_select "a[href=?]", material_path(material.slug)
+  end
+
+  test "GET /materials/:slug/preview renders without the application layout" do
+    material = Material.order(:position).first
+    get preview_material_url(material.slug)
+    assert_no_match(/<html/i, response.body,
+                    "preview should render bare, without the application layout")
+  end
+
+  test "GET /materials/:slug/preview uses a dialog role and is not modal" do
+    material = Material.order(:position).first
+    get preview_material_url(material.slug)
+    assert_select "[role='dialog'][aria-modal='false']"
+  end
+
+  test "GET /materials/:slug/preview returns 404 for unknown slug" do
+    get preview_material_url("nope-nothing-here")
+    assert_response :not_found
+  end
+
+  # --- Show (stub for PR c; fleshed out in PR d) ---------------------------
+
+  test "GET /materials/:slug returns 200 for an existing material" do
+    material = Material.order(:position).first
+    get material_url(material.slug)
+    assert_response :success
+    assert_includes response.body, material.trade_name
+  end
+
+  test "GET /materials/:slug returns 404 for unknown slug" do
+    get material_url("nope-nothing-here")
+    assert_response :not_found
+  end
 end
