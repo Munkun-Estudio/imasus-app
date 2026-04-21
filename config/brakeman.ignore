@@ -1,0 +1,29 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "f4a5a43d3f845db174b0c1aee8f1d9b425cd8fc34cd44b7066ff3ce7efdf4dd6",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "lib/material_assets_preprocessor.rb",
+      "line": 121,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(\"magick\", source.to_s, \"-auto-orient\", \"-resize\", \"#{long_edge}x#{long_edge}>\", \"-strip\", \"-background\", \"white\", \"-alpha\", \"remove\", \"-alpha\", \"off\", \"-colorspace\", \"sRGB\", \"-sampling-factor\", \"4:2:0\", \"-interlace\", \"Plane\", \"-quality\", Integer(quality).to_s, destination.to_s)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "MaterialAssetsPreprocessor",
+        "method": "prepare_image"
+      },
+      "user_input": "long_edge",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "False positive. Open3.capture3 invoked with separate array arguments does not spawn a shell, so no metacharacter in source/destination/long_edge can be interpreted. Inputs are filesystem Pathnames walked from a local directory (never request parameters); long_edge is coerced via Integer(). This is an internal developer-run preprocessing task (rake material_assets:prepare), not reachable from any controller."
+    }
+  ],
+  "updated": "2026-04-21",
+  "brakeman_version": "8.0.4"
+}
