@@ -39,6 +39,23 @@ el:
   materials:
     index:
       title: "Βάση υλικών"
+      lead: "Εξερευνήστε βιώσιμα υλικά που συγκεντρώθηκαν για τα εργαστήρια IMASUS. Φιλτράρετε κατά προέλευση, κατά το ύφασμα που μιμούνται ή κατά την εφαρμογή που έχετε στο μυαλό σας."
+      search_label: "Αναζήτηση υλικών"
+      search_placeholder: "Αναζήτηση με όνομα ή περιγραφή"
+      clear_all: "Εκκαθάριση όλων των φίλτρων"
+      empty_state: "Κανένα υλικό δεν αντιστοιχεί στα τρέχοντα φίλτρα."
+      facets_label: "Φίλτρα υλικών"
+      facets:
+        origin_type:
+          title: "Προέλευση"
+        textile_imitating:
+          title: "Μιμείται"
+        application:
+          title: "Εφαρμογή"
+      availability:
+        commercial: "Εμπορικό"
+        in_development: "Υπό ανάπτυξη"
+        research_only: "Μόνο έρευνα"
   training:
     index:
       title: "Εκπαίδευση"
