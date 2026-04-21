@@ -35,3 +35,9 @@ puts "Seeded #{Workshop.count} workshops."
 
 GlossaryTerm.seed_from_yaml!
 puts "Seeded #{GlossaryTerm.count} glossary terms."
+
+Tag.seed_from_yaml!
+puts "Seeded #{Tag.count} material tags."
+
+Material.seed_from_yaml!
+puts "Seeded #{Material.count} materials."

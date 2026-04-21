@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_17_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_100200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -55,6 +55,45 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_17_120000) do
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 
+  create_table "material_taggings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "material_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_id", "tag_id"], name: "index_material_taggings_on_material_id_and_tag_id", unique: true
+    t.index ["material_id"], name: "index_material_taggings_on_material_id"
+    t.index ["tag_id"], name: "index_material_taggings_on_tag_id"
+  end
+
+  create_table "materials", force: :cascade do |t|
+    t.integer "availability_status", null: false
+    t.datetime "created_at", null: false
+    t.jsonb "description_translations", default: {}, null: false
+    t.jsonb "interesting_properties_translations", default: {}, null: false
+    t.string "material_of_origin"
+    t.integer "position", default: 0, null: false
+    t.jsonb "sensorial_qualities_translations", default: {}, null: false
+    t.string "slug", null: false
+    t.jsonb "structure_translations", default: {}, null: false
+    t.string "supplier_name"
+    t.string "supplier_url"
+    t.string "trade_name", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "what_problem_it_solves_translations", default: {}, null: false
+    t.index "lower((slug)::text)", name: "index_materials_on_lower_slug", unique: true
+    t.index ["availability_status"], name: "index_materials_on_availability_status"
+    t.index ["position"], name: "index_materials_on_position"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "facet", null: false
+    t.jsonb "name_translations", default: {}, null: false
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facet", "slug"], name: "index_tags_on_facet_and_slug", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.text "bio"
     t.string "country"
@@ -97,6 +136,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_17_120000) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "material_taggings", "materials"
+  add_foreign_key "material_taggings", "tags"
   add_foreign_key "workshop_participations", "users"
   add_foreign_key "workshop_participations", "workshops"
 end

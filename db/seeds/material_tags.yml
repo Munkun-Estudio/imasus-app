@@ -1,0 +1,177 @@
+# IMASUS materials-database tag vocabulary.
+#
+# Three facets power the chip-filter rail on the materials index:
+#
+#   * origin_type       — what kind of source the material comes from.
+#   * textile_imitating — which conventional fabric the material replaces.
+#   * application       — what the material can be used to make.
+#
+# Each entry carries an English `name` — the source-of-truth — and optional
+# slots for `es`, `it`, and `el` to be filled in over time. Missing locales
+# fall back to English at read time via the Translatable concern.
+#
+# Re-running this seed is idempotent: entries are matched by (facet, slug),
+# so renaming a slug will create a new record rather than rename in place.
+# Coordinate slug renames with the materials.yml entries that reference them.
+
+# ---------------------------------------------------------------------------
+# origin_type
+# ---------------------------------------------------------------------------
+
+- facet: origin_type
+  slug: plants
+  name:
+    en: Plants
+
+- facet: origin_type
+  slug: fungi
+  name:
+    en: Fungi
+
+- facet: origin_type
+  slug: animals
+  name:
+    en: Animals
+
+- facet: origin_type
+  slug: recycled_materials
+  name:
+    en: Recycled materials
+
+- facet: origin_type
+  slug: seaweed
+  name:
+    en: Seaweed
+
+- facet: origin_type
+  slug: bacteria
+  name:
+    en: Bacteria
+
+- facet: origin_type
+  slug: protein
+  name:
+    en: Protein
+
+- facet: origin_type
+  slug: microbial
+  name:
+    en: Microbial
+
+# ---------------------------------------------------------------------------
+# textile_imitating
+# ---------------------------------------------------------------------------
+
+- facet: textile_imitating
+  slug: leather
+  name:
+    en: Leather
+
+- facet: textile_imitating
+  slug: denim
+  name:
+    en: Denim
+
+- facet: textile_imitating
+  slug: silk
+  name:
+    en: Silk
+
+- facet: textile_imitating
+  slug: wool
+  name:
+    en: Wool
+
+- facet: textile_imitating
+  slug: felt
+  name:
+    en: Felt
+
+- facet: textile_imitating
+  slug: mesh
+  name:
+    en: Mesh
+
+- facet: textile_imitating
+  slug: conventional_cotton
+  name:
+    en: Conventional cotton
+
+- facet: textile_imitating
+  slug: conventional_linen
+  name:
+    en: Conventional linen
+
+- facet: textile_imitating
+  slug: conventional_nylon
+  name:
+    en: Conventional nylon
+
+- facet: textile_imitating
+  slug: conventional_polyester
+  name:
+    en: Conventional polyester
+
+- facet: textile_imitating
+  slug: synthetic_fibres
+  name:
+    en: Synthetic fibres
+
+- facet: textile_imitating
+  slug: synthetic_rubber
+  name:
+    en: Synthetic rubber
+
+# ---------------------------------------------------------------------------
+# application
+# ---------------------------------------------------------------------------
+
+- facet: application
+  slug: clothing
+  name:
+    en: Clothing
+
+- facet: application
+  slug: accessories
+  name:
+    en: Accessories
+
+- facet: application
+  slug: footwear
+  name:
+    en: Footwear
+
+- facet: application
+  slug: filling
+  name:
+    en: Filling
+
+- facet: application
+  slug: home_textiles
+  name:
+    en: Home textiles
+
+- facet: application
+  slug: furniture
+  name:
+    en: Furniture
+
+- facet: application
+  slug: automotive
+  name:
+    en: Automotive
+
+- facet: application
+  slug: technical_textiles
+  name:
+    en: Technical textiles
+
+- facet: application
+  slug: safety_equipment
+  name:
+    en: Safety equipment
+
+- facet: application
+  slug: art
+  name:
+    en: Art
