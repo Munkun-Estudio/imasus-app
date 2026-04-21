@@ -66,6 +66,108 @@ The spec ships across five PRs on `feat/materials-database`:
 - 21 new tests (15 model, 5 importer, 1 seed). Full suite: 256 runs /
   956 assertions / green.
 
+## PR (b) plan — public index + chip-filter rail + URL + search
+
+On a fresh branch `feat/materials-index`, targeting `main` after PR #9 merged.
+
+### URL contract
+
+- `GET /materials?origin_type=plants,fungi&textile_imitating=denim&application=clothing&q=cypress`
+- Unknown chip slugs silently ignored (spec AC).
+- Default ordering: `position ASC`.
+
+### Filter semantics
+
+- Within a facet: OR (any selected chip matches).
+- Across facets: AND.
+- Search: case-insensitive `ILIKE` on `trade_name` and the current-locale key of
+  `description_translations` (e.g. `description_translations->>'en'`). Combined
+  with chip filters via AND.
+
+### Per-chip counts
+
+- Shown next to every chip. Count = number of materials in the current filtered
+  result set that carry that tag. One grouped query over `MaterialTagging` for
+  the current result set.
+
+### Card contents (no assets yet)
+
+- Primary photo: `material.macro_asset.file` if present, else placeholder.
+- `trade_name`, supplier (`supplier_name`, linked if `supplier_url`), availability
+  badge, `material_of_origin`, up to 2 tag chips (first `application`, then fall
+  back to `origin_type` / `textile_imitating` as needed).
+
+### `card-media` Stimulus controller (minimal for now)
+
+- Targets: the card root element.
+- Uses IntersectionObserver — play `<video>` on enter, pause on leave.
+- Honours `prefers-reduced-motion` — no autoplay when user opts out.
+- Falls back silently when the card has no `<video>` and no multi-photo rotator.
+- System test asserts the controller is wired (`data-controller="card-media"`
+  on the card) rather than actual playback.
+
+### I18n
+
+- All chrome strings (`materials.index.title`, `.search_placeholder`,
+  `.clear_all`, `.empty_state`, `.facets.origin_type.title` etc.,
+  `.availability.<status>`) in `en` with stubs for `es`, `it`, `el`.
+- Tag names are already translatable via the `Translatable` concern.
+
+### Tests
+
+- **Request tests** covering:
+  - `GET /materials` renders all 57 seeded materials in `position` order.
+  - `?origin_type=plants,fungi` filters to the union.
+  - `?origin_type=plants&application=clothing` applies AND across facets.
+  - Unknown chip slug (`?origin_type=spaceship`) is ignored, no error.
+  - `?q=cypress` narrows by `trade_name` match.
+  - `?q=…` with Spanish locale queries the `es` key (verify by creating a
+    fixture with only `es` description).
+  - Empty-state copy appears when no rows match.
+- **System test** (Capybara): visit, toggle two chips in different facets,
+  verify grid narrows; toggle again to clear; assert reduced-motion respects
+  the data attribute.
+- **Helper tests** for the chip-URL builder (toggle adds/removes slug,
+  preserves other params).
+
+### YARD
+
+- `MaterialsController#index` + any new helpers.
+- New model scope(s) if I add them (e.g. `Material.for_facets(slugs_by_facet)`).
+
+### Deferred to later slices
+
+- Preview sidebar eye icon and its Turbo Frame partial → **(c)**.
+- Detail page `/materials/:slug` + glossary highlighting + SEO meta → **(d)**.
+
+## PR (b) outcomes
+
+- `MaterialsController#index` parses per-facet CSV params, drops unknown
+  facets/slugs, and combines chip filters (OR within facet, AND across
+  facets) via `MaterialTagging` subqueries. Search ILIKEs `trade_name` plus
+  the current-locale key of `description_translations` with
+  `sanitize_sql_like` + named binds.
+- Controller eager-loads `assets: { file_attachment: :blob }` so the 57
+  cards render in constant queries — caught by self-review.
+- `MaterialsHelper#materials_chip_toggle_url` / `#materials_chip_active?`
+  power the chip rail; drops empty facets from URLs and preserves the
+  search query on every toggle.
+- `_card.html.erb` uses `image_variant_tag(..., preset: :card)` when a
+  macro asset is present; silently shows the mint placeholder background
+  otherwise so the grid never has visual holes while media import lags.
+- `card_media_controller.js` plays any `<video>` inside the card on
+  IntersectionObserver entry and honours `prefers-reduced-motion`.
+  Degrades silently when the card has no video.
+- Chrome i18n: full `en`, mirror stubs for `es`, `it`, `el` (page title,
+  lead, search placeholder, clear-all, empty state, facet titles,
+  availability labels). Tag names keep flowing through Translatable with
+  English fallback.
+- 18 request tests + 9 helper tests + 3 system tests; full suite:
+  282 runs / 1835 assertions / green. System tests green.
+- Per-chip counts are computed over the current filtered set (not the
+  "what would toggling this add" interpretation) per the spec plan
+  section above.
+
 ## PR (a) outcomes
 
 ### Source-of-truth decision

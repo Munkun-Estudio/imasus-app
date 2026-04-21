@@ -39,6 +39,23 @@ en:
   materials:
     index:
       title: "Materials DB"
+      lead: "Explore sustainable materials gathered for IMASUS workshops. Filter by origin, the textile they imitate, or the application you have in mind."
+      search_label: "Search materials"
+      search_placeholder: "Search by name or description"
+      clear_all: "Clear all filters"
+      empty_state: "No materials match the current filters."
+      facets_label: "Material filters"
+      facets:
+        origin_type:
+          title: "Origin"
+        textile_imitating:
+          title: "Imitates"
+        application:
+          title: "Application"
+      availability:
+        commercial: "Commercial"
+        in_development: "In development"
+        research_only: "Research only"
   training:
     index:
       title: "Training"
