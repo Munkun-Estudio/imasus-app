@@ -1,3 +1,5 @@
+require_relative "material_assets_naming"
+
 # Walks a local directory that mirrors the SMEs' Drive folder layout and
 # upserts the corresponding {MaterialAsset} rows with Active Storage files
 # attached.
@@ -27,10 +29,6 @@
 # the importer just uploads what it finds.
 class MaterialAssetsImporter
   IMAGE_EXTENSIONS = %w[.jpg .jpeg .png .webp].freeze
-
-  VIDEO_EXTENSIONS = %w[.mp4 .mov .webm].freeze
-
-  MICROSCOPY_SUFFIX = /-m(?<n>\d+)\z/i
 
   Result = Struct.new(:created, :updated, :skipped_missing_materials, :files_ignored, keyword_init: true) do
     def summary
@@ -90,16 +88,7 @@ class MaterialAssetsImporter
   end
 
   def classify(file)
-    ext  = file.extname.downcase
-    stem = file.basename(file.extname).to_s
-
-    if IMAGE_EXTENSIONS.include?(ext) && (match = stem.match(MICROSCOPY_SUFFIX))
-      [ :microscopy, match[:n].to_i - 1 ]
-    elsif IMAGE_EXTENSIONS.include?(ext)
-      [ :macro, 0 ]
-    elsif VIDEO_EXTENSIONS.include?(ext)
-      [ :video, 0 ]
-    end
+    MaterialAssetsNaming.classify(file, image_extensions: IMAGE_EXTENSIONS)
   end
 
   def upsert(material, kind, position, file, result)
