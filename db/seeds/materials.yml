@@ -70,6 +70,7 @@
   tags:
     origin_type:
     - plants
+    - seaweed
     textile_imitating:
     - mesh
     application:
@@ -1084,25 +1085,6 @@
     - clothing
   supplier_url: https://eshop.pyratex.com/shop/pyratex-r-seacell-6-260
   slug: pyratex-seacell-6
-- trade_name: Pyratex Seacell 7
-  material_of_origin: Seaweed
-  availability_status: commercial
-  description:
-    en: PYRATEX® seacell 7 is a mesh made from seacell, bamboo viscose, and elastane. It is a bio-based alternative to conventional meshes, which are usually made from synthetic fibers or silk. The result is a mesh fabric with a distinctive finish and a more natural origin.
-  interesting_properties: {}
-  structure: {}
-  what_problem_it_solves:
-    en: PYRATEX® seacell 7 replaces traditional mesh fabrics made from synthetic fibers or silk with a more natural alternative based on seacell, bamboo viscose, and elastane.
-  sensorial_qualities: {}
-  tags:
-    origin_type:
-    - seaweed
-    textile_imitating:
-    - mesh
-    application:
-    - clothing
-  supplier_url: https://eshop.pyratex.com/shop/swaknmescs007-swatch-pyratex-r-seacell-7-54
-  slug: pyratex-seacell-7-1
 - trade_name: Regenerated wool
   material_of_origin: Wool
   availability_status: commercial

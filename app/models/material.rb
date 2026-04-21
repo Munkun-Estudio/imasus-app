@@ -28,6 +28,9 @@ class Material < ApplicationRecord
   has_many :taggings, class_name: "MaterialTagging", dependent: :destroy
   has_many :tags, through: :taggings
 
+  has_many :assets, -> { order(:kind, :position) },
+           class_name: "MaterialAsset", dependent: :destroy
+
   translates :description, :interesting_properties, :structure,
              :sensorial_qualities, :what_problem_it_solves
 
@@ -50,6 +53,22 @@ class Material < ApplicationRecord
   # @return [Array<Tag>]
   def tags_for(facet)
     tags.where(facet: facet.to_s).to_a
+  end
+
+  # @return [MaterialAsset, nil] the single macro (hero) asset, if attached.
+  def macro_asset
+    assets.find_by(kind: :macro)
+  end
+
+  # @return [ActiveRecord::Relation<MaterialAsset>] microscopy assets ordered
+  #   from highest zoom (position 0, the `m1` slot) to lowest.
+  def microscopies
+    assets.where(kind: :microscopy).order(:position)
+  end
+
+  # @return [MaterialAsset, nil] the single video asset, if attached.
+  def video_asset
+    assets.find_by(kind: :video)
   end
 
   # Idempotent loader that upserts every entry in the seed YAML. Matches each

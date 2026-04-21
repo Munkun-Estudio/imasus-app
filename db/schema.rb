@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_100200) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_121646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -53,6 +53,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_100200) do
     t.index "lower((term_translations ->> 'en'::text))", name: "index_glossary_terms_on_lower_en_term", unique: true
     t.index ["category"], name: "index_glossary_terms_on_category"
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
+  end
+
+  create_table "material_assets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "kind", null: false
+    t.bigint "material_id", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["material_id", "kind", "position"], name: "index_material_assets_on_material_id_and_kind_and_position", unique: true
+    t.index ["material_id", "kind"], name: "index_material_assets_unique_singleton_kinds", unique: true, where: "(kind = ANY (ARRAY[0, 2]))"
+    t.index ["material_id"], name: "index_material_assets_on_material_id"
   end
 
   create_table "material_taggings", force: :cascade do |t|
@@ -136,6 +147,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_100200) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "material_assets", "materials"
   add_foreign_key "material_taggings", "materials"
   add_foreign_key "material_taggings", "tags"
   add_foreign_key "workshop_participations", "users"

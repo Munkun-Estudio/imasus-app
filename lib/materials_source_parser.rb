@@ -78,21 +78,44 @@ class MaterialsSourceParser
   end
 
   # @return [Array<Hash>] one entry per material, ready to `to_yaml`.
+  #
+  # When the source lists the same product under two origin headings — as the
+  # SMEs sometimes do for discoverability (e.g. Pyratex Seacell 7 appears
+  # under both Bamboo and Seaweed) — the duplicate entries are **merged**: the
+  # first occurrence keeps its narrative fields and the later occurrences' tag
+  # lists are unioned in, so the resulting row carries every relevant origin
+  # tag. Slugs therefore stay trade-name-unique.
   def entries
-    seen_slugs = Hash.new(0)
+    by_slug = {}
+    ordered = []
 
-    split_into_entries.map do |chunk|
+    split_into_entries.each do |chunk|
       entry = parse_entry(chunk)
-      base_slug = entry["trade_name"].parameterize
-      seen_slugs[base_slug] += 1
-      entry["slug"] = seen_slugs[base_slug] == 1 ? base_slug : "#{base_slug}-#{seen_slugs[base_slug] - 1}"
-      entry
+      entry["slug"] = entry["trade_name"].parameterize
+
+      if (existing = by_slug[entry["slug"]])
+        merge_entries!(existing, entry)
+      else
+        by_slug[entry["slug"]] = entry
+        ordered << entry
+      end
     end
+
+    ordered
   end
 
   private
 
   Chunk = Struct.new(:material_of_origin, :trade_name, :body, keyword_init: true)
+
+  # Unions tag lists across facets from `incoming` into `existing`. Non-tag
+  # fields on `existing` win: the first occurrence is the canonical narrative.
+  def merge_entries!(existing, incoming)
+    existing["tags"] ||= {}
+    (incoming["tags"] || {}).each do |facet, slugs|
+      existing["tags"][facet] = ((existing["tags"][facet] || []) + Array(slugs)).uniq
+    end
+  end
 
   def split_into_entries
     current_group = nil

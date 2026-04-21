@@ -20,10 +20,12 @@ class MaterialSeedTest < ActiveSupport::TestCase
     assert_equal initial_count, Material.count
   end
 
-  test "seed covers all 58 materials from the reconciled source" do
+  test "seed covers every reconciled material from the source doc" do
     Material.seed_from_yaml!
 
-    assert_operator Material.count, :>=, 58
+    # 57 = 58 trade names in docs/materials-db.md minus the Pyratex Seacell 7
+    # duplicate that the parser merges (see the dedicated test below).
+    assert_equal 57, Material.count
   end
 
   test "English descriptions are present for every seed entry" do
@@ -46,6 +48,19 @@ class MaterialSeedTest < ActiveSupport::TestCase
 
     assert_includes origin_slugs, "plants"
     assert_includes imitating_slugs, "denim"
+  end
+
+  test "seed merges Pyratex Seacell 7 (listed twice in docs) into a single material with both origin tags" do
+    Material.seed_from_yaml!
+
+    matches = Material.where(slug: %w[pyratex-seacell-7 pyratex-seacell-7-1])
+    assert_equal [ "pyratex-seacell-7" ], matches.pluck(:slug),
+                 "expected exactly one Seacell 7 row — the Bamboo/Seaweed duplicate should be merged"
+
+    seacell = matches.first
+    origin_slugs = seacell.tags_for(:origin_type).pluck(:slug).sort
+    assert_equal %w[plants seaweed], origin_slugs,
+                 "expected the merged row to carry both plants and seaweed origin tags"
   end
 
   test "seed_from_yaml! raises a clear error when a material references an unknown tag slug" do

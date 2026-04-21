@@ -2,14 +2,69 @@
 
 ## Implementation slice plan (agreed with user on 2026-04-21)
 
-The spec ships across four PRs on `feat/materials-database`:
+The spec ships across five PRs on `feat/materials-database`:
 
-- **PR (a) — data layer (this PR).** Migrations, models, seed loaders, reconciled
-  YAML seeds, YARD. No user-facing routes yet.
+- **PR (a) — data layer (merged pending).** Migrations, models, seed loaders,
+  reconciled YAML seeds, YARD. No user-facing routes yet.
+- **PR (a.5) — media layer.** `MaterialAsset` model (macro/microscopy/video kinds),
+  local-folder importer + rake task, Seacell-7 duplicate merge at the parser.
+  Inserted between (a) and (b) so the index/detail PRs can assume asset
+  accessors are present. Decided 2026-04-21.
 - **PR (b) — public index.** Materials index page, chip-filter rail, URL binding,
   search box.
 - **PR (c) — preview sidebar.** Turbo Frame inline preview over the index.
 - **PR (d) — detail page.** Full detail view, glossary term highlighting, SEO meta.
+
+## PR (a.5) decisions (2026-04-21)
+
+- **Model name: `MaterialAsset`** (not `MaterialMedia` — `media` fights Rails'
+  inflector since it's both singular and plural).
+- **Shape**: `belongs_to :material`, `kind` enum
+  `{ macro: 0, microscopy: 1, video: 2 }`, integer `position` (used to order
+  microscopies `m1 → 0`, `m2 → 1`, `m3 → 2`), `has_one_attached :file`.
+- **Material accessors**: `#macro_asset`, `#microscopies` (ordered by position),
+  `#video_asset`.
+- **Importer source: local folder**. SMEs keep originals on Drive; they
+  `rclone`/sync to a local directory and a rake task walks it. No Drive API
+  dependency.
+- **Asset nomenclature** (from SME Drive structure):
+  - Folder name (e.g. `Lifematerials-Kapok/`) lowercased equals the Material
+    slug (`lifematerials-kapok`).
+  - `<FolderName>.png|jpg` → macro (hero).
+  - `<FolderName>-m1.tif`…`-mN.tif` → microscopies, `m1` = max zoom.
+  - `<FolderName>.mp4` → video.
+- **Pre-processing expected before import**: TIF/PNG → JPG, downscale macros
+  to ~3000–4000 px long edge, microscopies to ~2000–3000 px, then ImageOptim.
+  Originals stay on Drive.
+- **Seacell-7 duplicate**: parser currently creates `pyratex-seacell-7` and
+  `pyratex-seacell-7-1` because the SME listed the product twice (Bamboo +
+  Seaweed headings). It is one product; fix the parser to merge duplicates by
+  `trade_name`, combining their `origin_type` tag lists onto one row. Material
+  count drops from 58 to 57.
+
+## PR (a.5) outcomes
+
+- `MaterialAsset` model + migration shipped with a partial unique index
+  ensuring at most one macro and one video per material, and a full unique
+  index on `(material_id, kind, position)` guarding microscopy slots.
+- Custom validators mirror the DB constraints so errors come back as form
+  messages, not `RecordNotUnique` exceptions: `file_must_be_attached` and
+  `singleton_kind_not_duplicated`.
+- `Material` gains `#macro_asset`, `#microscopies` (ordered by position), and
+  `#video_asset` convenience accessors plus a `has_many :assets` with
+  `dependent: :destroy`.
+- `MaterialsSourceParser#entries` now merges duplicate trade names into a
+  single entry, unioning their tag lists across facets. The Bamboo/Seaweed
+  Seacell-7 duplicate collapses into one row carrying both `plants` and
+  `seaweed` origin tags. Seed count: 57.
+- `lib/material_assets_importer.rb` + `rake material_assets:import[path]`:
+  walks a local folder that mirrors the Drive layout, classifies files by the
+  `-mN` suffix (microscopy) / extension (image vs video), finds the matching
+  `Material` by folder-name-lowercased slug, and upserts `MaterialAsset`
+  rows. Idempotent; reports created / updated counts and lists skipped
+  folders / ignored files.
+- 21 new tests (15 model, 5 importer, 1 seed). Full suite: 256 runs /
+  956 assertions / green.
 
 ## PR (a) outcomes
 
