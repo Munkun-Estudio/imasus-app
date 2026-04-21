@@ -9,6 +9,16 @@
             alt: material.trade_name,
             class: "h-full w-full object-cover" %>
     <% end %>
+
+    <%= link_to preview_material_path(material.slug),
+          data: { role: "open-preview", turbo_frame: "preview" },
+          aria: { label: t("materials.preview.open_label", name: material.trade_name) },
+          class: "absolute right-2 top-2 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-imasus-dark-green shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-imasus-dark-green/40" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+        <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    <% end %>
   </div>
 
   <div class="flex flex-1 flex-col gap-3 p-4">
@@ -20,7 +30,7 @@
       <p class="text-sm text-imasus-dark-green/70">
         <% if material.supplier_url.present? %>
           <%= link_to material.supplier_name, material.supplier_url,
-                target: "_blank", rel: "noopener",
+                target: "_blank", rel: "noopener noreferrer",
                 class: "hover:underline" %>
         <% else %>
           <%= material.supplier_name %>

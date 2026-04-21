@@ -146,6 +146,170 @@ On a fresh branch `feat/materials-index`, targeting `main` after PR #9 merged.
 - Preview sidebar eye icon and its Turbo Frame partial → **(c)**.
 - Detail page `/materials/:slug` + glossary highlighting + SEO meta → **(d)**.
 
+## PR (c) plan — preview sidebar
+
+On a fresh branch `feat/materials-preview-sidebar`, targeting `main` after
+PR #10 merged.
+
+### Routes
+
+- `resources :materials, only: [ :index, :show ]` with a `member` route
+  `get :preview`. Gains `/materials/:slug` (stub in this PR, fleshed out in
+  PR (d)) and `/materials/:slug/preview`.
+- `param: :slug` so paths use the stable URL slug; `Material#to_param`
+  already returns the slug.
+
+### `MaterialsController#preview`
+
+- Finds the material by slug or raises `ActiveRecord::RecordNotFound`
+  (unknown slug → 404, like glossary show).
+- Renders `materials/preview` partial **without the application layout**
+  (pattern from `GlossaryTermsController#popover`).
+- Response targets the `<turbo-frame id="preview">` mounted in
+  `application.html.erb` beside the existing `modal` slot.
+
+### `MaterialsController#show` (stub only in this PR)
+
+- Finds by slug or 404. Renders a minimal placeholder view (hero, trade
+  name, "coming soon" note) so the preview's "Open full page →" link has
+  a target. PR (d) replaces the view with the full editorial layout and
+  owns glossary highlighting + SEO meta.
+
+### Preview partial contents
+
+Per brief AC:
+
+- Hero: `material.macro_asset.file` via `image_variant_tag(:detail)` if
+  present; otherwise mint placeholder.
+- `trade_name` heading.
+- Supplier (link if `supplier_url`), availability badge, `material_of_origin`.
+- One-paragraph `description_in(I18n.locale)` with base-locale fallback.
+- Tag chips (reuse the chip styling from the index rail, read-only — no
+  toggle URL).
+- "Open full page →" link to `material_path(material.slug)`.
+- Header has an X close button (`data-action="preview-sidebar#close"`)
+  labelled via i18n.
+
+### Layout slot
+
+`application.html.erb` gets a sibling to the `modal` frame:
+
+```erb
+<%= turbo_frame_tag "preview" %>
+```
+
+The frame starts empty. Turbo swaps content on link click; closing clears
+`innerHTML` (same pattern as `modal_controller.js`).
+
+### Eye icon on the card
+
+- Added to the top-right corner of the card image in `_card.html.erb`.
+- Always visible (no hover-only — mobile parity).
+- `data-turbo-frame="preview"`, `aria-label` from i18n.
+- `data-role="open-preview"` marker for tests.
+
+### Preview-sidebar Stimulus controller
+
+`preview_sidebar_controller.js`:
+
+- On `connect`: saves `document.activeElement`, moves focus to the
+  dialog, listens for Escape at document level.
+- `close()`: clears the frame (`frame.innerHTML = ""`), removes the
+  Escape listener, restores the saved focus.
+- `backdrop(event)`: closes only when the click target is the backdrop
+  (mirrors `modal_controller.js`).
+- No mobile drag-down — brief says "if cheap; otherwise an X button".
+  X button covers mobile.
+
+### Responsiveness
+
+- Desktop (`sm+`): right-anchored panel, `max-w-md`, full-height, sits
+  above the grid via a fixed-position container inside the partial.
+- Mobile: bottom sheet, ~85vh, rounded top corners.
+- One Tailwind-driven partial with responsive classes; no JS branching.
+
+### ARIA
+
+- `role="dialog"`, `aria-modal="false"` (it's a peek, the index stays
+  interactive).
+- `aria-labelledby` pointing at the trade-name heading's id.
+
+### Tests
+
+- **Request tests** covering:
+  - `GET /materials/:slug/preview` → 200, renders trade name + description
+    + "Open full page" link, no `<html>` wrapper (layout=false).
+  - `GET /materials/unknown/preview` → 404.
+  - `GET /materials/:slug` → 200 (minimal stub view).
+  - `GET /materials/unknown` → 404.
+- **System test**: visit `/materials`, click eye icon, assert preview
+  frame populated; press Escape, assert frame cleared; click eye icon
+  again, click "Open full page →", assert navigation to detail page.
+
+### I18n
+
+- `materials.preview.close` → "Close preview" (+ stubs).
+- `materials.preview.open_full_page` → "Open full page →" (+ stubs).
+- `materials.show.coming_soon` → placeholder copy for the stub detail
+  view; PR (d) removes/replaces this key.
+
+### Overlay-slots pattern → MEMORY.md
+
+After PR (c), add a short Key Patterns entry noting:
+
+> Two layout-level Turbo Frame slots live in `application.html.erb`:
+> `modal` (confirm-and-dismiss flows, e.g. glossary delete) and
+> `preview` (peek-and-dismiss flows, e.g. material preview sidebar).
+> Dismissal is always by clearing `innerHTML`. Prefer a new slot only
+> when the interaction semantics differ meaningfully — otherwise reuse.
+
+### Deferred to PR (d)
+
+- Full editorial detail page content (sensorial_qualities,
+  what_problem_it_solves, interesting_properties, structure, micrograph
+  gallery).
+- Glossary-term highlighting on detail-page long-form prose.
+- Localised `<title>` + `<meta description>` SEO meta.
+- Removal of the `materials.show.coming_soon` stub key.
+
+## PR (c) outcomes
+
+- Routes: `resources :materials, only: [:index, :show], param: :slug`
+  with a `get :preview` member. Gains `/materials/:slug` and
+  `/materials/:slug/preview`.
+- `MaterialsController#preview` renders the preview partial with
+  `layout: false` (same pattern as `GlossaryTermsController#popover`);
+  `#show` is a minimal stub that PR (d) will replace.
+- `application.html.erb` now carries two overlay slots side-by-side —
+  `modal` (confirm) and `preview` (peek). Memory note recorded.
+- `_preview.html.erb` renders the hero (`image_variant_tag(:detail)`),
+  trade name, supplier, availability badge, locale-aware description,
+  read-only tag chips per facet, and an "Open full page →" link marked
+  `data-turbo-frame="_top"` so it navigates the whole page out of the
+  frame.
+- Preview dialog wears `role="dialog"` + `aria-modal="false"`; heading
+  id is slug-scoped so multiple prior previews in the DOM never collide.
+- `preview_sidebar_controller.js` mirrors `modal_controller.js`:
+  Escape (document-level `keydown.esc@document`), backdrop click, and
+  the X button all call `close()`, which clears the frame's innerHTML
+  and restores focus to the triggering card eye icon.
+- `_card.html.erb` gains an eye-icon `link_to` targeting
+  `preview_material_path` with `data-turbo-frame="preview"` and a
+  localised `aria-label`. Always visible (no hover-only gating, for
+  mobile parity).
+- I18n: `materials.preview.{close,open_label,open_full_page}` and
+  `materials.show.{back_to_index,coming_soon}` in `en` with mirrored
+  stubs in `es`, `it`, `el`. The `coming_soon` key is scoped to the
+  stub and will be removed in PR (d).
+- Tests: 8 new request tests (eye-icon wiring, preview 200/404, dialog
+  ARIA, no-layout render, show 200/404); 2 new system tests (open +
+  Escape dismiss, follow "Open full page →"). Full suite: 290 runs /
+  1965 assertions / green. 5 system runs / 16 assertions / green.
+- Self-review note: initial system test for navigation away from the
+  preview failed because the link stayed trapped in the `preview`
+  frame; fixed by `data-turbo-frame="_top"`. Caught the pattern before
+  the PR went up and documented it in the MEMORY overlay-slots entry.
+
 ## PR (b) outcomes
 
 - `MaterialsController#index` parses per-facet CSV params, drops unknown

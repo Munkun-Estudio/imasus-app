@@ -56,6 +56,13 @@ el:
         commercial: "Εμπορικό"
         in_development: "Υπό ανάπτυξη"
         research_only: "Μόνο έρευνα"
+    preview:
+      close: "Κλείσιμο προεπισκόπησης"
+      open_label: "Προεπισκόπηση %{name}"
+      open_full_page: "Άνοιγμα πλήρους σελίδας →"
+    show:
+      back_to_index: "← Πίσω στα υλικά"
+      coming_soon: "Η πλήρης σελίδα λεπτομερειών αυτού του υλικού έρχεται σύντομα."
   training:
     index:
       title: "Εκπαίδευση"

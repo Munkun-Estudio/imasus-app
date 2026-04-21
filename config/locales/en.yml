@@ -56,6 +56,13 @@ en:
         commercial: "Commercial"
         in_development: "In development"
         research_only: "Research only"
+    preview:
+      close: "Close preview"
+      open_label: "Preview %{name}"
+      open_full_page: "Open full page →"
+    show:
+      back_to_index: "← Back to materials"
+      coming_soon: "The full detail page for this material is coming soon."
   training:
     index:
       title: "Training"

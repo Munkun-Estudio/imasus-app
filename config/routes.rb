@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :materials, only: :index
+  resources :materials, only: [ :index, :show ], param: :slug do
+    member do
+      get :preview
+    end
+  end
   resources :training, only: :index
   get "training/:slug/:section", to: "training#show", as: :training_show,
       constraints: { slug: /[a-z0-9-]+/, section: /[a-z0-9-]+/ }

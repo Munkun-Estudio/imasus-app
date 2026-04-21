@@ -1,0 +1,86 @@
+<%# locals: (material:) %>
+<%= turbo_frame_tag "preview" do %>
+  <div data-controller="preview-sidebar"
+       data-action="click->preview-sidebar#backdrop keydown.esc@window->preview-sidebar#close"
+       class="fixed inset-0 z-40 flex items-end justify-end bg-imasus-dark-green/20 sm:items-stretch">
+    <aside role="dialog"
+           aria-modal="false"
+           aria-labelledby="preview-heading-<%= material.slug %>"
+           tabindex="-1"
+           data-preview-sidebar-target="dialog"
+           class="flex h-[85vh] w-full flex-col overflow-y-auto rounded-t-2xl bg-white shadow-xl sm:h-screen sm:max-h-screen sm:w-full sm:max-w-md sm:rounded-none">
+      <header class="flex items-start justify-between gap-4 border-b border-imasus-dark-green/10 px-6 py-4">
+        <h2 id="preview-heading-<%= material.slug %>"
+            class="text-xl font-bold text-imasus-dark-green">
+          <%= material.trade_name %>
+        </h2>
+        <button type="button"
+                data-action="preview-sidebar#close"
+                aria-label="<%= t("materials.preview.close") %>"
+                class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-imasus-dark-green/70 hover:bg-imasus-mint/20 hover:text-imasus-dark-green">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+
+      <div class="aspect-[4/3] w-full bg-imasus-mint/20">
+        <% if material.macro_asset&.file&.attached? %>
+          <%= image_variant_tag material.macro_asset.file,
+                preset: :detail,
+                alt: material.trade_name,
+                class: "h-full w-full object-cover" %>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col gap-4 px-6 py-5">
+        <% if material.supplier_name.present? %>
+          <p class="text-sm text-imasus-dark-green/70">
+            <% if material.supplier_url.present? %>
+              <%= link_to material.supplier_name, material.supplier_url,
+                    target: "_blank", rel: "noopener noreferrer",
+                    class: "hover:underline" %>
+            <% else %>
+              <%= material.supplier_name %>
+            <% end %>
+          </p>
+        <% end %>
+
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <span class="inline-flex items-center rounded-full bg-imasus-mint/30 px-2.5 py-0.5 font-medium text-imasus-dark-green">
+            <%= t("materials.index.availability.#{material.availability_status}") %>
+          </span>
+          <% if material.material_of_origin.present? %>
+            <span class="text-imasus-dark-green/60">
+              <%= material.material_of_origin %>
+            </span>
+          <% end %>
+        </div>
+
+        <% description = material.description_in(I18n.locale) || material.description_in(Material::BASE_LOCALE) %>
+        <% if description.present? %>
+          <p class="text-sm leading-relaxed text-imasus-dark-green/80">
+            <%= description %>
+          </p>
+        <% end %>
+
+        <% Tag::FACETS.each do |facet| %>
+          <% tags = material.tags_for(facet) %>
+          <% next if tags.empty? %>
+          <ul class="flex flex-wrap gap-1.5">
+            <% tags.each do |tag| %>
+              <li>
+                <span class="inline-flex items-center rounded-full border border-imasus-dark-green/15 bg-white px-2.5 py-0.5 text-xs text-imasus-dark-green/80">
+                  <%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %>
+                </span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <%= link_to t("materials.preview.open_full_page"),
+              material_path(material.slug),
+              data: { turbo_frame: "_top" },
+              class: "mt-2 inline-flex items-center self-start rounded-md bg-imasus-dark-green px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-dark-green/90" %>
+      </div>
+    </aside>
+  </div>
+<% end %>

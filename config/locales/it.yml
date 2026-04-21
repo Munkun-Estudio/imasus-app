@@ -56,6 +56,13 @@ it:
         commercial: "Commerciale"
         in_development: "In sviluppo"
         research_only: "Solo ricerca"
+    preview:
+      close: "Chiudi anteprima"
+      open_label: "Anteprima di %{name}"
+      open_full_page: "Apri pagina completa →"
+    show:
+      back_to_index: "← Torna ai materiali"
+      coming_soon: "La pagina di dettaglio completa di questo materiale arriverà presto."
   training:
     index:
       title: "Formazione"
