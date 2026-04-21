@@ -63,8 +63,14 @@ The spec ships across five PRs on `feat/materials-database`:
   `Material` by folder-name-lowercased slug, and upserts `MaterialAsset`
   rows. Idempotent; reports created / updated counts and lists skipped
   folders / ignored files.
-- 21 new tests (15 model, 5 importer, 1 seed). Full suite: 256 runs /
-  956 assertions / green.
+- `lib/material_assets_preprocessor.rb` + `rake material_assets:prepare[source,output,macro,micro,quality]`:
+  normalises either a single material folder or a whole synced root into an
+  importer-ready mirror. Defaults: macro long edge `3600`, microscopy long
+  edge `2400`, JPEG quality `90`. Images become stripped sRGB JPGs; videos
+  copy through unchanged.
+- Focused coverage for PR (a.5) now includes model, importer, seed, and
+  preprocessor tests; keep using the naming contract tests as the guardrail
+  before running bulk media ingestion.
 
 ## PR (b) plan — public index + chip-filter rail + URL + search
 
