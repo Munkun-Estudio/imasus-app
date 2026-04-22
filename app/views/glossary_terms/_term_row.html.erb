@@ -2,7 +2,7 @@
   <div class="py-4">
     <div class="flex items-start justify-between gap-4">
       <div class="min-w-0 flex-1">
-        <%= link_to glossary_term_path(term.slug), class: "group block" do %>
+        <%= link_to glossary_term_path(term.slug), data: { turbo_frame: "_top" }, class: "group block" do %>
           <span class="text-lg font-semibold text-imasus-dark-green group-hover:underline">
             <%= term.term %>
           </span>

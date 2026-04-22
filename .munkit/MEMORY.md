@@ -19,6 +19,7 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Turbo-modal confirmation pattern: layout exposes a top-level `<turbo-frame id="modal">`; a dedicated GET action renders a partial wrapped in that frame. Cancel/backdrop/Escape dismiss via `modal_controller.js`. Prefer this over `data-turbo-confirm` for accessible, styled confirmations.
 - Overlay slots: `application.html.erb` carries two layout-level Turbo Frame slots — `modal` (confirm-and-dismiss flows, e.g. glossary delete) and `preview` (peek-and-dismiss flows, e.g. material preview sidebar). Both dismiss by clearing `innerHTML`; their respective Stimulus controllers (`modal_controller`, `preview_sidebar_controller`) handle Escape, backdrop click, and focus restore. Add a new slot only when the interaction semantics differ meaningfully — otherwise reuse. Links inside a slot that should navigate the full page need `data-turbo-frame="_top"` to break out of the frame.
 - Multi-locale forms use a locale-tabs pattern: current `I18n.locale` is default-active and first in tab order; remaining locales follow the fixed `en → es → it → el` sequence. Panels stay in the DOM so unsaved input in inactive tabs is preserved.
+- Sidebar information architecture (post spec 6): three zones — **Hub** (`00 Home`, white), **Community** (`01 Workshops`, dark-green), and **Resources** group with small-caps label (`02 Materials` light-blue, `03 Training` navy, `04 Challenges` mint, `05 Glossary` light-pink). Red is reserved as a sparingly-used accent, not used in the sidebar. The sidebar is identical for all roles; Home (`/`) is the only role-aware surface. See `DECISIONS.md` (2026-04-22) for rationale.
 - Materials Drive asset nomenclature: SMEs author material media in Drive with one folder per material (e.g. `Lifematerials-Kapok/`, `Pyratex-Musa-1/`). Folder name lowercased equals `Material#slug`. Inside: `<Folder>.png|jpg` is the macro (hero); `<Folder>-m1`…`-mN.tif|jpg` are microscopies ordered from max-zoom (`m1`) to min; `<Folder>.mp4` is the video. Pre-processing before import: TIF/PNG → JPG, downscale macros to 3000–4000 px, microscopies to 2000–3000 px, then ImageOptim. The repo task `material_assets:prepare` writes an importer-ready mirror with the same folder/file basenames; `material_assets:import` attaches that processed tree. Originals stay on Drive.
 
 ## Gotchas
@@ -36,7 +37,7 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Facilitator: the teacher, mentor, or organizer guiding participants through the workshop process.
 - Workshop: a physical event (Greece, Italy, or Spain) with pre/during/after digital activity in the app.
 - Project: the central collaborative object — created by a participant, optionally with team members, accumulates log entries, and culminates in a published public page.
-- Published page: a Behance-style public case study summarising a project's process and results.
+- Published project: a Behance-style public case study summarising a project's process and results. The verb is "publish a project"; do not use "published page" or "published prototype".
 
 ## Tech Stack
 
@@ -52,5 +53,5 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Do not add uncommon dependencies without a clear need and explicit justification.
 - Do not choose a license or product direction details that the team has not confirmed yet.
 - Do not treat placeholder workshop copy or landing page content as final product content.
-- Evaluation/grading of prototypes is explicitly out of scope.
+- Evaluation/grading of projects is explicitly out of scope.
 - No in-app notifications — transactional emails only (registration, password recovery, invitation).

@@ -87,7 +87,7 @@ Four locales: **en** (base), **es**, **it**, **el** (Greek — ISO 639-1 code, n
 
 ### What is explicitly out of scope
 
-- Evaluation / grading / scoring of prototypes.
+- Evaluation / grading / scoring of projects.
 - In-app messaging or notifications (beyond transactional emails).
 - Mobile-first design (desktop/laptop-first, with responsive mobile support).
 - Gamification.
@@ -180,10 +180,10 @@ Specs are created under `.munkit/specs/` as work begins. This list is the agreed
 | 3 | `image-hosting-strategy` ✅ | Architecture decision: S3 + CDN config, Active Storage integration, image variant pipeline, lazy loading approach | — |
 | 4 | `materials-database` ✅ | Material model, CSV seed task, Tag/Tagging, category filter, search, catalogue page, material detail page. Placeholder images until spec 3 is done. | 1, 3 |
 | 5 | `glossary` ✅ | GlossaryTerm model, seed, glossary page with alphabetical nav + category pills, Stimulus popover for inline term highlighting | 1 |
-| 6 | `challenge-cards` | Challenge model (C1–C10), seed, index grouped by category, reusable card component | 1 |
-| 7 | `home-page` | Prompt cards, featured material, training carousel, CTAs. Pulls live data. | 2, 4 |
+| 6 | `challenge-cards` ✅ | Challenge model (C1–C10), seed, index grouped by category, reusable card component, sidebar drawer preview, curator edit-only CRUD with locale tabs. **Also ships the sidebar IA refactor** (Hub + Workshops + Resources group, drops Log/Prototype placeholders, Materials red → light-blue). | 1, 5 |
+| 7 | `home-page` | Role-aware Home. Visitor: prompt cards, featured material, training carousel, CTAs, featured published projects. Participant: personal dashboard threading the project flow (create team, start project, pick challenge, add log entries, publish project). Facilitator/admin: role-specific dashboards. | 2, 4, 10 |
 | 8 | `authentication` ✅ | User model (has_secure_password), admin/facilitator/participant roles, invitation flow, transactional emails | 1 |
-| 9 | `workshops` | Workshop model, seed for 3 known workshops, index + detail + per-country agenda page, WorkshopParticipation join | 1, 8 |
+| 9 | `workshops` ✅ | Workshop model, seed for 3 known workshops, index + detail + per-country agenda page, WorkshopParticipation join | 1, 8 |
 | 10 | `projects-and-teams` | Project model, ProjectMembership, create project (solo or team), add members, link to workshop + challenge | 8, 9 |
 | 11 | `process-log` | LogEntry with Action Text, timeline view, create entries with photos/videos/material references. Belongs to project. | 3, 10 |
 | 12 | `project-publication` | Publishing wizard (guided reflection), draft→published lifecycle, public URL, Behance-style page with material/training embeds | 10, 11 |

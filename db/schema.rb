@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_130100) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_22_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_130100) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "challenges", force: :cascade do |t|
+    t.string "category", null: false
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.jsonb "description_translations", default: {}, null: false
+    t.jsonb "question_translations", default: {}, null: false
+    t.datetime "updated_at", null: false
+    t.index "upper((code)::text)", name: "index_challenges_on_upper_code", unique: true
+    t.index ["category"], name: "index_challenges_on_category"
   end
 
   create_table "glossary_terms", force: :cascade do |t|

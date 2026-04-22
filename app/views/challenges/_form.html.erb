@@ -1,0 +1,104 @@
+<%
+  # Locale tabs: current locale first, then the remaining available locales in
+  # the canonical en → es → it → el order. Tabs are presentational — hidden
+  # panels still submit their inputs, so unsaved edits survive tab switches.
+  available = I18n.available_locales.map(&:to_s)
+  current   = I18n.locale.to_s
+  ordered   = ([ current ] + available).uniq
+%>
+
+<%= form_with model: challenge, url: form_url, data: { controller: "locale-tabs" } do |f| %>
+  <% if challenge.errors.any? %>
+    <div class="mb-6 rounded-md border border-imasus-red/30 bg-imasus-red/5 p-4" role="alert">
+      <h2 class="text-sm font-semibold text-imasus-red">
+        <%= t("challenges.form.errors_heading", count: challenge.errors.count) %>
+      </h2>
+      <ul class="mt-2 list-disc pl-5 text-sm text-imasus-red">
+        <% challenge.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div>
+      <label class="block text-sm font-medium text-imasus-dark-green">
+        <%= t("challenges.form.code_label") %>
+      </label>
+      <p class="mt-1 font-mono text-sm text-imasus-dark-green/70"><%= challenge.code %></p>
+    </div>
+
+    <div>
+      <%= f.label :category, t("challenges.form.category_label"),
+            class: "block text-sm font-medium text-imasus-dark-green" %>
+      <%= f.select :category,
+            Challenge::CATEGORIES.map { |c| [ t("challenges.categories.#{c}"), c ] },
+            {},
+            class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <div role="tablist"
+         aria-label="<%= t("challenges.form.locale_tabs_label") %>"
+         class="flex flex-wrap gap-1 border-b border-imasus-dark-green/10">
+      <% ordered.each_with_index do |locale, i| %>
+        <button type="button"
+                role="tab"
+                id="locale-tab-<%= locale %>"
+                aria-controls="locale-panel-<%= locale %>"
+                aria-selected="<%= i == 0 %>"
+                tabindex="<%= i == 0 ? 0 : -1 %>"
+                data-locale-tabs-target="tab"
+                data-locale="<%= locale %>"
+                data-action="click->locale-tabs#select keydown->locale-tabs#key"
+                class="px-4 py-2 text-sm font-medium border-b-2 -mb-px
+                       <%= i == 0 ? 'border-imasus-dark-green text-imasus-dark-green' : 'border-transparent text-imasus-dark-green/50 hover:text-imasus-dark-green' %>">
+          <%= locale.upcase %>
+        </button>
+      <% end %>
+    </div>
+
+    <% ordered.each_with_index do |locale, i| %>
+      <div role="tabpanel"
+           id="locale-panel-<%= locale %>"
+           aria-labelledby="locale-tab-<%= locale %>"
+           data-locale-tabs-target="panel"
+           data-locale="<%= locale %>"
+           <%= "hidden" unless i == 0 %>
+           class="pt-6 space-y-4">
+        <div>
+          <label for="challenge_question_translations_<%= locale %>"
+                 class="block text-sm font-medium text-imasus-dark-green">
+            <%= t("challenges.form.question_label") %> — <%= locale.upcase %>
+          </label>
+          <%= text_field_tag "challenge[question_translations][#{locale}]",
+                challenge.question_in(locale),
+                id: "challenge_question_translations_#{locale}",
+                class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+        </div>
+
+        <div>
+          <label for="challenge_description_translations_<%= locale %>"
+                 class="block text-sm font-medium text-imasus-dark-green">
+            <%= t("challenges.form.description_label") %> — <%= locale.upcase %>
+          </label>
+          <%= text_area_tag "challenge[description_translations][#{locale}]",
+                challenge.description_in(locale),
+                id: "challenge_description_translations_#{locale}",
+                rows: 6,
+                class: "mt-1 w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm focus:border-imasus-dark-green focus:outline-none focus:ring-1 focus:ring-imasus-dark-green" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-6 flex items-center gap-3">
+    <%= f.submit t("challenges.form.submit_update"),
+          class: "rounded-md bg-imasus-dark-green px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-dark-green/90" %>
+    <%= link_to t("challenges.form.cancel"),
+          cancel_url,
+          class: "text-sm text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+  </div>
+<% end %>

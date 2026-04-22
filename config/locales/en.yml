@@ -5,12 +5,12 @@ en:
       long: "%d/%m/%Y"
   nav:
     home: "Home"
+    workshops: "Workshops"
     materials: "Materials DB"
     training: "Training"
-    workshops: "Workshops"
-    log: "Log"
-    prototype: "Prototype"
+    challenges: "Challenges"
     glossary: "Glossary"
+    resources_group: "Resources"
     aria_label: "Main navigation"
     toggle_menu: "Toggle menu"
   locale_switcher:
@@ -123,12 +123,37 @@ en:
       eyebrow: "Workshop Agenda"
       title: "%{workshop} agenda"
       back_to_workshop: "← Back to workshop"
-  log:
+  challenges:
     index:
-      title: "Log"
-  prototype:
-    index:
-      title: "Prototype"
+      title: "Challenges"
+      lead: "Ten framing questions — grouped by focus — that IMASUS participants pick from when scoping their project work."
+      meta_description: "The ten IMASUS industry challenges, grouped by material, design, system, and business framings."
+    preview:
+      close: "Close preview"
+    categories:
+      material: "Material"
+      design: "Design"
+      system: "System"
+      business: "Business"
+    card:
+      open_label: "Open challenge %{code}"
+    actions:
+      edit: "Edit"
+    edit:
+      title: "Edit %{code}"
+    update:
+      notice: "Challenge updated."
+    form:
+      code_label: "Code"
+      category_label: "Category"
+      question_label: "Question"
+      description_label: "Description"
+      submit_update: "Save changes"
+      cancel: "Cancel"
+      locale_tabs_label: "Locale"
+      errors_heading:
+        one: "1 error prevented this challenge from saving:"
+        other: "%{count} errors prevented this challenge from saving:"
   glossary_terms:
     index:
       title: "Glossary"

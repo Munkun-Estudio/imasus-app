@@ -71,3 +71,44 @@ In the participant invitation acceptance flow (`GET/PATCH /participant_invitatio
 ## 2026-04-17: Glossary curator UI — admin + facilitator, inline Turbo Frames
 
 Admin and facilitator have symmetric CRUD rights on glossary terms (create, edit, delete any term). No approval workflow, no soft-delete, no audit log — we trust curators. Routing reuses a single `resources :glossary_terms` surface with role-guarded actions; no separate `/admin/glossary` namespace. Role-gated affordances (Add / Edit / Delete buttons) render on the public `/glossary` and `/glossary/:slug` pages, invisible to participants and unauthenticated visitors. Edit and delete are inline via Turbo Frames (each term row is a frame; Edit swaps to a form in place). Create uses a dedicated `/glossary_terms/new` page because the 4-locale × multi-field form is too tall to fit inline without disrupting the index layout. Delete confirmation is a Turbo modal (not `data-turbo-confirm`), consistent with the app's calm/editorial tone and providing an accessible confirm dialog. The multi-locale form uses **locale tabs**: the user's current `I18n.locale` is the default-active tab and sits first in the tab order; the remaining locales follow the fixed `en → es → it → el` sequence, skipping whichever is current. Unsaved changes in inactive tabs are preserved while editing.
+
+## 2026-04-22: Sidebar information architecture — Hub + Workshops + Resources
+
+The sidebar is restructured from a flat 7-item paint-chip into a semantic layout with three zones:
+
+- **Hub:** `00 Home` (white / bordered swatch).
+- **Community:** `01 Workshops` (dark-green).
+- **Resources** (group, with small-caps label): `02 Materials` (light-blue), `03 Training` (navy), `04 Challenges` (mint, new), `05 Glossary` (light-pink).
+
+`Log` and `Prototype` are dropped as top-level items: log entries live inside a project, and publishing is a phase of a project (not a separate surface). Published projects surface via the Workshops index and the public Home's featured strip.
+
+Palette changes from spec 1: Materials moves from red to light-blue (red was too bold for a resource item). Red is no longer used in the sidebar; it stays reserved as an accent (per `context.md` brand guidance). Mint moves from the now-dropped Prototype slot to the new Challenges slot.
+
+This change ships with spec 6 (`challenge-cards`) because adding Challenges is what forced the IA rethink. Rejected alternative: a standalone IA-refactor spec — cleaner diff but would have left `challenge-cards` momentarily wedged into the old 7-swatch layout.
+
+## 2026-04-22: Drop "Prototype" as a product noun — use "Project" / "Published project"
+
+`Prototype` was a placeholder sidebar item with no model, route of substance, or spec behind it. The verb for publishing is **publish a project**; the noun for the result is **published project** (not "published page", not "published prototype"). Applies to UI copy, i18n keys, route names, and any `Project` lifecycle flags added in specs 10–12. The generic word "prototype" is still fine in training-module content, where it is used in the imagineering/design-research sense (e.g. "prototype a solution") — this decision is about the product-object vocabulary, not the domain vocabulary.
+
+## 2026-04-22: Home is role-aware — visitor landing vs. participant dashboard
+
+`/` is a single surface whose content differs by role:
+
+- **Unauthenticated visitor:** marketing-ish landing (prompt cards, featured material, training carousel, CTAs, featured published projects).
+- **Participant:** personal dashboard threading the project flow — create team, start project, select challenge, add log entries, publish project. Surfaces active projects, drafts, and quick entry points.
+- **Facilitator / admin:** role-specific dashboards (managed workshops, participant invitations, moderation levers).
+
+No separate "Dashboard" sidebar item. The sidebar stays the same for everyone; Home re-renders per role. This collapses the "Your work" surface the earlier seven-swatch layout was implicitly reserving and lets the sidebar stay at six items regardless of auth state. Dashboard scope lands in spec 7 (`home-page`), which is widened to cover all role variants rather than only the visitor landing.
+
+## 2026-04-22: Challenges are read in a sidebar drawer — no standalone show page
+
+Challenges are short (code + category + question + description) and are meant to be skimmed, not navigated. A dedicated show page adds a back-and-forth that's tedious for a list of ten.
+
+- No `GET /challenges/:code` show route. The card's main click target is `GET /challenges/:code/preview`, which renders into the layout-level `<turbo-frame id="preview">` slot (reusing the materials preview sidebar pattern: `preview_sidebar_controller`, Escape/backdrop to close, `aria-modal="false"`).
+- No preview eye-icon — the whole card is the click surface.
+- Curator's "Edit" button inside the drawer breaks out with `data-turbo-frame="_top"` and uses the standalone `/challenges/:code/edit` page (inline card-swap on the index still works via the `Edit` button on each card).
+- Deep-linking to a single challenge is deferred. Projects (spec 10) and published projects (spec 12) link to the index + drawer rather than to a dedicated URL; if a shareable per-challenge URL becomes necessary, we revisit with a server-rendered "index with drawer open" response.
+
+Rejected alternatives:
+- Keep show page + add a preview drawer: two surfaces for the same content, duplicate copy maintenance.
+- Eye-icon preview (materials pattern copied verbatim): materials have a heavy show page (gallery, supplier, sensorials, tags) that justifies the two-tier read; challenges don't.

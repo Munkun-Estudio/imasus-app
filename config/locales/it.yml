@@ -5,12 +5,12 @@ it:
       long: "%d/%m/%Y"
   nav:
     home: "Home"
+    workshops: "Workshop"
     materials: "Database materiali"
     training: "Formazione"
-    workshops: "Workshop"
-    log: "Registro"
-    prototype: "Prototipo"
+    challenges: "Sfide"
     glossary: "Glossario"
+    resources_group: "Risorse"
     aria_label: "Navigazione principale"
     toggle_menu: "Apri menu"
   locale_switcher:
@@ -211,12 +211,37 @@ it:
       greeting: "Ciao,"
       body: "Sei stata o sei stato invitato a partecipare al workshop IMASUS %{workshop}. Apri il link qui sotto entro 14 giorni per completare la tua registrazione:"
       help: "Se non ti aspettavi questo invito, contatta la tua facilitazione."
-  log:
+  challenges:
     index:
-      title: "Registro"
-  prototype:
-    index:
-      title: "Prototipo"
+      title: "Sfide"
+      lead: "Dieci domande guida — raggruppate per ambito — che le partecipanti IMASUS scelgono quando definiscono il proprio progetto."
+      meta_description: "Le dieci sfide industriali IMASUS, raggruppate per materiale, design, sistema e impresa."
+    preview:
+      close: "Chiudi anteprima"
+    categories:
+      material: "Materiale"
+      design: "Design"
+      system: "Sistema"
+      business: "Impresa"
+    card:
+      open_label: "Apri la sfida %{code}"
+    actions:
+      edit: "Modifica"
+    edit:
+      title: "Modifica %{code}"
+    update:
+      notice: "Sfida aggiornata."
+    form:
+      code_label: "Codice"
+      category_label: "Categoria"
+      question_label: "Domanda"
+      description_label: "Descrizione"
+      submit_update: "Salva modifiche"
+      cancel: "Annulla"
+      locale_tabs_label: "Lingua"
+      errors_heading:
+        one: "1 errore ha impedito il salvataggio di questa sfida:"
+        other: "%{count} errori hanno impedito il salvataggio di questa sfida:"
   glossary_terms:
     index:
       title: "Glossario"

@@ -1,19 +1,62 @@
 require "test_helper"
 
 class ShellLayoutTest < ActionDispatch::IntegrationTest
-  test "shell renders sidebar with all seven navigation links" do
+  test "shell renders sidebar with all six navigation links" do
+    get root_url
+    assert_response :success
+
+    assert_select "nav[aria-label] [data-role='primary-nav']" do
+      assert_select "a", count: 6
+      assert_select "a[href=?]", root_path
+      assert_select "a[href=?]", workshops_path
+      assert_select "a[href=?]", materials_path
+      assert_select "a[href=?]", training_index_path
+      assert_select "a[href=?]", challenges_path
+      assert_select "a[href=?]", glossary_terms_path
+    end
+  end
+
+  test "shell groups Materials, Training, Challenges, and Glossary under a Resources label" do
     get root_url
     assert_response :success
 
     assert_select "nav[aria-label]" do
-      assert_select "a", minimum: 7
-      assert_select "a[href=?]", root_path
-      assert_select "a[href=?]", materials_path
-      assert_select "a[href=?]", training_index_path
-      assert_select "a[href=?]", workshops_path
-      assert_select "a[href=?]", log_index_path
-      assert_select "a[href=?]", prototype_index_path
-      assert_select "a[href=?]", glossary_terms_path
+      assert_select "[data-group='resources']" do
+        assert_select "a[href=?]", materials_path
+        assert_select "a[href=?]", training_index_path
+        assert_select "a[href=?]", challenges_path
+        assert_select "a[href=?]", glossary_terms_path
+      end
+      assert_select "[data-role='resources-label']", /Resources/i
+    end
+  end
+
+  test "shell no longer exposes the dropped Log and Prototype placeholders" do
+    get root_url
+    assert_response :success
+
+    assert_select "nav[aria-label]" do
+      assert_select "a", text: /Log/i, count: 0
+      assert_select "a", text: /Prototype/i, count: 0
+    end
+  end
+
+  test "Materials swatch uses the light-blue palette token (not red)" do
+    get root_url
+    assert_response :success
+
+    assert_select "nav[aria-label]" do
+      assert_select "a[href=?].bg-imasus-light-blue", materials_path
+      assert_select "a[href=?].bg-imasus-red", materials_path, count: 0
+    end
+  end
+
+  test "Challenges swatch uses the mint palette token" do
+    get root_url
+    assert_response :success
+
+    assert_select "nav[aria-label]" do
+      assert_select "a[href=?].bg-imasus-mint", challenges_path
     end
   end
 

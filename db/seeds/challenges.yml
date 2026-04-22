@@ -1,0 +1,174 @@
+# IMASUS challenge seed data.
+#
+# The ten framing challenges (C1–C10) participants pick from when scoping
+# project work. Each entry must carry an English `question` and `description`
+# — these are the required, source-of-truth values. `es`, `it`, and `el` are
+# stub slots with placeholder copy to exercise the I18n pipeline; fill them
+# in properly over time as translations become available.
+#
+# Re-running this seed is idempotent: entries are matched by `code`, so
+# editing the copy updates the existing record rather than creating a new one.
+#
+# The English copy below is PLACEHOLDER — the real brief is WIP in a DOCX/PDF
+# (see `.munkit/context.md` → "Content sources"). Replace this file once the
+# source document is finalised.
+
+- code: C1
+  category: material
+  question:
+    en: How might we reduce virgin-material use in textile production?
+    es: "[ES] How might we reduce virgin-material use in textile production?"
+    it: "[IT] How might we reduce virgin-material use in textile production?"
+    el: "[EL] How might we reduce virgin-material use in textile production?"
+  description:
+    en: >
+      Framing question for projects focused on substituting, reducing, or
+      rethinking the primary material inputs of textile production — from
+      fibre cultivation to yarn and fabric formation.
+    es: "[ES] Description placeholder for C1."
+    it: "[IT] Description placeholder for C1."
+    el: "[EL] Description placeholder for C1."
+
+- code: C2
+  category: material
+  question:
+    en: How might we recover value from post-industrial textile waste?
+    es: "[ES] How might we recover value from post-industrial textile waste?"
+    it: "[IT] How might we recover value from post-industrial textile waste?"
+    el: "[EL] How might we recover value from post-industrial textile waste?"
+  description:
+    en: >
+      Off-cuts, selvedges, yarn waste, and rejected lots produced during
+      manufacturing — how can their material value be captured before it
+      becomes post-consumer waste?
+    es: "[ES] Description placeholder for C2."
+    it: "[IT] Description placeholder for C2."
+    el: "[EL] Description placeholder for C2."
+
+- code: C3
+  category: design
+  question:
+    en: How might we design garments for longer use phases?
+    es: "[ES] How might we design garments for longer use phases?"
+    it: "[IT] How might we design garments for longer use phases?"
+    el: "[EL] How might we design garments for longer use phases?"
+  description:
+    en: >
+      Durability is both physical and emotional — projects here investigate
+      construction, repairability, and attachment as design levers for
+      extending the life a garment spends in active use.
+    es: "[ES] Description placeholder for C3."
+    it: "[IT] Description placeholder for C3."
+    el: "[EL] Description placeholder for C3."
+
+- code: C4
+  category: design
+  question:
+    en: How might we design for modular repair and adaptation?
+    es: "[ES] How might we design for modular repair and adaptation?"
+    it: "[IT] How might we design for modular repair and adaptation?"
+    el: "[EL] How might we design for modular repair and adaptation?"
+  description:
+    en: >
+      Component thinking applied to textile products — separable parts,
+      standard interfaces, and adaptation paths that let a garment evolve
+      with its wearer rather than being discarded.
+    es: "[ES] Description placeholder for C4."
+    it: "[IT] Description placeholder for C4."
+    el: "[EL] Description placeholder for C4."
+
+- code: C5
+  category: design
+  question:
+    en: How might we design for end-of-life disassembly and recyclability?
+    es: "[ES] How might we design for end-of-life disassembly and recyclability?"
+    it: "[IT] How might we design for end-of-life disassembly and recyclability?"
+    el: "[EL] How might we design for end-of-life disassembly and recyclability?"
+  description:
+    en: >
+      What does a garment designed for its next life look like? Projects
+      here address material selection, joining techniques, and labelling
+      that enable mono-material streams at end-of-life.
+    es: "[ES] Description placeholder for C5."
+    it: "[IT] Description placeholder for C5."
+    el: "[EL] Description placeholder for C5."
+
+- code: C6
+  category: system
+  question:
+    en: How might we close textile material loops at a regional scale?
+    es: "[ES] How might we close textile material loops at a regional scale?"
+    it: "[IT] How might we close textile material loops at a regional scale?"
+    el: "[EL] How might we close textile material loops at a regional scale?"
+  description:
+    en: >
+      Collection, sorting, reprocessing — the infrastructure of circularity.
+      Projects investigate what a working regional loop requires in terms
+      of actors, flows, and coordination.
+    es: "[ES] Description placeholder for C6."
+    it: "[IT] Description placeholder for C6."
+    el: "[EL] Description placeholder for C6."
+
+- code: C7
+  category: system
+  question:
+    en: How might we improve traceability across textile supply chains?
+    es: "[ES] How might we improve traceability across textile supply chains?"
+    it: "[IT] How might we improve traceability across textile supply chains?"
+    el: "[EL] How might we improve traceability across textile supply chains?"
+  description:
+    en: >
+      From fibre to garment, supply chains are long, opaque, and fragmented.
+      What interventions — technical, procedural, or regulatory — would
+      make material and social conditions visible to downstream actors?
+    es: "[ES] Description placeholder for C7."
+    it: "[IT] Description placeholder for C7."
+    el: "[EL] Description placeholder for C7."
+
+- code: C8
+  category: business
+  question:
+    en: How might we build business models around garment longevity instead of volume?
+    es: "[ES] How might we build business models around garment longevity instead of volume?"
+    it: "[IT] How might we build business models around garment longevity instead of volume?"
+    el: "[EL] How might we build business models around garment longevity instead of volume?"
+  description:
+    en: >
+      Services, subscriptions, repair offerings, second-hand integration —
+      projects explore value capture that does not depend on producing and
+      selling ever-more new units.
+    es: "[ES] Description placeholder for C8."
+    it: "[IT] Description placeholder for C8."
+    el: "[EL] Description placeholder for C8."
+
+- code: C9
+  category: business
+  question:
+    en: How might we make sustainable textile options accessible across price points?
+    es: "[ES] How might we make sustainable textile options accessible across price points?"
+    it: "[IT] How might we make sustainable textile options accessible across price points?"
+    el: "[EL] How might we make sustainable textile options accessible across price points?"
+  description:
+    en: >
+      Sustainability is not only for premium segments — projects address
+      cost structures, distribution, and consumer access that make lower-
+      impact choices the default rather than the luxury.
+    es: "[ES] Description placeholder for C9."
+    it: "[IT] Description placeholder for C9."
+    el: "[EL] Description placeholder for C9."
+
+- code: C10
+  category: business
+  question:
+    en: How might we align textile business practice with upcoming EU sustainability regulation?
+    es: "[ES] How might we align textile business practice with upcoming EU sustainability regulation?"
+    it: "[IT] How might we align textile business practice with upcoming EU sustainability regulation?"
+    el: "[EL] How might we align textile business practice with upcoming EU sustainability regulation?"
+  description:
+    en: >
+      ESPR, Digital Product Passport, the Waste Framework Directive — what
+      does compliant, competitive textile business practice look like under
+      the emerging EU regulatory frame?
+    es: "[ES] Description placeholder for C10."
+    it: "[IT] Description placeholder for C10."
+    el: "[EL] Description placeholder for C10."
