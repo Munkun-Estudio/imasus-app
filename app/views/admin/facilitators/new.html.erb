@@ -1,19 +1,25 @@
-<h1><%= t("admin.facilitators.new.title", default: "Invite a facilitator") %></h1>
+<div class="<%= form_page_classes %>">
+  <div class="<%= form_card_classes %>">
+    <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t("admin.facilitators.new.title", default: "Invite a facilitator") %></h1>
 
-<% if @user.errors.any? %>
-  <ul role="alert">
-    <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
-  </ul>
-<% end %>
+    <% if @user.errors.any? %>
+      <div role="alert" class="<%= form_error_box_classes %> mt-6">
+        <ul class="space-y-1">
+          <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+        </ul>
+      </div>
+    <% end %>
 
-<%= form_with model: @user, url: admin_facilitators_path, local: true do |f| %>
-  <div>
-    <%= f.label :name, t("admin.facilitators.new.name", default: "Name") %>
-    <%= f.text_field :name, required: true, autofocus: true %>
+    <%= form_with model: @user, url: admin_facilitators_path, local: true, class: "mt-8 space-y-5" do |f| %>
+      <div>
+        <%= f.label :name, t("admin.facilitators.new.name", default: "Name"), class: form_label_classes %>
+        <%= f.text_field :name, required: true, autofocus: true, class: form_input_classes %>
+      </div>
+      <div>
+        <%= f.label :email, t("admin.facilitators.new.email", default: "Email"), class: form_label_classes %>
+        <%= f.email_field :email, required: true, class: form_input_classes %>
+      </div>
+      <%= f.submit t("admin.facilitators.new.submit", default: "Send invitation"), class: form_primary_button_classes %>
+    <% end %>
   </div>
-  <div>
-    <%= f.label :email, t("admin.facilitators.new.email", default: "Email") %>
-    <%= f.email_field :email, required: true %>
-  </div>
-  <%= f.submit t("admin.facilitators.new.submit", default: "Send invitation") %>
-<% end %>
+</div>

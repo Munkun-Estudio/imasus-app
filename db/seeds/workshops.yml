@@ -1,0 +1,32 @@
+workshops:
+  - slug: spain
+    partner: Munkun
+    location: Zaragoza, Spain
+    starts_on: 2026-04-28
+    ends_on: 2026-04-28
+    title_translations:
+      es: Taller IMASUS Espana
+    description_translations:
+      es: >
+        Un taller IMASUS en Zaragoza que combina una sesion de webinar con una
+        jornada presencial para explorar materiales sostenibles, retos de la
+        industria textil y propuestas colectivas desde la metodologia
+        Imagineering.
+    agenda_translations:
+      es: |
+        <h2>Sesion 1 — Webinar</h2>
+        <p>Introduccion a IMASUS y a las cuatro lentes del programa: zero waste design, design for recyclability, design for modularity y design for longevity.</p>
+        <ul>
+          <li>Presentacion de casos de estudio y tensiones clave del sector.</li>
+          <li>Actividad de Appreciating para recoger ejemplos y energias del grupo.</li>
+          <li>Asignacion previa: elegir una Challenge Card y escribir un breve parrafo de motivacion.</li>
+        </ul>
+        <h2>Sesion 2 — Jornada presencial</h2>
+        <p>Trabajo colectivo a partir de la estructura Imagineering para pasar del analisis sistemico a una propuesta concreta.</p>
+        <ul>
+          <li><strong>Opening:</strong> sintesis del webinar y formacion de equipos.</li>
+          <li><strong>Module B — Breathing:</strong> mapa del sistema y puntos de palanca.</li>
+          <li><strong>Module C — Creating:</strong> formulacion del Creative Tension Engine.</li>
+          <li><strong>Module D — Developing:</strong> desarrollo de una propuesta abierta apoyada en materiales, training modules y challenge cards.</li>
+          <li><strong>Closing:</strong> pitches finales y siguiente paso individual.</li>
+        </ul>

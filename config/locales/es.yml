@@ -1,4 +1,8 @@
 es:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d/%m/%Y"
   nav:
     home: "Inicio"
     materials: "Base de materiales"
@@ -92,8 +96,121 @@ es:
       case_study: "Caso de estudio"
       toolkit: "Kit de herramientas"
   workshops:
+    shared:
+      date_tbd: "Fecha por confirmar"
     index:
       title: "Talleres"
+      eyebrow: "Orientacion del taller"
+      lead: "Consulta los talleres IMASUS disponibles y abre el que mejor situa tu contexto local."
+      attending: "Participas"
+      location: "Lugar"
+      dates: "Fechas"
+      open_workshop: "Abrir taller"
+      open_agenda: "Abrir agenda"
+      empty_title: "Todavia no hay talleres disponibles."
+      empty_body: "Los detalles del taller apareceran aqui cuando esten confirmados."
+    show:
+      back_to_index: "← Volver a talleres"
+      eyebrow: "Taller"
+      attending: "Participas"
+      location: "Lugar"
+      dates: "Fechas"
+      agenda: "Agenda"
+      open_agenda: "Abrir agenda"
+      agenda_page: "Ver agenda completa"
+      invite_participants: "Invitar participantes"
+    agenda:
+      eyebrow: "Agenda del taller"
+      title: "Agenda de %{workshop}"
+      back_to_workshop: "← Volver al taller"
+  sessions:
+    new:
+      title: "Iniciar sesión"
+      eyebrow: "Acceso IMASUS"
+      lead: "Usa tu cuenta de IMASUS para continuar a talleres, invitaciones y trabajo colaborativo."
+      email: "Correo electrónico"
+      password: "Contraseña"
+      submit: "Entrar"
+      forgot: "¿Has olvidado tu contraseña?"
+    create:
+      invalid: "Correo o contraseña no válidos."
+    destroy:
+      notice: "La sesión se ha cerrado."
+  password_resets:
+    new:
+      title: "Restablecer tu contraseña"
+      lead: "Introduce tu correo y te enviaremos un enlace de un solo uso para elegir una nueva contraseña."
+      email: "Correo electrónico"
+      submit: "Enviar enlace"
+    create:
+      notice: "Si existe una cuenta para ese correo, ya está en camino un enlace de recuperación."
+    edit:
+      title: "Elige una nueva contraseña"
+      password: "Nueva contraseña"
+      password_confirmation: "Confirma la nueva contraseña"
+      submit: "Actualizar contraseña"
+    update:
+      notice: "Tu contraseña se ha actualizado."
+    token_invalid: "Ese enlace de recuperación no es válido o ha caducado. Solicita uno nuevo."
+  admin:
+    facilitators:
+      new:
+        title: "Invitar a una persona facilitadora"
+        name: "Nombre completo"
+        email: "Correo electrónico"
+        submit: "Enviar invitación"
+      create:
+        notice: "Invitación enviada a %{email}."
+  facilitator_invitations:
+    edit:
+      title: "Completa tu cuenta de facilitación de IMASUS"
+      email: "Correo electrónico"
+      name: "Nombre completo"
+      password: "Contraseña"
+      password_confirmation: "Confirmar contraseña"
+      submit: "Completar registro"
+    update:
+      notice: "Te damos la bienvenida a IMASUS. Tu cuenta de facilitación está lista."
+    token_invalid: "Ese enlace de invitación no es válido o ha caducado. Ponte en contacto con la administración de IMASUS."
+  participant_invitations:
+    edit:
+      title: "Completa tu registro en IMASUS"
+      email: "Correo electrónico"
+      profile_heading: "Perfil"
+      profile_lead: "Al final del taller, el equipo publicará su trabajo junto con perfiles breves de las personas participantes."
+      name: "Nombre completo"
+      institution: "Institución"
+      country: "País"
+      bio: "Breve biografía"
+      bio_hint: "Cuéntanos tus intereses y tu experiencia."
+      links: "Enlaces (una URL por línea)"
+      links_hint: "Comparte tu portafolio o tus redes donde muestras tu trabajo."
+      password: "Contraseña"
+      password_confirmation: "Confirmar contraseña"
+      submit: "Completar registro"
+      countries:
+        spain: "España"
+        italy: "Italia"
+        greece: "Grecia"
+    update:
+      notice: "Te damos la bienvenida a IMASUS. Ya puedes empezar a explorar el taller."
+    token_invalid: "Ese enlace de invitación no es válido o ha caducado. Ponte en contacto con tu facilitación."
+  workshop_invitations:
+    new:
+      eyebrow: "Invitaciones al taller"
+      back_to_workshop: "← Volver al taller"
+      title: "Invitar participantes a %{workshop}"
+      hint: "Pega un correo por línea. Las personas que ya tienen cuenta en IMASUS se vincularán a este taller sin recibir una nueva invitación."
+      emails: "Correos de participantes"
+      submit: "Enviar invitaciones"
+    create:
+      notice: "%{invited} invitadas, %{skipped} ya registradas, %{invalid} correos no válidos."
+  participant_invitation_mailer:
+    invite:
+      subject: "Te han invitado al taller IMASUS %{workshop}"
+      greeting: "Hola,"
+      body: "Te han invitado a participar en el taller IMASUS %{workshop}. Abre el siguiente enlace dentro de los próximos 14 días para completar tu registro:"
+      help: "Si no esperabas esta invitación, ponte en contacto con tu facilitación."
   log:
     index:
       title: "Registro"
@@ -152,3 +269,21 @@ es:
       delete_confirm_submit: "Eliminar"
   errors:
     access_denied: "No tienes autorización para ver esa página."
+    messages:
+      blank: "no puede estar en blanco"
+      confirmation: "no coincide con %{attribute}"
+      invalid: "no es válido"
+      too_short:
+        one: "es demasiado corta (el mínimo es 1 carácter)"
+        other: "es demasiado corta (el mínimo es %{count} caracteres)"
+  activerecord:
+    attributes:
+      user:
+        email: "Correo electrónico"
+        name: "Nombre completo"
+        institution: "Institución"
+        country: "País"
+        bio: "Breve biografía"
+        links: "Enlaces"
+        password: "Contraseña"
+        password_confirmation: "Confirmación de contraseña"

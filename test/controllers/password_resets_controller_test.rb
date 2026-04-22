@@ -13,6 +13,9 @@ class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   test "GET new renders the request form" do
     get new_password_reset_path
     assert_response :success
+    assert_select "h1", text: I18n.t("password_resets.new.title")
+    assert_select "input[type=email][class*=?]", "border"
+    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
   end
 
   test "POST create sends email for a known user and shows generic confirmation" do
@@ -42,6 +45,8 @@ class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
     @user.generate_password_reset_token!
     get edit_password_reset_path(token: @user.password_reset_token)
     assert_response :success
+    assert_select "h1", text: I18n.t("password_resets.edit.title")
+    assert_select "input[type=password][class*=?]", "border", count: 2
   end
 
   test "GET edit with expired token redirects to new with flash" do

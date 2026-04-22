@@ -1,23 +1,31 @@
-<h1><%= t("facilitator_invitations.edit.title", default: "Activate your IMASUS facilitator account") %></h1>
+<% content_for :title, t("facilitator_invitations.edit.title", default: "Activate your IMASUS facilitator account") %>
 
-<% if @user.errors.any? %>
-  <ul role="alert">
-    <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
-  </ul>
-<% end %>
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <header class="max-w-3xl">
+    <h1 class="text-4xl font-bold text-imasus-dark-green"><%= t("facilitator_invitations.edit.title", default: "Activate your IMASUS facilitator account") %></h1>
+  </header>
 
-<%= form_with model: @user, url: facilitator_invitation_path(token: params[:token]), method: :patch, local: true do |f| %>
-  <div>
-    <%= f.label :name, t("facilitator_invitations.edit.name", default: "Name") %>
-    <%= f.text_field :name, value: @user.name, required: true %>
-  </div>
-  <div>
-    <%= f.label :password, t("facilitator_invitations.edit.password", default: "Password") %>
-    <%= f.password_field :password, required: true, autocomplete: "new-password" %>
-  </div>
-  <div>
-    <%= f.label :password_confirmation, t("facilitator_invitations.edit.password_confirmation", default: "Confirm password") %>
-    <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password" %>
-  </div>
-  <%= f.submit t("facilitator_invitations.edit.submit", default: "Activate account") %>
-<% end %>
+  <% if @user.errors.any? %>
+    <div role="alert" class="<%= form_error_box_classes %> mt-8 max-w-3xl">
+      <ul class="space-y-1">
+        <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @user, url: facilitator_invitation_path(token: params[:token], locale: I18n.locale), method: :patch, local: true, class: "mt-8 max-w-3xl space-y-5" do |f| %>
+    <div>
+      <%= f.label :name, t("facilitator_invitations.edit.name", default: "Name"), class: form_label_classes %>
+      <%= f.text_field :name, value: @user.name, required: true, class: form_input_classes %>
+    </div>
+    <div>
+      <%= f.label :password, t("facilitator_invitations.edit.password", default: "Password"), class: form_label_classes %>
+      <%= f.password_field :password, required: true, autocomplete: "new-password", class: form_input_classes %>
+    </div>
+    <div>
+      <%= f.label :password_confirmation, t("facilitator_invitations.edit.password_confirmation", default: "Confirm password"), class: form_label_classes %>
+      <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: form_input_classes %>
+    </div>
+    <%= f.submit t("facilitator_invitations.edit.submit", default: "Activate account"), class: form_primary_button_classes %>
+  <% end %>
+</div>

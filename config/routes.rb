@@ -19,7 +19,10 @@ Rails.application.routes.draw do
   resources :training, only: :index
   get "training/:slug/:section", to: "training#show", as: :training_show,
       constraints: { slug: /[a-z0-9-]+/, section: /[a-z0-9-]+/ }
-  resources :workshops, only: [ :index, :show ] do
+  resources :workshops, only: [ :index, :show ], param: :slug do
+    member do
+      get :agenda
+    end
     resources :invitations, only: [ :new, :create ], controller: "workshop_invitations"
   end
   resources :log, only: :index

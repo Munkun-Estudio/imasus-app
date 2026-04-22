@@ -3,7 +3,15 @@ require "test_helper"
 class WorkshopParticipationTest < ActiveSupport::TestCase
   def setup
     @user     = User.create!(name: "P", email: "p@example.com", role: :participant)
-    @workshop = Workshop.create!(title: "IMASUS Greece", location: "Greece")
+    @workshop = Workshop.create!(
+      slug: "greece-2026",
+      title_translations: { "el" => "Ergastirio IMASUS Ellada" },
+      description_translations: { "el" => "Perigrafi ergastiriou." },
+      partner: "ECHN",
+      location: "Athens, Greece",
+      starts_on: Date.new(2026, 4, 28),
+      ends_on: Date.new(2026, 4, 28)
+    )
   end
 
   test "valid with user and workshop" do
