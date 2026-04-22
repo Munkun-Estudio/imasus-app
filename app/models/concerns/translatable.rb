@@ -50,7 +50,6 @@ module Translatable
           end
 
           nil
-
         end
 
         define_method(:"#{attr}=") do |value|
