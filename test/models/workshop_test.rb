@@ -1,24 +1,74 @@
 require "test_helper"
 
-# Minimal Workshop model — a placeholder introduced by the authentication spec
-# so the participant invitation flow has a real workshop to attach to. Spec 9
-# (`workshops`) will flesh out the full model with dates, agenda, partner, etc.
 class WorkshopTest < ActiveSupport::TestCase
-  test "valid with title and location" do
-    workshop = Workshop.new(title: "IMASUS Spain", location: "Spain")
+  def workshop_attributes(overrides = {})
+    {
+      slug: "spain-2026",
+      title_translations: { "es" => "Taller IMASUS Espana" },
+      description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
+      partner: "Munkun",
+      location: "Zaragoza, Spain",
+      starts_on: Date.new(2026, 4, 28),
+      ends_on: Date.new(2026, 4, 28)
+    }.merge(overrides)
+  end
+
+  test "valid with translated title and description plus workshop metadata" do
+    workshop = Workshop.new(workshop_attributes)
     assert workshop.valid?
   end
 
-  test "requires title" do
-    assert_not Workshop.new(location: "Spain").valid?
+  test "requires a translated title in at least one locale" do
+    workshop = Workshop.new(workshop_attributes(title_translations: {}))
+    assert_not workshop.valid?
+    assert_includes workshop.errors[:title_translations], "can't be blank"
   end
 
-  test "requires location" do
-    assert_not Workshop.new(title: "IMASUS Spain").valid?
+  test "requires a translated description in at least one locale" do
+    workshop = Workshop.new(workshop_attributes(description_translations: {}))
+    assert_not workshop.valid?
+    assert_includes workshop.errors[:description_translations], "can't be blank"
+  end
+
+  test "requires partner and dates" do
+    workshop = Workshop.new(workshop_attributes(partner: nil, starts_on: nil, ends_on: nil))
+    assert_not workshop.valid?
+    assert_includes workshop.errors[:partner], "can't be blank"
+    assert_includes workshop.errors[:starts_on], "can't be blank"
+    assert_includes workshop.errors[:ends_on], "can't be blank"
+  end
+
+  test "requires ends_on to be on or after starts_on" do
+    workshop = Workshop.new(workshop_attributes(starts_on: Date.new(2026, 4, 29), ends_on: Date.new(2026, 4, 28)))
+    assert_not workshop.valid?
+    assert_includes workshop.errors[:ends_on], "must be on or after the start date"
+  end
+
+  test "falls back to another available locale for translated fields" do
+    workshop = Workshop.new(workshop_attributes)
+
+    I18n.with_locale(:en) do
+      assert_equal "Taller IMASUS Espana", workshop.title
+      assert_equal "Un taller IMASUS en Zaragoza.", workshop.description
+    end
+  end
+
+  test "communication locale prefers the workshop local language when present" do
+    workshop = Workshop.new(workshop_attributes(title_translations: { "es" => "Taller IMASUS Espana", "en" => "IMASUS Spain Workshop" },
+                                                description_translations: { "es" => "Un taller IMASUS en Zaragoza.", "en" => "An IMASUS workshop in Zaragoza." }))
+
+    assert_equal "es", workshop.communication_locale
+  end
+
+  test "to_param returns the slug" do
+    workshop = Workshop.new(workshop_attributes)
+    assert_equal "spain-2026", workshop.to_param
   end
 
   test "has many participations and participants" do
-    workshop = Workshop.create!(title: "IMASUS Italy", location: "Italy")
+    workshop = Workshop.create!(workshop_attributes(slug: "italy-2026", title_translations: { "it" => "Workshop IMASUS Italia" },
+                                                     description_translations: { "it" => "Un workshop a Prato." },
+                                                     partner: "Lottozero", location: "Prato, Italy"))
     user = User.create!(name: "P", email: "p@example.com", role: :participant)
     WorkshopParticipation.create!(user: user, workshop: workshop)
     assert_includes workshop.participations.reload, WorkshopParticipation.last

@@ -22,6 +22,6 @@ class WorkshopInvitationsController < ApplicationController
   private
 
   def set_workshop
-    @workshop = Workshop.find(params[:workshop_id])
+    @workshop = Workshop.find_by!(slug: params[:workshop_slug] || params[:workshop_id])
   end
 end

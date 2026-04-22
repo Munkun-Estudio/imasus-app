@@ -34,6 +34,10 @@ class Admin::FacilitatorsControllerTest < ActionDispatch::IntegrationTest
     sign_in(@admin)
     get new_admin_facilitator_path
     assert_response :success
+    assert_select "h1", text: I18n.t("admin.facilitators.new.title")
+    assert_select "input[type=text][class*=?]", "border"
+    assert_select "input[type=email][class*=?]", "border"
+    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
   end
 
   test "admin creates a facilitator, sends invitation email, and redirects" do

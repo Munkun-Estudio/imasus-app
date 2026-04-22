@@ -4,9 +4,10 @@
 # `<attribute>_translations` as a JSON object keyed by locale code. The concern
 # defines three accessor methods per attribute:
 #
-#   * `<attr>`              — reads the value for `I18n.locale`, falling back to
-#                             `I18n.default_locale` when the current locale slot
-#                             is blank. Returns `nil` when both are blank.
+#   * `<attr>`              — reads the value for `I18n.locale`, then any
+#                             configured I18n fallbacks, then the default
+#                             locale when the current locale chain is blank.
+#                             Returns `nil` when that chain is blank.
 #   * `<attr>=`             — writes the value into the slot for `I18n.locale`,
 #                             preserving the other locales.
 #   * `<attr>_in(locale)`   — reads the exact locale slot with no fallback.
@@ -37,8 +38,18 @@ module Translatable
 
         define_method(attr) do
           translations = public_send(column) || {}
-          translations[I18n.locale.to_s].presence ||
-            translations[I18n.default_locale.to_s].presence
+          locales = [ I18n.locale ]
+          if I18n.respond_to?(:fallbacks)
+            locales.concat(Array(I18n.fallbacks[I18n.locale]))
+          end
+          locales << I18n.default_locale
+
+          locales.uniq.each do |locale|
+            value = translations[locale.to_s].presence
+            return value if value.present?
+          end
+
+          nil
         end
 
         define_method(:"#{attr}=") do |value|

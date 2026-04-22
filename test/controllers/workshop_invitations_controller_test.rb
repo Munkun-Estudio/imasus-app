@@ -8,7 +8,15 @@ class WorkshopInvitationsControllerTest < ActionDispatch::IntegrationTest
     @admin       = User.create!(name: "Admin", email: "admin@example.com", password: @password, role: :admin)
     @facilitator = User.create!(name: "Fac",   email: "fac@example.com",   password: @password, role: :facilitator)
     @participant = User.create!(name: "Part",  email: "part@example.com",  password: @password, role: :participant)
-    @workshop    = Workshop.create!(title: "IMASUS Spain", location: "Spain")
+    @workshop    = Workshop.create!(
+      slug: "spain",
+      title_translations: { "es" => "Taller IMASUS Espana" },
+      description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
+      partner: "Munkun",
+      location: "Zaragoza, Spain",
+      starts_on: Date.new(2026, 4, 28),
+      ends_on: Date.new(2026, 4, 28)
+    )
   end
 
   def sign_in(user)
@@ -30,12 +38,27 @@ class WorkshopInvitationsControllerTest < ActionDispatch::IntegrationTest
     sign_in(@facilitator)
     get new_workshop_invitation_path(@workshop)
     assert_response :success
+    assert_select "h1", text: I18n.t("workshop_invitations.new.title", workshop: @workshop.title)
+    assert_select "a[href=?]", workshop_path(@workshop), text: I18n.t("workshop_invitations.new.back_to_workshop")
+    assert_select "textarea[class*=?]", "border"
+    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
+    assert_select "div.mx-auto.max-w-2xl", count: 0
   end
 
   test "admin can open the form" do
     sign_in(@admin)
     get new_workshop_invitation_path(@workshop)
     assert_response :success
+  end
+
+  test "new form uses locale translations" do
+    sign_in(@facilitator)
+    get new_workshop_invitation_path(@workshop), params: { locale: :es }
+    assert_response :success
+    assert_select "h1", text: I18n.t("workshop_invitations.new.title", locale: :es, workshop: @workshop.title)
+    assert_select "p", text: I18n.t("workshop_invitations.new.hint", locale: :es)
+    assert_select "label", text: I18n.t("workshop_invitations.new.emails", locale: :es)
+    assert_select "input[type=submit]", value: I18n.t("workshop_invitations.new.submit", locale: :es)
   end
 
   test "POST create invites new participants, skips existing, and emails only new ones" do

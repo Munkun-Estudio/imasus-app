@@ -10,6 +10,9 @@ class FacilitatorInvitationsControllerTest < ActionDispatch::IntegrationTest
   test "GET edit with valid token renders the form" do
     get edit_facilitator_invitation_path(token: @token)
     assert_response :success
+    assert_select "h1", text: I18n.t("facilitator_invitations.edit.title")
+    assert_select "input[type=text][class*=?]", "border"
+    assert_select "input[type=password][class*=?]", "border", count: 2
   end
 
   test "GET edit with expired token shows error" do

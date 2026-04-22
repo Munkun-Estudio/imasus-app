@@ -1,4 +1,8 @@
 en:
+  date:
+    formats:
+      default: "%d/%m/%Y"
+      long: "%d/%m/%Y"
   nav:
     home: "Home"
     materials: "Materials DB"
@@ -92,8 +96,33 @@ en:
       case_study: "Case Study"
       toolkit: "Toolkit"
   workshops:
+    shared:
+      date_tbd: "Date to be confirmed"
     index:
       title: "Workshops"
+      eyebrow: "Workshop Orientation"
+      lead: "Browse the currently available IMASUS workshops and open the one that frames your local context."
+      attending: "Attending"
+      location: "Location"
+      dates: "Dates"
+      open_workshop: "Open workshop"
+      open_agenda: "Open agenda"
+      empty_title: "No workshops available yet."
+      empty_body: "Workshop details will appear here once they are confirmed."
+    show:
+      back_to_index: "← Back to workshops"
+      eyebrow: "Workshop"
+      attending: "Attending"
+      location: "Location"
+      dates: "Dates"
+      agenda: "Agenda"
+      open_agenda: "Open agenda"
+      agenda_page: "View full agenda"
+      invite_participants: "Invite participants"
+    agenda:
+      eyebrow: "Workshop Agenda"
+      title: "%{workshop} agenda"
+      back_to_workshop: "← Back to workshop"
   log:
     index:
       title: "Log"
@@ -153,6 +182,8 @@ en:
   sessions:
     new:
       title: "Log in"
+      eyebrow: "IMASUS Access"
+      lead: "Use your IMASUS account to continue to workshops, invitations, and collaborative work."
       email: "Email"
       password: "Password"
       submit: "Log in"
@@ -164,6 +195,7 @@ en:
   password_resets:
     new:
       title: "Reset your password"
+      lead: "Enter your email and we will send you a one-time link to choose a new password."
       email: "Email"
       submit: "Send reset link"
     create:
@@ -206,24 +238,58 @@ en:
     edit:
       title: "Complete your IMASUS registration"
       email: "Email"
+      profile_heading: "Profile"
+      profile_lead: "At the end of the workshop, the team will publish its work together with short participant profiles."
       name: "Full name"
       institution: "Institution"
       country: "Country"
       bio: "Short bio"
+      bio_hint: "Tell us about your interests and experience."
       links: "Links (one URL per line)"
+      links_hint: "Share your portfolio or social networks where you publish your work."
       password: "Password"
       password_confirmation: "Confirm password"
       submit: "Complete registration"
+      countries:
+        spain: "Spain"
+        italy: "Italy"
+        greece: "Greece"
     update:
       notice: "Welcome to IMASUS. You can start exploring the workshop now."
     token_invalid: "That invitation link is invalid or has expired. Please contact your facilitator."
   errors:
     access_denied: "You are not authorised to view that page."
+    messages:
+      blank: "can't be blank"
+      confirmation: "doesn't match %{attribute}"
+      invalid: "is invalid"
+      too_short:
+        one: "is too short (minimum is 1 character)"
+        other: "is too short (minimum is %{count} characters)"
+  activerecord:
+    attributes:
+      user:
+        email: "Email"
+        name: "Full name"
+        institution: "Institution"
+        country: "Country"
+        bio: "Short bio"
+        links: "Links"
+        password: "Password"
+        password_confirmation: "Password confirmation"
   workshop_invitations:
     new:
+      eyebrow: "Workshop Invitations"
+      back_to_workshop: "← Back to workshop"
       title: "Invite participants to %{workshop}"
       hint: "Paste one email per line. Existing IMASUS users will be linked to this workshop without receiving a new invitation."
       emails: "Participant emails"
       submit: "Send invitations"
     create:
       notice: "%{invited} invited, %{skipped} already registered, %{invalid} invalid email(s)."
+  participant_invitation_mailer:
+    invite:
+      subject: "You have been invited to the %{workshop} IMASUS workshop"
+      greeting: "Hi,"
+      body: "You have been invited to join the %{workshop} IMASUS workshop. Open the link below within 14 days to complete your registration:"
+      help: "If you were not expecting this invitation, please contact your facilitator."

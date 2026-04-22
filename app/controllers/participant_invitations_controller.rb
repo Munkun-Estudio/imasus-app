@@ -3,6 +3,7 @@
 # and redirected to the workshop they were invited to.
 class ParticipantInvitationsController < ApplicationController
   before_action :set_user_from_token
+  before_action :set_workshop
 
   def edit
   end
@@ -33,12 +34,21 @@ class ParticipantInvitationsController < ApplicationController
   end
 
   def participant_accept_params
-    params.require(:user).permit(:name, :institution, :country, :bio, :links,
-                                 :password, :password_confirmation)
+    attrs = params.require(:user).permit(:name, :institution, :country, :bio, :links,
+                                         :password, :password_confirmation)
+
+    if attrs[:password].present? && attrs[:password_confirmation].blank?
+      attrs[:password_confirmation] = attrs[:password]
+    end
+
+    attrs
   end
 
   def target_workshop_path
-    participation = @user.workshop_participations.order(:created_at).last
-    participation ? workshop_path(participation.workshop) : root_path
+    @workshop ? workshop_path(@workshop) : root_path
+  end
+
+  def set_workshop
+    @workshop = @user.workshop_participations.order(:created_at).last&.workshop
   end
 end

@@ -1,12 +1,23 @@
-<h1><%= t("workshop_invitations.new.title", default: "Invite participants to %{workshop}", workshop: @workshop.title) %></h1>
+<% content_for :title, t("workshop_invitations.new.title", workshop: @workshop.title) %>
 
-<p><%= t("workshop_invitations.new.hint",
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <%= link_to workshop_path(@workshop),
+              class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" do %>
+    <%= t("workshop_invitations.new.back_to_workshop", default: "← Back to workshop") %>
+  <% end %>
+
+  <header class="mt-6 max-w-3xl">
+    <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/45"><%= t("workshop_invitations.new.eyebrow", default: "Workshop Invitations") %></p>
+    <h1 class="mt-3 text-4xl font-bold text-imasus-dark-green"><%= t("workshop_invitations.new.title", default: "Invite participants to %{workshop}", workshop: @workshop.title) %></h1>
+    <p class="mt-4 text-base leading-7 text-stone-700"><%= t("workshop_invitations.new.hint",
          default: "Paste one email per line. Existing IMASUS users will be linked to this workshop without receiving a new invitation.") %></p>
+  </header>
 
-<%= form_with url: workshop_invitations_path(@workshop), local: true do |f| %>
-  <div>
-    <%= f.label :emails, t("workshop_invitations.new.emails", default: "Participant emails") %>
-    <%= f.text_area :emails, rows: 8, required: true, autofocus: true %>
-  </div>
-  <%= f.submit t("workshop_invitations.new.submit", default: "Send invitations") %>
-<% end %>
+  <%= form_with url: workshop_invitations_path(@workshop), local: true, class: "mt-8 max-w-3xl space-y-5" do |f| %>
+    <div>
+      <%= f.label :emails, t("workshop_invitations.new.emails", default: "Participant emails"), class: form_label_classes %>
+      <%= f.text_area :emails, rows: 8, required: true, autofocus: true, class: form_textarea_classes %>
+    </div>
+    <%= f.submit t("workshop_invitations.new.submit", default: "Send invitations"), class: form_primary_button_classes %>
+  <% end %>
+</div>

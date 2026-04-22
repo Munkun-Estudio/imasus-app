@@ -22,15 +22,7 @@ else
   puts "Seeded admin user: #{admin.email}"
 end
 
-[
-  { title: "Greece Workshop", location: "Athens, Greece", slug: "greece" },
-  { title: "Italy Workshop",  location: "Prato, Italy",   slug: "italy"  },
-  { title: "Spain Workshop",  location: "Madrid, Spain",  slug: "spain"  }
-].each do |attrs|
-  workshop = Workshop.find_or_initialize_by(slug: attrs[:slug])
-  workshop.assign_attributes(attrs)
-  workshop.save!
-end
+Workshop.seed_from_yaml!
 puts "Seeded #{Workshop.count} workshops."
 
 GlossaryTerm.seed_from_yaml!

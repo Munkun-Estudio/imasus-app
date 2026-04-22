@@ -12,6 +12,11 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   test "GET new renders the login form" do
     get new_session_path
     assert_response :success
+    assert_select "h1", text: I18n.t("sessions.new.title")
+    assert_select "input[type=email][class*=?]", "border"
+    assert_select "input[type=password][class*=?]", "border"
+    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
+    assert_select "a", text: I18n.t("sessions.new.forgot")
   end
 
   test "POST create with valid credentials signs in and redirects" do
