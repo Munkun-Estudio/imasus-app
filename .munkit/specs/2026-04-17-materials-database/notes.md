@@ -2,18 +2,27 @@
 
 ## Implementation slice plan (agreed with user on 2026-04-21)
 
-The spec ships across five PRs on `feat/materials-database`:
+The spec shipped across five PRs on `feat/materials-database` and was fully
+merged by 2026-04-21:
 
-- **PR (a) — data layer (merged pending).** Migrations, models, seed loaders,
+- **PR (a) — data layer (merged).** Migrations, models, seed loaders,
   reconciled YAML seeds, YARD. No user-facing routes yet.
-- **PR (a.5) — media layer.** `MaterialAsset` model (macro/microscopy/video kinds),
+- **PR (a.5) — media layer (merged).** `MaterialAsset` model (macro/microscopy/video kinds),
   local-folder importer + rake task, Seacell-7 duplicate merge at the parser.
   Inserted between (a) and (b) so the index/detail PRs can assume asset
   accessors are present. Decided 2026-04-21.
-- **PR (b) — public index.** Materials index page, chip-filter rail, URL binding,
+- **PR (b) — public index (merged).** Materials index page, chip-filter rail, URL binding,
   search box.
-- **PR (c) — preview sidebar.** Turbo Frame inline preview over the index.
-- **PR (d) — detail page.** Full detail view, glossary term highlighting, SEO meta.
+- **PR (c) — preview sidebar (merged).** Turbo Frame inline preview over the index.
+- **PR (d) — detail page (merged).** Full detail view, glossary term highlighting, SEO meta.
+
+## Completion status (2026-04-21)
+
+- The materials-database spec is now fully landed. The last PRs in the slice
+  sequence merged on 2026-04-21, so the spec's data layer, media layer, public
+  index, preview sidebar, and detail page are all on `main`.
+- The implementation-plan entry in `.munkit/context.md` is marked complete to
+  reflect that spec 4 is no longer in-flight.
 
 ## PR (a.5) decisions (2026-04-21)
 
