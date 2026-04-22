@@ -1,0 +1,9 @@
+<%# locals: (item:) %>
+<%= link_to item[:path], class: nav_swatch_classes(item[:path], item[:color]) do %>
+  <span class="block text-xs font-medium <%= swatch_dark_bg?(item[:color]) ? 'text-white/60' : 'text-imasus-dark-green/40' %>">
+    <%= item[:number] %>
+  </span>
+  <span class="block text-sm font-bold mt-1 <%= swatch_dark_bg?(item[:color]) ? 'text-white' : 'text-imasus-dark-green' %>">
+    <%= t("nav.#{item[:key]}") %>
+  </span>
+<% end %>

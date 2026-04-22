@@ -5,15 +5,27 @@
     </a>
   </div>
 
-  <div class="flex-1 overflow-y-auto px-4 pt-2 pb-5 space-y-2">
-    <% nav_items.each do |item| %>
-      <%= link_to item[:path], class: nav_swatch_classes(item[:path], item[:color]) do %>
-        <span class="block text-xs font-medium <%= swatch_dark_bg?(item[:color]) ? 'text-white/60' : 'text-imasus-dark-green/40' %>">
-          <%= item[:number] %>
-        </span>
-        <span class="block text-sm font-bold mt-1 <%= swatch_dark_bg?(item[:color]) ? 'text-white' : 'text-imasus-dark-green' %>">
-          <%= t("nav.#{item[:key]}") %>
-        </span>
+  <div data-role="primary-nav" class="flex-1 overflow-y-auto px-4 pt-2 pb-5 space-y-2">
+    <%
+      items_by_group = nav_items.group_by { |item| item[:group] }
+      ordered_groups = [ :hub, :community, :resources ]
+    %>
+    <% ordered_groups.each do |group| %>
+      <% items = items_by_group[group] || [] %>
+      <% next if items.empty? %>
+      <% if group == :resources %>
+        <div data-group="resources" class="space-y-2 pt-2">
+          <p data-role="resources-label" class="px-1 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/40">
+            <%= t("nav.resources_group") %>
+          </p>
+          <% items.each do |item| %>
+            <%= render "shared/nav_swatch", item: item %>
+          <% end %>
+        </div>
+      <% else %>
+        <% items.each do |item| %>
+          <%= render "shared/nav_swatch", item: item %>
+        <% end %>
       <% end %>
     <% end %>
   </div>

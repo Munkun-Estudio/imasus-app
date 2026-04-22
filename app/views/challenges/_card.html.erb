@@ -1,0 +1,48 @@
+<%# locals: (challenge:) %>
+<%
+  accent_class = case challenge.category
+                 when "material" then "border-l-imasus-dark-green"
+                 when "design"   then "border-l-imasus-navy"
+                 when "system"   then "border-l-imasus-light-blue"
+                 when "business" then "border-l-imasus-light-pink"
+                 else                 "border-l-imasus-dark-green/20"
+                 end
+  pill_class = case challenge.category
+               when "material" then "bg-imasus-dark-green/10 text-imasus-dark-green"
+               when "design"   then "bg-imasus-navy/10 text-imasus-navy"
+               when "system"   then "bg-imasus-light-blue/30 text-imasus-dark-green"
+               when "business" then "bg-imasus-light-pink/40 text-imasus-dark-green"
+               else                 "bg-imasus-dark-green/10 text-imasus-dark-green"
+               end
+%>
+<%= turbo_frame_tag dom_id(challenge) do %>
+  <article data-challenge="<%= challenge.code %>"
+           class="group relative flex h-full flex-col gap-3 rounded-lg border border-imasus-dark-green/10 border-l-4 <%= accent_class %> bg-white p-5 shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-imasus-dark-green/40">
+    <div class="flex items-center gap-2 text-xs">
+      <span class="font-mono font-semibold text-imasus-dark-green">
+        <%= challenge.code %>
+      </span>
+      <span class="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium <%= pill_class %>">
+        <%= t("challenges.categories.#{challenge.category}") %>
+      </span>
+    </div>
+
+    <h3 class="text-base font-semibold text-imasus-dark-green">
+      <%= link_to preview_challenge_path(challenge.to_param),
+            aria: { label: t("challenges.card.open_label", code: challenge.code) },
+            data: { turbo_frame: "preview" },
+            class: "before:absolute before:inset-0 before:z-0 before:content-[''] focus:outline-none hover:underline" do %>
+        <%= challenge.question %>
+      <% end %>
+    </h3>
+
+    <% if curator? %>
+      <div class="mt-auto flex justify-end">
+        <%= link_to t("challenges.actions.edit"),
+              edit_challenge_path(challenge.to_param),
+              data: { role: "edit-challenge", turbo_frame: dom_id(challenge) },
+              class: "relative z-10 rounded-md border border-imasus-dark-green/20 px-3 py-1 text-xs font-medium text-imasus-dark-green hover:bg-imasus-mint/20" %>
+      </div>
+    <% end %>
+  </article>
+<% end %>

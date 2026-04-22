@@ -25,12 +25,15 @@ Rails.application.routes.draw do
     end
     resources :invitations, only: [ :new, :create ], controller: "workshop_invitations"
   end
-  resources :log, only: :index
-  resources :prototype, only: :index
   resources :glossary_terms, path: "glossary", param: :slug do
     member do
       get :delete_confirmation
       get :popover
+    end
+  end
+  resources :challenges, only: [ :index, :edit, :update ], param: :code do
+    member do
+      get :preview
     end
   end
 

@@ -5,12 +5,12 @@ es:
       long: "%d/%m/%Y"
   nav:
     home: "Inicio"
+    workshops: "Talleres"
     materials: "Base de materiales"
     training: "Formación"
-    workshops: "Talleres"
-    log: "Registro"
-    prototype: "Prototipo"
+    challenges: "Retos"
     glossary: "Glosario"
+    resources_group: "Recursos"
     aria_label: "Navegación principal"
     toggle_menu: "Abrir menú"
   locale_switcher:
@@ -211,12 +211,37 @@ es:
       greeting: "Hola,"
       body: "Te han invitado a participar en el taller IMASUS %{workshop}. Abre el siguiente enlace dentro de los próximos 14 días para completar tu registro:"
       help: "Si no esperabas esta invitación, ponte en contacto con tu facilitación."
-  log:
+  challenges:
     index:
-      title: "Registro"
-  prototype:
-    index:
-      title: "Prototipo"
+      title: "Retos"
+      lead: "Diez preguntas marco — agrupadas por enfoque — que las participantes de IMASUS eligen al definir el trabajo de su proyecto."
+      meta_description: "Los diez retos industriales de IMASUS, agrupados por material, diseño, sistema y negocio."
+    preview:
+      close: "Cerrar vista previa"
+    categories:
+      material: "Material"
+      design: "Diseño"
+      system: "Sistema"
+      business: "Negocio"
+    card:
+      open_label: "Abrir reto %{code}"
+    actions:
+      edit: "Editar"
+    edit:
+      title: "Editar %{code}"
+    update:
+      notice: "Reto actualizado."
+    form:
+      code_label: "Código"
+      category_label: "Categoría"
+      question_label: "Pregunta"
+      description_label: "Descripción"
+      submit_update: "Guardar cambios"
+      cancel: "Cancelar"
+      locale_tabs_label: "Idioma"
+      errors_heading:
+        one: "1 error impidió guardar este reto:"
+        other: "%{count} errores impidieron guardar este reto:"
   glossary_terms:
     index:
       title: "Glosario"

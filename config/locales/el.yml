@@ -5,12 +5,12 @@ el:
       long: "%d/%m/%Y"
   nav:
     home: "Αρχική"
+    workshops: "Εργαστήρια"
     materials: "Βάση υλικών"
     training: "Εκπαίδευση"
-    workshops: "Εργαστήρια"
-    log: "Ημερολόγιο"
-    prototype: "Πρωτότυπο"
+    challenges: "Προκλήσεις"
     glossary: "Γλωσσάρι"
+    resources_group: "Πόροι"
     aria_label: "Κύρια πλοήγηση"
     toggle_menu: "Εναλλαγή μενού"
   locale_switcher:
@@ -211,12 +211,37 @@ el:
       greeting: "Γεια σας,"
       body: "Σας έχουν προσκαλέσει να συμμετάσχετε στο εργαστήριο IMASUS %{workshop}. Ανοίξτε τον παρακάτω σύνδεσμο μέσα στις επόμενες 14 ημέρες για να ολοκληρώσετε την εγγραφή σας:"
       help: "Αν δεν περιμένατε αυτήν την πρόσκληση, επικοινωνήστε με τη διευκόλυνσή σας."
-  log:
+  challenges:
     index:
-      title: "Ημερολόγιο"
-  prototype:
-    index:
-      title: "Πρωτότυπο"
+      title: "Προκλήσεις"
+      lead: "Δέκα ερωτήσεις-πλαίσιο — ομαδοποιημένες ανά εστίαση — από τις οποίες οι συμμετέχουσες του IMASUS επιλέγουν όταν ορίζουν το έργο τους."
+      meta_description: "Οι δέκα βιομηχανικές προκλήσεις IMASUS, ομαδοποιημένες ανά υλικό, σχεδιασμό, σύστημα και επιχείρηση."
+    preview:
+      close: "Κλείσιμο προεπισκόπησης"
+    categories:
+      material: "Υλικό"
+      design: "Σχεδιασμός"
+      system: "Σύστημα"
+      business: "Επιχείρηση"
+    card:
+      open_label: "Άνοιγμα πρόκλησης %{code}"
+    actions:
+      edit: "Επεξεργασία"
+    edit:
+      title: "Επεξεργασία %{code}"
+    update:
+      notice: "Η πρόκληση ενημερώθηκε."
+    form:
+      code_label: "Κωδικός"
+      category_label: "Κατηγορία"
+      question_label: "Ερώτηση"
+      description_label: "Περιγραφή"
+      submit_update: "Αποθήκευση αλλαγών"
+      cancel: "Ακύρωση"
+      locale_tabs_label: "Γλώσσα"
+      errors_heading:
+        one: "1 σφάλμα εμπόδισε την αποθήκευση αυτής της πρόκλησης:"
+        other: "%{count} σφάλματα εμπόδισαν την αποθήκευση αυτής της πρόκλησης:"
   glossary_terms:
     index:
       title: "Γλωσσάρι"
