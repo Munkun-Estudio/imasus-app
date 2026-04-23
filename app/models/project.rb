@@ -19,6 +19,7 @@ class Project < ApplicationRecord
 
   has_many :memberships, class_name: "ProjectMembership", dependent: :destroy
   has_many :members, through: :memberships, source: :user
+  has_many :log_entries, dependent: :destroy
 
   after_initialize :set_defaults, if: :new_record?
 

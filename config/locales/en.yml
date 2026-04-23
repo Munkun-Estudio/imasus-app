@@ -344,6 +344,7 @@ en:
       delete: "Delete project"
       members_heading: "Team members"
       challenge_heading: "Challenge"
+      process_log: "Process log →"
     edit:
       title: "Edit project"
     update:
@@ -386,6 +387,36 @@ en:
     errors:
       not_a_participant: "That person is not a participant in this workshop."
       forbidden: "You are not allowed to do that."
+  log_entries:
+    index:
+      title: "Process log — %{project}"
+      heading: "Process log"
+      back_to_project: "← Back to project"
+      new_entry: "Add entry"
+      empty: "No entries yet. Start documenting your process!"
+    new:
+      title: "New log entry"
+      heading: "New entry"
+      back_to_log: "← Back to log"
+    form:
+      body: "What did you try, observe, or decide?"
+      media: "Photos / videos"
+      media_hint: "Optional. Up to 10 files (JPEG, PNG, WebP, MP4, MOV). 50 MB max per file."
+      submit: "Add entry"
+      cancel: "Cancel"
+      errors_heading:
+        one: "1 error prevented this entry from saving:"
+        other: "%{count} errors prevented this entry from saving:"
+    entry:
+      ago: "ago"
+      delete: "Delete"
+      delete_confirm: "Delete this entry? This cannot be undone."
+    create:
+      success: "Entry added."
+    destroy:
+      success: "Entry deleted."
+    errors:
+      forbidden: "You are not allowed to delete that entry."
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

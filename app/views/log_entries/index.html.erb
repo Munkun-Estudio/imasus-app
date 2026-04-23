@@ -1,0 +1,31 @@
+<% content_for :title, t("log_entries.index.title", project: @project.title) %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <%= link_to t("log_entries.index.back_to_project"), project_path(@project),
+              class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+
+  <header class="mt-6 max-w-3xl flex items-end justify-between gap-4">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50"><%= @project.title %></p>
+      <h1 class="mt-1 text-4xl font-bold text-imasus-dark-green"><%= t("log_entries.index.heading") %></h1>
+    </div>
+    <% if @project.editable_by?(current_user) %>
+      <%= link_to t("log_entries.index.new_entry"), new_project_log_entry_path(@project),
+                  class: "shrink-0 rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+    <% end %>
+  </header>
+
+  <% if @log_entries.any? %>
+    <div class="mt-10 max-w-3xl space-y-6">
+      <%= render partial: "entry", collection: @log_entries, as: :entry %>
+    </div>
+  <% else %>
+    <div class="mt-16 max-w-3xl text-center">
+      <p class="text-stone-500"><%= t("log_entries.index.empty") %></p>
+      <% if @project.editable_by?(current_user) %>
+        <%= link_to t("log_entries.index.new_entry"), new_project_log_entry_path(@project),
+                    class: "mt-4 inline-block rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

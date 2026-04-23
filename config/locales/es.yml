@@ -323,6 +323,7 @@ es:
       delete: "Eliminar proyecto"
       members_heading: "Equipo"
       challenge_heading: "Reto"
+      process_log: "Registro de proceso →"
     edit:
       title: "Editar proyecto"
     update:
@@ -365,6 +366,36 @@ es:
     errors:
       not_a_participant: "Esa persona no es participante en este taller."
       forbidden: "No tienes permiso para hacer eso."
+  log_entries:
+    index:
+      title: "Registro de proceso — %{project}"
+      heading: "Registro de proceso"
+      back_to_project: "← Volver al proyecto"
+      new_entry: "Añadir entrada"
+      empty: "Todavía no hay entradas. ¡Empieza a documentar vuestro proceso!"
+    new:
+      title: "Nueva entrada de proceso"
+      heading: "Nueva entrada"
+      back_to_log: "← Volver al registro"
+    form:
+      body: "¿Qué habéis intentado, observado o decidido?"
+      media: "Fotos / vídeos"
+      media_hint: "Opcional. Hasta 10 archivos (JPEG, PNG, WebP, MP4, MOV). Máximo 50 MB por archivo."
+      submit: "Añadir entrada"
+      cancel: "Cancelar"
+      errors_heading:
+        one: "1 error ha impedido guardar la entrada:"
+        other: "%{count} errores han impedido guardar la entrada:"
+    entry:
+      ago: "hace"
+      delete: "Eliminar"
+      delete_confirm: "¿Eliminar esta entrada? Esta acción no se puede deshacer."
+    create:
+      success: "Entrada añadida."
+    destroy:
+      success: "Entrada eliminada."
+    errors:
+      forbidden: "No tienes permiso para eliminar esa entrada."
   errors:
     access_denied: "No tienes autorización para ver esa página."
     messages:
