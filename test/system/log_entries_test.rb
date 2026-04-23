@@ -77,11 +77,13 @@ class LogEntriesTest < ApplicationSystemTestCase
     visit project_log_entries_url(@project)
 
     assert_selector "[data-role='log-entry']"
-    accept_confirm do
-      within "[data-role='log-entry'][data-entry-id='#{entry.id}']" do
-        click_button I18n.t("log_entries.entry.delete")
-      end
+    within "[data-role='log-entry'][data-entry-id='#{entry.id}']" do
+      click_link I18n.t("log_entries.entry.delete")
     end
+
+    # Modal appears — confirm deletion
+    assert_selector "turbo-frame#modal [role='dialog']"
+    click_button I18n.t("log_entries.confirm_delete.confirm")
 
     assert_no_selector "[data-role='log-entry'][data-entry-id='#{entry.id}']"
   end

@@ -108,6 +108,14 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
+  test "admin cannot create an entry without being a project member" do
+    sign_in(@admin)
+    assert_no_difference "LogEntry.count" do
+      post project_log_entries_path(@project), params: { log_entry: { body: "Admin entry." } }
+    end
+    assert_redirected_to root_path
+  end
+
   test "create with blank body re-renders new" do
     sign_in(@member)
     assert_no_difference "LogEntry.count" do

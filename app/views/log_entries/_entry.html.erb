@@ -14,11 +14,10 @@
 
     <% if entry.author == current_user || current_user&.admin? %>
       <div class="ml-auto">
-        <%= button_to t("log_entries.entry.delete"),
-                      project_log_entry_path(@project, entry),
-                      method: :delete,
-                      class: "text-xs text-stone-400 hover:text-red-600",
-                      data: { turbo_confirm: t("log_entries.entry.delete_confirm") } %>
+        <%= link_to t("log_entries.entry.delete"),
+                    delete_confirmation_project_log_entry_path(@project, entry),
+                    class: "text-xs text-stone-400 hover:text-red-600",
+                    data: { turbo_frame: "modal", role: "delete-log-entry" } %>
       </div>
     <% end %>
   </header>

@@ -301,7 +301,8 @@ it:
       heading: "Registro del processo"
       back_to_project: "← Torna al progetto"
       new_entry: "Aggiungi voce"
-      empty: "Nessuna voce ancora. Inizia a documentare il vostro processo!"
+      empty_member: "Nessuna voce ancora. Inizia a documentare il vostro processo!"
+      empty_observer: "Nessuna voce ancora."
     new:
       title: "Nuova voce di processo"
       heading: "Nuova voce"
@@ -318,7 +319,11 @@ it:
     entry:
       time_ago: "%{time} fa"
       delete: "Elimina"
-      delete_confirm: "Eliminare questa voce? Questa azione non può essere annullata."
+    confirm_delete:
+      title: "Eliminare questa voce?"
+      body: "Questa azione non può essere annullata."
+      cancel: "Annulla"
+      confirm: "Elimina voce"
     create:
       success: "Voce aggiunta."
     destroy:

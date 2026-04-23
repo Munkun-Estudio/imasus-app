@@ -3,7 +3,7 @@ class LogEntriesController < ApplicationController
   before_action :require_login
   before_action :set_project
   before_action :require_visible, only: :index
-  before_action :require_editable, only: [ :new, :create ]
+  before_action :require_member, only: [ :new, :create ]
 
   def index
     @log_entries = @project.log_entries.with_rich_text_body.with_attached_media
@@ -24,6 +24,11 @@ class LogEntriesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def delete_confirmation
+    @log_entry = @project.log_entries.find(params[:id])
+    render partial: "log_entries/confirm_delete_modal", locals: { log_entry: @log_entry, project: @project }
   end
 
   def destroy
@@ -51,8 +56,8 @@ class LogEntriesController < ApplicationController
     redirect_to root_path, alert: t("errors.access_denied", default: "You are not authorised to view that page.")
   end
 
-  def require_editable
-    return if @project.editable_by?(current_user)
+  def require_member
+    return if @project.members.include?(current_user)
 
     redirect_to root_path, alert: t("errors.access_denied", default: "You are not authorised to view that page.")
   end

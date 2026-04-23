@@ -21,10 +21,12 @@
     </div>
   <% else %>
     <div class="mt-16 max-w-3xl text-center">
-      <p class="text-stone-500"><%= t("log_entries.index.empty") %></p>
-      <% if @project.editable_by?(current_user) %>
+      <% if @project.members.include?(current_user) %>
+        <p class="text-stone-500"><%= t("log_entries.index.empty_member") %></p>
         <%= link_to t("log_entries.index.new_entry"), new_project_log_entry_path(@project),
                     class: "mt-4 inline-block rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+      <% else %>
+        <p class="text-stone-500"><%= t("log_entries.index.empty_observer") %></p>
       <% end %>
     </div>
   <% end %>

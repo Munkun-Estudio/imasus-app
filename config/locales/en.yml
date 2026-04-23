@@ -393,7 +393,8 @@ en:
       heading: "Process log"
       back_to_project: "← Back to project"
       new_entry: "Add entry"
-      empty: "No entries yet. Start documenting your process!"
+      empty_member: "No entries yet. Start documenting your process!"
+      empty_observer: "No entries yet."
     new:
       title: "New log entry"
       heading: "New entry"
@@ -410,7 +411,11 @@ en:
     entry:
       time_ago: "%{time} ago"
       delete: "Delete"
-      delete_confirm: "Delete this entry? This cannot be undone."
+    confirm_delete:
+      title: "Delete this entry?"
+      body: "This cannot be undone."
+      cancel: "Cancel"
+      confirm: "Delete entry"
     create:
       success: "Entry added."
     destroy:

@@ -372,7 +372,8 @@ es:
       heading: "Registro de proceso"
       back_to_project: "← Volver al proyecto"
       new_entry: "Añadir entrada"
-      empty: "Todavía no hay entradas. ¡Empieza a documentar vuestro proceso!"
+      empty_member: "Todavía no hay entradas. ¡Empieza a documentar vuestro proceso!"
+      empty_observer: "Todavía no hay entradas."
     new:
       title: "Nueva entrada de proceso"
       heading: "Nueva entrada"
@@ -389,7 +390,11 @@ es:
     entry:
       time_ago: "hace %{time}"
       delete: "Eliminar"
-      delete_confirm: "¿Eliminar esta entrada? Esta acción no se puede deshacer."
+    confirm_delete:
+      title: "¿Eliminar esta entrada?"
+      body: "Esta acción no se puede deshacer."
+      cancel: "Cancelar"
+      confirm: "Eliminar entrada"
     create:
       success: "Entrada añadida."
     destroy:
