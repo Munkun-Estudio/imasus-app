@@ -24,6 +24,7 @@ class ProjectsTest < ApplicationSystemTestCase
     fill_in "email",    with: user.email
     fill_in "password", with: @password
     click_button I18n.t("sessions.new.submit")
+    assert_no_current_path new_session_path, wait: 5
   end
 
   test "participant creates a project from the workshop show page" do

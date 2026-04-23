@@ -56,11 +56,11 @@
       <div class="mt-6">
         <% eligible = @project.workshop.participants.where.not(id: @project.member_ids) %>
         <% if eligible.any? %>
-          <%= form_with(url: project_memberships_path(@project), class: "flex items-end gap-3") do |f| %>
+          <%= form_with model: ProjectMembership.new, url: project_memberships_path(@project), class: "flex items-end gap-3" do |f| %>
             <div class="flex-1">
               <%= f.label :user_id, t("project_memberships.form.user_select"),
                           class: "block text-xs font-semibold text-imasus-dark-green/60 mb-1" %>
-              <%= f.select "project_membership[user_id]",
+              <%= f.select :user_id,
                            eligible.map { |u| [u.name, u.id] },
                            {},
                            class: "block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm" %>
