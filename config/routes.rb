@@ -37,6 +37,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :projects do
+    resources :memberships, only: [ :create, :destroy ], controller: "project_memberships"
+  end
+
   resource :session, only: [ :new, :create, :destroy ]
 
   get   "password_reset/new",  to: "password_resets#new",    as: :new_password_reset

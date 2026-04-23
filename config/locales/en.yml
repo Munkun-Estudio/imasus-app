@@ -119,6 +119,7 @@ en:
       open_agenda: "Open agenda"
       agenda_page: "View full agenda"
       invite_participants: "Invite participants"
+      new_project: "Start a project"
     agenda:
       eyebrow: "Workshop Agenda"
       title: "%{workshop} agenda"
@@ -312,6 +313,79 @@ en:
       submit: "Send invitations"
     create:
       notice: "%{invited} invited, %{skipped} already registered, %{invalid} invalid email(s)."
+  projects:
+    index:
+      title: "My Projects"
+      all_title: "All Projects"
+      empty_title: "No projects yet."
+      empty_body: "Ready to start? Create your first project and pick a challenge."
+      empty_cta: "Create a project"
+    new:
+      heading: "New project"
+      title: "New project"
+      guide_eyebrow: "Getting started"
+      guide_intro: "This is the beginning of your adventure — let's bring some ideas to life."
+      guide_steps:
+        - heading: "What will you call your project?"
+          body: "A working title is enough for now. You can rename it at any point while your team is still shaping the idea."
+        - heading: "Pick a challenge — or skip it for now"
+          body: "The ten IMASUS challenges are framing questions, not rigid constraints. Choose one that resonates, or leave this blank and come back once the team has talked it through."
+        - heading: "Choose your working language"
+          body: "This sets the language your team will write in — log entries, descriptions, the published project. Mixed teams often write in English; local teams tend to pick their shared language."
+    create:
+      success: "Project created."
+    show:
+      back_to_index: "← Back to projects"
+      eyebrow: "Project"
+      facilitator_chip: "Viewing as facilitator"
+      edit: "Edit project"
+      add_member: "Add member"
+      leave: "Leave project"
+      delete: "Delete project"
+      members_heading: "Team members"
+      challenge_heading: "Challenge"
+    edit:
+      title: "Edit project"
+    update:
+      success: "Project updated."
+    destroy:
+      success: "Project deleted."
+    form:
+      title: "Title"
+      description: "Description"
+      description_hint: "Optional — describe what your team is working on."
+      challenge: "Challenge (optional)"
+      challenge_blank: "None selected"
+      language: "Writing language"
+      errors_heading:
+        one: "1 error prevented this project from saving:"
+        other: "%{count} errors prevented this project from saving:"
+      submit_create: "Create project"
+      submit_update: "Save changes"
+      cancel: "Cancel"
+    languages:
+      en: "English"
+      es: "Español"
+      it: "Italiano"
+      el: "Ελληνικά"
+    errors:
+      not_a_participant: "You must be a participant in this workshop to create a project."
+      not_visible: "You do not have access to that project."
+      not_editable: "You are not allowed to edit that project."
+  project_memberships:
+    form:
+      user_select: "Add a team member"
+      submit: "Add member"
+      no_eligible: "All workshop participants are already on this project."
+    create:
+      success: "%{name} added to the project."
+    destroy:
+      left: "You have left the project."
+      removed: "Member removed from the project."
+      project_deleted: "The project was deleted because you were the last member."
+    errors:
+      not_a_participant: "That person is not a participant in this workshop."
+      forbidden: "You are not allowed to do that."
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

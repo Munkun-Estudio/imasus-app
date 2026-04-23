@@ -9,6 +9,8 @@ class Workshop < ApplicationRecord
 
   has_many :participations, class_name: "WorkshopParticipation", dependent: :destroy
   has_many :participants,   through: :participations, source: :user
+
+  has_many :projects, dependent: :destroy
   has_rich_text :agenda_en
   has_rich_text :agenda_es
   has_rich_text :agenda_it

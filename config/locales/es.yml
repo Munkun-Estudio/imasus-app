@@ -292,6 +292,79 @@ es:
       delete_confirm_title: "¿Eliminar el término del glosario?"
       delete_confirm_body: "Eliminar «%{term}» no se puede deshacer."
       delete_confirm_submit: "Eliminar"
+  projects:
+    index:
+      title: "Mis proyectos"
+      all_title: "Todos los proyectos"
+      empty_title: "Todavía no hay proyectos."
+      empty_body: "¿Lista para empezar? Crea tu primer proyecto y elige un reto."
+      empty_cta: "Crear un proyecto"
+    new:
+      heading: "Nuevo proyecto"
+      title: "Nuevo proyecto"
+      guide_eyebrow: "Por dónde empezar"
+      guide_intro: "Aquí comienza tu aventura — es el momento de dar forma a las ideas."
+      guide_steps:
+        - heading: "¿Cómo se llamará tu proyecto?"
+          body: "Un título provisional es suficiente por ahora. Puedes cambiarlo en cualquier momento mientras el equipo sigue dando forma a la idea."
+        - heading: "Elige un reto — o déjalo para más tarde"
+          body: "Los diez retos IMASUS son preguntas de encuadre, no restricciones rígidas. Escoge el que más resuene con tu equipo, o déjalo en blanco y vuelve una vez hayáis hablado."
+        - heading: "Elige el idioma de trabajo"
+          body: "Define el idioma en el que el equipo escribirá: entradas de proceso, descripciones y el proyecto publicado. Los equipos mixtos suelen escribir en inglés; los equipos locales tienden a elegir su idioma compartido."
+    create:
+      success: "Proyecto creado."
+    show:
+      back_to_index: "← Volver a proyectos"
+      eyebrow: "Proyecto"
+      facilitator_chip: "Vista de facilitador"
+      edit: "Editar proyecto"
+      add_member: "Añadir miembro"
+      leave: "Abandonar proyecto"
+      delete: "Eliminar proyecto"
+      members_heading: "Equipo"
+      challenge_heading: "Reto"
+    edit:
+      title: "Editar proyecto"
+    update:
+      success: "Proyecto actualizado."
+    destroy:
+      success: "Proyecto eliminado."
+    form:
+      title: "Título"
+      description: "Descripción"
+      description_hint: "Opcional — describe en qué está trabajando tu equipo."
+      challenge: "Reto (opcional)"
+      challenge_blank: "Sin reto seleccionado"
+      language: "Idioma de trabajo"
+      errors_heading:
+        one: "1 error ha impedido guardar el proyecto:"
+        other: "%{count} errores han impedido guardar el proyecto:"
+      submit_create: "Crear proyecto"
+      submit_update: "Guardar cambios"
+      cancel: "Cancelar"
+    languages:
+      en: "English"
+      es: "Español"
+      it: "Italiano"
+      el: "Ελληνικά"
+    errors:
+      not_a_participant: "Debes ser participante en este taller para crear un proyecto."
+      not_visible: "No tienes acceso a ese proyecto."
+      not_editable: "No tienes permiso para editar ese proyecto."
+  project_memberships:
+    form:
+      user_select: "Añadir un miembro al equipo"
+      submit: "Añadir"
+      no_eligible: "Todos los participantes del taller ya forman parte de este proyecto."
+    create:
+      success: "%{name} añadido/a al proyecto."
+    destroy:
+      left: "Has abandonado el proyecto."
+      removed: "Miembro eliminado del proyecto."
+      project_deleted: "El proyecto fue eliminado porque eras el último miembro."
+    errors:
+      not_a_participant: "Esa persona no es participante en este taller."
+      forbidden: "No tienes permiso para hacer eso."
   errors:
     access_denied: "No tienes autorización para ver esa página."
     messages:

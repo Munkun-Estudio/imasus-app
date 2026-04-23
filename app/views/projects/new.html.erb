@@ -1,0 +1,37 @@
+<% content_for :title, t(".title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <header>
+    <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50">
+      <%= @workshop.title %>
+    </p>
+    <h1 class="mt-4 text-3xl font-bold text-imasus-dark-green"><%= t(".heading") %></h1>
+  </header>
+
+  <div class="mt-10 grid gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+    <div>
+      <%= render "form", project: @project %>
+    </div>
+
+    <aside class="rounded-2xl bg-imasus-dark-green/5 px-6 py-7 text-sm text-imasus-dark-green/80 self-start space-y-5">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-imasus-dark-green/40"><%= t(".guide_eyebrow") %></p>
+        <p class="mt-2 font-semibold text-imasus-dark-green"><%= t(".guide_intro") %></p>
+      </div>
+
+      <ol class="space-y-4 pl-1">
+        <% t(".guide_steps").each_with_index do |step, i| %>
+          <li class="flex gap-3">
+            <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-imasus-dark-green/15 text-[11px] font-bold text-imasus-dark-green">
+              <%= i + 1 %>
+            </span>
+            <div>
+              <p class="font-semibold text-imasus-dark-green"><%= step[:heading] %></p>
+              <p class="mt-0.5 leading-relaxed text-imasus-dark-green/65"><%= step[:body] %></p>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+    </aside>
+  </div>
+</div>

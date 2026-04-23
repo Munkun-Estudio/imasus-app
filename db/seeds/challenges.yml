@@ -2,9 +2,7 @@
 #
 # The ten framing challenges (C1–C10) participants pick from when scoping
 # project work. Each entry must carry an English `question` and `description`
-# — these are the required, source-of-truth values. `es`, `it`, and `el` are
-# stub slots with placeholder copy to exercise the I18n pipeline; fill them
-# in properly over time as translations become available.
+# — these are the required, source-of-truth values.
 #
 # Re-running this seed is idempotent: entries are matched by `code`, so
 # editing the copy updates the existing record rather than creating a new one.
@@ -17,158 +15,251 @@
   category: material
   question:
     en: How might we reduce virgin-material use in textile production?
-    es: "[ES] How might we reduce virgin-material use in textile production?"
-    it: "[IT] How might we reduce virgin-material use in textile production?"
-    el: "[EL] How might we reduce virgin-material use in textile production?"
+    es: ¿Cómo podríamos reducir el uso de materias primas vírgenes en la producción textil?
+    it: Come potremmo ridurre l'uso di materie prime vergini nella produzione tessile?
+    el: Πώς θα μπορούσαμε να μειώσουμε τη χρήση παρθένων υλικών στην κλωστοϋφαντουργική παραγωγή;
   description:
     en: >
       Framing question for projects focused on substituting, reducing, or
       rethinking the primary material inputs of textile production — from
       fibre cultivation to yarn and fabric formation.
-    es: "[ES] Description placeholder for C1."
-    it: "[IT] Description placeholder for C1."
-    el: "[EL] Description placeholder for C1."
+    es: >
+      Pregunta de encuadre para proyectos centrados en sustituir, reducir o
+      repensar los insumos materiales principales de la producción textil,
+      desde el cultivo de la fibra hasta la formación de hilo y tejido.
+    it: >
+      Domanda di inquadramento per progetti focalizzati sulla sostituzione,
+      riduzione o ripensamento degli input materiali primari della produzione
+      tessile — dalla coltivazione della fibra alla formazione di filati e tessuti.
+    el: >
+      Ερώτηση πλαισίωσης για έργα που επικεντρώνονται στην υποκατάσταση,
+      μείωση ή επανεξέταση των κύριων υλικών εισροών της κλωστοϋφαντουργικής
+      παραγωγής — από την καλλιέργεια ινών έως τη διαμόρφωση νήματος και υφάσματος.
 
 - code: C2
   category: material
   question:
     en: How might we recover value from post-industrial textile waste?
-    es: "[ES] How might we recover value from post-industrial textile waste?"
-    it: "[IT] How might we recover value from post-industrial textile waste?"
-    el: "[EL] How might we recover value from post-industrial textile waste?"
+    es: ¿Cómo podríamos recuperar valor de los residuos textiles post-industriales?
+    it: Come potremmo recuperare valore dagli scarti tessili post-industriali?
+    el: Πώς θα μπορούσαμε να ανακτήσουμε αξία από μεταβιομηχανικά κλωστοϋφαντουργικά απόβλητα;
   description:
     en: >
       Off-cuts, selvedges, yarn waste, and rejected lots produced during
       manufacturing — how can their material value be captured before it
       becomes post-consumer waste?
-    es: "[ES] Description placeholder for C2."
-    it: "[IT] Description placeholder for C2."
-    el: "[EL] Description placeholder for C2."
+    es: >
+      Recortes, orillos, desperdicios de hilo y lotes rechazados generados
+      durante la fabricación: ¿cómo puede capturarse su valor material antes
+      de que se conviertan en residuos post-consumo?
+    it: >
+      Ritagli, cimose, scarti di filato e lotti rifiutati prodotti durante
+      la manifattura — come può essere catturato il loro valore materiale
+      prima che diventino rifiuti post-consumo?
+    el: >
+      Κομμάτια υφάσματος, σελβέδες, απόβλητα νήματος και απορριφθέντα
+      παρτίδα κατά την παραγωγή — πώς μπορεί να αξιοποιηθεί η υλική τους
+      αξία πριν καταλήξουν σε μεταχρηστιμοποιημένα απόβλητα;
 
 - code: C3
   category: design
   question:
     en: How might we design garments for longer use phases?
-    es: "[ES] How might we design garments for longer use phases?"
-    it: "[IT] How might we design garments for longer use phases?"
-    el: "[EL] How might we design garments for longer use phases?"
+    es: ¿Cómo podríamos diseñar prendas para fases de uso más largas?
+    it: Come potremmo progettare capi d'abbigliamento per fasi d'uso più lunghe?
+    el: Πώς θα μπορούσαμε να σχεδιάσουμε ενδύματα για μεγαλύτερες φάσεις χρήσης;
   description:
     en: >
       Durability is both physical and emotional — projects here investigate
       construction, repairability, and attachment as design levers for
       extending the life a garment spends in active use.
-    es: "[ES] Description placeholder for C3."
-    it: "[IT] Description placeholder for C3."
-    el: "[EL] Description placeholder for C3."
+    es: >
+      La durabilidad es tanto física como emocional. Los proyectos aquí
+      investigan la construcción, la reparabilidad y el vínculo afectivo
+      como palancas de diseño para extender la vida activa de una prenda.
+    it: >
+      La durabilità è sia fisica che emotiva — i progetti qui indagano
+      costruzione, riparabilità e attaccamento come leve progettuali per
+      estendere la vita attiva di un capo d'abbigliamento.
+    el: >
+      Η ανθεκτικότητα είναι τόσο φυσική όσο και συναισθηματική — τα έργα
+      εδώ διερευνούν την κατασκευή, την επισκευασιμότητα και τη συναισθηματική
+      σύνδεση ως μοχλούς σχεδιασμού για την επέκταση της ενεργής ζωής ενός ενδύματος.
 
 - code: C4
   category: design
   question:
     en: How might we design for modular repair and adaptation?
-    es: "[ES] How might we design for modular repair and adaptation?"
-    it: "[IT] How might we design for modular repair and adaptation?"
-    el: "[EL] How might we design for modular repair and adaptation?"
+    es: ¿Cómo podríamos diseñar para la reparación modular y la adaptación?
+    it: Come potremmo progettare per la riparazione modulare e l'adattamento?
+    el: Πώς θα μπορούσαμε να σχεδιάσουμε για αρθρωτή επισκευή και προσαρμογή;
   description:
     en: >
       Component thinking applied to textile products — separable parts,
       standard interfaces, and adaptation paths that let a garment evolve
       with its wearer rather than being discarded.
-    es: "[ES] Description placeholder for C4."
-    it: "[IT] Description placeholder for C4."
-    el: "[EL] Description placeholder for C4."
+    es: >
+      El pensamiento por componentes aplicado a los productos textiles:
+      piezas separables, interfaces estandarizadas y vías de adaptación que
+      permiten que una prenda evolucione con quien la lleva en lugar de ser desechada.
+    it: >
+      Il pensiero a componenti applicato ai prodotti tessili — parti separabili,
+      interfacce standard e percorsi di adattamento che permettono a un capo
+      di evolversi con chi lo indossa anziché essere scartato.
+    el: >
+      Η σκέψη ανά συστατικά εφαρμοσμένη σε κλωστοϋφαντουργικά προϊόντα —
+      αποσπώμενα μέρη, τυποποιημένες διεπαφές και μονοπάτια προσαρμογής
+      που επιτρέπουν σε ένα ένδυμα να εξελίσσεται με τον χρήστη του.
 
 - code: C5
   category: design
   question:
     en: How might we design for end-of-life disassembly and recyclability?
-    es: "[ES] How might we design for end-of-life disassembly and recyclability?"
-    it: "[IT] How might we design for end-of-life disassembly and recyclability?"
-    el: "[EL] How might we design for end-of-life disassembly and recyclability?"
+    es: ¿Cómo podríamos diseñar para el desmontaje y la reciclabilidad al final de la vida útil?
+    it: Come potremmo progettare per lo smontaggio e la riciclabilità a fine vita?
+    el: Πώς θα μπορούσαμε να σχεδιάσουμε για αποσυναρμολόγηση και ανακυκλωσιμότητα στο τέλος ζωής;
   description:
     en: >
       What does a garment designed for its next life look like? Projects
       here address material selection, joining techniques, and labelling
       that enable mono-material streams at end-of-life.
-    es: "[ES] Description placeholder for C5."
-    it: "[IT] Description placeholder for C5."
-    el: "[EL] Description placeholder for C5."
+    es: >
+      ¿Cómo es una prenda diseñada para su próxima vida? Los proyectos aquí
+      abordan la selección de materiales, las técnicas de unión y el etiquetado
+      que permiten flujos de material único al final de la vida útil.
+    it: >
+      Come appare un capo progettato per la sua prossima vita? I progetti
+      qui affrontano la selezione dei materiali, le tecniche di giunzione e
+      l'etichettatura che consentono flussi mono-materiale a fine vita.
+    el: >
+      Πώς μοιάζει ένα ένδυμα σχεδιασμένο για την επόμενη ζωή του; Τα έργα
+      εδώ αντιμετωπίζουν την επιλογή υλικών, τις τεχνικές ένωσης και την
+      επισήμανση που επιτρέπουν ροές μονο-υλικού στο τέλος ζωής.
 
 - code: C6
   category: system
   question:
     en: How might we close textile material loops at a regional scale?
-    es: "[ES] How might we close textile material loops at a regional scale?"
-    it: "[IT] How might we close textile material loops at a regional scale?"
-    el: "[EL] How might we close textile material loops at a regional scale?"
+    es: ¿Cómo podríamos cerrar los ciclos de material textil a escala regional?
+    it: Come potremmo chiudere i cicli dei materiali tessili a scala regionale?
+    el: Πώς θα μπορούσαμε να κλείσουμε τους κύκλους υλικών κλωστοϋφαντουργίας σε περιφερειακή κλίμακα;
   description:
     en: >
       Collection, sorting, reprocessing — the infrastructure of circularity.
       Projects investigate what a working regional loop requires in terms
       of actors, flows, and coordination.
-    es: "[ES] Description placeholder for C6."
-    it: "[IT] Description placeholder for C6."
-    el: "[EL] Description placeholder for C6."
+    es: >
+      Recogida, clasificación, reprocesamiento: la infraestructura de la
+      circularidad. Los proyectos investigan qué requiere un ciclo regional
+      funcional en términos de actores, flujos y coordinación.
+    it: >
+      Raccolta, cernita, rielaborazione — l'infrastruttura della circolarità.
+      I progetti indagano cosa richiede un ciclo regionale funzionante in
+      termini di attori, flussi e coordinamento.
+    el: >
+      Συλλογή, διαλογή, επεξεργασία — η υποδομή της κυκλικότητας. Τα έργα
+      διερευνούν τι απαιτεί ένας λειτουργικός περιφερειακός κύκλος ως προς
+      τους παράγοντες, τις ροές και τον συντονισμό.
 
 - code: C7
   category: system
   question:
     en: How might we improve traceability across textile supply chains?
-    es: "[ES] How might we improve traceability across textile supply chains?"
-    it: "[IT] How might we improve traceability across textile supply chains?"
-    el: "[EL] How might we improve traceability across textile supply chains?"
+    es: ¿Cómo podríamos mejorar la trazabilidad en las cadenas de suministro textil?
+    it: Come potremmo migliorare la tracciabilità nelle catene di fornitura tessile?
+    el: Πώς θα μπορούσαμε να βελτιώσουμε την ιχνηλασιμότητα στις αλυσίδες εφοδιασμού κλωστοϋφαντουργίας;
   description:
     en: >
       From fibre to garment, supply chains are long, opaque, and fragmented.
       What interventions — technical, procedural, or regulatory — would
       make material and social conditions visible to downstream actors?
-    es: "[ES] Description placeholder for C7."
-    it: "[IT] Description placeholder for C7."
-    el: "[EL] Description placeholder for C7."
+    es: >
+      De la fibra a la prenda, las cadenas de suministro son largas, opacas
+      y fragmentadas. ¿Qué intervenciones —técnicas, procedimentales o
+      regulatorias— harían visibles las condiciones materiales y sociales
+      a los actores posteriores de la cadena?
+    it: >
+      Dalla fibra al capo, le catene di fornitura sono lunghe, opache e
+      frammentate. Quali interventi — tecnici, procedurali o normativi —
+      renderebbero visibili le condizioni materiali e sociali agli attori a valle?
+    el: >
+      Από τη ίνα στο ένδυμα, οι αλυσίδες εφοδιασμού είναι μακριές, αδιαφανείς
+      και κατακερματισμένες. Ποιες παρεμβάσεις — τεχνικές, διαδικαστικές ή
+      ρυθμιστικές — θα καθιστούσαν ορατές τις υλικές και κοινωνικές συνθήκες
+      στους παράγοντες κατάντη;
 
 - code: C8
   category: business
   question:
     en: How might we build business models around garment longevity instead of volume?
-    es: "[ES] How might we build business models around garment longevity instead of volume?"
-    it: "[IT] How might we build business models around garment longevity instead of volume?"
-    el: "[EL] How might we build business models around garment longevity instead of volume?"
+    es: ¿Cómo podríamos construir modelos de negocio en torno a la longevidad de las prendas en lugar del volumen?
+    it: Come potremmo costruire modelli di business attorno alla longevità dei capi anziché ai volumi?
+    el: Πώς θα μπορούσαμε να οικοδομήσουμε επιχειρηματικά μοντέλα γύρω από τη μακροζωία ενδυμάτων αντί για τον όγκο;
   description:
     en: >
       Services, subscriptions, repair offerings, second-hand integration —
       projects explore value capture that does not depend on producing and
       selling ever-more new units.
-    es: "[ES] Description placeholder for C8."
-    it: "[IT] Description placeholder for C8."
-    el: "[EL] Description placeholder for C8."
+    es: >
+      Servicios, suscripciones, oferta de reparación, integración de segunda
+      mano: los proyectos exploran la captura de valor que no depende de
+      producir y vender cada vez más unidades nuevas.
+    it: >
+      Servizi, abbonamenti, offerte di riparazione, integrazione del second
+      hand — i progetti esplorano la cattura di valore che non dipende dal
+      produrre e vendere sempre più unità nuove.
+    el: >
+      Υπηρεσίες, συνδρομές, προσφορές επισκευής, ενσωμάτωση μεταχειρισμένων
+      — τα έργα εξερευνούν την απόδοση αξίας που δεν εξαρτάται από την
+      παραγωγή και πώληση ολοένα και περισσότερων νέων μονάδων.
 
 - code: C9
   category: business
   question:
     en: How might we make sustainable textile options accessible across price points?
-    es: "[ES] How might we make sustainable textile options accessible across price points?"
-    it: "[IT] How might we make sustainable textile options accessible across price points?"
-    el: "[EL] How might we make sustainable textile options accessible across price points?"
+    es: ¿Cómo podríamos hacer que las opciones textiles sostenibles sean accesibles en todos los rangos de precio?
+    it: Come potremmo rendere le opzioni tessili sostenibili accessibili a tutte le fasce di prezzo?
+    el: Πώς θα μπορούσαμε να κάνουμε τις βιώσιμες κλωστοϋφαντουργικές επιλογές προσβάσιμες σε όλες τις τιμές;
   description:
     en: >
       Sustainability is not only for premium segments — projects address
       cost structures, distribution, and consumer access that make lower-
       impact choices the default rather than the luxury.
-    es: "[ES] Description placeholder for C9."
-    it: "[IT] Description placeholder for C9."
-    el: "[EL] Description placeholder for C9."
+    es: >
+      La sostenibilidad no es solo para los segmentos premium. Los proyectos
+      abordan estructuras de coste, distribución y acceso del consumidor que
+      convierten las opciones de menor impacto en la norma, no en el lujo.
+    it: >
+      La sostenibilità non è solo per i segmenti premium — i progetti
+      affrontano strutture di costo, distribuzione e accesso dei consumatori
+      che rendono le scelte a minor impatto la norma anziché il lusso.
+    el: >
+      Η βιωσιμότητα δεν είναι μόνο για τα premium τμήματα — τα έργα
+      αντιμετωπίζουν δομές κόστους, διανομή και πρόσβαση καταναλωτών που
+      καθιστούν τις επιλογές χαμηλότερου αντικτύπου τον κανόνα και όχι
+      την πολυτέλεια.
 
 - code: C10
   category: business
   question:
     en: How might we align textile business practice with upcoming EU sustainability regulation?
-    es: "[ES] How might we align textile business practice with upcoming EU sustainability regulation?"
-    it: "[IT] How might we align textile business practice with upcoming EU sustainability regulation?"
-    el: "[EL] How might we align textile business practice with upcoming EU sustainability regulation?"
+    es: ¿Cómo podríamos alinear la práctica empresarial textil con la próxima regulación de sostenibilidad de la UE?
+    it: Come potremmo allineare le pratiche aziendali tessili alla prossima normativa UE sulla sostenibilità?
+    el: Πώς θα μπορούσαμε να ευθυγραμμίσουμε τις επιχειρηματικές πρακτικές κλωστοϋφαντουργίας με την επερχόμενη κανονιστική ρύθμιση της ΕΕ για τη βιωσιμότητα;
   description:
     en: >
       ESPR, Digital Product Passport, the Waste Framework Directive — what
       does compliant, competitive textile business practice look like under
       the emerging EU regulatory frame?
-    es: "[ES] Description placeholder for C10."
-    it: "[IT] Description placeholder for C10."
-    el: "[EL] Description placeholder for C10."
+    es: >
+      ESPR, Pasaporte Digital de Producto, la Directiva Marco de Residuos:
+      ¿cómo es una práctica empresarial textil conforme y competitiva bajo
+      el marco regulatorio europeo emergente?
+    it: >
+      ESPR, Passaporto Digitale del Prodotto, la Direttiva Quadro sui Rifiuti
+      — come appare una pratica aziendale tessile conforme e competitiva
+      nel quadro normativo UE emergente?
+    el: >
+      ESPR, Ψηφιακό Διαβατήριο Προϊόντος, η Οδηγία-Πλαίσιο για τα Απόβλητα
+      — πώς μοιάζει μια συμμορφούμενη και ανταγωνιστική επιχειρηματική
+      πρακτική κλωστοϋφαντουργίας υπό το αναδυόμενο κανονιστικό πλαίσιο της ΕΕ;

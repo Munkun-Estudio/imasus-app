@@ -8,7 +8,7 @@
       <p role="alert" class="<%= form_error_box_classes %> mt-6"><%= flash[:alert] %></p>
     <% end %>
 
-    <%= form_with url: session_path, local: true, class: "mt-8 space-y-5" do |f| %>
+    <%= form_with url: session_path, data: { turbo: false }, class: "mt-8 space-y-5" do |f| %>
       <div>
         <%= f.label :email, t("sessions.new.email", default: "Email"), class: form_label_classes %>
         <%= f.email_field :email, required: true, autofocus: true, autocomplete: "username", class: form_input_classes %>
