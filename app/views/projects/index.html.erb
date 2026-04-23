@@ -7,11 +7,14 @@
   </header>
 
   <% if @projects.empty? %>
-    <div class="mt-12 max-w-md text-center">
+    <div class="mt-12 max-w-md">
       <p class="text-base font-semibold text-stone-700"><%= t(".empty_title") %></p>
       <p class="mt-2 text-sm text-stone-500"><%= t(".empty_body") %></p>
-      <%= link_to t("nav.workshops"), workshops_path,
-                  class: "mt-4 inline-block rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+      <% first_workshop = current_user.workshops.first %>
+      <% if first_workshop %>
+        <%= link_to t(".empty_cta"), new_project_path(workshop_id: first_workshop.id),
+                    class: "mt-4 inline-block rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+      <% end %>
     </div>
   <% else %>
     <% projects_by_workshop = @projects.group_by(&:workshop) %>

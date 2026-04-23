@@ -318,10 +318,20 @@ en:
       title: "My Projects"
       all_title: "All Projects"
       empty_title: "No projects yet."
-      empty_body: "Head to your workshop to start one."
+      empty_body: "Ready to start? Create your first project and pick a challenge."
+      empty_cta: "Create a project"
     new:
       heading: "New project"
       title: "New project"
+      guide_eyebrow: "Getting started"
+      guide_intro: "This is the beginning of your adventure — let's bring some ideas to life."
+      guide_steps:
+        - heading: "What will you call your project?"
+          body: "A working title is enough for now. You can rename it at any point while your team is still shaping the idea."
+        - heading: "Pick a challenge — or skip it for now"
+          body: "The ten IMASUS challenges are framing questions, not rigid constraints. Choose one that resonates, or leave this blank and come back once the team has talked it through."
+        - heading: "Choose your working language"
+          body: "This sets the language your team will write in — log entries, descriptions, the published project. Mixed teams often write in English; local teams tend to pick their shared language."
     create:
       success: "Project created."
     show:
@@ -354,10 +364,10 @@ en:
       submit_update: "Save changes"
       cancel: "Cancel"
     languages:
-      en: "English (en)"
-      es: "Español (es)"
-      it: "Italiano (it)"
-      el: "Ελληνικά (el)"
+      en: "English"
+      es: "Español"
+      it: "Italiano"
+      el: "Ελληνικά"
     errors:
       not_a_participant: "You must be a participant in this workshop to create a project."
       not_visible: "You do not have access to that project."
@@ -366,6 +376,7 @@ en:
     form:
       user_select: "Add a team member"
       submit: "Add member"
+      no_eligible: "All workshop participants are already on this project."
     create:
       success: "%{name} added to the project."
     destroy:

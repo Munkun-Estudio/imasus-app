@@ -68,6 +68,18 @@
             <%= f.submit t("project_memberships.form.submit"),
                          class: "rounded-full bg-imasus-dark-green px-5 py-2 text-sm font-semibold text-white" %>
           <% end %>
+        <% else %>
+          <div class="flex items-end gap-3 opacity-40">
+            <div class="flex-1">
+              <p class="text-xs font-semibold text-imasus-dark-green/60 mb-1"><%= t("project_memberships.form.user_select") %></p>
+              <div class="block w-full rounded-md border border-imasus-dark-green/20 bg-stone-50 px-3 py-2 text-sm text-stone-400 cursor-not-allowed">
+                <%= t("project_memberships.form.no_eligible") %>
+              </div>
+            </div>
+            <div class="rounded-full bg-imasus-dark-green px-5 py-2 text-sm font-semibold text-white cursor-not-allowed">
+              <%= t("project_memberships.form.submit") %>
+            </div>
+          </div>
         <% end %>
       </div>
     <% end %>
