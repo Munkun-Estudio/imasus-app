@@ -1,0 +1,14 @@
+<% content_for :title, t(".title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <header class="max-w-2xl">
+    <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50">
+      <%= @workshop.title %>
+    </p>
+    <h1 class="mt-4 text-3xl font-bold text-imasus-dark-green"><%= t(".heading") %></h1>
+  </header>
+
+  <div class="mt-10 max-w-2xl">
+    <%= render "form", project: @project %>
+  </div>
+</div>

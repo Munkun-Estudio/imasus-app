@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_22_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_23_063440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -117,6 +117,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_100000) do
     t.index ["position"], name: "index_materials_on_position"
   end
 
+  create_table "project_memberships", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "project_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["project_id", "user_id"], name: "index_project_memberships_on_project_id_and_user_id", unique: true
+    t.index ["project_id"], name: "index_project_memberships_on_project_id"
+    t.index ["user_id"], name: "index_project_memberships_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.bigint "challenge_id"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "language", null: false
+    t.string "status", default: "draft", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "workshop_id", null: false
+    t.index ["challenge_id"], name: "index_projects_on_challenge_id"
+    t.index ["workshop_id"], name: "index_projects_on_workshop_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "facet", null: false
@@ -175,6 +198,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_22_100000) do
   add_foreign_key "material_assets", "materials"
   add_foreign_key "material_taggings", "materials"
   add_foreign_key "material_taggings", "tags"
+  add_foreign_key "project_memberships", "projects"
+  add_foreign_key "project_memberships", "users"
+  add_foreign_key "projects", "challenges"
+  add_foreign_key "projects", "workshops"
   add_foreign_key "workshop_participations", "users"
   add_foreign_key "workshop_participations", "workshops"
 end

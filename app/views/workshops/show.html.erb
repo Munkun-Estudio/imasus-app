@@ -41,10 +41,15 @@
   </dl>
 
   <div class="mt-8 flex flex-wrap gap-3">
+    <% if attending_workshop?(@workshop) %>
+      <%= link_to t("workshops.show.new_project"),
+                  new_project_path(workshop_id: @workshop.id),
+                  class: "inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+    <% end %>
     <% if current_user&.facilitator? || current_user&.admin? %>
       <%= link_to t("workshops.show.invite_participants", default: "Invite participants"),
                   new_workshop_invitation_path(@workshop),
-                  class: "inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
     <% end %>
   </div>
 </div>

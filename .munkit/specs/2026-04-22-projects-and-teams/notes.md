@@ -109,3 +109,18 @@ is the contract; this file is the workbench.
 - When spec 13 adds per-workshop facilitator assignment, tighten
   `Project#visible_to?` so a facilitator only sees workshops they
   facilitate. The current permissive behaviour is a deliberate MVP shortcut.
+
+---
+
+## Implementation resolved (2026-04-23)
+
+- Language defaults via `after_initialize` (not `before_validation`) so the value
+  is visible immediately on `Project.new` without calling `valid?` first.
+- `workshop.communication_locale` used as the language default — it encodes the
+  workshop's country language via content presence, which aligns with the spec intent.
+- Membership destroy redirect: leaving self → `projects_path`; admin removing
+  someone else → stays on `project_path`. Last-member leave → `projects_path`
+  with a specific flash explaining the project was also deleted.
+- Open question on ID vs slug in URLs: deferred to spec 12 as planned.
+- Open question on "My projects" entry point: deferred to spec 7 (home dashboard).
+  For now the only entry point is the "Start a project" button on the workshop show page.

@@ -112,3 +112,25 @@ Challenges are short (code + category + question + description) and are meant to
 Rejected alternatives:
 - Keep show page + add a preview drawer: two surfaces for the same content, duplicate copy maintenance.
 - Eye-icon preview (materials pattern copied verbatim): materials have a heavy show page (gallery, supplier, sensorials, tags) that justifies the two-tier read; challenges don't.
+
+---
+
+## 2026-04-23 — Spec 10: Projects and teams
+
+### Multi-membership per workshop
+A user can belong to multiple projects within the same workshop. Rationale: participants rethink framing mid-workshop; rigid "one project per user" would block legitimate reshaping or force deleting history. Unique constraint is on `(project_id, user_id)`.
+
+### Members-equal, no owner role
+`ProjectMembership` carries no role column. All members are equal editors (`editable_by?`). If a creator/owner concept becomes necessary later, add a `role` column to the join table rather than a separate `created_by_id` on `Project`.
+
+### Flat routes, numeric ID
+`/projects/:id` rather than nested under workshop. Matches materials/challenges. Spec 12 (publication) will introduce a public slug; until then numeric id is fine and the slug decision hasn't been made.
+
+### Single language per project
+Project content is authored once in one language (defaulted from `workshop.communication_locale`). No locale-tabbed authoring as used for challenges/glossary — project text is team-authored, not curated.
+
+### Facilitator draft access is workshop-agnostic for MVP
+`Project#visible_to?` grants all facilitators read access to all draft projects until spec 13 adds per-workshop facilitator assignment. This is a deliberate shortcut recorded here so spec 13 can tighten it cleanly.
+
+### Last-member destroy via after_destroy callback
+When the final `ProjectMembership` is destroyed, an `after_destroy` callback on the join model destroys the project. Chosen over a model-level callback on `Project` to keep the invariant close to the triggering action. No soft-delete — draft projects are cheap to recreate.
