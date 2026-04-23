@@ -387,7 +387,7 @@ es:
         one: "1 error ha impedido guardar la entrada:"
         other: "%{count} errores han impedido guardar la entrada:"
     entry:
-      ago: "hace"
+      time_ago: "hace %{time}"
       delete: "Eliminar"
       delete_confirm: "¿Eliminar esta entrada? Esta acción no se puede deshacer."
     create:

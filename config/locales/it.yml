@@ -316,7 +316,7 @@ it:
         one: "1 errore ha impedito il salvataggio della voce:"
         other: "%{count} errori hanno impedito il salvataggio della voce:"
     entry:
-      ago: "fa"
+      time_ago: "%{time} fa"
       delete: "Elimina"
       delete_confirm: "Eliminare questa voce? Questa azione non può essere annullata."
     create:

@@ -8,16 +8,18 @@
     <div>
       <span class="text-sm font-semibold text-stone-800" data-role="author-name"><%= entry.author.name %></span>
       <time class="block text-xs text-stone-400" datetime="<%= entry.created_at.iso8601 %>">
-        <%= time_ago_in_words(entry.created_at) %> <%= t("log_entries.entry.ago") %>
+        <%= t("log_entries.entry.time_ago", time: time_ago_in_words(entry.created_at)) %>
       </time>
     </div>
 
     <% if entry.author == current_user || current_user&.admin? %>
-      <%= button_to t("log_entries.entry.delete"),
-                    project_log_entry_path(@project, entry),
-                    method: :delete,
-                    class: "ml-auto text-xs text-stone-400 hover:text-red-600",
-                    data: { turbo_confirm: t("log_entries.entry.delete_confirm") } %>
+      <div class="ml-auto">
+        <%= button_to t("log_entries.entry.delete"),
+                      project_log_entry_path(@project, entry),
+                      method: :delete,
+                      class: "text-xs text-stone-400 hover:text-red-600",
+                      data: { turbo_confirm: t("log_entries.entry.delete_confirm") } %>
+      </div>
     <% end %>
   </header>
 
