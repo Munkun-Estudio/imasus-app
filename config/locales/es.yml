@@ -324,6 +324,8 @@ es:
       members_heading: "Equipo"
       challenge_heading: "Reto"
       process_log: "Registro de proceso →"
+      process_log_eyebrow: "Actividad del taller"
+      process_log_cta: "Abrir registro de proceso"
     edit:
       title: "Editar proyecto"
     update:

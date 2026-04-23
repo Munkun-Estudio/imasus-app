@@ -345,6 +345,8 @@ en:
       members_heading: "Team members"
       challenge_heading: "Challenge"
       process_log: "Process log →"
+      process_log_eyebrow: "Workshop activity"
+      process_log_cta: "Open process log"
     edit:
       title: "Edit project"
     update:

@@ -295,6 +295,8 @@ el:
   projects:
     show:
       process_log: "Ημερολόγιο διαδικασίας →"
+      process_log_eyebrow: "Δραστηριότητα εργαστηρίου"
+      process_log_cta: "Άνοιγμα ημερολογίου"
   log_entries:
     index:
       title: "Ημερολόγιο διαδικασίας — %{project}"

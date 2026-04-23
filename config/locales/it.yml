@@ -295,6 +295,8 @@ it:
   projects:
     show:
       process_log: "Registro del processo →"
+      process_log_eyebrow: "Attività del workshop"
+      process_log_cta: "Apri il registro del processo"
   log_entries:
     index:
       title: "Registro del processo — %{project}"
