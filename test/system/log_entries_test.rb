@@ -38,7 +38,7 @@ class LogEntriesTest < ApplicationSystemTestCase
     sign_in_as(@member)
     visit project_url(@project)
 
-    click_link I18n.t("projects.show.process_log")
+    click_link I18n.t("projects.show.process_log_cta")
 
     assert_current_path project_log_entries_path(@project)
   end
