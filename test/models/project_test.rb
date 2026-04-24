@@ -60,10 +60,16 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
-  test "only draft is a valid status for now" do
-    project = Project.new(workshop: @workshop, title: "Test", language: "en", status: "published")
+  test "rejects unknown status values" do
+    project = Project.new(workshop: @workshop, title: "Test", language: "en", status: "archived")
     assert_not project.valid?
     assert_includes project.errors[:status], "is not included in the list"
+  end
+
+  test "published is a valid status" do
+    # Draft project can be saved without hero_image or process_summary; only
+    # check that the status itself is in the allowed list.
+    assert_includes Project::ALLOWED_STATUSES, "published"
   end
 
   test "status defaults to draft" do
@@ -138,5 +144,149 @@ class ProjectTest < ActiveSupport::TestCase
 
   test "editable_by? is false for nil" do
     assert_not @project.editable_by?(nil)
+  end
+
+  # --- Publication (spec 12) ---
+
+  def attach_hero(project)
+    project.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+  end
+
+  test "published? predicate reflects status" do
+    assert_not @project.published?
+    @project.update_columns(status: "published")
+    assert @project.reload.published?
+  end
+
+  test "publishable_by? is true for member on draft project" do
+    assert @project.publishable_by?(@member)
+  end
+
+  test "publishable_by? is true for admin on draft project" do
+    assert @project.publishable_by?(@admin)
+  end
+
+  test "publishable_by? is false for facilitator" do
+    assert_not @project.publishable_by?(@facilitator)
+  end
+
+  test "publishable_by? is false for non-member participant" do
+    assert_not @project.publishable_by?(@outsider)
+  end
+
+  test "publishable_by? is false for member on published project" do
+    attach_hero(@project)
+    @project.process_summary = "<p>Summary</p>"
+    @project.status = "published"
+    @project.save!
+    assert_not @project.publishable_by?(@member)
+  end
+
+  test "republishable_by? is true for member on published project" do
+    attach_hero(@project)
+    @project.process_summary = "<p>Summary</p>"
+    @project.status = "published"
+    @project.save!
+    assert @project.republishable_by?(@member)
+  end
+
+  test "republishable_by? is false for member on draft project" do
+    assert_not @project.republishable_by?(@member)
+  end
+
+  test "republishable_by? is false for facilitator on published project" do
+    attach_hero(@project)
+    @project.process_summary = "<p>Summary</p>"
+    @project.status = "published"
+    @project.save!
+    assert_not @project.republishable_by?(@facilitator)
+  end
+
+  test "publish requires hero_image and process_summary" do
+    @project.status = "published"
+    assert_not @project.valid?
+    assert @project.errors[:hero_image].any?
+    assert @project.errors[:process_summary].any?
+  end
+
+  test "publish succeeds when hero_image attached and process_summary present" do
+    attach_hero(@project)
+    @project.process_summary = "<p>How we got here</p>"
+    @project.status = "published"
+    assert @project.save, @project.errors.full_messages.join(", ")
+  end
+
+  test "draft save succeeds without hero_image or process_summary" do
+    project = Project.new(workshop: @workshop, title: "Draft only", language: "en", status: "draft")
+    assert project.valid?
+  end
+
+  test "slug generated from title on publish" do
+    attach_hero(@project)
+    @project.process_summary = "<p>S</p>"
+    @project.status = "published"
+    @project.save!
+    assert_equal "kapok-project", @project.slug
+  end
+
+  test "slug collision is resolved with incrementing suffix" do
+    attach_hero(@project)
+    @project.process_summary = "<p>S</p>"
+    @project.status = "published"
+    @project.save!
+
+    second = Project.create!(workshop: @workshop, title: "Kapok Project", language: "es", status: "draft")
+    ProjectMembership.create!(project: second, user: @member)
+    second.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+    second.process_summary = "<p>Second</p>"
+    second.status = "published"
+    second.save!
+    assert_equal "kapok-project-2", second.slug
+
+    third = Project.create!(workshop: @workshop, title: "Kapok Project", language: "es", status: "draft")
+    ProjectMembership.create!(project: third, user: @member)
+    third.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+    third.process_summary = "<p>Third</p>"
+    third.status = "published"
+    third.save!
+    assert_equal "kapok-project-3", third.slug
+  end
+
+  test "slug not regenerated on re-save" do
+    attach_hero(@project)
+    @project.process_summary = "<p>S</p>"
+    @project.status = "published"
+    @project.save!
+    original_slug = @project.slug
+
+    @project.update!(title: "Completely Different Title")
+    assert_equal original_slug, @project.reload.slug
+  end
+
+  test "slug max 100 chars" do
+    long_title = "a" * 150
+    project = Project.create!(workshop: @workshop, title: long_title, language: "en", status: "draft")
+    ProjectMembership.create!(project: project, user: @member)
+    project.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+    project.process_summary = "<p>S</p>"
+    project.status = "published"
+    project.save!
+    assert project.slug.length <= 100
   end
 end

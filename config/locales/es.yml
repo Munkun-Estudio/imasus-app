@@ -119,6 +119,11 @@ es:
       open_agenda: "Abrir agenda"
       agenda_page: "Ver agenda completa"
       invite_participants: "Invitar participantes"
+      new_project: "Empezar un proyecto"
+      projects_heading: "Proyectos"
+      no_projects: "Todavia no hay proyectos."
+      no_projects_cta: "Empezar un proyecto"
+      your_project: "Tu proyecto"
     agenda:
       eyebrow: "Agenda del taller"
       title: "Agenda de %{workshop}"
@@ -205,6 +210,48 @@ es:
       submit: "Enviar invitaciones"
     create:
       notice: "%{invited} invitadas, %{skipped} ya registradas, %{invalid} correos no válidos."
+  project_publications:
+    new:
+      title: "Publica tu proyecto"
+      heading: "Publica tu proyecto"
+      lead: "Convierte vuestro trabajo en una pagina publica."
+      challenge_heading: "Reto"
+      no_challenge: "Este proyecto no tiene reto vinculado."
+      problem_heading: "El problema"
+      problem_hint: "¿Que intentabais abordar?"
+      process_heading: "Vuestro proceso"
+      process_hint: "¿Que probasteis? ¿Que os sorprendio?"
+      insights_heading: "Aprendizajes"
+      insights_hint: "¿Que aprendisteis por el camino?"
+      outcome_heading: "Resultado"
+      outcome_hint: "¿Donde habeis llegado?"
+      composition_heading: "Composicion"
+      composition_hint: "Teje las secciones anteriores en la historia que quereis publicar."
+      process_summary_label: "Resumen publicado"
+      hero_image_label: "Imagen principal"
+      hero_image_hint: "JPEG o PNG. Las imagenes apaisadas funcionan mejor."
+      submit: "Publicar proyecto"
+      cancel: "Cancelar"
+    edit:
+      title: "Editar proyecto publicado"
+      heading: "Editar proyecto publicado"
+      lead: "Refina la pagina publica. El enlace se mantiene; solo cambia el contenido."
+      submit: "Guardar cambios"
+      cancel: "Cancelar"
+    create:
+      success: "Proyecto publicado."
+    update:
+      success: "Proyecto publicado actualizado."
+    errors:
+      forbidden: "No puedes publicar este proyecto."
+      missing_hero: "Falta la imagen principal."
+      missing_summary: "Falta el resumen publicado."
+  published_projects:
+    show:
+      workshop_label: "Taller"
+      members_heading: "Equipo"
+      last_updated: "Actualizado el %{date}"
+      edit_link: "Editar pagina publicada"
   participant_invitation_mailer:
     invite:
       subject: "Te han invitado al taller IMASUS %{workshop}"
@@ -299,6 +346,10 @@ es:
       empty_title: "Todavía no hay proyectos."
       empty_body: "¿Lista para empezar? Crea tu primer proyecto y elige un reto."
       empty_cta: "Crear un proyecto"
+      participant_redirect: "Tus proyectos viven dentro de tu taller."
+    status:
+      draft: "Borrador"
+      published: "Publicado"
     new:
       heading: "Nuevo proyecto"
       title: "Nuevo proyecto"

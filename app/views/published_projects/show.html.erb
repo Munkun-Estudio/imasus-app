@@ -1,0 +1,51 @@
+<% content_for :title, @project.title %>
+
+<article class="bg-white">
+  <% if @project.hero_image.attached? %>
+    <div class="w-full bg-stone-100">
+      <%= image_variant_tag @project.hero_image, preset: :hero,
+                            alt: @project.title,
+                            class: "mx-auto block max-h-[60vh] w-full object-cover" %>
+    </div>
+  <% end %>
+
+  <div class="mx-auto max-w-3xl px-6 py-12 sm:px-10">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50">
+      <%= t("published_projects.show.workshop_label") %> · <%= @project.workshop.title %>
+    </p>
+
+    <h1 class="mt-4 text-4xl font-bold text-imasus-dark-green"><%= @project.title %></h1>
+
+    <% if @project.challenge.present? %>
+      <p class="mt-3">
+        <span class="rounded-full bg-imasus-light-blue/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green">
+          <%= @project.challenge.code %>
+        </span>
+      </p>
+    <% end %>
+
+    <section class="mt-6" aria-label="<%= t("published_projects.show.members_heading") %>">
+      <p class="text-sm text-stone-600">
+        <%= @project.members.map(&:name).to_sentence %>
+      </p>
+    </section>
+
+    <% if @project.publication_updated_at %>
+      <p class="mt-2 text-xs text-stone-400">
+        <%= t("published_projects.show.last_updated", date: l(@project.publication_updated_at.to_date)) %>
+      </p>
+    <% end %>
+
+    <div class="mt-10 prose prose-stone max-w-none">
+      <%= @project.process_summary %>
+    </div>
+
+    <% if current_user && @project.republishable_by?(current_user) %>
+      <div class="mt-10 border-t border-stone-200 pt-6">
+        <%= link_to t("published_projects.show.edit_link"),
+                    edit_project_publication_path(@project),
+                    class: "text-sm font-semibold text-imasus-dark-green hover:underline" %>
+      </div>
+    <% end %>
+  </div>
+</article>

@@ -5,13 +5,16 @@ class ProjectsController < ApplicationController
   before_action :require_editable,   only: [ :edit, :update ]
   before_action :require_destroyable, only: [ :destroy ]
 
-  # @note Lists current user's projects; admin/facilitator see all.
+  # @note Participants are redirected to their workshops (their projects now
+  #   live inside the workshop show page). Admin and facilitator still see the
+  #   cross-cutting list here.
   def index
-    @projects = if current_user.admin? || current_user.facilitator?
-      Project.includes(:workshop, :members).order(created_at: :desc)
-    else
-      current_user.projects.includes(:workshop).order(created_at: :desc)
+    if current_user.participant?
+      redirect_to workshops_path, notice: t("projects.index.participant_redirect")
+      return
     end
+
+    @projects = Project.includes(:workshop, :members).order(created_at: :desc)
   end
 
   # @note Requires +workshop_id+ param and workshop participation.
@@ -89,7 +92,8 @@ class ProjectsController < ApplicationController
 
   def require_visible
     unless @project.visible_to?(current_user)
-      redirect_to projects_path, alert: t("projects.errors.not_visible")
+      fallback = current_user.participant? ? workshops_path : projects_path
+      redirect_to fallback, alert: t("projects.errors.not_visible")
     end
   end
 

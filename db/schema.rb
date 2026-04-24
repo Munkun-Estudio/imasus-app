@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_23_095324) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_24_105637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -141,11 +141,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_095324) do
     t.datetime "created_at", null: false
     t.text "description"
     t.string "language", null: false
+    t.datetime "publication_updated_at"
+    t.string "slug"
     t.string "status", default: "draft", null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.bigint "workshop_id", null: false
     t.index ["challenge_id"], name: "index_projects_on_challenge_id"
+    t.index ["slug"], name: "index_projects_on_slug", unique: true, where: "(slug IS NOT NULL)"
     t.index ["workshop_id"], name: "index_projects_on_workshop_id"
   end
 

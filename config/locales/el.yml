@@ -119,6 +119,11 @@ el:
       open_agenda: "Άνοιγμα ατζέντας"
       agenda_page: "Δείτε την πλήρη ατζέντα"
       invite_participants: "Πρόσκληση συμμετεχόντων"
+      new_project: "Ξεκινήστε ένα έργο"
+      projects_heading: "Έργα"
+      no_projects: "Δεν υπάρχουν έργα ακόμη."
+      no_projects_cta: "Ξεκινήστε ένα έργο"
+      your_project: "Το έργο σας"
     agenda:
       eyebrow: "Ατζέντα εργαστηρίου"
       title: "Ατζέντα για %{workshop}"
@@ -205,6 +210,48 @@ el:
       submit: "Αποστολή προσκλήσεων"
     create:
       notice: "%{invited} προσκλήθηκαν, %{skipped} ήταν ήδη εγγεγραμμένοι, %{invalid} μη έγκυρα email."
+  project_publications:
+    new:
+      title: "Δημοσιεύστε το έργο σας"
+      heading: "Δημοσιεύστε το έργο σας"
+      lead: "Μετατρέψτε τη δουλειά σας σε δημόσια σελίδα."
+      challenge_heading: "Πρόκληση"
+      no_challenge: "Καμία πρόκληση συνδεδεμένη με το έργο."
+      problem_heading: "Το πρόβλημα"
+      problem_hint: "Τι προσπαθούσατε να αντιμετωπίσετε;"
+      process_heading: "Η διαδικασία σας"
+      process_hint: "Τι δοκιμάσατε; Τι σας εξέπληξε;"
+      insights_heading: "Συμπεράσματα"
+      insights_hint: "Τι μάθατε;"
+      outcome_heading: "Αποτέλεσμα"
+      outcome_hint: "Πού καταλήξατε;"
+      composition_heading: "Σύνθεση"
+      composition_hint: "Συνδυάστε τις ενότητες στην ιστορία που θα δημοσιεύσετε."
+      process_summary_label: "Δημοσιευμένη σύνοψη"
+      hero_image_label: "Κεντρική εικόνα"
+      hero_image_hint: "JPEG ή PNG. Οι ευρείες εικόνες λειτουργούν καλύτερα."
+      submit: "Δημοσίευση"
+      cancel: "Ακύρωση"
+    edit:
+      title: "Επεξεργασία δημοσιευμένου έργου"
+      heading: "Επεξεργασία δημοσιευμένου έργου"
+      lead: "Βελτιώστε τη δημόσια σελίδα. Το slug παραμένει ίδιο."
+      submit: "Αποθήκευση"
+      cancel: "Ακύρωση"
+    create:
+      success: "Το έργο δημοσιεύτηκε."
+    update:
+      success: "Το δημοσιευμένο έργο ενημερώθηκε."
+    errors:
+      forbidden: "Δεν επιτρέπεται η δημοσίευση."
+      missing_hero: "Λείπει η κεντρική εικόνα."
+      missing_summary: "Λείπει η δημοσιευμένη σύνοψη."
+  published_projects:
+    show:
+      workshop_label: "Εργαστήριο"
+      members_heading: "Ομάδα"
+      last_updated: "Ενημέρωση στις %{date}"
+      edit_link: "Επεξεργασία δημοσιευμένης σελίδας"
   participant_invitation_mailer:
     invite:
       subject: "Σας έχουν προσκαλέσει στο εργαστήριο IMASUS %{workshop}"
@@ -293,6 +340,11 @@ el:
       delete_confirm_body: "Η διαγραφή του «%{term}» δεν μπορεί να αναιρεθεί."
       delete_confirm_submit: "Διαγραφή"
   projects:
+    index:
+      participant_redirect: "Τα έργα σας βρίσκονται μέσα στο εργαστήριό σας."
+    status:
+      draft: "Πρόχειρο"
+      published: "Δημοσιευμένο"
     show:
       process_log: "Ημερολόγιο διαδικασίας →"
       process_log_eyebrow: "Δραστηριότητα εργαστηρίου"

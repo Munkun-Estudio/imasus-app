@@ -120,6 +120,10 @@ en:
       agenda_page: "View full agenda"
       invite_participants: "Invite participants"
       new_project: "Start a project"
+      projects_heading: "Projects"
+      no_projects: "No projects yet."
+      no_projects_cta: "Start a project"
+      your_project: "Your project"
     agenda:
       eyebrow: "Workshop Agenda"
       title: "%{workshop} agenda"
@@ -320,6 +324,10 @@ en:
       empty_title: "No projects yet."
       empty_body: "Ready to start? Create your first project and pick a challenge."
       empty_cta: "Create a project"
+      participant_redirect: "Your projects live inside your workshop."
+    status:
+      draft: "Draft"
+      published: "Published"
     new:
       heading: "New project"
       title: "New project"
@@ -430,6 +438,48 @@ en:
       success: "Entry deleted."
     errors:
       forbidden: "You are not allowed to delete that entry."
+  project_publications:
+    new:
+      title: "Publish your project"
+      heading: "Publish your project"
+      lead: "Turn your work into a public project page. Take a moment for each section — the published page is the story future cohorts will read."
+      challenge_heading: "Challenge"
+      no_challenge: "No challenge linked to this project."
+      problem_heading: "The problem"
+      problem_hint: "What were you trying to tackle?"
+      process_heading: "Your process"
+      process_hint: "What did you try? What surprised you? Reference log entries below for inspiration."
+      insights_heading: "Insights"
+      insights_hint: "What did you learn along the way?"
+      outcome_heading: "Outcome"
+      outcome_hint: "Where did you land? What is the proposal or prototype?"
+      composition_heading: "Composition"
+      composition_hint: "Weave the sections above into the story you want to publish."
+      process_summary_label: "Published summary"
+      hero_image_label: "Hero image"
+      hero_image_hint: "JPEG or PNG. Wide images work best."
+      submit: "Publish project"
+      cancel: "Cancel"
+    edit:
+      title: "Edit published project"
+      heading: "Edit published project"
+      lead: "Refine the public page. The URL slug stays the same — only the content is updated."
+      submit: "Save changes"
+      cancel: "Cancel"
+    create:
+      success: "Project published."
+    update:
+      success: "Published project updated."
+    errors:
+      forbidden: "You are not allowed to publish this project."
+      missing_hero: "A hero image is required before publishing."
+      missing_summary: "A published summary is required before publishing."
+  published_projects:
+    show:
+      workshop_label: "Workshop"
+      members_heading: "Team"
+      last_updated: "Last updated %{date}"
+      edit_link: "Edit published page"
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

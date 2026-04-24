@@ -119,6 +119,11 @@ it:
       open_agenda: "Apri agenda"
       agenda_page: "Vedi agenda completa"
       invite_participants: "Invita partecipanti"
+      new_project: "Avvia un progetto"
+      projects_heading: "Progetti"
+      no_projects: "Ancora nessun progetto."
+      no_projects_cta: "Avvia un progetto"
+      your_project: "Il tuo progetto"
     agenda:
       eyebrow: "Agenda workshop"
       title: "Agenda di %{workshop}"
@@ -205,6 +210,48 @@ it:
       submit: "Invia inviti"
     create:
       notice: "%{invited} invitate, %{skipped} già registrate, %{invalid} email non valide."
+  project_publications:
+    new:
+      title: "Pubblica il progetto"
+      heading: "Pubblica il progetto"
+      lead: "Trasforma il vostro lavoro in una pagina pubblica."
+      challenge_heading: "Sfida"
+      no_challenge: "Nessuna sfida collegata a questo progetto."
+      problem_heading: "Il problema"
+      problem_hint: "Cosa stavate cercando di affrontare?"
+      process_heading: "Il vostro processo"
+      process_hint: "Cosa avete provato? Cosa vi ha sorpreso?"
+      insights_heading: "Apprendimenti"
+      insights_hint: "Cosa avete imparato?"
+      outcome_heading: "Risultato"
+      outcome_hint: "Dove siete arrivati?"
+      composition_heading: "Composizione"
+      composition_hint: "Intrecciate le sezioni precedenti nella storia da pubblicare."
+      process_summary_label: "Sintesi pubblicata"
+      hero_image_label: "Immagine di copertina"
+      hero_image_hint: "JPEG o PNG. Le immagini orizzontali funzionano meglio."
+      submit: "Pubblica progetto"
+      cancel: "Annulla"
+    edit:
+      title: "Modifica progetto pubblicato"
+      heading: "Modifica progetto pubblicato"
+      lead: "Aggiorna la pagina pubblica. Lo slug URL resta invariato."
+      submit: "Salva modifiche"
+      cancel: "Annulla"
+    create:
+      success: "Progetto pubblicato."
+    update:
+      success: "Progetto pubblicato aggiornato."
+    errors:
+      forbidden: "Non puoi pubblicare questo progetto."
+      missing_hero: "Manca l'immagine di copertina."
+      missing_summary: "Manca la sintesi pubblicata."
+  published_projects:
+    show:
+      workshop_label: "Workshop"
+      members_heading: "Team"
+      last_updated: "Aggiornato il %{date}"
+      edit_link: "Modifica pagina pubblicata"
   participant_invitation_mailer:
     invite:
       subject: "Sei stata o sei stato invitato al workshop IMASUS %{workshop}"
@@ -293,6 +340,11 @@ it:
       delete_confirm_body: "L'eliminazione di «%{term}» non può essere annullata."
       delete_confirm_submit: "Elimina"
   projects:
+    index:
+      participant_redirect: "I tuoi progetti vivono nel tuo workshop."
+    status:
+      draft: "Bozza"
+      published: "Pubblicato"
     show:
       process_log: "Registro del processo →"
       process_log_eyebrow: "Attività del workshop"
