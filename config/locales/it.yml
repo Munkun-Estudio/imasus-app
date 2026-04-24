@@ -297,6 +297,18 @@ it:
       process_log: "Registro del processo →"
       process_log_eyebrow: "Attività del workshop"
       process_log_cta: "Apri il registro del processo"
+      edit: "Modifica"
+      delete: "Elimina"
+      add_member: "Aggiungi persone"
+      leave: "Lascia il progetto"
+      delete_confirm: "Eliminare questo progetto? Questa azione non può essere annullata."
+      more_options: "Opzioni progetto"
+      challenge_heading: "Sfida"
+      no_challenge: "Nessuna sfida selezionata. Modifica il progetto per sceglierne una."
+  project_memberships:
+    drawer:
+      title: "Componenti del team"
+      close: "Chiudi"
   log_entries:
     index:
       title: "Registro del processo — %{project}"

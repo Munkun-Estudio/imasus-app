@@ -13,95 +13,82 @@
   <% end %>
 
   <header class="mt-6 max-w-3xl">
-    <div class="flex flex-wrap items-center gap-3">
-      <span class="rounded-full bg-imasus-light-blue/30 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green">
-        <%= t("projects.languages.#{@project.language}") %>
-      </span>
+    <div class="flex items-start justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <span class="rounded-full bg-imasus-light-blue/30 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green">
+          <%= t("projects.languages.#{@project.language}") %>
+        </span>
+        <h1 class="mt-4 text-4xl font-bold text-imasus-dark-green"><%= @project.title %></h1>
+        <% if @project.description.present? %>
+          <div class="mt-3 text-base leading-7 text-stone-600"><%= simple_format(@project.description) %></div>
+        <% end %>
+      </div>
+
+      <% if @project.editable_by?(current_user) %>
+        <details class="relative mt-1 shrink-0">
+          <summary class="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-stone-200 text-stone-500 hover:bg-stone-50 hover:text-stone-700"
+                   aria-label="<%= t("projects.show.more_options") %>">
+            <span aria-hidden="true" class="text-sm font-bold leading-none tracking-widest">···</span>
+          </summary>
+          <div class="absolute right-0 top-full z-10 mt-2 w-44 rounded-xl border border-stone-100 bg-white py-1 shadow-lg">
+            <%= link_to t("projects.show.edit"), edit_project_path(@project),
+                        class: "block px-4 py-2 text-sm text-stone-700 hover:bg-stone-50" %>
+            <%= button_to t("projects.show.delete"), @project,
+                          method: :delete,
+                          class: "block w-full cursor-pointer px-4 py-2 text-left text-sm text-red-500 hover:bg-red-50",
+                          data: { turbo_confirm: t("projects.show.delete_confirm") } %>
+          </div>
+        </details>
+      <% end %>
     </div>
-    <h1 class="mt-4 text-4xl font-bold text-imasus-dark-green"><%= @project.title %></h1>
-    <% if @project.description.present? %>
-      <div class="mt-5 text-lg leading-8 text-stone-700"><%= simple_format(@project.description) %></div>
-    <% end %>
   </header>
 
-  <%= link_to project_log_entries_path(@project),
-              class: "mt-8 flex max-w-3xl items-center justify-between rounded-2xl bg-imasus-dark-green px-7 py-5 text-white hover:bg-imasus-dark-green/90" do %>
-    <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60"><%= t("projects.show.process_log_eyebrow") %></p>
-      <p class="mt-0.5 text-xl font-bold"><%= t("projects.show.process_log_cta") %></p>
-    </div>
-    <span class="text-2xl font-light text-white/70" aria-hidden="true">→</span>
-  <% end %>
-
-  <% if @project.challenge.present? %>
-    <section class="mt-10 max-w-3xl border-t border-imasus-dark-green/10 pt-8">
-      <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50"><%= t("projects.show.challenge_heading") %></h2>
-      <div class="mt-4">
-        <%= render "challenges/card", challenge: @project.challenge %>
-      </div>
-    </section>
-  <% end %>
-
-  <section class="mt-10 max-w-3xl border-t border-imasus-dark-green/10 pt-8">
-    <h2 class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50"><%= t("projects.show.members_heading") %></h2>
-    <ul class="mt-4 space-y-2">
-      <% @project.members.each do |member| %>
-        <li class="flex items-center gap-3">
-          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-imasus-dark-green/10 text-xs font-bold text-imasus-dark-green">
-            <%= member.name.split.map { |w| w[0] }.first(2).join %>
+  <%# Avatar strip %>
+  <section class="mt-8 max-w-3xl" aria-label="<%= t("projects.show.members_heading") %>">
+    <div class="flex items-center gap-3">
+      <div class="flex -space-x-2">
+        <% @project.members.each do |member| %>
+          <span title="<%= member.name %>"
+                class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 border-white bg-imasus-dark-green/10 text-xs font-bold uppercase text-imasus-dark-green">
+            <%= member.name.split.map { |w| w[0].upcase }.first(2).join %>
           </span>
-          <span class="text-sm font-semibold text-stone-800" data-role="member-name"><%= member.name %></span>
-          <% if @project.editable_by?(current_user) && member == current_user %>
-            <%= button_to t("projects.show.leave"), project_membership_path(@project, @project.memberships.find_by(user: current_user)),
-                          method: :delete,
-                          class: "ml-auto text-xs text-stone-400 hover:text-red-600",
-                          data: { turbo_confirm: "Are you sure?" } %>
-          <% end %>
-        </li>
+        <% end %>
+      </div>
+      <% if @project.editable_by?(current_user) %>
+        <%= link_to t("projects.show.add_member"),
+                    new_project_membership_path(@project),
+                    data: { turbo_frame: "preview" },
+                    class: "rounded-full border border-imasus-dark-green/30 px-4 py-1.5 text-xs font-semibold text-imasus-dark-green hover:bg-imasus-dark-green/5" %>
       <% end %>
-    </ul>
+    </div>
+  </section>
 
-    <% if @project.editable_by?(current_user) %>
-      <div class="mt-6">
-        <% eligible = @project.workshop.participants.where.not(id: @project.member_ids) %>
-        <% if eligible.any? %>
-          <%= form_with model: ProjectMembership.new, url: project_memberships_path(@project), class: "flex items-end gap-3" do |f| %>
-            <div class="flex-1">
-              <%= f.label :user_id, t("project_memberships.form.user_select"),
-                          class: "block text-xs font-semibold text-imasus-dark-green/60 mb-1" %>
-              <%= f.select :user_id,
-                           eligible.map { |u| [u.name, u.id] },
-                           {},
-                           class: "block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm" %>
-            </div>
-            <%= f.submit t("project_memberships.form.submit"),
-                         class: "rounded-full bg-imasus-dark-green px-5 py-2 text-sm font-semibold text-white" %>
-          <% end %>
-        <% else %>
-          <div class="flex items-end gap-3 opacity-40">
-            <div class="flex-1">
-              <p class="text-xs font-semibold text-imasus-dark-green/60 mb-1"><%= t("project_memberships.form.user_select") %></p>
-              <div class="block w-full rounded-md border border-imasus-dark-green/20 bg-stone-50 px-3 py-2 text-sm text-stone-400 cursor-not-allowed">
-                <%= t("project_memberships.form.no_eligible") %>
-              </div>
-            </div>
-            <div class="rounded-full bg-imasus-dark-green px-5 py-2 text-sm font-semibold text-white cursor-not-allowed">
-              <%= t("project_memberships.form.submit") %>
-            </div>
-          </div>
+  <%# 2-col card grid %>
+  <div class="mt-8 grid max-w-3xl grid-cols-1 items-stretch gap-4 sm:grid-cols-2">
+    <%# Process log card %>
+    <%= link_to project_log_entries_path(@project),
+                class: "group block rounded-2xl bg-imasus-dark-green text-white hover:bg-imasus-dark-green/90" do %>
+      <div class="flex min-h-[11rem] flex-col justify-between px-7 py-7">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/60"><%= t("projects.show.process_log_eyebrow") %></p>
+          <p class="mt-3 text-xl font-bold leading-snug"><%= t("projects.show.process_log_cta") %></p>
+        </div>
+        <span class="mt-8 block text-3xl font-light text-white/40 transition-colors group-hover:text-white/70" aria-hidden="true">→</span>
+      </div>
+    <% end %>
+
+    <%# Challenge card %>
+    <% if @project.challenge.present? %>
+      <%= render "challenges/card", challenge: @project.challenge %>
+    <% else %>
+      <div class="flex min-h-[10rem] flex-col rounded-2xl border border-dashed border-imasus-dark-green/20 bg-stone-50 p-7">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/40"><%= t("projects.show.challenge_heading") %></p>
+        <p class="mt-3 flex-1 text-sm text-stone-400"><%= t("projects.show.no_challenge") %></p>
+        <% if @project.editable_by?(current_user) %>
+          <%= link_to t("projects.show.edit"), edit_project_path(@project),
+                      class: "mt-4 text-xs font-semibold text-imasus-dark-green/60 hover:text-imasus-dark-green" %>
         <% end %>
       </div>
     <% end %>
-  </section>
-
-  <% if @project.editable_by?(current_user) %>
-    <footer class="mt-12 max-w-3xl border-t border-imasus-dark-green/10 pt-6 flex gap-6">
-      <%= link_to t("projects.show.edit"), edit_project_path(@project),
-                  class: "text-xs text-stone-400 hover:text-stone-600" %>
-      <%= button_to t("projects.show.delete"), @project,
-                    method: :delete,
-                    class: "text-xs text-stone-400 hover:text-red-500",
-                    data: { turbo_confirm: "Delete this project? This cannot be undone." } %>
-    </footer>
-  <% end %>
+  </div>
 </div>

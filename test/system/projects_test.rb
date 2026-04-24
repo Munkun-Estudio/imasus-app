@@ -38,7 +38,7 @@ class ProjectsTest < ApplicationSystemTestCase
     click_button I18n.t("projects.form.submit_create")
 
     assert_selector "h1", text: "Kapok Fibre Project"
-    assert_selector "[data-role='member-name']", text: @creator.name
+    assert_selector "[title='#{@creator.name}']"
   end
 
   test "member can invite another workshop participant from the project show page" do
@@ -48,10 +48,13 @@ class ProjectsTest < ApplicationSystemTestCase
     fill_in I18n.t("projects.form.title"), with: "Musa Textile Project"
     click_button I18n.t("projects.form.submit_create")
 
-    select @teammate.name, from: I18n.t("project_memberships.form.user_select")
-    click_button I18n.t("project_memberships.form.submit")
+    click_link I18n.t("projects.show.add_member")
+    within("turbo-frame#preview") do
+      select @teammate.name, from: I18n.t("project_memberships.form.user_select")
+      click_button I18n.t("project_memberships.form.submit")
+    end
 
-    assert_selector "[data-role='member-name']", text: @teammate.name
+    assert_selector "[title='#{@teammate.name}']"
   end
 
   test "facilitator visits a project and sees the facilitator chip but no edit affordances" do

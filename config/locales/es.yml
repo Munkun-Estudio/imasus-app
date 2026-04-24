@@ -317,12 +317,15 @@ es:
       back_to_index: "← Volver a proyectos"
       eyebrow: "Proyecto"
       facilitator_chip: "Vista de facilitador"
-      edit: "Editar proyecto"
-      add_member: "Añadir miembro"
+      edit: "Editar"
+      add_member: "Añadir personas"
       leave: "Abandonar proyecto"
-      delete: "Eliminar proyecto"
+      delete: "Eliminar"
+      delete_confirm: "¿Eliminar este proyecto? Esta acción no se puede deshacer."
+      more_options: "Opciones del proyecto"
       members_heading: "Equipo"
       challenge_heading: "Reto"
+      no_challenge: "Sin reto seleccionado. Edita el proyecto para elegir uno."
       process_log: "Registro de proceso →"
       process_log_eyebrow: "Actividad del taller"
       process_log_cta: "Abrir registro de proceso"
@@ -355,6 +358,9 @@ es:
       not_visible: "No tienes acceso a ese proyecto."
       not_editable: "No tienes permiso para editar ese proyecto."
   project_memberships:
+    drawer:
+      title: "Equipo"
+      close: "Cerrar"
     form:
       user_select: "Añadir un miembro al equipo"
       submit: "Añadir"

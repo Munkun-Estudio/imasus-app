@@ -3,6 +3,11 @@ class ProjectMembershipsController < ApplicationController
   before_action :set_project
   before_action :require_member_or_admin
 
+  def new
+    @eligible = @project.workshop.participants.where.not(id: @project.member_ids)
+    render partial: "project_memberships/drawer", layout: false
+  end
+
   # @note Adds a workshop participant as a project member.
   def create
     user = User.find_by(id: params.dig(:project_membership, :user_id))

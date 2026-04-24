@@ -135,6 +135,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "show add member link targets the preview drawer frame" do
+    sign_in(@member)
+    get project_url(@project)
+    assert_response :success
+    assert_select "a[href=?][data-turbo-frame='preview']", new_project_membership_path(@project),
+                  text: I18n.t("projects.show.add_member")
+  end
+
   test "show returns 200 for a facilitator with a facilitator chip" do
     sign_in(@facilitator)
     get project_url(@project)

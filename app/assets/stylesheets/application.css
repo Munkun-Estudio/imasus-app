@@ -1,6 +1,10 @@
 /* Application-specific styles that supplement Tailwind CSS.
    Brand palette tokens and font configuration live in app/assets/tailwind/application.css. */
 
+/* Hide the native <details> triangle from summary elements used as icon buttons. */
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+
 /* Glossary term trigger — inline button produced by GlossaryHighlighter. */
 .glossary-term {
   display: inline;

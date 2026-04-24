@@ -297,6 +297,18 @@ el:
       process_log: "Ημερολόγιο διαδικασίας →"
       process_log_eyebrow: "Δραστηριότητα εργαστηρίου"
       process_log_cta: "Άνοιγμα ημερολογίου"
+      edit: "Επεξεργασία"
+      delete: "Διαγραφή"
+      add_member: "Προσθήκη ατόμων"
+      leave: "Αποχώρηση από το έργο"
+      delete_confirm: "Διαγραφή αυτού του έργου; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί."
+      more_options: "Επιλογές έργου"
+      challenge_heading: "Πρόκληση"
+      no_challenge: "Δεν έχει επιλεγεί πρόκληση ακόμα. Επεξεργαστείτε το έργο για να επιλέξετε."
+  project_memberships:
+    drawer:
+      title: "Μέλη ομάδας"
+      close: "Κλείσιμο"
   log_entries:
     index:
       title: "Ημερολόγιο διαδικασίας — %{project}"

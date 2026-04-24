@@ -1,0 +1,69 @@
+<%= turbo_frame_tag "preview" do %>
+  <div data-controller="preview-sidebar"
+       data-action="click->preview-sidebar#backdrop keydown.esc@window->preview-sidebar#close"
+       class="fixed inset-0 z-40 flex items-end justify-end bg-imasus-dark-green/20 sm:items-stretch">
+    <aside role="dialog"
+           aria-modal="false"
+           aria-labelledby="members-drawer-heading"
+           tabindex="-1"
+           data-preview-sidebar-target="dialog"
+           class="flex h-[85vh] w-full flex-col overflow-y-auto rounded-t-2xl bg-white shadow-xl sm:h-screen sm:max-h-screen sm:w-full sm:max-w-md sm:rounded-none">
+      <header class="flex shrink-0 items-center justify-between gap-4 border-b border-imasus-dark-green/10 px-6 py-4">
+        <h2 id="members-drawer-heading"
+            class="text-lg font-bold text-imasus-dark-green">
+          <%= t("project_memberships.drawer.title") %>
+        </h2>
+        <button type="button"
+                data-action="preview-sidebar#close"
+                aria-label="<%= t("project_memberships.drawer.close") %>"
+                class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-imasus-dark-green/70 hover:bg-imasus-mint/20 hover:text-imasus-dark-green">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+
+      <div class="flex flex-col gap-5 px-6 py-5">
+        <ul class="space-y-3">
+          <% @project.members.each do |member| %>
+            <li class="flex items-center gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-imasus-dark-green/10 text-xs font-bold text-imasus-dark-green">
+                <%= member.name.split.map { |w| w[0].upcase }.first(2).join %>
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-semibold text-stone-800"><%= member.name %></p>
+                <p class="truncate text-xs text-stone-400"><%= member.institution.presence || member.email %></p>
+              </div>
+              <% if member == current_user %>
+                <%= button_to t("projects.show.leave"),
+                              project_membership_path(@project, @project.memberships.find_by!(user: current_user)),
+                              method: :delete,
+                              class: "shrink-0 text-xs text-stone-400 hover:text-red-500",
+                              data: { turbo_frame: "_top" } %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
+        <% if @project.editable_by?(current_user) %>
+          <div class="border-t border-imasus-dark-green/10 pt-4">
+            <% if @eligible.any? %>
+              <%= form_with model: ProjectMembership.new,
+                            url: project_memberships_path(@project),
+                            data: { turbo_frame: "_top" } do |f| %>
+                <%= f.label :user_id, t("project_memberships.form.user_select"),
+                            class: "mb-1 block text-xs font-semibold text-imasus-dark-green/60" %>
+                <%= f.select :user_id,
+                             @eligible.map { |u| [u.name, u.id] },
+                             {},
+                             class: "mb-3 block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm" %>
+                <%= f.submit t("project_memberships.form.submit"),
+                             class: "w-full cursor-pointer rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white hover:bg-imasus-dark-green/90" %>
+              <% end %>
+            <% else %>
+              <p class="text-sm text-stone-400"><%= t("project_memberships.form.no_eligible") %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </aside>
+  </div>
+<% end %>

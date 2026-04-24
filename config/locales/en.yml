@@ -338,12 +338,15 @@ en:
       back_to_index: "← Back to projects"
       eyebrow: "Project"
       facilitator_chip: "Viewing as facilitator"
-      edit: "Edit project"
-      add_member: "Add member"
+      edit: "Edit"
+      add_member: "Add people"
       leave: "Leave project"
-      delete: "Delete project"
+      delete: "Delete"
+      delete_confirm: "Delete this project? This cannot be undone."
+      more_options: "Project options"
       members_heading: "Team members"
       challenge_heading: "Challenge"
+      no_challenge: "No challenge selected yet. Edit the project to pick one."
       process_log: "Process log →"
       process_log_eyebrow: "Workshop activity"
       process_log_cta: "Open process log"
@@ -376,6 +379,9 @@ en:
       not_visible: "You do not have access to that project."
       not_editable: "You are not allowed to edit that project."
   project_memberships:
+    drawer:
+      title: "Team members"
+      close: "Close"
     form:
       user_select: "Add a team member"
       submit: "Add member"
