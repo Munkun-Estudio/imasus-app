@@ -292,6 +292,39 @@ it:
       delete_confirm_title: "Eliminare il termine del glossario?"
       delete_confirm_body: "L'eliminazione di «%{term}» non può essere annullata."
       delete_confirm_submit: "Elimina"
+  projects:
+    show:
+      process_log: "Registro del processo →"
+  log_entries:
+    index:
+      title: "Registro del processo — %{project}"
+      heading: "Registro del processo"
+      back_to_project: "← Torna al progetto"
+      new_entry: "Aggiungi voce"
+      empty: "Nessuna voce ancora. Inizia a documentare il vostro processo!"
+    new:
+      title: "Nuova voce di processo"
+      heading: "Nuova voce"
+      back_to_log: "← Torna al registro"
+    form:
+      body: "Cosa avete provato, osservato o deciso?"
+      media: "Foto / video"
+      media_hint: "Facoltativo. Fino a 10 file (JPEG, PNG, WebP, MP4, MOV). Massimo 50 MB per file."
+      submit: "Aggiungi voce"
+      cancel: "Annulla"
+      errors_heading:
+        one: "1 errore ha impedito il salvataggio della voce:"
+        other: "%{count} errori hanno impedito il salvataggio della voce:"
+    entry:
+      ago: "fa"
+      delete: "Elimina"
+      delete_confirm: "Eliminare questa voce? Questa azione non può essere annullata."
+    create:
+      success: "Voce aggiunta."
+    destroy:
+      success: "Voce eliminata."
+    errors:
+      forbidden: "Non sei autorizzato a eliminare questa voce."
   errors:
     access_denied: "Non sei autorizzato a visualizzare questa pagina."
     messages:

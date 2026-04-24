@@ -1,0 +1,15 @@
+<% content_for :title, t("log_entries.new.title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <%= link_to t("log_entries.new.back_to_log"), project_log_entries_path(@project),
+              class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+
+  <header class="mt-6 max-w-3xl">
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50"><%= @project.title %></p>
+    <h1 class="mt-1 text-4xl font-bold text-imasus-dark-green"><%= t("log_entries.new.heading") %></h1>
+  </header>
+
+  <div class="mt-10 max-w-3xl">
+    <%= render "form", log_entry: @log_entry %>
+  </div>
+</div>

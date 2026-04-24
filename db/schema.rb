@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_23_063440) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_23_095324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -74,6 +74,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_063440) do
     t.index "lower((term_translations ->> 'en'::text))", name: "index_glossary_terms_on_lower_en_term", unique: true
     t.index ["category"], name: "index_glossary_terms_on_category"
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
+  end
+
+  create_table "log_entries", force: :cascade do |t|
+    t.bigint "author_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "project_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_log_entries_on_author_id"
+    t.index ["project_id"], name: "index_log_entries_on_project_id"
   end
 
   create_table "material_assets", force: :cascade do |t|
@@ -195,6 +204,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_23_063440) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "log_entries", "projects"
+  add_foreign_key "log_entries", "users", column: "author_id"
   add_foreign_key "material_assets", "materials"
   add_foreign_key "material_taggings", "materials"
   add_foreign_key "material_taggings", "tags"
