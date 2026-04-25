@@ -144,3 +144,25 @@ After spec 11 landed, participants had no visible navigation path back to their 
 `/projects` index survives as a cross-workshop list for admins and facilitators but has no nav entry for participants. Participants find projects via the workshop; Home (spec 7) will surface the active project as a dashboard card when it lands.
 
 Rejected: a dedicated `/projects` participant index — redundant once workshop listing exists and Home is built; would require maintaining a third discovery surface.
+
+## 2026-04-25 — Spec 13: Workshop participation model
+
+### Keep `WorkshopParticipation` as a single role-agnostic join
+
+Spec 7 deferred the question of whether facilitators belonged on the same `WorkshopParticipation` join as participants, or whether a separate `WorkshopFacilitator` join would be cleaner. Spec 13's surfaces — workshop edit, participant list, project moderation — all needed an answer.
+
+Decision: keep `WorkshopParticipation` as a role-agnostic "user is associated with this workshop" link. `User#role` continues to carry the role flavour. Authorisation surfaces (`Workshop#manageable_by?`, `Project#editable_by?`, etc.) read both pieces — the join *and* the role — to gate the right behaviour.
+
+Reasons:
+
+- The facilitator home (spec 7), facilitator workshop edit (spec 13), participant management list (spec 13), and project moderation (spec 13) all work cleanly with the current model. No consumer is asking for a split.
+- A separate join would force backfilling existing `WorkshopParticipation` rows and updating every read site that currently treats facilitator + participant uniformly (workshop counts, `workshop_invitations`, etc.).
+- If a future spec needs facilitator-on-workshop metadata (e.g. role-on-workshop, hours, lead vs co-lead), that's the right time to revisit. Until then the simpler model wins.
+
+### Project soft-disable, not hard-delete, is the moderation primitive
+
+`Project#disabled_at` + `Project#disabled_by` (nullable, foreign key to users) are the moderation flag. `Project#disable!(by:)` is idempotent; `Project#enable!` clears both fields. `Project.active` scope drops disabled rows. `Project#editable_by?` returns false while disabled (regardless of role) so members and admins must re-enable before editing. `visible_to?` still returns true for members on a disabled project so they can see the moderation banner.
+
+Public surfaces (visitor home featured, public workshop listing, `/published/:slug`) chain `Project.active` so disabled published projects 404 publicly.
+
+Rejected: hard delete as the primary moderation action — irreversible, doesn't match a "moderate first, restore later" workflow. Admins keep the existing project destroy flow if a hard delete is needed.

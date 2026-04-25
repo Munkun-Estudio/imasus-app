@@ -33,7 +33,7 @@
       <ul class="mt-8 divide-y divide-imasus-dark-green/10 rounded-2xl border border-imasus-dark-green/10 bg-white">
         <% @participations.each do |participation| %>
           <% user = participation.user %>
-          <% project_titles = user.projects.where(workshop: @workshop).pluck(:title) %>
+          <% project_titles = @project_titles_by_user_id.fetch(user.id, []) %>
           <% removable = user.id != current_user.id && !user.admin? %>
           <li data-participant-row data-user-id="<%= user.id %>"
               class="flex flex-wrap items-center gap-4 px-5 py-4">

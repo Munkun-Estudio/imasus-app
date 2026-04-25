@@ -16,6 +16,15 @@ class WorkshopParticipantsController < ApplicationController
                                .includes(:user)
                                .order("users.name")
                                .references(:users)
+    # Preload each participant's project titles in this workshop with a
+    # single grouped query, avoiding an N+1 in the view.
+    @project_titles_by_user_id = ProjectMembership
+      .joins(:project)
+      .where(projects: { workshop_id: @workshop.id })
+      .where(user_id: @participations.map(&:user_id))
+      .pluck("project_memberships.user_id", "projects.title")
+      .group_by(&:first)
+      .transform_values { |pairs| pairs.map(&:last) }
   end
 
   # @note Refuses to remove the current user (you can't kick yourself)
