@@ -25,21 +25,87 @@ el:
       lottozero: "Lottozero"
       echn: "ECHN"
       munkun: "Munkun"
+  # TODO: translate spec-7 home/settings/user_menu/roles strings to el.
+  # English placeholders are kept here so the structure ships; the IMASUS
+  # Greek team will refine the copy.
   home:
     index:
       title: "Αρχική"
-      eyebrow: "Εργαστήρια IMASUS"
-      heading: "Εργαλεία φαντασίας για φοιτητές που εργάζονται σε πραγματικές προκλήσεις."
-      lead: "Το IMASUS App είναι η πλατφόρμα εργαστηρίων για φοιτητές και διευκολυντές που αναπτύσσουν νέες απαντήσεις σε μεγάλες προκλήσεις μέσω της προσέγγισης φαντασίας εμπνευσμένης από τη Diane Nijs."
-      visit_imasus: "Επισκεφθείτε το IMASUS"
-      read_interview: "Διαβάστε τη συνέντευξη για τη φαντασία"
-      status: "Έργο σε φάση ανάπτυξης"
-      why_title: "Γιατί υπάρχει αυτή η εφαρμογή"
-      why_text: "Η εφαρμογή IMASUS υποστηρίζει διαδρομές εργαστηρίων όπου οι φοιτητές μεταβαίνουν από μια ευρεία πρόκληση σε δομημένο στοχασμό, ανάπτυξη ιδεών και αρχική διατύπωση λύσεων, χρησιμοποιώντας την προσέγγιση φαντασίας."
-      who_title: "Σε ποιους απευθύνεται"
-      who_text: "Φοιτητές και διευκολυντές που συμμετέχουν σε εργαστήρια IMASUS στην Ελλάδα, την Ιταλία και την Ισπανία. Κάθε εργαστήριο φέρνει κοντά διεπιστημονικές ομάδες για να αντιμετωπίσουν πραγματικές προκλήσεις βιωσιμότητας στην κλωστοϋφαντουργία."
-      what_title: "Τι μπορείτε να κάνετε"
-      what_text: "Εξερευνήστε μια βάση δεδομένων υλικών, εργαστείτε με εκπαιδευτικές ενότητες, καταγράψτε τη διαδικασία σας με φωτογραφίες και βίντεο, αναπτύξτε πρωτότυπα και δημοσιεύστε μια δημόσια σελίδα έργου που συνοψίζει τη διαδρομή σας."
+    visitor:
+      hero:
+        eyebrow: "IMASUS Workshops"
+        heading: "Imagineering tools for collaborative challenges."
+        lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
+        see_workshops: "Δείτε τα εργαστήρια"
+        log_in: "Σύνδεση"
+      workshops:
+        heading: "Επερχόμενα και προηγούμενα εργαστήρια"
+        lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
+        see_workshop: "Άνοιγμα εργαστηρίου"
+        request_spot: "Αίτημα συμμετοχής"
+        partner_with: "με %{partner}"
+      featured_projects:
+        heading: "Προβεβλημένα έργα"
+        lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
+        empty: "Workshop projects appear here when participants publish their work."
+      resources:
+        heading: "Εξερευνήστε τους πόρους"
+        materials:
+          title: "Υλικά"
+          lead: "A database of sustainable textiles, fibres, and finishes with photos and microscopy."
+        training:
+          title: "Εκπαίδευση"
+          lead: "Modules on imagineering, system thinking, and the IMASUS lenses."
+        challenges:
+          title: "Προκλήσεις"
+          lead: "Ten industry challenges (C1–C10) used to focus team work."
+        glossary:
+          title: "Γλωσσάρι"
+          lead: "Key terms used across the IMASUS materials, training, and methodology."
+    participant:
+      greeting: "Καλώς ήρθες ξανά, %{name}."
+      projects:
+        heading: "Τα έργα σου"
+      workshops:
+        heading: "Τα εργαστήριά σου"
+      empty_no_projects:
+        heading: "Έτοιμος/η να ξεκινήσεις το πρώτο σου έργο;"
+        lead: "Choose a workshop below — projects are created from the workshop page."
+      empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      resources:
+        heading: "Εξερεύνηση"
+      last_activity: "Τελευταία δραστηριότητα πριν από %{time}"
+      status:
+        draft: "Πρόχειρο"
+        published: "Δημοσιευμένο"
+      cta:
+        add_first_log_entry: "Πρόσθεσε την πρώτη σου καταχώρηση"
+        open_project: "Άνοιγμα έργου"
+        continue_log: "Συνέχισε το ημερολόγιο"
+        publish: "Δημοσίευση"
+        view_public: "Προβολή δημόσιας σελίδας"
+        edit_publication: "Επεξεργασία δημοσίευσης"
+    facilitator:
+      greeting: "Καλώς ήρθες ξανά, %{name}."
+      workshops:
+        heading: "Τα εργαστήριά σου"
+      stats:
+        participants: "Συμμετέχοντες"
+        drafts: "Πρόχειρα"
+        published: "Δημοσιευμένα"
+      cta:
+        invite_participants: "Πρόσκληση συμμετεχόντων"
+        open_workshop: "Άνοιγμα εργαστηρίου"
+      resources:
+        heading: "Δημόσιοι πόροι"
+      empty: "Δεν συνδέεσαι ακόμα με κανένα εργαστήριο. Η διαχείριση θα ρυθμίσει την πρόσβασή σου σύντομα."
+    admin:
+      greeting: "Καλώς ήρθες ξανά, %{name}."
+      workshops:
+        heading: "Όλα τα εργαστήρια"
+      cta:
+        manage_facilitators: "Διαχείριση διευκολυντών"
+        all_projects: "Όλα τα έργα"
   materials:
     index:
       title: "Βάση υλικών"
@@ -430,6 +496,50 @@ el:
       success: "Η καταχώριση διαγράφηκε."
     errors:
       forbidden: "Δεν έχετε εξουσιοδότηση να διαγράψετε αυτήν την καταχώριση."
+  user_menu:
+    log_in: "Σύνδεση"
+    log_out: "Αποσύνδεση"
+    settings: "Ρυθμίσεις"
+  roles:
+    admin: "Διαχείριση"
+    facilitator: "Διευκόλυνση"
+    participant: "Συμμετοχή"
+  settings:
+    edit:
+      title: "Ρυθμίσεις"
+      lead: "Διαχειρίσου τον λογαριασμό, τον κωδικό, το προφίλ και τη γλώσσα."
+      submit: "Αποθήκευση"
+      errors:
+        heading: "Δεν μπορέσαμε να αποθηκεύσουμε τις αλλαγές:"
+      account:
+        heading: "Λογαριασμός"
+        name: "Ονοματεπώνυμο"
+        email: "Email"
+      password:
+        heading: "Κωδικός πρόσβασης"
+        hint: "Άφησε τα πεδία κενά για να διατηρήσεις τον τρέχοντα κωδικό."
+        current: "Τρέχων κωδικός"
+        new: "Νέος κωδικός"
+        confirmation: "Επιβεβαίωση νέου κωδικού"
+      profile:
+        heading: "Προφίλ"
+        institution: "Φορέας"
+        country: "Χώρα"
+        bio: "Σύντομο βιογραφικό"
+        links: "Σύνδεσμοι"
+        links_hint: "Ένας σύνδεσμος ανά γραμμή. Προσωπικός ιστότοπος, LinkedIn, Behance, Instagram, κ.λπ."
+      preferences:
+        heading: "Προτιμήσεις"
+        locale: "Γλώσσα"
+        locale_hint: "Εφαρμόζεται στο περιβάλλον και στα emails. Ο επιλογέας πάνω δεξιά παραμένει στιγμιαίος."
+        system_default: "Προεπιλογή συστήματος"
+        locales:
+          en: "English"
+          es: "Español"
+          it: "Italiano"
+          el: "Ελληνικά"
+    update:
+      success: "Οι ρυθμίσεις σου ενημερώθηκαν."
   errors:
     access_denied: "Δεν έχετε εξουσιοδότηση για να δείτε αυτήν τη σελίδα."
     messages:

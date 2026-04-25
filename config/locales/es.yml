@@ -28,18 +28,81 @@ es:
   home:
     index:
       title: "Inicio"
-      eyebrow: "Talleres IMASUS"
-      heading: "Herramientas de imaginería para estudiantes que trabajan en retos del mundo real."
-      lead: "IMASUS App es la plataforma de talleres para estudiantes y facilitadores que desarrollan nuevas respuestas a grandes desafíos a través del enfoque de imaginería inspirado en Diane Nijs."
-      visit_imasus: "Visitar IMASUS"
-      read_interview: "Leer la entrevista sobre imaginería"
-      status: "Proyecto en fase de desarrollo"
-      why_title: "Por qué existe esta aplicación"
-      why_text: "IMASUS App apoya recorridos de taller donde los estudiantes pasan de un desafío amplio a la reflexión estructurada, el desarrollo de conceptos y el planteamiento inicial de soluciones, utilizando el enfoque de imaginería."
-      who_title: "A quién va dirigida"
-      who_text: "Estudiantes y facilitadores que participan en talleres IMASUS en Grecia, Italia y España. Cada taller reúne equipos interdisciplinares para abordar retos reales de sostenibilidad en la industria textil."
-      what_title: "Qué puedes hacer"
-      what_text: "Explorar una base de datos de materiales, trabajar con módulos de formación, registrar tu proceso con fotos y vídeos, desarrollar prototipos y publicar una página pública de proyecto resumiendo tu recorrido."
+    visitor:
+      hero:
+        eyebrow: "Talleres IMASUS"
+        heading: "Herramientas de imagineering para retos colaborativos."
+        lead: "IMASUS App es la plataforma de talleres para participantes y facilitación que desarrollan nuevas respuestas a grandes desafíos de la industria textil con el enfoque imagineering inspirado en Diane Nijs."
+        see_workshops: "Ver talleres"
+        log_in: "Iniciar sesión"
+      workshops:
+        heading: "Talleres en curso y pasados"
+        lead: "Cada taller IMASUS reúne equipos interdisciplinares para trabajar sobre retos reales de sostenibilidad. Los talleres están abiertos a personas más allá de la institución anfitriona."
+        see_workshop: "Ver taller"
+        request_spot: "Solicitar plaza"
+        partner_with: "con %{partner}"
+      featured_projects:
+        heading: "Proyectos destacados"
+        lead: "Una mirada al trabajo reciente — casos de estudio publicados por equipos de los talleres IMASUS."
+        empty: "Los proyectos publicados aparecerán aquí cuando los equipos compartan su trabajo."
+      resources:
+        heading: "Explora los recursos"
+        materials:
+          title: "Materiales"
+          lead: "Base de datos de textiles sostenibles, fibras y acabados con fotos y microscopía."
+        training:
+          title: "Formación"
+          lead: "Módulos sobre imagineering, pensamiento sistémico y las lentes IMASUS."
+        challenges:
+          title: "Retos"
+          lead: "Diez retos de la industria (C1–C10) para enfocar el trabajo de los equipos."
+        glossary:
+          title: "Glosario"
+          lead: "Términos clave que se usan en los materiales, la formación y la metodología IMASUS."
+    participant:
+      greeting: "Bienvenido/a de nuevo, %{name}."
+      projects:
+        heading: "Tus proyectos"
+      workshops:
+        heading: "Tus talleres"
+      empty_no_projects:
+        heading: "¿Listo/a para empezar tu primer proyecto?"
+        lead: "Elige un taller — los proyectos se crean desde la página del taller."
+      empty_no_workshops: "La facilitación configurará tu acceso al taller en breve. Lo verás aquí en cuanto esté listo."
+      resources:
+        heading: "Explora"
+      last_activity: "Última actividad hace %{time}"
+      status:
+        draft: "Borrador"
+        published: "Publicado"
+      cta:
+        add_first_log_entry: "Añade tu primera entrada de registro"
+        open_project: "Abrir proyecto"
+        continue_log: "Sigue con tu registro"
+        publish: "Publicar"
+        view_public: "Ver página pública"
+        edit_publication: "Editar publicación"
+    facilitator:
+      greeting: "Bienvenido/a de nuevo, %{name}."
+      workshops:
+        heading: "Tus talleres"
+      stats:
+        participants: "Participantes"
+        drafts: "Borradores"
+        published: "Publicados"
+      cta:
+        invite_participants: "Invitar participantes"
+        open_workshop: "Abrir taller"
+      resources:
+        heading: "Recursos públicos"
+      empty: "Aún no tienes talleres asignados. La administración configurará tu acceso pronto."
+    admin:
+      greeting: "Bienvenido/a de nuevo, %{name}."
+      workshops:
+        heading: "Todos los talleres"
+      cta:
+        manage_facilitators: "Gestionar facilitación"
+        all_projects: "Todos los proyectos"
   materials:
     index:
       title: "Base de materiales"
@@ -494,6 +557,50 @@ es:
       success: "Entrada eliminada."
     errors:
       forbidden: "No tienes permiso para eliminar esa entrada."
+  user_menu:
+    log_in: "Iniciar sesión"
+    log_out: "Cerrar sesión"
+    settings: "Configuración"
+  roles:
+    admin: "Administración"
+    facilitator: "Facilitación"
+    participant: "Participante"
+  settings:
+    edit:
+      title: "Configuración"
+      lead: "Gestiona tu cuenta, contraseña, perfil e idioma."
+      submit: "Guardar cambios"
+      errors:
+        heading: "No pudimos guardar los cambios:"
+      account:
+        heading: "Cuenta"
+        name: "Nombre completo"
+        email: "Correo electrónico"
+      password:
+        heading: "Contraseña"
+        hint: "Deja los campos en blanco para mantener tu contraseña actual."
+        current: "Contraseña actual"
+        new: "Nueva contraseña"
+        confirmation: "Confirmar nueva contraseña"
+      profile:
+        heading: "Perfil"
+        institution: "Institución"
+        country: "País"
+        bio: "Breve biografía"
+        links: "Enlaces"
+        links_hint: "Un enlace por línea. Sitio personal, LinkedIn, Behance, Instagram, etc."
+      preferences:
+        heading: "Preferencias"
+        locale: "Idioma"
+        locale_hint: "Se aplica a la interfaz y a los correos. El selector de la esquina superior derecha sigue siendo un cambio puntual."
+        system_default: "Por defecto del sistema"
+        locales:
+          en: "English"
+          es: "Español"
+          it: "Italiano"
+          el: "Ελληνικά"
+    update:
+      success: "Tus preferencias se han actualizado."
   errors:
     access_denied: "No tienes autorización para ver esa página."
     messages:
