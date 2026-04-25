@@ -93,6 +93,7 @@ en:
       cta:
         invite_participants: "Invite participants"
         open_workshop: "Open workshop"
+        edit_workshop: "Edit"
       resources:
         heading: "Public resources"
       empty: "You're not associated with any workshop yet. An admin will set up your workshop access shortly."
@@ -186,6 +187,7 @@ en:
       open_agenda: "Open agenda"
       agenda_page: "View full agenda"
       invite_participants: "Invite participants"
+      edit_workshop: "Edit workshop"
       new_project: "Start a project"
       projects_heading: "Projects"
       published_projects_heading: "Published projects"

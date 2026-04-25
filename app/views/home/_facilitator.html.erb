@@ -58,6 +58,12 @@
                           class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
                 <%= t(".cta.open_workshop") %>
               <% end %>
+              <% if workshop.manageable_by?(current_user) %>
+                <%= link_to edit_workshop_path(workshop),
+                            class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
+                  <%= t(".cta.edit_workshop") %>
+                <% end %>
+              <% end %>
             </div>
           </article>
         <% end %>

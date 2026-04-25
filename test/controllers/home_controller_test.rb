@@ -288,6 +288,34 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "facilitator workshop card has an Edit link only when the facilitator manages the workshop" do
+    facilitator = make_facilitator
+    spain  = make_workshop(slug: "spain-fac", contact_email: nil)
+    italy  = make_workshop(slug: "italy-fac", partner: "Lottozero",
+                           location: "Prato, Italy")
+    WorkshopParticipation.create!(user: facilitator, workshop: spain)
+    # facilitator is NOT a participant of italy
+
+    sign_in(facilitator)
+    get root_url
+    assert_select "[data-workshop-card][data-slug=?]", spain.slug do
+      assert_select "a[href=?]", edit_workshop_path(spain)
+    end
+    # facilitator's home only lists workshops they participate in,
+    # so italy is absent entirely — the edit link is therefore absent too.
+    assert_select "a[href=?]", edit_workshop_path(italy), count: 0
+  end
+
+  test "admin workshop card always shows the Edit link" do
+    admin = make_admin
+    workshop = make_workshop
+    sign_in(admin)
+    get root_url
+    assert_select "[data-workshop-card][data-slug=?]", workshop.slug do
+      assert_select "a[href=?]", edit_workshop_path(workshop)
+    end
+  end
+
   test "facilitator workshop card has an Invite participants CTA" do
     facilitator = make_facilitator
     workshop = make_workshop

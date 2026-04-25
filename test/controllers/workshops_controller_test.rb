@@ -306,6 +306,26 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name='workshop[slug]']", count: 0
   end
 
+  test "workshop show page renders an Edit workshop link for managers" do
+    sign_in(make_admin)
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", edit_workshop_path(@workshop), text: I18n.t("workshops.show.edit_workshop")
+  end
+
+  test "workshop show page hides the Edit workshop link from non-managers" do
+    sign_in(@participant)
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", edit_workshop_path(@workshop), count: 0
+  end
+
+  test "workshop show page hides the Edit workshop link from visitors" do
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", edit_workshop_path(@workshop), count: 0
+  end
+
   test "public index published count excludes disabled projects" do
     visible = Project.create!(workshop: @workshop, title: "Visible Counted", language: "es", status: "draft")
     hidden  = Project.create!(workshop: @workshop, title: "Hidden Counted",  language: "es", status: "draft")

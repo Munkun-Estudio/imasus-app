@@ -41,6 +41,13 @@
               </p>
             <% end %>
 
+            <div class="mt-4 flex flex-wrap gap-2">
+              <%= link_to edit_workshop_path(workshop),
+                          class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
+                <%= t("home.facilitator.cta.edit_workshop") %>
+              <% end %>
+            </div>
+
             <div class="mt-4 grid grid-cols-3 gap-2 text-center">
               <div data-stat="participants" class="rounded-xl bg-imasus-light-blue/30 px-3 py-2">
                 <span data-count class="block text-lg font-bold text-imasus-dark-green">
