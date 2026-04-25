@@ -10,6 +10,8 @@ class HomeController < ApplicationController
     case @variant
     when "visitor"     then load_visitor_data
     when "participant" then load_participant_data
+    when "facilitator" then load_facilitator_data
+    when "admin"       then load_admin_data
     end
   end
 
@@ -27,5 +29,13 @@ class HomeController < ApplicationController
                             .includes(:workshop, :challenge, :members, :log_entries)
                             .order(updated_at: :desc)
     @workshops = current_user.workshops
+  end
+
+  def load_facilitator_data
+    @workshops = current_user.workshops.includes(:participations, :projects)
+  end
+
+  def load_admin_data
+    @workshops = Workshop.ordered.includes(:participations, :projects)
   end
 end

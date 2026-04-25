@@ -214,4 +214,94 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
                     text: I18n.t("home.participant.cta.edit_publication")
     end
   end
+
+  # ---------------------------------------------------------------------
+  # Facilitator variant
+  # ---------------------------------------------------------------------
+
+  def make_facilitator(email: "f-#{SecureRandom.hex(4)}@example.com")
+    User.create!(name: "Fac", email: email, password: @password, role: :facilitator)
+  end
+
+  test "GET / renders the facilitator variant for a facilitator" do
+    facilitator = make_facilitator
+    sign_in(facilitator)
+    get root_url
+    assert_select "[data-home-variant=facilitator]"
+  end
+
+  test "facilitator home lists their workshops with participant and project counts" do
+    facilitator = make_facilitator
+    workshop = make_workshop
+    WorkshopParticipation.create!(user: facilitator, workshop: workshop)
+
+    p1 = make_participant(email: "wp1@example.com")
+    p2 = make_participant(email: "wp2@example.com")
+    WorkshopParticipation.create!(user: p1, workshop: workshop)
+    WorkshopParticipation.create!(user: p2, workshop: workshop)
+
+    draft = Project.create!(workshop: workshop, title: "Draft", language: "en", status: "draft")
+    ProjectMembership.create!(project: draft, user: p1)
+
+    published = Project.create!(workshop: workshop, title: "Pub", language: "en", status: "draft")
+    ProjectMembership.create!(project: published, user: p1)
+    publish!(published, author: p1)
+
+    sign_in(facilitator)
+    get root_url
+    assert_select "[data-workshop-card][data-slug=?]", workshop.slug do
+      # Three participants total (facilitator + 2 participants)
+      assert_select "[data-stat=participants] [data-count]", text: "3"
+      assert_select "[data-stat=draft_projects] [data-count]", text: "1"
+      assert_select "[data-stat=published_projects] [data-count]", text: "1"
+    end
+  end
+
+  test "facilitator workshop card has an Invite participants CTA" do
+    facilitator = make_facilitator
+    workshop = make_workshop
+    WorkshopParticipation.create!(user: facilitator, workshop: workshop)
+
+    sign_in(facilitator)
+    get root_url
+    assert_select "[data-workshop-card][data-slug=?]", workshop.slug do
+      assert_select "a[href=?]", new_workshop_invitation_path(workshop),
+                    text: I18n.t("home.facilitator.cta.invite_participants")
+    end
+  end
+
+  # ---------------------------------------------------------------------
+  # Admin variant
+  # ---------------------------------------------------------------------
+
+  def make_admin(email: "a-#{SecureRandom.hex(4)}@example.com")
+    User.create!(name: "Admin", email: email, password: @password, role: :admin)
+  end
+
+  test "GET / renders the admin variant for an admin" do
+    admin = make_admin
+    sign_in(admin)
+    get root_url
+    assert_select "[data-home-variant=admin]"
+  end
+
+  test "admin home lists every workshop, not just those the admin participates in" do
+    admin = make_admin
+    other = make_workshop(slug: "italy-2026", partner: "Lottozero", location: "Prato, Italy")
+    spain = make_workshop(slug: "spain-2026")
+    sign_in(admin)
+    get root_url
+    assert_select "[data-workshop-card][data-slug=?]", other.slug
+    assert_select "[data-workshop-card][data-slug=?]", spain.slug
+  end
+
+  test "admin home links to facilitator management and the projects index" do
+    admin = make_admin
+    sign_in(admin)
+    get root_url
+    assert_select "a[href=?]", admin_facilitators_path,
+                  text: I18n.t("home.admin.cta.manage_facilitators")
+    assert_select "a[href=?]", projects_path,
+                  text: I18n.t("home.admin.cta.all_projects")
+  end
 end

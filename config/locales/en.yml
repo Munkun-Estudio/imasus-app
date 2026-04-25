@@ -84,8 +84,25 @@ en:
         edit_publication: "Edit publication"
     facilitator:
       greeting: "Welcome back, %{name}."
+      workshops:
+        heading: "Your workshops"
+      stats:
+        participants: "Participants"
+        drafts: "Drafts"
+        published: "Published"
+      cta:
+        invite_participants: "Invite participants"
+        open_workshop: "Open workshop"
+      resources:
+        heading: "Public resources"
+      empty: "You're not associated with any workshop yet. An admin will set up your workshop access shortly."
     admin:
       greeting: "Welcome back, %{name}."
+      workshops:
+        heading: "All workshops"
+      cta:
+        manage_facilitators: "Manage facilitators"
+        all_projects: "All projects"
   materials:
     index:
       title: "Materials DB"

@@ -1,6 +1,98 @@
-<%# Slice 6 will fill this in: workshops with counts, invite CTA, resources teaser. %>
-<div data-home-variant="facilitator" class="px-6 py-12">
-  <h1 class="text-2xl font-bold text-imasus-dark-green">
+<div data-home-variant="facilitator" class="px-6 py-12 sm:px-10 lg:px-16">
+  <h1 class="text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
     <%= t(".greeting", name: current_user.name) %>
   </h1>
+
+  <% if @workshops.any? %>
+    <section class="mt-10">
+      <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+        <%= t(".workshops.heading") %>
+      </h2>
+
+      <div class="mt-4 grid gap-5 lg:grid-cols-2">
+        <% @workshops.each do |workshop| %>
+          <article data-workshop-card data-slug="<%= workshop.slug %>"
+                   class="flex flex-col rounded-2xl border border-imasus-dark-green/10 bg-white p-5">
+            <h3 class="text-lg font-bold text-imasus-dark-green">
+              <%= link_to workshop.title, workshop_path(workshop), class: "hover:underline" %>
+            </h3>
+            <p class="mt-1 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/50">
+              <%= workshop.location %>
+            </p>
+            <% if workshop.starts_on.present? %>
+              <p class="mt-1 text-xs text-imasus-dark-green/60">
+                <%= l(workshop.starts_on, format: :long) %>
+                <% if workshop.ends_on.present? && workshop.ends_on != workshop.starts_on %>
+                  – <%= l(workshop.ends_on, format: :long) %>
+                <% end %>
+              </p>
+            <% end %>
+
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center">
+              <div data-stat="participants" class="rounded-xl bg-imasus-light-blue/30 px-3 py-2">
+                <span data-count class="block text-lg font-bold text-imasus-dark-green">
+                  <%= workshop.participations.size %>
+                </span>
+                <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.participants") %></span>
+              </div>
+              <div data-stat="draft_projects" class="rounded-xl bg-imasus-light-pink/30 px-3 py-2">
+                <span data-count class="block text-lg font-bold text-imasus-dark-green">
+                  <%= workshop.projects.where(status: "draft").size %>
+                </span>
+                <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.drafts") %></span>
+              </div>
+              <div data-stat="published_projects" class="rounded-xl bg-imasus-mint/40 px-3 py-2">
+                <span data-count class="block text-lg font-bold text-imasus-dark-green">
+                  <%= workshop.projects.where(status: "published").size %>
+                </span>
+                <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.published") %></span>
+              </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+              <%= link_to new_workshop_invitation_path(workshop),
+                          class: "inline-flex items-center rounded-full bg-imasus-dark-green px-3 py-1.5 text-xs font-bold text-white transition hover:bg-imasus-navy" do %>
+                <%= t(".cta.invite_participants") %>
+              <% end %>
+              <%= link_to workshop_path(workshop),
+                          class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
+                <%= t(".cta.open_workshop") %>
+              <% end %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    </section>
+  <% else %>
+    <section class="mt-10 rounded-2xl border border-dashed border-imasus-dark-green/15 bg-white px-6 py-10">
+      <p class="text-sm leading-relaxed text-imasus-dark-green/60">
+        <%= t(".empty") %>
+      </p>
+    </section>
+  <% end %>
+
+  <%# Public resources teaser %>
+  <section class="mt-16">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+      <%= t(".resources.heading") %>
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <%= link_to materials_path, data: { resource_card: true, resource: "materials" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.materials.title") %></p>
+      <% end %>
+      <%= link_to training_index_path, data: { resource_card: true, resource: "training" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.training.title") %></p>
+      <% end %>
+      <%= link_to challenges_path, data: { resource_card: true, resource: "challenges" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.challenges.title") %></p>
+      <% end %>
+      <%= link_to glossary_terms_path, data: { resource_card: true, resource: "glossary" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.glossary.title") %></p>
+      <% end %>
+    </div>
+  </section>
 </div>
