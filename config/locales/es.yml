@@ -6,7 +6,7 @@ es:
   nav:
     home: "Inicio"
     workshops: "Talleres"
-    materials: "Base de materiales"
+    materials: "Materiales"
     training: "Formación"
     challenges: "Retos"
     glossary: "Glosario"
@@ -105,7 +105,7 @@ es:
         all_projects: "Todos los proyectos"
   materials:
     index:
-      title: "Base de materiales"
+      title: "Materiales"
       lead: "Explora materiales sostenibles reunidos para los talleres IMASUS. Filtra por origen, por el tejido al que imitan o por la aplicación que tienes en mente."
       search_label: "Buscar materiales"
       search_placeholder: "Buscar por nombre o descripción"
@@ -123,6 +123,9 @@ es:
         commercial: "Comercial"
         in_development: "En desarrollo"
         research_only: "Solo investigación"
+    card:
+      media_pending: "Imágenes próximamente"
+      material_preview: "Vista previa del material"
     preview:
       close: "Cerrar vista previa"
       open_label: "Vista previa de %{name}"

@@ -21,7 +21,8 @@ module ApplicationHelper
   end
 
   # Returns CSS classes for a swatch-style navigation card.
-  # Active items get a subtle ring highlight.
+  # Active items get a subtle ring highlight. Section roots stay active for
+  # nested routes, so `/workshops/spain` still highlights Workshops.
   #
   # @example
   #   nav_swatch_classes("/materials", "bg-imasus-light-blue")
@@ -31,7 +32,7 @@ module ApplicationHelper
   # @return [String] CSS class string including "nav-active" when on that page
   def nav_swatch_classes(path, color)
     base = "#{color} block rounded-xl p-4 min-h-[4.5rem] transition-all duration-150"
-    if current_page?(path)
+    if nav_path_active?(path)
       "#{base} nav-active ring-2 ring-imasus-dark-green ring-offset-2"
     else
       "#{base} hover:scale-[1.03] hover:shadow-md"
@@ -44,5 +45,14 @@ module ApplicationHelper
   # @return [Boolean]
   def swatch_dark_bg?(color)
     color.match?(/bg-imasus-(red|navy|dark-green)\b/)
+  end
+
+  # @param path [String]
+  # @return [Boolean] true when the current request is inside this nav section
+  def nav_path_active?(path)
+    current = request.path
+    return current == path if path == root_path
+
+    current == path || current.start_with?("#{path}/")
   end
 end

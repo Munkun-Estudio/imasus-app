@@ -42,13 +42,14 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
   # --- Chip-filter rail ------------------------------------------------------
 
-  test "GET /materials renders a chip for every seeded tag, grouped by facet" do
+  test "GET /materials renders chips for seeded tags that have matches, grouped by facet" do
     get materials_url
     Tag::FACETS.each do |facet|
       Tag.where(facet: facet).find_each do |tag|
+        expected_count = tag.materials.count
         assert_select %([data-facet="#{facet}"] a[href*="#{facet}=#{tag.slug}"]),
-                      minimum: 1,
-                      message: "expected a chip link for facet=#{facet} slug=#{tag.slug}"
+                      expected_count.positive? ? { minimum: 1 } : { count: 0 },
+                      "expected chip visibility for facet=#{facet} slug=#{tag.slug} count=#{expected_count}"
       end
     end
   end
@@ -175,11 +176,13 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
   # --- Per-chip counts -------------------------------------------------------
 
-  test "GET /materials renders a match count next to each chip" do
+  test "GET /materials renders a match count next to each visible chip" do
     get materials_url
     Tag::FACETS.each do |facet|
       Tag.where(facet: facet).find_each do |tag|
         expected = tag.materials.count
+        next if expected.zero?
+
         assert_select %([data-facet="#{facet}"] [data-chip-slug="#{tag.slug}"] [data-role="chip-count"]),
                       text: expected.to_s,
                       message: "expected count=#{expected} for facet=#{facet} slug=#{tag.slug}"

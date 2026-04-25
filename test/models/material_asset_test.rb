@@ -99,6 +99,17 @@ class MaterialAssetTest < ActiveSupport::TestCase
     assert_equal macro, material.reload.macro_asset
   end
 
+  test "material.macro_asset uses preloaded assets when available" do
+    macro = build_asset(kind: "macro")
+    macro.save!
+
+    preloaded_material = Material.includes(:assets).find(material.id)
+
+    assert_no_queries do
+      assert_equal macro, preloaded_material.macro_asset
+    end
+  end
+
   test "material.macro_asset returns nil when none exists" do
     assert_nil material.macro_asset
   end
@@ -111,11 +122,34 @@ class MaterialAssetTest < ActiveSupport::TestCase
     assert_equal [ m1, m2, m3 ], material.reload.microscopies.to_a
   end
 
+  test "material.microscopies uses preloaded assets when available" do
+    m2 = build_asset(kind: "microscopy", position: 1); m2.save!
+    m1 = build_asset(kind: "microscopy", position: 0); m1.save!
+    m3 = build_asset(kind: "microscopy", position: 2); m3.save!
+
+    preloaded_material = Material.includes(:assets).find(material.id)
+
+    assert_no_queries do
+      assert_equal [ m1, m2, m3 ], preloaded_material.microscopies
+    end
+  end
+
   test "material.video_asset returns the video asset" do
     video = build_asset(kind: "video")
     video.save!
 
     assert_equal video, material.reload.video_asset
+  end
+
+  test "material.video_asset uses preloaded assets when available" do
+    video = build_asset(kind: "video")
+    video.save!
+
+    preloaded_material = Material.includes(:assets).find(material.id)
+
+    assert_no_queries do
+      assert_equal video, preloaded_material.video_asset
+    end
   end
 
   test "material.video_asset returns nil when none exists" do

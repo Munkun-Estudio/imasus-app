@@ -8,6 +8,15 @@
             preset: :card,
             alt: material.trade_name,
             class: "h-full w-full object-cover" %>
+    <% else %>
+      <div class="flex h-full flex-col justify-between p-5 text-imasus-dark-green/70">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45">
+          <%= t("materials.card.media_pending") %>
+        </p>
+        <p class="max-w-[12rem] text-sm font-semibold leading-5 text-imasus-dark-green">
+          <%= material.material_of_origin.presence || t("materials.card.material_preview") %>
+        </p>
+      </div>
     <% end %>
 
     <%= link_to preview_material_path(material.slug),

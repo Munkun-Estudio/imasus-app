@@ -71,6 +71,25 @@ class ShellLayoutTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "active navigation item remains highlighted on nested pages" do
+    Workshop.create!(
+      slug: "spain",
+      title_translations: { "en" => "Spain workshop" },
+      description_translations: { "en" => "A workshop." },
+      partner: "Munkun",
+      location: "Zaragoza, Spain",
+      starts_on: Date.new(2026, 4, 28),
+      ends_on: Date.new(2026, 4, 28)
+    )
+
+    get workshop_url("spain")
+    assert_response :success
+
+    assert_select "nav[aria-label]" do
+      assert_select "a.nav-active[href=?]", workshops_path
+    end
+  end
+
   test "footer renders EU funding notice" do
     get root_url
     assert_response :success
