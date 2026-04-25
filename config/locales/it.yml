@@ -199,6 +199,8 @@ it:
         zero: "Nessun partecipante"
         one: "1 partecipante"
         other: "%{count} partecipanti"
+      participants_invite_only: "You can invite participants to this workshop. Only the workshop's facilitators see participant counts."
+      agenda_empty: "Nessuna agenda pubblicata."
       new_project: "Avvia un progetto"
       projects_heading: "Progetti"
       published_projects_heading: "Progetti pubblicati"

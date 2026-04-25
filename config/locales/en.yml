@@ -196,6 +196,8 @@ en:
         zero: "No participants yet"
         one: "1 participant"
         other: "%{count} participants"
+      participants_invite_only: "You can invite participants to this workshop. Only the workshop's facilitators see participant counts."
+      agenda_empty: "No agenda published yet."
       new_project: "Start a project"
       projects_heading: "Projects"
       published_projects_heading: "Published projects"

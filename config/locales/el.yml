@@ -199,6 +199,8 @@ el:
         zero: "Δεν υπάρχουν συμμετέχοντες"
         one: "1 συμμετέχων"
         other: "%{count} συμμετέχοντες"
+      participants_invite_only: "You can invite participants to this workshop. Only the workshop's facilitators see participant counts."
+      agenda_empty: "Δεν υπάρχει ακόμη ατζέντα."
       new_project: "Ξεκινήστε ένα έργο"
       projects_heading: "Έργα"
       published_projects_heading: "Δημοσιευμένα έργα"

@@ -196,6 +196,8 @@ es:
         zero: "Sin participantes"
         one: "1 participante"
         other: "%{count} participantes"
+      participants_invite_only: "Puedes invitar participantes a este taller. Solo la facilitación del taller ve los recuentos de participantes."
+      agenda_empty: "Todavía no hay agenda publicada."
       new_project: "Empezar un proyecto"
       projects_heading: "Proyectos"
       published_projects_heading: "Proyectos publicados"

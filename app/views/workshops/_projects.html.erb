@@ -1,7 +1,7 @@
 <section class="mt-12 max-w-5xl">
   <div class="flex items-center justify-between gap-4">
     <h2 class="text-xl font-bold text-imasus-dark-green"><%= t("workshops.show.projects_heading") %></h2>
-    <% if attending && projects.any? %>
+    <% if attending %>
       <%= link_to t("workshops.show.new_project"),
                   new_project_path(workshop_id: workshop.id),
                   class: "inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
@@ -11,11 +11,6 @@
   <% if projects.empty? %>
     <div class="mt-6 rounded-2xl border border-dashed border-imasus-dark-green/20 bg-stone-50 p-8">
       <p class="text-base text-stone-600"><%= t("workshops.show.no_projects") %></p>
-      <% if attending %>
-        <%= link_to t("workshops.show.no_projects_cta"),
-                    new_project_path(workshop_id: workshop.id),
-                    class: "mt-4 inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
-      <% end %>
     </div>
   <% else %>
     <ul class="mt-6 grid gap-4 sm:grid-cols-2">
