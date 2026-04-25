@@ -2,10 +2,19 @@
 <% content_for :meta_description, t(".lead") %>
 
 <div class="px-6 py-12 sm:px-10 lg:px-16">
-  <header class="max-w-3xl">
-    <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50"><%= t(".eyebrow") %></p>
-    <h1 class="mt-3 text-4xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
-    <p class="mt-4 text-lg leading-8 text-stone-700"><%= t(".lead") %></p>
+  <header class="flex max-w-6xl flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50"><%= t(".eyebrow") %></p>
+      <h1 class="mt-3 text-4xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
+      <p class="mt-4 text-lg leading-8 text-stone-700"><%= t(".lead") %></p>
+    </div>
+    <% if Workshop.creatable_by?(current_user) %>
+      <%= link_to new_workshop_path,
+                  data: { action: "new-workshop" },
+                  class: "inline-flex shrink-0 items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" do %>
+        <%= t(".new_workshop") %>
+      <% end %>
+    <% end %>
   </header>
 
   <% if @workshops.empty? %>

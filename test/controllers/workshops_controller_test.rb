@@ -384,6 +384,30 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_content
   end
 
+  test "workshop index shows New workshop CTA for admins" do
+    sign_in(make_admin)
+    get workshops_url
+    assert_response :success
+    assert_select "a[data-action=new-workshop][href=?]", new_workshop_path
+  end
+
+  test "workshop index shows New workshop CTA for facilitators" do
+    sign_in(@facilitator)
+    get workshops_url
+    assert_response :success
+    assert_select "a[data-action=new-workshop][href=?]", new_workshop_path
+  end
+
+  test "workshop index hides New workshop CTA from participants and visitors" do
+    sign_in(@participant)
+    get workshops_url
+    assert_select "a[data-action=new-workshop]", count: 0
+
+    delete session_path
+    get workshops_url
+    assert_select "a[data-action=new-workshop]", count: 0
+  end
+
   test "POST create forbidden for participants" do
     sign_in(@participant)
     assert_no_difference -> { Workshop.count } do

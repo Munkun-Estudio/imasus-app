@@ -177,6 +177,7 @@ en:
         other: "%{count} projects"
       open_workshop: "Open workshop"
       open_agenda: "Open agenda"
+      new_workshop: "New workshop"
       empty_title: "No workshops available yet."
       empty_body: "Workshop details will appear here once they are confirmed."
     show:
