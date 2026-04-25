@@ -57,3 +57,61 @@ details > summary::-webkit-details-marker { display: none; }
   color: #1F3D3F;
   text-decoration: underline;
 }
+
+/* Action Text rendered output and the Trix editor's editable area —
+   both share the .trix-content class. Tailwind's preflight resets
+   list-style and heading margins, which strips the visual rhythm
+   that authors see in the toolbar (numbered lists with no numbers,
+   headings flush against paragraphs). These rules restore typographic
+   defaults inside .trix-content without affecting the rest of the app. */
+.trix-content {
+  color: var(--color-imasus-dark-green, #1F3D3F);
+  line-height: 1.65;
+}
+.trix-content > * + * { margin-top: 1rem; }
+.trix-content h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 2rem;
+}
+.trix-content h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 2rem;
+}
+.trix-content h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 1.5rem;
+}
+.trix-content h1:first-child,
+.trix-content h2:first-child,
+.trix-content h3:first-child { margin-top: 0; }
+
+.trix-content ul,
+.trix-content ol {
+  padding-left: 1.5rem;
+}
+.trix-content ul { list-style: disc; }
+.trix-content ol { list-style: decimal; }
+.trix-content li + li { margin-top: 0.25rem; }
+.trix-content li > ul,
+.trix-content li > ol { margin-top: 0.25rem; }
+
+.trix-content blockquote {
+  border-left: 3px solid rgb(31 61 63 / 0.2);
+  padding-left: 1rem;
+  font-style: italic;
+  color: rgb(31 61 63 / 0.75);
+}
+
+.trix-content a {
+  color: var(--color-imasus-red, #FA3449);
+  text-decoration: underline;
+}
+
+.trix-content strong { font-weight: 700; }
+.trix-content em { font-style: italic; }
