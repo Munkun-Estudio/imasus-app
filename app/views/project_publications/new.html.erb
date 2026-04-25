@@ -5,12 +5,7 @@
     <%= link_to t("projects.show.back_to_index"), project_path(@project),
                 class: "text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
 
-    <header class="mt-6">
-      <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t("project_publications.new.heading") %></h1>
-      <p class="mt-3 text-base text-stone-600"><%= t("project_publications.new.lead") %></p>
-    </header>
-
-    <div class="mt-10">
+    <div class="mt-8">
       <%= render "form",
                  project: @project,
                  form_url: project_publication_path(@project),

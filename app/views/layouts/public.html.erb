@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title><%= content_for(:title) || "IMASUS App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="IMASUS App">
+    <meta name="mobile-web-app-capable" content="yes">
+    <% if content_for?(:meta_description) %>
+      <meta name="description" content="<%= strip_tags(content_for(:meta_description)).squish %>">
+    <% end %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "trix", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="min-h-screen bg-white">
+    <header class="border-b border-imasus-dark-green/10 bg-white">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
+        <%= link_to "IMASUS", root_path,
+                    class: "text-lg font-bold text-imasus-dark-green" %>
+      </div>
+    </header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <%= render "shared/footer" %>
+  </body>
+</html>

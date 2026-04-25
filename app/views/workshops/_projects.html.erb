@@ -24,7 +24,7 @@
         <% destination =
              if project.published?
                published_project_path(slug: project.slug)
-             elsif project.visible_to?(current_user)
+             elsif project.editable_by?(current_user)
                project_path(project)
              end %>
         <li data-project-id="<%= project.id %>"

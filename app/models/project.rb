@@ -17,6 +17,8 @@
 class Project < ApplicationRecord
   ALLOWED_LANGUAGES = %w[en es it el].freeze
   ALLOWED_STATUSES  = %w[draft published].freeze
+  HERO_IMAGE_CONTENT_TYPES = %w[image/png image/jpeg].freeze
+  HERO_IMAGE_MAX_SIZE = 20.megabytes
   SLUG_MAX_LENGTH   = 100
 
   # @!scope class
@@ -84,7 +86,18 @@ class Project < ApplicationRecord
   end
 
   def publication_requirements
-    errors.add(:hero_image, :blank) unless hero_image.attached?
+    if hero_image.attached?
+      unless HERO_IMAGE_CONTENT_TYPES.include?(hero_image.blob.content_type)
+        errors.add(:hero_image, "must be a JPEG or PNG image")
+      end
+
+      if hero_image.blob.byte_size > HERO_IMAGE_MAX_SIZE
+        errors.add(:hero_image, "must be smaller than #{HERO_IMAGE_MAX_SIZE / 1.megabyte} MB")
+      end
+    else
+      errors.add(:hero_image, :blank)
+    end
+
     errors.add(:process_summary, :blank) if process_summary.blank?
   end
 

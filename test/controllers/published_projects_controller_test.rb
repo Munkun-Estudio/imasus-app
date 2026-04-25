@@ -40,6 +40,13 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "show renders public layout without application sidebar" do
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+    assert_select "aside", count: 0
+    assert_select "nav[aria-label=?]", "Main navigation", count: 0
+  end
+
   test "show returns 404 for unknown slug" do
     get published_project_url(slug: "nope-nope")
     assert_response :not_found

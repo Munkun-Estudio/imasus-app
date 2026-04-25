@@ -220,6 +220,32 @@ class ProjectTest < ActiveSupport::TestCase
     assert @project.save, @project.errors.full_messages.join(", ")
   end
 
+  test "publish rejects non-image hero attachment" do
+    @project.hero_image.attach(
+      io: StringIO.new("not an image"),
+      filename: "notes.txt",
+      content_type: "text/plain"
+    )
+    @project.process_summary = "<p>How we got here</p>"
+    @project.status = "published"
+
+    assert_not @project.valid?
+    assert_includes @project.errors[:hero_image], "must be a JPEG or PNG image"
+  end
+
+  test "publish rejects hero image over 20 MB" do
+    @project.hero_image.attach(
+      io: StringIO.new("x" * (21.megabytes)),
+      filename: "large.png",
+      content_type: "image/png"
+    )
+    @project.process_summary = "<p>How we got here</p>"
+    @project.status = "published"
+
+    assert_not @project.valid?
+    assert_includes @project.errors[:hero_image], "must be smaller than 20 MB"
+  end
+
   test "draft save succeeds without hero_image or process_summary" do
     project = Project.new(workshop: @workshop, title: "Draft only", language: "en", status: "draft")
     assert project.valid?

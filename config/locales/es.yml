@@ -214,6 +214,14 @@ es:
     new:
       title: "Publica tu proyecto"
       heading: "Publica tu proyecto"
+      welcome_eyebrow: "Publicación"
+      welcome_heading: "Vamos a mostrar vuestro trabajo al mundo."
+      welcome_body: "Convierte vuestro trabajo en una página pública. Tomad un momento para cada sección."
+      begin: "Empecemos"
+      step_label: "Paso %{current} de %{total}"
+      progress_label: "Progreso de publicación"
+      next: "Continuar"
+      back: "Atrás"
       lead: "Convierte vuestro trabajo en una pagina publica."
       challenge_heading: "Reto"
       no_challenge: "Este proyecto no tiene reto vinculado."
@@ -380,6 +388,10 @@ es:
       process_log: "Registro de proceso →"
       process_log_eyebrow: "Actividad del taller"
       process_log_cta: "Abrir registro de proceso"
+      publish_eyebrow: "¿Listo para compartir?"
+      publish_cta: "Publicar tu trabajo"
+      published_eyebrow: "Publicado"
+      view_publication_cta: "Ver página pública"
     edit:
       title: "Editar proyecto"
     update:
