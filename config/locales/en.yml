@@ -28,18 +28,43 @@ en:
   home:
     index:
       title: "Home"
-      eyebrow: "IMASUS Workshops"
-      heading: "Imagineering tools for students working on real-world challenges."
-      lead: "IMASUS App is the workshop platform for students and facilitators developing new responses to large challenges through the imagineering approach inspired by Diane Nijs."
-      visit_imasus: "Visit IMASUS"
-      read_interview: "Read the Imagineering Interview"
-      status: "Project foundation in progress"
-      why_title: "Why this app exists"
-      why_text: "IMASUS App supports workshop journeys where students move from a broad challenge to structured reflection, concept development, and early solution framing — using the imagineering approach."
-      who_title: "Who is it for"
-      who_text: "Students and facilitators participating in IMASUS workshops across Greece, Italy, and Spain. Each workshop brings together interdisciplinary teams to tackle real sustainability challenges in the textile industry."
-      what_title: "What you can do"
-      what_text: "Explore a materials database, work through training modules, log your process with photos and videos, develop prototypes, and publish a public project page summarising your journey."
+    visitor:
+      hero:
+        eyebrow: "IMASUS Workshops"
+        heading: "Imagineering tools for collaborative challenges."
+        lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
+        see_workshops: "See workshops"
+        log_in: "Log in"
+      workshops:
+        heading: "Upcoming and past workshops"
+        lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
+        see_workshop: "See workshop"
+        request_spot: "Request a spot"
+        partner_with: "with %{partner}"
+      featured_projects:
+        heading: "Featured projects"
+        lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
+        empty: "Workshop projects appear here when participants publish their work."
+      resources:
+        heading: "Explore the resources"
+        materials:
+          title: "Materials"
+          lead: "A database of sustainable textiles, fibres, and finishes with photos and microscopy."
+        training:
+          title: "Training"
+          lead: "Modules on imagineering, system thinking, and the IMASUS lenses."
+        challenges:
+          title: "Challenges"
+          lead: "Ten industry challenges (C1–C10) used to focus team work."
+        glossary:
+          title: "Glossary"
+          lead: "Key terms used across the IMASUS materials, training, and methodology."
+    participant:
+      greeting: "Welcome back, %{name}."
+    facilitator:
+      greeting: "Welcome back, %{name}."
+    admin:
+      greeting: "Welcome back, %{name}."
   materials:
     index:
       title: "Materials DB"
