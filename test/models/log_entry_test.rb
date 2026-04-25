@@ -6,7 +6,6 @@ class LogEntryTest < ActiveSupport::TestCase
       slug: "spain-2026",
       title_translations: { "es" => "Taller IMASUS Espana" },
       description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
-      partner: "Munkun",
       location: "Zaragoza, Spain",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)

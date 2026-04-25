@@ -43,7 +43,6 @@ el:
         lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
         see_workshop: "Άνοιγμα εργαστηρίου"
         request_spot: "Αίτημα συμμετοχής"
-        partner_with: "με %{partner}"
       featured_projects:
         heading: "Προβεβλημένα έργα"
         lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
@@ -181,6 +180,7 @@ el:
         other: "%{count} έργα"
       open_workshop: "Άνοιγμα εργαστηρίου"
       open_agenda: "Άνοιγμα ατζέντας"
+      new_workshop: "Νέο εργαστήριο"
       empty_title: "Δεν υπάρχουν ακόμη διαθέσιμα εργαστήρια."
       empty_body: "Οι λεπτομέρειες του εργαστηρίου θα εμφανιστούν εδώ όταν επιβεβαιωθούν."
     show:
@@ -195,6 +195,12 @@ el:
       invite_participants: "Πρόσκληση συμμετεχόντων"
       edit_workshop: "Επεξεργασία εργαστηρίου"
       participants: "Συμμετέχοντες"
+      participant_count:
+        zero: "Δεν υπάρχουν συμμετέχοντες"
+        one: "1 συμμετέχων"
+        other: "%{count} συμμετέχοντες"
+      participants_invite_only: "You can invite participants to this workshop. Only the workshop's facilitators see participant counts."
+      agenda_empty: "Δεν υπάρχει ακόμη ατζέντα."
       new_project: "Ξεκινήστε ένα έργο"
       projects_heading: "Έργα"
       published_projects_heading: "Δημοσιευμένα έργα"
@@ -224,8 +230,9 @@ el:
       fields:
         title: "Title"
         description: "Description"
+        agenda: "Agenda"
+        agenda_hint: "Rich text. Headings, lists, and inline formatting are supported. Each locale carries its own agenda body."
         location: "Location"
-        partner: "Partner"
         starts_on: "Starts on"
         ends_on: "Ends on"
         contact_email: "Contact email"
@@ -235,6 +242,15 @@ el:
         other: "%{count} errors prevented saving this workshop:"
     update:
       success: "Το εργαστήριο ενημερώθηκε."
+    new:
+      title: "Νέο εργαστήριο"
+      heading: "Δημιουργία εργαστηρίου"
+      lead: "Create a new IMASUS workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
+      back_to_index: "← Επιστροφή στα εργαστήρια"
+      submit: "Δημιουργία εργαστηρίου"
+      cancel: "Ακύρωση"
+    create:
+      success: "Το εργαστήριο δημιουργήθηκε."
   workshop_participants:
     # TODO: translate spec-13 workshop participants strings (el).
     index:

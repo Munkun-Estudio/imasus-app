@@ -1,6 +1,7 @@
 class WorkshopsController < ApplicationController
-  before_action :require_login, only: [ :agenda, :edit, :update ]
-  before_action :set_workshop,  only: [ :show, :agenda, :edit, :update ]
+  before_action :require_login,    only: [ :agenda, :new, :create, :edit, :update ]
+  before_action :set_workshop,     only: [ :show, :agenda, :edit, :update ]
+  before_action :require_creator,    only: [ :new, :create ]
   before_action :require_management, only: [ :edit, :update ]
 
   def index
@@ -25,6 +26,26 @@ class WorkshopsController < ApplicationController
   end
 
   def agenda
+  end
+
+  # @note Admins and any facilitator-role user can create a workshop.
+  #   The creator is auto-attached as a {WorkshopParticipation} so they
+  #   immediately qualify for {Workshop#manageable_by?}.
+  def new
+    @workshop = Workshop.new
+  end
+
+  # @note Wraps the workshop save and the creator participation in one
+  #   transaction so a failure in either rolls both back.
+  def create
+    @workshop = Workshop.new(workshop_params)
+    Workshop.transaction do
+      @workshop.save!
+      WorkshopParticipation.create!(user: current_user, workshop: @workshop)
+    end
+    redirect_to workshop_path(@workshop), notice: t(".success")
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_content
   end
 
   # @note Admins and facilitators participating in this workshop only.
@@ -55,9 +76,17 @@ class WorkshopsController < ApplicationController
                                      default: "You are not authorised to view that page.")
   end
 
+  def require_creator
+    return if Workshop.creatable_by?(current_user)
+
+    redirect_to root_path, alert: t("errors.access_denied",
+                                     default: "You are not authorised to view that page.")
+  end
+
   def workshop_params
     params.require(:workshop).permit(
-      :location, :partner, :starts_on, :ends_on, :contact_email,
+      :location, :starts_on, :ends_on, :contact_email,
+      :agenda_en, :agenda_es, :agenda_it, :agenda_el,
       title_translations: {},
       description_translations: {}
     )

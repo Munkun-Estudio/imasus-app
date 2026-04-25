@@ -76,7 +76,6 @@ class ShellLayoutTest < ActionDispatch::IntegrationTest
       slug: "spain",
       title_translations: { "en" => "Spain workshop" },
       description_translations: { "en" => "A workshop." },
-      partner: "Munkun",
       location: "Zaragoza, Spain",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)

@@ -7,7 +7,6 @@ class WorkshopParticipantsControllerTest < ActionDispatch::IntegrationTest
       slug: "spain",
       title_translations: { "es" => "Taller IMASUS Espana" },
       description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
-      partner: "Munkun",
       location: "Zaragoza, Spain",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)
@@ -57,7 +56,7 @@ class WorkshopParticipantsControllerTest < ActionDispatch::IntegrationTest
       slug: "italy",
       title_translations: { "it" => "Italia" },
       description_translations: { "it" => "Italia." },
-      partner: "Lottozero", location: "Prato",
+location: "Prato",
       starts_on: Date.current, ends_on: Date.current
     )
     other_fac = User.create!(name: "Other", email: "wp-other-fac@example.com",

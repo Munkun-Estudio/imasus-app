@@ -166,3 +166,25 @@ Reasons:
 Public surfaces (visitor home featured, public workshop listing, `/published/:slug`) chain `Project.active` so disabled published projects 404 publicly.
 
 Rejected: hard delete as the primary moderation action — irreversible, doesn't match a "moderate first, restore later" workflow. Admins keep the existing project destroy flow if a hard delete is needed.
+
+## 2026-04-25 — workshop-management: drop `partner`, fold agenda editing into the workshop edit form, allow facilitator-created workshops
+
+### Drop `Workshop#partner`
+
+The single-string `partner` column misrepresented multi-partner workshops (e.g. Spain is run by Munkun + INMA, not just Munkun) and the show-page badge oversimplified that. Workshop description copy already covers "who runs this workshop" and gives room to explain each partner's role. The footer's project-level partner logo list (INMA, ECHN, Lottozero, Munkun, Munkun-Estudio) is unaffected — those are the European-funded-project partners, not workshop-organisers.
+
+The `Workshop.ready_for_listing` scope no longer requires `partner` to be present; newly-created workshops with translated title + description and dates are publicly visible immediately.
+
+### Inline agenda editing
+
+The four `has_rich_text :agenda_<locale>` bodies are edited from the existing workshop edit form. Each locale tab now shows three fields — title, description, agenda — for that locale. Considered (and rejected) a dedicated `/workshops/:slug/edit_agenda` page: it would have surfaced the metadata-vs-agenda storage split (JSONB vs Action Text) to facilitators, added a second route, and put another button on an already-crowded show page. One form, one button, three fields per tab is simpler and matches user mental model.
+
+This supersedes the previously-deferred `workshop-agenda-edit` slug.
+
+### Workshop creation by admins and facilitators
+
+`Workshop.creatable_by?(user)` returns true for admin or any facilitator-role user, regardless of prior `WorkshopParticipation`. The role gates the *ability to create*; a `WorkshopParticipation` is auto-attached inside the create transaction so the creator immediately qualifies for `Workshop#manageable_by?`.
+
+Workshop slug is auto-generated from the first non-blank title in the `en → es → it → el` fallback order, parameterized, capped at 100 chars, with `-2`/`-3` suffix on collision. Generated once and never regenerated on later saves — same shape as `Project#assign_slug` from spec 12.
+
+No draft / published workshop state. Facilitators fill the form once and submit; a workshop with translated title + description and dates is publicly visible immediately. No `workshops#destroy` from this surface — cascades through projects + log entries are a separate decision; revisit when someone asks.

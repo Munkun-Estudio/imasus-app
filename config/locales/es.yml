@@ -40,7 +40,6 @@ es:
         lead: "Cada taller IMASUS reúne equipos interdisciplinares para trabajar sobre retos reales de sostenibilidad. Los talleres están abiertos a personas más allá de la institución anfitriona."
         see_workshop: "Ver taller"
         request_spot: "Solicitar plaza"
-        partner_with: "con %{partner}"
       featured_projects:
         heading: "Proyectos destacados"
         lead: "Una mirada al trabajo reciente — casos de estudio publicados por equipos de los talleres IMASUS."
@@ -178,6 +177,7 @@ es:
         other: "%{count} proyectos"
       open_workshop: "Abrir taller"
       open_agenda: "Abrir agenda"
+      new_workshop: "Nuevo taller"
       empty_title: "Todavia no hay talleres disponibles."
       empty_body: "Los detalles del taller apareceran aqui cuando esten confirmados."
     show:
@@ -192,6 +192,12 @@ es:
       invite_participants: "Invitar participantes"
       edit_workshop: "Editar taller"
       participants: "Participantes"
+      participant_count:
+        zero: "Sin participantes"
+        one: "1 participante"
+        other: "%{count} participantes"
+      participants_invite_only: "Puedes invitar participantes a este taller. Solo la facilitación del taller ve los recuentos de participantes."
+      agenda_empty: "Todavía no hay agenda publicada."
       new_project: "Empezar un proyecto"
       projects_heading: "Proyectos"
       published_projects_heading: "Proyectos publicados"
@@ -220,8 +226,9 @@ es:
       fields:
         title: "Título"
         description: "Descripción"
+        agenda: "Agenda"
+        agenda_hint: "Texto enriquecido. Se admiten encabezados, listas y formato. Cada idioma tiene su propia agenda."
         location: "Ubicación"
-        partner: "Partner"
         starts_on: "Empieza el"
         ends_on: "Acaba el"
         contact_email: "Correo de contacto"
@@ -231,6 +238,15 @@ es:
         other: "%{count} errores impidieron guardar el taller:"
     update:
       success: "Taller actualizado."
+    new:
+      title: "Nuevo taller"
+      heading: "Crear un taller"
+      lead: "Crea un nuevo taller IMASUS. Quedarás asociado/a como su facilitación y podrás editar, invitar participantes y moderar desde el momento en que se guarde."
+      back_to_index: "← Volver a talleres"
+      submit: "Crear taller"
+      cancel: "Cancelar"
+    create:
+      success: "Taller creado."
   workshop_participants:
     index:
       title: "Participantes — %{workshop}"

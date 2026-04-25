@@ -7,7 +7,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
       slug: "spain",
       title_translations: { "es" => "Taller IMASUS Espana" },
       description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
-      partner: "Munkun",
       location: "Zaragoza, Spain",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)
@@ -162,7 +161,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
       slug: "italy",
       title_translations: { "it" => "Workshop IMASUS Italia" },
       description_translations: { "it" => "Un workshop IMASUS in Italia." },
-      partner: "Lottozero",
       location: "Prato, Italy",
       starts_on: Date.new(2026, 5, 12),
       ends_on: Date.new(2026, 5, 12)
@@ -251,7 +249,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
         title_translations: { "es" => "Nuevo título", "en" => "New title" },
         description_translations: { "es" => "Nueva descripción", "en" => "New description" },
         location: "Madrid, Spain",
-        partner: "New Partner",
         starts_on: "2027-01-01",
         ends_on: "2027-01-02",
         contact_email: "hello@imasus.eu"
@@ -263,7 +260,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Nuevo título",       @workshop.title_translations["es"]
     assert_equal "New title",          @workshop.title_translations["en"]
     assert_equal "Madrid, Spain",      @workshop.location
-    assert_equal "New Partner",        @workshop.partner
     assert_equal Date.new(2027, 1, 1), @workshop.starts_on
     assert_equal Date.new(2027, 1, 2), @workshop.ends_on
     assert_equal "hello@imasus.eu",    @workshop.contact_email
@@ -292,11 +288,11 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
   test "PATCH update is blocked for non-managers" do
     sign_in(@participant)
     patch workshop_url(@workshop), params: {
-      workshop: { partner: "Hijacked" }
+      workshop: { location: "Hijacked Town" }
     }
     assert_redirected_to root_path
     @workshop.reload
-    assert_not_equal "Hijacked", @workshop.partner
+    assert_not_equal "Hijacked Town", @workshop.location
   end
 
   test "edit form does not expose an editable slug field" do
@@ -304,6 +300,142 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     get edit_workshop_url(@workshop)
     assert_response :success
     assert_select "input[name='workshop[slug]']", count: 0
+  end
+
+  test "edit form renders four agenda Trix editors, one per locale" do
+    sign_in(make_admin)
+    get edit_workshop_url(@workshop)
+    assert_response :success
+    assert_select "trix-editor", count: 4
+    %w[en es it el].each do |locale|
+      assert_select "input[type=hidden][name=?]", "workshop[agenda_#{locale}]"
+    end
+  end
+
+  # ---------------------------------------------------------------------
+  # Workshop creation (workshop-management spec)
+  # ---------------------------------------------------------------------
+
+  test "GET new redirects unauthenticated users to login" do
+    get new_workshop_url
+    assert_redirected_to new_session_path
+  end
+
+  test "GET new redirects participants with access denied" do
+    sign_in(@participant)
+    get new_workshop_url
+    assert_redirected_to root_path
+    assert_not_nil flash[:alert]
+  end
+
+  test "GET new renders for admin" do
+    sign_in(make_admin)
+    get new_workshop_url
+    assert_response :success
+    assert_select "form[action=?]", workshops_path
+  end
+
+  test "GET new renders for any facilitator regardless of prior workshop participations" do
+    fac = User.create!(name: "New Fac", email: "newfac@example.com",
+                       password: @password, role: :facilitator)
+    sign_in(fac)
+    get new_workshop_url
+    assert_response :success
+  end
+
+  test "POST create persists workshop and auto-attaches the creator as a workshop participation" do
+    fac = User.create!(name: "Beatriz", email: "beatriz@example.com",
+                       password: @password, role: :facilitator)
+    sign_in(fac)
+
+    assert_difference -> { Workshop.count }, 1 do
+      assert_difference -> { WorkshopParticipation.count }, 1 do
+        post workshops_path, params: {
+          workshop: {
+            title_translations: { "en" => "Portugal Workshop" },
+            description_translations: { "en" => "An IMASUS workshop in Lisbon." },
+            location: "Lisbon, Portugal",
+            starts_on: "2027-01-15",
+            ends_on: "2027-01-16",
+            contact_email: "portugal@imasus.eu"
+          }
+        }
+      end
+    end
+
+    workshop = Workshop.find_by!(slug: "portugal-workshop")
+    assert_redirected_to workshop_path(workshop)
+    assert WorkshopParticipation.exists?(user: fac, workshop: workshop),
+           "creator should be auto-attached as a workshop participation"
+    assert workshop.manageable_by?(fac), "creator should immediately be able to manage"
+  end
+
+  test "POST create renders new with 422 when validations fail" do
+    sign_in(make_admin)
+    post workshops_path, params: {
+      workshop: {
+        title_translations: {},
+        description_translations: {},
+        location: "",
+        starts_on: nil,
+        ends_on: nil
+      }
+    }
+    assert_response :unprocessable_content
+  end
+
+  test "workshop index shows New workshop CTA for admins" do
+    sign_in(make_admin)
+    get workshops_url
+    assert_response :success
+    assert_select "a[data-action=new-workshop][href=?]", new_workshop_path
+  end
+
+  test "workshop index shows New workshop CTA for facilitators" do
+    sign_in(@facilitator)
+    get workshops_url
+    assert_response :success
+    assert_select "a[data-action=new-workshop][href=?]", new_workshop_path
+  end
+
+  test "workshop index hides New workshop CTA from participants and visitors" do
+    sign_in(@participant)
+    get workshops_url
+    assert_select "a[data-action=new-workshop]", count: 0
+
+    delete session_path
+    get workshops_url
+    assert_select "a[data-action=new-workshop]", count: 0
+  end
+
+  test "POST create forbidden for participants" do
+    sign_in(@participant)
+    assert_no_difference -> { Workshop.count } do
+      post workshops_path, params: {
+        workshop: {
+          title_translations: { "en" => "Hijack" },
+          description_translations: { "en" => "Hijack." },
+          location: "Nowhere",
+          starts_on: "2027-02-01",
+          ends_on: "2027-02-01"
+        }
+      }
+    end
+    assert_redirected_to root_path
+  end
+
+  test "PATCH update persists per-locale agenda content" do
+    sign_in(make_admin)
+    patch workshop_url(@workshop), params: {
+      workshop: {
+        agenda_en: "<h2>Spec 14 agenda EN</h2>",
+        agenda_es: "<h2>Agenda ES</h2>"
+      }
+    }
+    assert_redirected_to workshop_url(@workshop)
+    @workshop.reload
+    assert_includes @workshop.agenda_en.body.to_s, "Spec 14 agenda EN"
+    assert_includes @workshop.agenda_es.body.to_s, "Agenda ES"
   end
 
   test "workshop show page renders an Edit workshop link for managers" do

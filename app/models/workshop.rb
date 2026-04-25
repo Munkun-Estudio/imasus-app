@@ -4,6 +4,8 @@ class Workshop < ApplicationRecord
   SEED_PATH = Rails.root.join("db", "seeds", "workshops.yml")
   AGENDA_LOCALES = %w[en es it el].freeze
   COMMUNICATION_LOCALES = %w[es it el en].freeze
+  SLUG_FALLBACK_LOCALES = %w[en es it el].freeze
+  SLUG_MAX_LENGTH = 100
 
   translates :title, :description
 
@@ -18,10 +20,12 @@ class Workshop < ApplicationRecord
 
   validates :slug,     presence: true, uniqueness: { case_sensitive: false }
   validates :location, presence: true
-  validates :partner, :starts_on, :ends_on, presence: true
+  validates :starts_on, :ends_on, presence: true
   validates :contact_email,
             format: { with: URI::MailTo::EMAIL_REGEXP },
             allow_blank: true
+
+  before_validation :assign_slug, if: -> { slug.blank? }
 
   validate :translated_title_present
   validate :translated_description_present
@@ -29,7 +33,7 @@ class Workshop < ApplicationRecord
 
   scope :ordered, -> { order(:starts_on, :location) }
   scope :ready_for_listing, lambda {
-    where.not(partner: nil, starts_on: nil, ends_on: nil)
+    where.not(starts_on: nil, ends_on: nil)
       .where.not(title_translations: {})
       .where.not(description_translations: {})
       .order(:starts_on, :location)
@@ -54,6 +58,16 @@ class Workshop < ApplicationRecord
   # @return [String, nil]
   def description
     translated_with_any_locale_fallback(:description_translations)
+  end
+
+  # @return [Boolean] true when +user+ may create a new workshop. Admin
+  #   or any facilitator-role user qualifies — facilitators don't need
+  #   a prior {WorkshopParticipation}; the create action auto-attaches
+  #   them on save.
+  def self.creatable_by?(user)
+    return false if user.nil?
+
+    user.admin? || user.facilitator?
   end
 
   # @return [Boolean] true when +user+ may edit or moderate this workshop.
@@ -109,7 +123,6 @@ class Workshop < ApplicationRecord
       workshop.assign_attributes(
         title_translations: entry.fetch("title_translations", {}),
         description_translations: entry.fetch("description_translations", {}),
-        partner: entry.fetch("partner"),
         location: entry.fetch("location"),
         starts_on: entry.fetch("starts_on"),
         ends_on: entry.fetch("ends_on"),
@@ -141,6 +154,28 @@ class Workshop < ApplicationRecord
     end
     locales << I18n.default_locale.to_s
     locales.select { |candidate| AGENDA_LOCALES.include?(candidate) }.uniq
+  end
+
+  # Auto-generates the slug from the first non-blank title in the
+  # `en → es → it → el` fallback order. `parameterize` + max-100-char
+  # cap, with `-2`/`-3` collision suffix. Called via
+  # `before_validation` only when slug is blank.
+  def assign_slug
+    base_title = SLUG_FALLBACK_LOCALES.lazy.map { |loc| title_translations[loc].presence }.find(&:itself)
+    return if base_title.blank?
+
+    base = base_title.parameterize.first(SLUG_MAX_LENGTH)
+    self.slug = unique_slug(base)
+  end
+
+  def unique_slug(base)
+    candidate = base
+    suffix = 2
+    while Workshop.where(slug: candidate).where.not(id: id).exists?
+      candidate = "#{base.first(SLUG_MAX_LENGTH - "-#{suffix}".length)}-#{suffix}"
+      suffix += 1
+    end
+    candidate
   end
 
   def translated_title_present
