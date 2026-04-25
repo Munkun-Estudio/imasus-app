@@ -1,7 +1,7 @@
 <section class="mt-12 max-w-5xl">
   <div class="flex items-center justify-between gap-4">
     <h2 class="text-xl font-bold text-imasus-dark-green"><%= t("workshops.show.projects_heading") %></h2>
-    <% if attending %>
+    <% if attending && projects.any? %>
       <%= link_to t("workshops.show.new_project"),
                   new_project_path(workshop_id: workshop.id),
                   class: "inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
