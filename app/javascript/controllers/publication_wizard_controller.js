@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["step", "dot"]
+  static targets = ["step", "dot", "logEntry"]
   static values = {
     problemHeading:  String,
     processHeading:  String,
@@ -46,16 +46,17 @@ export default class extends Controller {
 
   assembleContent() {
     const sections = [
-      { id: "wizard_problem",  heading: this.problemHeadingValue },
-      { id: "wizard_process",  heading: this.processHeadingValue },
-      { id: "wizard_insights", heading: this.insightsHeadingValue },
-      { id: "wizard_outcome",  heading: this.outcomeHeadingValue },
+      { id: "wizard_problem",  key: "problem",  heading: this.problemHeadingValue },
+      { id: "wizard_process",  key: "process",  heading: this.processHeadingValue },
+      { id: "wizard_insights", key: "insights", heading: this.insightsHeadingValue },
+      { id: "wizard_outcome",  key: "outcome",  heading: this.outcomeHeadingValue },
     ]
 
     const html = sections
-      .map(({ id, heading }) => {
+      .map(({ id, key, heading }) => {
         const val = document.getElementById(id)?.value?.trim()
-        return val ? `<h1>${this.escapeHTML(heading)}</h1>${this.paragraphHTML(val)}` : null
+        const logHTML = this.selectedLogEntriesHTML(key)
+        return val || logHTML ? `<h1>${this.escapeHTML(heading)}</h1>${val ? this.paragraphHTML(val) : ""}${logHTML}` : null
       })
       .filter(Boolean)
       .join("")
@@ -73,6 +74,51 @@ export default class extends Controller {
       .join("")
   }
 
+  selectedLogEntriesHTML(section) {
+    if (!this.hasLogEntryTarget) return ""
+
+    return this.logEntryTargets
+      .filter((entry) => entry.checked && entry.dataset.section === section)
+      .map((entry) => this.logEntryHTML(entry))
+      .join("")
+  }
+
+  logEntryHTML(entry) {
+    const body = entry.dataset.entryBody?.trim()
+    const author = entry.dataset.entryAuthor?.trim()
+    const date = entry.dataset.entryDate?.trim()
+    const media = this.parseMedia(entry.dataset.entryMedia)
+
+    const bodyHTML = body ? `<blockquote>${this.paragraphHTML(body)}</blockquote>` : ""
+    const caption = [author, date].filter(Boolean).map((value) => this.escapeHTML(value)).join(" · ")
+    const captionHTML = caption ? `<p><em>${caption}</em></p>` : ""
+
+    return `${bodyHTML}${this.mediaHTML(media)}${captionHTML}`
+  }
+
+  mediaHTML(media) {
+    return media
+      .map((item) => {
+        const sgid = this.escapeAttribute(item.sgid || "")
+        const filename = this.escapeAttribute(item.filename || "")
+
+        if (!sgid) return ""
+
+        return `<action-text-attachment sgid="${sgid}" caption="${filename}"></action-text-attachment>`
+      })
+      .join("")
+  }
+
+  parseMedia(value) {
+    if (!value) return []
+
+    try {
+      return JSON.parse(value)
+    } catch (_error) {
+      return []
+    }
+  }
+
   escapeHTML(value) {
     return value.replace(/[&<>"']/g, (char) => ({
       "&": "&amp;",
@@ -81,5 +127,9 @@ export default class extends Controller {
       "\"": "&quot;",
       "'": "&#39;",
     }[char]))
+  }
+
+  escapeAttribute(value) {
+    return this.escapeHTML(value)
   }
 }

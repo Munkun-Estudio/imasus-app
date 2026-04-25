@@ -1,0 +1,71 @@
+<% log_entries = local_assigns.fetch(:log_entries, []) %>
+<% section = local_assigns.fetch(:section) %>
+
+<section class="mt-6 rounded-xl border border-imasus-dark-green/10 bg-stone-50 p-5">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <h3 class="text-sm font-semibold text-imasus-dark-green">
+        <%= t("project_publications.new.log_picker_heading") %>
+      </h3>
+      <p class="mt-1 text-xs text-stone-500">
+        <%= t("project_publications.new.log_picker_hint") %>
+      </p>
+    </div>
+    <span class="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-stone-500">
+      <%= t("project_publications.new.log_entry_count", count: log_entries.size) %>
+    </span>
+  </div>
+
+  <% if log_entries.any? %>
+    <div class="mt-4 grid gap-3">
+      <% log_entries.each do |entry| %>
+        <% media = entry.media.map do |attachment|
+             {
+               url: url_for(attachment),
+               sgid: attachment.blob.attachable_sgid,
+               content_type: attachment.content_type,
+               filename: attachment.filename.to_s,
+               video: attachment.video?
+             }
+           end %>
+        <label class="block cursor-pointer rounded-lg border border-imasus-dark-green/10 bg-white p-4 transition-colors has-[:checked]:border-imasus-dark-green/40 has-[:checked]:bg-imasus-mint/20">
+          <div class="flex items-start gap-3">
+            <input type="checkbox"
+                   class="mt-1 rounded border-imasus-dark-green/30 text-imasus-dark-green focus:ring-imasus-dark-green/30"
+                   data-publication-wizard-target="logEntry"
+                   data-section="<%= section %>"
+                   data-entry-body="<%= entry.body.to_plain_text.squish %>"
+                   data-entry-author="<%= entry.author.name %>"
+                   data-entry-date="<%= l(entry.created_at.to_date, format: :long) %>"
+                   data-entry-media="<%= media.to_json %>">
+            <div class="min-w-0 flex-1">
+              <div class="flex flex-wrap items-center gap-2 text-xs text-stone-400">
+                <span class="font-semibold text-stone-600"><%= entry.author.name %></span>
+                <span aria-hidden="true">·</span>
+                <time datetime="<%= entry.created_at.iso8601 %>">
+                  <%= l(entry.created_at.to_date, format: :long) %>
+                </time>
+              </div>
+              <p class="mt-2 line-clamp-3 text-sm text-stone-700">
+                <%= entry.body.to_plain_text.squish %>
+              </p>
+              <% if entry.media.attached? %>
+                <div class="mt-3 flex flex-wrap gap-2">
+                  <% entry.media.each do |attachment| %>
+                    <span class="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-semibold text-stone-500">
+                      <%= attachment.video? ? t("project_publications.new.log_media_video") : t("project_publications.new.log_media_image") %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </label>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="mt-4 rounded-lg bg-white p-4 text-sm text-stone-500">
+      <%= t("project_publications.new.no_log_entries") %>
+    </p>
+  <% end %>
+</section>

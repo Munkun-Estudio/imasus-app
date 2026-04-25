@@ -8,6 +8,7 @@
     <div class="mt-8">
       <%= render "form",
                  project: @project,
+                 log_entries: @log_entries,
                  form_url: project_publication_path(@project),
                  form_method: :post %>
     </div>

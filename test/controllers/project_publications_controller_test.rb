@@ -57,6 +57,19 @@ class ProjectPublicationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "new shows process log entries for reuse" do
+    LogEntry.create!(project: @project, author: @member, body: "We tested indigo on wool.")
+
+    sign_in(@member)
+    get new_project_publication_url(@project)
+
+    assert_response :success
+    assert_select "[data-publication-wizard-target='logEntry'][data-section='process']"
+    assert_select "[data-publication-wizard-target='logEntry'][data-section='insights']"
+    assert_select "[data-publication-wizard-target='logEntry'][data-section='outcome']"
+    assert_includes response.body, "We tested indigo on wool."
+  end
+
   test "new renders for admin on draft project" do
     sign_in(@admin)
     get new_project_publication_url(@project)

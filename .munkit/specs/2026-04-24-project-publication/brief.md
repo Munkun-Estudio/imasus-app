@@ -91,9 +91,14 @@ during implementation based on Turbo frame feasibility. The key constraint is
 that log entry selection (steps 3–5) must show the participant's actual log
 entries alongside the text prompt.
 
-**Step 1 — Welcome**
-Friendly framing: "Let's show your work to the world." Brief explanation of
-what publication means (public URL, portfolio piece). CTA to begin.
+**Step 1 — Welcome / workflow**
+Friendly framing: "Let's turn your process into a public project." Brief
+explanation of what publication means (public URL, portfolio piece) and how the
+flow works before participants start: reflect on prompts, reuse process-log
+evidence, then edit the final story in one composition editor. If the project has
+log entries, show how many are available to reuse; if not, explain that the
+participant can still publish from their answers or go back and add log entries
+first. CTA to begin.
 
 **Step 2 — Problem**
 Prompt: "Your team selected [Challenge name]. After working on it, how would

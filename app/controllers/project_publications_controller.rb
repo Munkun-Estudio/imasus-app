@@ -7,7 +7,9 @@ class ProjectPublicationsController < ApplicationController
 
   # @note Requires member or admin; project must be draft.
   def new
-    require_publishable
+    return unless require_publishable
+
+    load_log_entries
   end
 
   # @note Sets status "published", stamps +publication_updated_at+, generates slug.
@@ -23,6 +25,7 @@ class ProjectPublicationsController < ApplicationController
       redirect_to published_project_path(slug: @project.slug),
                   notice: t("project_publications.create.success")
     else
+      load_log_entries
       render :new, status: :unprocessable_entity
     end
   end
@@ -71,5 +74,10 @@ class ProjectPublicationsController < ApplicationController
 
   def publication_params
     params.require(:project).permit(:hero_image, :process_summary)
+  end
+
+  def load_log_entries
+    @log_entries = @project.log_entries.with_rich_text_body.with_attached_media
+                           .includes(:author)
   end
 end

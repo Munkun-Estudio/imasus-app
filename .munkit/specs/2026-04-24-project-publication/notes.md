@@ -108,16 +108,17 @@ Scratch space for working through this spec. See brief.md for requirements.
 
 ## Implementation resolved (2026-04-24)
 
-- **Wizard simplified to single form for MVP.** The five-step wizard (Welcome →
-  Problem → Process → Insights → Outcome) with log pickers is deferred. The
-  published form goes straight to the Trix editor for `process_summary` plus
-  a hero image upload. Prompt copy in the form heading and hint text sets
-  context. The wizard flow is a follow-on when the builder UX is revisited.
+- **Single Trix composition body, not a block builder.** The original builder
+  idea (independent rich-text/media blocks with drag-and-drop ordering) is
+  deferred. The MVP keeps one `process_summary` Action Text body, but the wizard
+  still reuses process-log material: Process, Insights, and Outcome steps let
+  participants select whole log entries, which are assembled into the final Trix
+  composition for editing, trimming, and reordering.
 - **`croppable` gem deferred.** Compatibility with mini_magick needs verification
   before adding. TODO comment placed in the hero image section of `_form.html.erb`.
   Hero image is a plain file upload for now.
-- **Log picker not implemented.** Steps 3–5 of the wizard (select log entries/
-  media to embed) are deferred along with the wizard itself.
+- **Log picker scope.** Steps 3–5 select whole log entries (body plus attached
+  media). Individual media picking inside a log entry remains deferred.
 - **`process_summary` strong params.** Permitted via `params.require(:project).permit(:hero_image, :process_summary)` — Rails 6+ handles Action Text field names directly.
 - **`PublishedProjectsController` skips `require_login`.** Uses
   `Project.where(status: "published").find_by!(slug:)` — draft/unknown slugs
