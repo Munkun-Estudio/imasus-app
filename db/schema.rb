@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_24_105637) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_25_102232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -175,6 +175,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_24_105637) do
     t.string "password_digest"
     t.datetime "password_reset_sent_at"
     t.string "password_reset_token"
+    t.string "preferred_locale"
     t.integer "role", default: 2, null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -193,6 +194,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_24_105637) do
   end
 
   create_table "workshops", force: :cascade do |t|
+    t.string "contact_email"
     t.datetime "created_at", null: false
     t.jsonb "description_translations", default: {}, null: false
     t.date "ends_on"

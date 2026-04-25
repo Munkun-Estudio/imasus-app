@@ -19,6 +19,9 @@ class Workshop < ApplicationRecord
   validates :slug,     presence: true, uniqueness: { case_sensitive: false }
   validates :location, presence: true
   validates :partner, :starts_on, :ends_on, presence: true
+  validates :contact_email,
+            format: { with: URI::MailTo::EMAIL_REGEXP },
+            allow_blank: true
 
   validate :translated_title_present
   validate :translated_description_present
@@ -97,7 +100,8 @@ class Workshop < ApplicationRecord
         partner: entry.fetch("partner"),
         location: entry.fetch("location"),
         starts_on: entry.fetch("starts_on"),
-        ends_on: entry.fetch("ends_on")
+        ends_on: entry.fetch("ends_on"),
+        contact_email: entry["contact_email"]
       )
       workshop.save!
 

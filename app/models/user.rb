@@ -48,6 +48,9 @@ class User < ApplicationRecord
   validates :role,  presence: true
   validates :password, length: { minimum: 8 }, if: -> { password.present? }
   validates :password, confirmation: true, if: -> { password.present? }
+  validates :preferred_locale,
+            inclusion: { in: I18n.available_locales.map(&:to_s) },
+            allow_nil: true
 
   # Generates a fresh invitation token and persists it with the sent-at
   # timestamp. The caller is responsible for sending the corresponding mailer.

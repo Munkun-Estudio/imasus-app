@@ -74,4 +74,20 @@ class WorkshopTest < ActiveSupport::TestCase
     assert_includes workshop.participations.reload, WorkshopParticipation.last
     assert_includes workshop.participants.reload, user
   end
+
+  test "contact_email is optional" do
+    workshop = Workshop.new(workshop_attributes(contact_email: nil))
+    assert workshop.valid?, workshop.errors.full_messages.to_sentence
+  end
+
+  test "contact_email accepts a valid email address" do
+    workshop = Workshop.new(workshop_attributes(contact_email: "spain@imasus.eu"))
+    assert workshop.valid?, workshop.errors.full_messages.to_sentence
+  end
+
+  test "contact_email rejects malformed addresses" do
+    workshop = Workshop.new(workshop_attributes(contact_email: "not-an-email"))
+    assert_not workshop.valid?
+    assert_includes workshop.errors[:contact_email], "is invalid"
+  end
 end
