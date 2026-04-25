@@ -6,7 +6,11 @@ class HomeController < ApplicationController
 
   def index
     @variant = current_user&.role || "visitor"
-    load_visitor_data if @variant == "visitor"
+
+    case @variant
+    when "visitor"     then load_visitor_data
+    when "participant" then load_participant_data
+    end
   end
 
   private
@@ -16,5 +20,12 @@ class HomeController < ApplicationController
     @featured_projects  = Project.published
                                   .order(publication_updated_at: :desc)
                                   .limit(FEATURED_PROJECT_LIMIT)
+  end
+
+  def load_participant_data
+    @projects = current_user.projects
+                            .includes(:workshop, :challenge, :members, :log_entries)
+                            .order(updated_at: :desc)
+    @workshops = current_user.workshops
   end
 end

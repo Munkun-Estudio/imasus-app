@@ -61,6 +61,27 @@ en:
           lead: "Key terms used across the IMASUS materials, training, and methodology."
     participant:
       greeting: "Welcome back, %{name}."
+      projects:
+        heading: "Your projects"
+      workshops:
+        heading: "Your workshops"
+      empty_no_projects:
+        heading: "Ready to start your first project?"
+        lead: "Choose a workshop below — projects are created from the workshop page."
+      empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      resources:
+        heading: "Explore"
+      last_activity: "Last activity %{time} ago"
+      status:
+        draft: "Draft"
+        published: "Published"
+      cta:
+        add_first_log_entry: "Add your first log entry"
+        open_project: "Open project"
+        continue_log: "Continue your log"
+        publish: "Publish"
+        view_public: "View public page"
+        edit_publication: "Edit publication"
     facilitator:
       greeting: "Welcome back, %{name}."
     admin:

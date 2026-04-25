@@ -110,4 +110,108 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-resource-card][data-resource=glossary]"
     assert_select "[data-resource-card][data-resource=challenges]"
   end
+
+  # ---------------------------------------------------------------------
+  # Participant variant
+  # ---------------------------------------------------------------------
+
+  def make_participant(email: "p-#{SecureRandom.hex(4)}@example.com")
+    User.create!(name: "Pablo", email: email, password: @password, role: :participant)
+  end
+
+  def attach_to_workshop(user, workshop)
+    WorkshopParticipation.create!(user: user, workshop: workshop)
+  end
+
+  def make_draft_project(workshop:, user:, title: "Draft project")
+    project = Project.create!(workshop: workshop, title: title, language: "en", status: "draft")
+    ProjectMembership.create!(project: project, user: user)
+    project
+  end
+
+  def publish!(project, author:)
+    project.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+    project.process_summary = "<p>Story</p>"
+    project.status = "published"
+    project.save!
+    project
+  end
+
+  def sign_in(user)
+    post session_path, params: { email: user.email, password: @password }
+  end
+
+  test "GET / renders the participant variant for a participant user" do
+    user = make_participant
+    sign_in(user)
+    get root_url
+    assert_select "[data-home-variant=participant]"
+  end
+
+  test "participant with no workshops sees the facilitator-setup message" do
+    user = make_participant
+    sign_in(user)
+    get root_url
+    assert_select "[data-empty-state=no-workshops]"
+  end
+
+  test "participant with workshops but no projects sees the workshops-strip prompt" do
+    user = make_participant
+    workshop = make_workshop(slug: "italy-2026", partner: "Lottozero", location: "Prato, Italy")
+    attach_to_workshop(user, workshop)
+    sign_in(user)
+    get root_url
+    assert_select "[data-empty-state=no-projects]"
+    assert_select "[data-workshop-strip] *", text: /Prato, Italy/
+  end
+
+  test "draft project with zero log entries shows the Add your first log entry CTA" do
+    user = make_participant
+    workshop = make_workshop
+    attach_to_workshop(user, workshop)
+    project = make_draft_project(workshop: workshop, user: user, title: "Alpha")
+    sign_in(user)
+    get root_url
+    assert_select "[data-project-card][data-project-id=?]", project.id.to_s do
+      assert_select "a[href=?]", new_project_log_entry_path(project),
+                    text: I18n.t("home.participant.cta.add_first_log_entry")
+    end
+  end
+
+  test "draft project with at least one log entry shows Continue your log primary and Publish secondary" do
+    user = make_participant
+    workshop = make_workshop
+    attach_to_workshop(user, workshop)
+    project = make_draft_project(workshop: workshop, user: user, title: "Beta")
+    LogEntry.create!(project: project, author: user, body: "First update.")
+    sign_in(user)
+    get root_url
+    assert_select "[data-project-card][data-project-id=?]", project.id.to_s do
+      assert_select "a[href=?]", project_log_entries_path(project),
+                    text: I18n.t("home.participant.cta.continue_log")
+      assert_select "a[href=?]", new_project_publication_path(project),
+                    text: I18n.t("home.participant.cta.publish")
+    end
+  end
+
+  test "published project shows View public page primary and Edit publication secondary" do
+    user = make_participant
+    workshop = make_workshop
+    attach_to_workshop(user, workshop)
+    project = make_draft_project(workshop: workshop, user: user, title: "Gamma")
+    publish!(project, author: user)
+
+    sign_in(user)
+    get root_url
+    assert_select "[data-project-card][data-project-id=?]", project.id.to_s do
+      assert_select "a[href=?]", published_project_path(slug: project.slug),
+                    text: I18n.t("home.participant.cta.view_public")
+      assert_select "a[href=?]", edit_project_publication_path(project),
+                    text: I18n.t("home.participant.cta.edit_publication")
+    end
+  end
 end
