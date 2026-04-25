@@ -20,14 +20,34 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     post session_path, params: { email: user.email, password: @password }
   end
 
-  test "index requires login" do
-    get workshops_url
-    assert_redirected_to new_session_path
+  def publish_project!(project, updated_at: Time.current)
+    project.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+    project.process_summary = "<p>Summary</p>"
+    project.status = "published"
+    project.publication_updated_at = updated_at
+    project.save!
+    project
   end
 
-  test "show requires login" do
+  test "index is public" do
+    get workshops_url
+    assert_response :success
+    assert_select "a[href=?]", workshop_path(@workshop)
+    assert_select "a[href=?]", agenda_workshop_path(@workshop), count: 0
+    assert_select "span", text: I18n.t("workshops.index.attending"), count: 0
+  end
+
+  test "show is public and hides private workshop affordances" do
     get workshop_url(@workshop)
-    assert_redirected_to new_session_path
+    assert_response :success
+    assert_select "h1", text: "Taller IMASUS Espana"
+    assert_select "a[href=?]", agenda_workshop_path(@workshop), count: 0
+    assert_select "a[href=?]", new_workshop_invitation_path(@workshop), count: 0
+    assert_select "a[href=?]", new_project_path(workshop_id: @workshop.id), count: 0
   end
 
   test "agenda requires login" do
@@ -91,15 +111,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     WorkshopParticipation.create!(user: @participant, workshop: @workshop)
     project = Project.create!(workshop: @workshop, title: "Published Kapok", language: "es", status: "draft")
     ProjectMembership.create!(project: project, user: @participant)
-    project.hero_image.attach(
-      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
-      filename: "sample-image.png",
-      content_type: "image/png"
-    )
-    project.process_summary = "<p>Summary</p>"
-    project.status = "published"
-    project.publication_updated_at = Time.current
-    project.save!
+    publish_project!(project)
 
     sign_in(@participant)
     get workshop_url(@workshop)
@@ -107,9 +119,63 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", published_project_path(slug: project.slug)
   end
 
-  test "show falls back to another available locale when current locale is missing" do
-    sign_in(@participant)
+  test "public show renders published projects and hides drafts" do
+    published = Project.create!(workshop: @workshop, title: "Published Kapok", language: "es", status: "draft")
+    ProjectMembership.create!(project: published, user: @participant)
+    publish_project!(published)
 
+    draft = Project.create!(workshop: @workshop, title: "Draft Kapok", language: "es", status: "draft")
+    ProjectMembership.create!(project: draft, user: @participant)
+
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", published_project_path(slug: published.slug), text: "Published Kapok"
+    assert_select "span", text: "Draft Kapok", count: 0
+    assert_select "a", text: "Draft Kapok", count: 0
+    assert_select "[data-project-id='#{draft.id}']", count: 0
+  end
+
+  test "public show lists all published projects newest first" do
+    older = Project.create!(workshop: @workshop, title: "Older Project", language: "es", status: "draft")
+    newer = Project.create!(workshop: @workshop, title: "Newer Project", language: "es", status: "draft")
+    [ older, newer ].each { |project| ProjectMembership.create!(project: project, user: @participant) }
+    publish_project!(older, updated_at: 2.days.ago)
+    publish_project!(newer, updated_at: 1.day.ago)
+
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", published_project_path(slug: older.slug)
+    assert_select "a[href=?]", published_project_path(slug: newer.slug)
+    assert_operator @response.body.index("Newer Project"), :<, @response.body.index("Older Project")
+  end
+
+  test "public show has an empty state when no projects are published" do
+    Project.create!(workshop: @workshop, title: "Draft Kapok", language: "es", status: "draft")
+
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "p", text: I18n.t("workshops.show.no_published_projects")
+  end
+
+  test "public index includes workshops with no published projects" do
+    empty_workshop = Workshop.create!(
+      slug: "italy",
+      title_translations: { "it" => "Workshop IMASUS Italia" },
+      description_translations: { "it" => "Un workshop IMASUS in Italia." },
+      partner: "Lottozero",
+      location: "Prato, Italy",
+      starts_on: Date.new(2026, 5, 12),
+      ends_on: Date.new(2026, 5, 12)
+    )
+
+    get workshops_url
+    assert_response :success
+    assert_select "a[href=?]", workshop_path(@workshop)
+    assert_select "a[href=?]", workshop_path(empty_workshop)
+    assert_select "dd", text: I18n.t("workshops.index.published_project_count", count: 0), minimum: 1
+  end
+
+  test "show falls back to another available locale when current locale is missing" do
     get workshop_url(@workshop), params: { locale: :en }
     assert_response :success
     assert_select "h1", text: "Taller IMASUS Espana"

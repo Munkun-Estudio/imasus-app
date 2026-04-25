@@ -1,0 +1,70 @@
+<section class="mt-12 max-w-5xl">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <h2 class="text-xl font-bold text-imasus-dark-green"><%= t("workshops.show.published_projects_heading") %></h2>
+      <p class="mt-2 max-w-2xl text-sm leading-6 text-stone-600"><%= t("workshops.show.published_projects_lead") %></p>
+    </div>
+  </div>
+
+  <% if projects.empty? %>
+    <div class="mt-6 rounded-2xl border border-dashed border-imasus-dark-green/20 bg-stone-50 p-8">
+      <p class="text-base text-stone-600"><%= t("workshops.show.no_published_projects") %></p>
+    </div>
+  <% else %>
+    <ul class="mt-6 grid gap-5 sm:grid-cols-2">
+      <% projects.each do |project| %>
+        <li>
+          <article class="overflow-hidden rounded-2xl border border-imasus-dark-green/10 bg-white shadow-sm">
+            <% if project.hero_image.attached? %>
+              <%= link_to published_project_path(slug: project.slug), class: "block bg-stone-100" do %>
+                <%= image_variant_tag project.hero_image,
+                                      preset: :card,
+                                      alt: project.title,
+                                      class: "h-44 w-full object-cover" %>
+              <% end %>
+            <% end %>
+
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0 flex-1">
+                  <h3 class="text-base font-semibold text-imasus-dark-green">
+                    <%= link_to project.title,
+                                published_project_path(slug: project.slug),
+                                class: "hover:underline" %>
+                  </h3>
+                  <% if project.challenge.present? %>
+                    <p class="mt-2">
+                      <span class="rounded-full bg-imasus-light-blue/35 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green">
+                        <%= project.challenge.code %>
+                      </span>
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+
+              <% if project.members.any? %>
+                <div class="mt-4 flex items-center gap-3">
+                  <div class="flex -space-x-2" aria-hidden="true">
+                    <% project.members.each do |member| %>
+                      <span title="<%= member.name %>"
+                            class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-white bg-imasus-dark-green/10 text-[10px] font-bold uppercase text-imasus-dark-green">
+                        <%= member_initials(member) %>
+                      </span>
+                    <% end %>
+                  </div>
+                  <p class="min-w-0 truncate text-sm text-stone-600"><%= project_member_names(project) %></p>
+                </div>
+              <% end %>
+
+              <% if project.publication_updated_at %>
+                <p class="mt-4 text-xs text-stone-400">
+                  <%= t("workshops.show.project_last_updated", date: l(project.publication_updated_at.to_date)) %>
+                </p>
+              <% end %>
+            </div>
+          </article>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>

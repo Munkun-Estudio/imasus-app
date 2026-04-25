@@ -16,6 +16,24 @@ module WorkshopsHelper
   end
 
   # @param workshop [Workshop]
+  # @return [Integer] number of public projects for the workshop
+  def published_project_count(workshop)
+    workshop.projects.count(&:published?)
+  end
+
+  # @param project [Project]
+  # @return [String] display-ready project member names
+  def project_member_names(project)
+    project.members.map(&:name).to_sentence
+  end
+
+  # @param user [User]
+  # @return [String] initials for compact project member avatars
+  def member_initials(user)
+    user.name.to_s.split.map { |word| word[0].upcase }.first(2).join
+  end
+
+  # @param workshop [Workshop]
   # @return [Boolean] whether the signed-in user participates in this workshop
   def attending_workshop?(workshop)
     return false unless current_user
