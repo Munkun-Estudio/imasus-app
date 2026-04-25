@@ -187,8 +187,20 @@ Specs are created under `.munkit/specs/` as work begins. This list is the agreed
 | 10 | `projects-and-teams` ✅ | Project model, ProjectMembership, create project (solo or team), add members, link to workshop + challenge | 8, 9 |
 | 11 | `process-log` ✅ | LogEntry with Action Text, timeline view, create entries with photos/videos/material references. Belongs to project. | 3, 10 |
 | 12 | `project-publication` ✅ | Publishing wizard (guided reflection), draft→published lifecycle, public URL, Behance-style page with material/training embeds | 10, 11 |
-| 13 | `facilitator-tools` | Workshop management, participant invitation UI, project moderation (disable participant/project), view all projects in a workshop | 8, 9, 10 |
+| 13 | `facilitator-tools` ✅ | Workshop management, participant invitation UI, project moderation (disable participant/project), view all projects in a workshop | 8, 9, 10 |
 | 14 | `workshops-public-listing` ✅ | Public page listing workshops and their published projects (no login required) | 9, 12 |
+
+### Follow-up specs (not in the original 1–14 plan)
+
+These grew out of the work above and live under `.munkit/specs/` by slug only.
+
+| Slug | What | Status |
+|------|------|--------|
+| `workshop-management` | Drop `workshop.partner`; inline per-locale agenda editing in the workshop edit form; allow admins + facilitators to create workshops with auto-generated slug + auto-attached creator participation; "New workshop" CTA on `/workshops`; show-page polish. Supersedes `workshop-agenda-edit`. | In review (PR #25) |
+| `bookmarks` | Bookmark model, toggle UI on materials/training/glossary/challenges, `/bookmarks` index, integrates into participant home. | Pending |
+| `request-a-spot` | May upgrade per-workshop `mailto:` CTAs to a real form with persistence and facilitator notification. | Pending |
+| `activity-feed` | Facilitator/admin recent-activity strip, synthesized from existing tables. | Pending |
+| `trix-resource-embeds` | Trix toolbar embeds for materials/training in `process_summary`. | Pending |
 
 ---
 

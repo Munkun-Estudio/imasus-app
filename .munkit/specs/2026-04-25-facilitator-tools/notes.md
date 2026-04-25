@@ -183,7 +183,7 @@ So follow-up specs can find their seams:
 
 - The facilitator and admin home cards: a `<%# TODO(activity-feed): per-workshop activity strip here %>` near the workshop card body.
 - The publication wizard's `process_summary` Trix editor: a `<%# TODO(trix-resource-embeds): wire toolbar buttons for material/training references %>` near the editor invocation.
-- The workshop edit form: a `<%# TODO(workshop-agenda-edit): four-locale Trix agenda editor lands in its own spec %>` near the form's bottom.
+- ~~The workshop edit form: a `<%# TODO(workshop-agenda-edit) %>` near the form's bottom.~~ **Superseded by the `workshop-management` spec**, which folded per-locale agenda editing directly into the workshop edit form. The TODO marker was removed when that spec landed.
 
 ---
 
