@@ -302,6 +302,30 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[name='workshop[slug]']", count: 0
   end
 
+  test "edit form renders four agenda Trix editors, one per locale" do
+    sign_in(make_admin)
+    get edit_workshop_url(@workshop)
+    assert_response :success
+    assert_select "trix-editor", count: 4
+    %w[en es it el].each do |locale|
+      assert_select "input[type=hidden][name=?]", "workshop[agenda_#{locale}]"
+    end
+  end
+
+  test "PATCH update persists per-locale agenda content" do
+    sign_in(make_admin)
+    patch workshop_url(@workshop), params: {
+      workshop: {
+        agenda_en: "<h2>Spec 14 agenda EN</h2>",
+        agenda_es: "<h2>Agenda ES</h2>"
+      }
+    }
+    assert_redirected_to workshop_url(@workshop)
+    @workshop.reload
+    assert_includes @workshop.agenda_en.body.to_s, "Spec 14 agenda EN"
+    assert_includes @workshop.agenda_es.body.to_s, "Agenda ES"
+  end
+
   test "workshop show page renders an Edit workshop link for managers" do
     sign_in(make_admin)
     get workshop_url(@workshop)

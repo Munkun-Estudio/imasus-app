@@ -219,6 +219,8 @@ en:
       fields:
         title: "Title"
         description: "Description"
+        agenda: "Agenda"
+        agenda_hint: "Rich text. Headings, lists, and inline formatting are supported. Each locale carries its own agenda body."
         location: "Location"
         starts_on: "Starts on"
         ends_on: "Ends on"

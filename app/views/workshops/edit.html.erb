@@ -88,6 +88,13 @@
                     rows: 4,
                     class: form_textarea_classes %>
             </div>
+            <div>
+              <label for="workshop_agenda_<%= locale %>" class="<%= form_label_classes %>">
+                <%= t(".fields.agenda") %> — <%= locale.upcase %>
+              </label>
+              <p class="mb-2 text-xs text-imasus-dark-green/55"><%= t(".fields.agenda_hint") %></p>
+              <%= f.rich_text_area :"agenda_#{locale}", class: "trix-content" %>
+            </div>
           </div>
         <% end %>
       </section>
@@ -124,8 +131,6 @@
           <%= f.email_field :contact_email, class: form_input_classes %>
         </div>
       </section>
-
-      <%# TODO(workshop-agenda-edit): four-locale Trix agenda editor lands in its own spec. %>
 
       <div class="pt-2 flex flex-wrap items-center gap-3">
         <%= f.submit t(".submit"), class: form_primary_button_classes %>
