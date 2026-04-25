@@ -43,6 +43,7 @@
           <% tags.each do |tag| %>
             <% active = materials_chip_active?(facet, tag.slug, selected_by_facet: @selected_slugs_by_facet) %>
             <% count  = @chip_counts[tag.id] || 0 %>
+            <% next if count.zero? && !active %>
             <li>
               <%= link_to materials_chip_toggle_url(facet, tag.slug, selected_by_facet: @selected_slugs_by_facet, query: @query),
                     data: { "chip-slug" => tag.slug },

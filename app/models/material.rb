@@ -65,17 +65,23 @@ class Material < ApplicationRecord
 
   # @return [MaterialAsset, nil] the single macro (hero) asset, if attached.
   def macro_asset
+    return assets.find(&:macro?) if assets.loaded?
+
     assets.find_by(kind: :macro)
   end
 
-  # @return [ActiveRecord::Relation<MaterialAsset>] microscopy assets ordered
+  # @return [ActiveRecord::Relation<MaterialAsset>, Array<MaterialAsset>] microscopy assets ordered
   #   from highest zoom (position 0, the `m1` slot) to lowest.
   def microscopies
+    return assets.select(&:microscopy?).sort_by(&:position) if assets.loaded?
+
     assets.where(kind: :microscopy).order(:position)
   end
 
   # @return [MaterialAsset, nil] the single video asset, if attached.
   def video_asset
+    return assets.find(&:video?) if assets.loaded?
+
     assets.find_by(kind: :video)
   end
 

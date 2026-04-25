@@ -6,7 +6,7 @@ el:
   nav:
     home: "Αρχική"
     workshops: "Εργαστήρια"
-    materials: "Βάση υλικών"
+    materials: "Υλικά"
     training: "Εκπαίδευση"
     challenges: "Προκλήσεις"
     glossary: "Γλωσσάρι"
@@ -109,7 +109,7 @@ el:
         all_projects: "Όλα τα έργα"
   materials:
     index:
-      title: "Βάση υλικών"
+      title: "Υλικά"
       lead: "Εξερευνήστε βιώσιμα υλικά που συγκεντρώθηκαν για τα εργαστήρια IMASUS. Φιλτράρετε κατά προέλευση, κατά το ύφασμα που μιμούνται ή κατά την εφαρμογή που έχετε στο μυαλό σας."
       search_label: "Αναζήτηση υλικών"
       search_placeholder: "Αναζήτηση με όνομα ή περιγραφή"
@@ -127,6 +127,9 @@ el:
         commercial: "Εμπορικό"
         in_development: "Υπό ανάπτυξη"
         research_only: "Μόνο έρευνα"
+    card:
+      media_pending: "Οι εικόνες έρχονται σύντομα"
+      material_preview: "Προεπισκόπηση υλικού"
     preview:
       close: "Κλείσιμο προεπισκόπησης"
       open_label: "Προεπισκόπηση %{name}"
