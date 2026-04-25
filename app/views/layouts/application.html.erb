@@ -54,6 +54,12 @@
 
     <%# Main content area %>
     <div class="flex min-h-screen flex-col pt-14 lg:ml-64 lg:pt-0">
+      <%# Top-right locale switcher — visible to logged-in and logged-out users alike. %>
+      <div data-locale-switcher-position="top-right"
+           class="hidden lg:flex absolute right-6 top-4 z-30 items-center gap-1">
+        <%= render "shared/locale_switcher" %>
+      </div>
+
       <main class="flex-1">
         <%= yield %>
       </main>

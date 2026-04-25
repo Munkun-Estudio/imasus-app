@@ -1,0 +1,13 @@
+<%# Compact locale switcher used by the top-right area of the layout.
+    The Stimulus controller name is preserved (`locale-switcher`) so the
+    existing JS continues to apply unchanged after the relocation. %>
+<div data-controller="locale-switcher"
+     class="flex flex-wrap items-center gap-1 rounded-full border border-imasus-dark-green/10 bg-white/90 p-1 shadow-sm backdrop-blur">
+  <% I18n.available_locales.each do |loc| %>
+    <a href="<%= url_for(locale: loc) %>"
+       class="rounded-full px-2.5 py-1 text-xs font-bold transition
+              <%= loc.to_s == I18n.locale.to_s ? 'bg-imasus-dark-green text-white' : 'text-imasus-dark-green/60 hover:bg-imasus-dark-green/5' %>">
+      <%= loc.to_s.upcase %>
+    </a>
+  <% end %>
+</div>

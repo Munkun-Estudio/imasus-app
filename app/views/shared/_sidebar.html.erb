@@ -30,19 +30,6 @@
     <% end %>
   </div>
 
-  <%# Locale switcher %>
-  <div class="border-t border-imasus-dark-green/10 p-4" data-controller="locale-switcher">
-    <p class="mb-2 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/40">
-      <%= t("locale_switcher.label") %>
-    </p>
-    <div class="flex flex-wrap gap-1">
-      <% I18n.available_locales.each do |loc| %>
-        <a href="<%= url_for(locale: loc) %>"
-           class="rounded px-2 py-1 text-xs font-bold transition
-                  <%= loc.to_s == I18n.locale.to_s ? 'bg-imasus-dark-green text-white' : 'text-imasus-dark-green/50 hover:bg-imasus-dark-green/5' %>">
-          <%= loc.to_s.upcase %>
-        </a>
-      <% end %>
-    </div>
-  </div>
+  <%# Bottom-of-sidebar auth chrome (replaces the old locale switcher slot). %>
+  <%= render "shared/user_menu" %>
 </nav>
