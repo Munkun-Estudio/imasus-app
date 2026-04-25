@@ -34,6 +34,13 @@ class SidebarUserMenuTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "mobile header renders the locale switcher so it stays reachable below the lg breakpoint" do
+    get root_url
+    assert_select "[data-locale-switcher-position='mobile-header'] [data-controller='locale-switcher']" do
+      assert_select "a", minimum: 4
+    end
+  end
+
   test "logged-out sidebar shows a Log in link instead of the user menu" do
     get root_url
     assert_select "[data-user-menu]" do

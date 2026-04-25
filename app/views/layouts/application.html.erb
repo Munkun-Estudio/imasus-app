@@ -28,15 +28,20 @@
     <%# Mobile header — visible below lg breakpoint %>
     <header class="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-imasus-dark-green/10 bg-white px-4 py-3 lg:hidden">
       <a href="<%= root_path %>" class="text-lg font-bold text-imasus-dark-green">IMASUS</a>
-      <button type="button"
-              data-mobile-menu-target="toggle"
-              data-action="mobile-menu#toggle"
-              class="rounded-lg p-2 text-imasus-dark-green/70 hover:bg-imasus-mint/10"
-              aria-label="<%= t("nav.toggle_menu") %>">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-        </svg>
-      </button>
+      <div class="flex items-center gap-2">
+        <div data-locale-switcher-position="mobile-header">
+          <%= render "shared/locale_switcher" %>
+        </div>
+        <button type="button"
+                data-mobile-menu-target="toggle"
+                data-action="mobile-menu#toggle"
+                class="rounded-lg p-2 text-imasus-dark-green/70 hover:bg-imasus-mint/10"
+                aria-label="<%= t("nav.toggle_menu") %>">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
     </header>
 
     <%# Mobile overlay backdrop %>

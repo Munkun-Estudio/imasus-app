@@ -44,7 +44,7 @@
             <div class="mt-4 grid grid-cols-3 gap-2 text-center">
               <div data-stat="participants" class="rounded-xl bg-imasus-light-blue/30 px-3 py-2">
                 <span data-count class="block text-lg font-bold text-imasus-dark-green">
-                  <%= workshop.participations.size %>
+                  <%= workshop.participants.count(&:participant?) %>
                 </span>
                 <span class="block text-xs text-imasus-dark-green/60"><%= t("home.facilitator.stats.participants") %></span>
               </div>

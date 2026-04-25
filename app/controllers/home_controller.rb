@@ -36,10 +36,10 @@ class HomeController < ApplicationController
   end
 
   def load_facilitator_data
-    @workshops = current_user.workshops.includes(:participations, :projects)
+    @workshops = current_user.workshops.includes(:participants, :projects)
   end
 
   def load_admin_data
-    @workshops = Workshop.ordered.includes(:participations, :projects)
+    @workshops = Workshop.ordered.includes(:participants, :projects)
   end
 end

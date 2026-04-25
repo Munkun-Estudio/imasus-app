@@ -250,10 +250,27 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     sign_in(facilitator)
     get root_url
     assert_select "[data-workshop-card][data-slug=?]", workshop.slug do
-      # Three participants total (facilitator + 2 participants)
-      assert_select "[data-stat=participants] [data-count]", text: "3"
+      # The facilitator participation is excluded from the participant count.
+      assert_select "[data-stat=participants] [data-count]", text: "2"
       assert_select "[data-stat=draft_projects] [data-count]", text: "1"
       assert_select "[data-stat=published_projects] [data-count]", text: "1"
+    end
+  end
+
+  test "facilitator home participant count excludes facilitators and admins" do
+    facilitator = make_facilitator
+    admin = make_admin(email: "extra-admin@example.com")
+    workshop = make_workshop
+    WorkshopParticipation.create!(user: facilitator, workshop: workshop)
+    WorkshopParticipation.create!(user: admin, workshop: workshop)
+
+    only_participant = make_participant(email: "only@example.com")
+    WorkshopParticipation.create!(user: only_participant, workshop: workshop)
+
+    sign_in(facilitator)
+    get root_url
+    assert_select "[data-workshop-card][data-slug=?]", workshop.slug do
+      assert_select "[data-stat=participants] [data-count]", text: "1"
     end
   end
 
