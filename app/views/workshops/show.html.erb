@@ -7,7 +7,7 @@
     <%= t(".back_to_index") %>
   <% end %>
 
-  <header class="mt-6 max-w-3xl">
+  <header class="mt-6 max-w-5xl">
     <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50"><%= t(".eyebrow") %></p>
     <% if @attending %>
       <div class="mt-4 flex flex-wrap items-center gap-3">
@@ -17,53 +17,59 @@
       </div>
     <% end %>
 
-    <h1 class="mt-5 text-4xl font-bold text-imasus-dark-green"><%= @workshop.title %></h1>
-    <p class="mt-5 text-lg leading-8 text-stone-700"><%= @workshop.description %></p>
+    <%# Title + Edit-workshop CTA inline. Edit hides for non-managers. %>
+    <div class="mt-5 flex flex-wrap items-start justify-between gap-4">
+      <h1 class="flex-1 text-4xl font-bold text-imasus-dark-green"><%= @workshop.title %></h1>
+      <% if @workshop.manageable_by?(current_user) %>
+        <%= link_to t(".edit_workshop"),
+                    edit_workshop_path(@workshop),
+                    class: "shrink-0 inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green hover:bg-imasus-dark-green/5" %>
+      <% end %>
+    </div>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-stone-700"><%= @workshop.description %></p>
   </header>
 
-  <dl class="mt-10 grid max-w-5xl gap-8 border-t border-imasus-dark-green/10 pt-8 sm:grid-cols-3">
-    <div>
+  <%# Metadata strip — Location / Dates / Agenda link / (managers) Participants count + Invite. %>
+  <dl class="mt-10 flex max-w-5xl flex-wrap gap-x-12 gap-y-8 border-t border-imasus-dark-green/10 pt-8">
+    <div class="min-w-[10rem]">
       <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".location") %></dt>
       <dd class="mt-2 text-base font-semibold text-imasus-dark-green"><%= @workshop.location %></dd>
     </div>
-    <div>
+    <div class="min-w-[10rem]">
       <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".dates") %></dt>
       <dd class="mt-2 text-base font-semibold text-imasus-dark-green"><%= workshop_date_range(@workshop) %></dd>
     </div>
+    <% if @workshop.manageable_by?(current_user) %>
+      <div class="min-w-[12rem]">
+        <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".participants") %></dt>
+        <dd class="mt-2 flex flex-wrap items-center gap-3">
+          <%= link_to t(".participant_count", count: @workshop.participants.count(&:participant?)),
+                      workshop_participants_path(@workshop),
+                      class: "text-base font-semibold text-imasus-dark-green hover:underline" %>
+          <%= link_to t(".invite_participants"),
+                      new_workshop_invitation_path(@workshop),
+                      class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-3 py-1 text-xs font-semibold text-imasus-dark-green hover:bg-imasus-dark-green/5" %>
+        </dd>
+      </div>
+    <% elsif current_user&.facilitator? %>
+      <%# Facilitator visiting a workshop they don't manage keeps the existing invite affordance. %>
+      <div class="min-w-[12rem]">
+        <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".participants") %></dt>
+        <dd class="mt-2">
+          <%= link_to t(".invite_participants"),
+                      new_workshop_invitation_path(@workshop),
+                      class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-3 py-1 text-xs font-semibold text-imasus-dark-green hover:bg-imasus-dark-green/5" %>
+        </dd>
+      </div>
+    <% end %>
     <% if current_user %>
-      <div>
+      <div class="min-w-[10rem]">
         <%= link_to t(".agenda_page"),
                     agenda_workshop_path(@workshop),
                     class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
       </div>
     <% end %>
   </dl>
-
-  <%# Manage cluster: primary edit + secondary people actions, grouped together
-      so the show page reads as "the workshop, then the things you can do to manage it." %>
-  <% if @workshop.manageable_by?(current_user) %>
-    <div class="mt-8 flex flex-wrap items-center gap-2 rounded-2xl border border-imasus-dark-green/10 bg-white px-3 py-2">
-      <p class="px-2 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45">
-        <%= t("workshops.show.manage") %>
-      </p>
-      <%= link_to t("workshops.show.edit_workshop"),
-                  edit_workshop_path(@workshop),
-                  class: "inline-flex items-center rounded-full bg-imasus-dark-green px-4 py-2 text-sm font-semibold text-white" %>
-      <%= link_to t("workshops.show.participants"),
-                  workshop_participants_path(@workshop),
-                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-4 py-2 text-sm font-semibold text-imasus-dark-green" %>
-      <%= link_to t("workshops.show.invite_participants", default: "Invite participants"),
-                  new_workshop_invitation_path(@workshop),
-                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-4 py-2 text-sm font-semibold text-imasus-dark-green" %>
-    </div>
-  <% elsif current_user&.facilitator? || current_user&.admin? %>
-    <%# Facilitator outside their own workshops keeps the existing invite affordance only. %>
-    <div class="mt-8 flex flex-wrap gap-3">
-      <%= link_to t("workshops.show.invite_participants", default: "Invite participants"),
-                  new_workshop_invitation_path(@workshop),
-                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
-    </div>
-  <% end %>
 
   <% if current_user %>
     <%= render "projects",

@@ -192,7 +192,10 @@ en:
       invite_participants: "Invite participants"
       edit_workshop: "Edit workshop"
       participants: "Participants"
-      manage: "Manage"
+      participant_count:
+        zero: "No participants yet"
+        one: "1 participant"
+        other: "%{count} participants"
       new_project: "Start a project"
       projects_heading: "Projects"
       published_projects_heading: "Published projects"

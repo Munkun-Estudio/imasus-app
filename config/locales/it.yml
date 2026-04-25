@@ -195,7 +195,10 @@ it:
       invite_participants: "Invita partecipanti"
       edit_workshop: "Modifica workshop"
       participants: "Partecipanti"
-      manage: "Gestisci"
+      participant_count:
+        zero: "Nessun partecipante"
+        one: "1 partecipante"
+        other: "%{count} partecipanti"
       new_project: "Avvia un progetto"
       projects_heading: "Progetti"
       published_projects_heading: "Progetti pubblicati"

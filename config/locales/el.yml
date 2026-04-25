@@ -195,7 +195,10 @@ el:
       invite_participants: "Πρόσκληση συμμετεχόντων"
       edit_workshop: "Επεξεργασία εργαστηρίου"
       participants: "Συμμετέχοντες"
-      manage: "Διαχείριση"
+      participant_count:
+        zero: "Δεν υπάρχουν συμμετέχοντες"
+        one: "1 συμμετέχων"
+        other: "%{count} συμμετέχοντες"
       new_project: "Ξεκινήστε ένα έργο"
       projects_heading: "Έργα"
       published_projects_heading: "Δημοσιευμένα έργα"

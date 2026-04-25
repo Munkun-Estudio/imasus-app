@@ -192,7 +192,10 @@ es:
       invite_participants: "Invitar participantes"
       edit_workshop: "Editar taller"
       participants: "Participantes"
-      manage: "Gestión"
+      participant_count:
+        zero: "Sin participantes"
+        one: "1 participante"
+        other: "%{count} participantes"
       new_project: "Empezar un proyecto"
       projects_heading: "Proyectos"
       published_projects_heading: "Proyectos publicados"
