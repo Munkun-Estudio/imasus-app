@@ -253,6 +253,47 @@ So follow-up specs can find the seams cleanly:
 
 ---
 
+## Implementation findings (recorded post-implementation)
+
+Things worth preserving once the spec was actually built:
+
+- **`current_user`, not `Current.user`.** The brief used `Current.user`
+  when describing the role branch. The project's actual helper is
+  `current_user` on `ApplicationController`. Implementation used the
+  real helper; the brief copy is stale on that one detail.
+- **`set_locale` integrates with the existing cookie path.** The brief
+  lists three resolution sources (params, preferred_locale, default).
+  Reality has four — the existing visitor cookie sits between
+  preferred_locale and default. Cookie writes only happen when the
+  request carries an explicit `?locale=` param now, so a stored
+  preference is no longer silently overwritten.
+- **`admin_root_path` had real callers.** Removing the admin namespace
+  root broke `FacilitatorInvitationsController#update` (redirect
+  target) and four tests. The redirect is now `root_path` (the
+  role-aware home), tests that wanted "a protected admin-only page"
+  switched to `admin_facilitators_path`.
+- **N+1s caught in self-review.**
+  - Visitor `Project.published` collection didn't eager-load
+    `:workshop` even though the cards render `project.workshop.title`.
+    Fixed by adding `.includes(:workshop)`.
+  - Facilitator + admin workshop cards filtered the
+    eager-loaded `:projects` collection with
+    `workshop.projects.where(status: "draft").size`. The `.where` issues
+    a fresh query each call. Switched to
+    `workshop.projects.count { |p| p.status == "draft" }`, which uses
+    the loaded array.
+- **`User#current_password` virtual attr.** The settings form needs to
+  re-render after a failed password change. Without
+  `attr_accessor :current_password`, the form helper would raise
+  trying to read the attribute back. The accessor is documented as
+  transient.
+- **i18n strategy for it/el.** Italian and Greek carry English
+  placeholders for longer copy under the new keys, with a TODO comment
+  flagging the section for the country teams. Spanish is fully
+  translated. This matches the brief's I18n acceptance criterion.
+
+---
+
 ## TDD / workflow reminders
 
 Per `CLAUDE.md` the order is **Tests → Implementation → YARD → Docs →
