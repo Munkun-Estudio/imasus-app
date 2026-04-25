@@ -19,11 +19,14 @@ Rails.application.routes.draw do
   resources :training, only: :index
   get "training/:slug/:section", to: "training#show", as: :training_show,
       constraints: { slug: /[a-z0-9-]+/, section: /[a-z0-9-]+/ }
-  resources :workshops, only: [ :index, :show ], param: :slug do
+  resources :workshops, only: [ :index, :show, :edit, :update ], param: :slug do
     member do
       get :agenda
     end
     resources :invitations, only: [ :new, :create ], controller: "workshop_invitations"
+    resources :participants, only: [ :index, :destroy ],
+              controller: "workshop_participants",
+              param: :user_id
   end
   resources :glossary_terms, path: "glossary", param: :slug do
     member do
@@ -38,6 +41,10 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
+    member do
+      patch :disable
+      patch :enable
+    end
     resources :memberships, only: [ :new, :create, :destroy ], controller: "project_memberships"
     resources :log_entries, only: [ :index, :new, :create, :destroy ] do
       member { get :delete_confirmation }

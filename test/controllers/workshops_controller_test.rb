@@ -180,4 +180,165 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", text: "Taller IMASUS Espana"
   end
+
+  test "public show excludes disabled published projects" do
+    visible = Project.create!(workshop: @workshop, title: "Visible", language: "es", status: "draft")
+    hidden  = Project.create!(workshop: @workshop, title: "Disabled Project", language: "es", status: "draft")
+    [ visible, hidden ].each { |p| ProjectMembership.create!(project: p, user: @participant) }
+    publish_project!(visible)
+    publish_project!(hidden)
+
+    admin = User.create!(name: "Admin", email: "admin-wsx@example.com",
+                          password: "correct horse battery staple", role: :admin)
+    hidden.disable!(by: admin)
+
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", published_project_path(slug: visible.slug)
+    assert_select "a[href=?]", published_project_path(slug: hidden.slug), count: 0
+  end
+
+  # ---------------------------------------------------------------------
+  # Workshop edit (spec 13)
+  # ---------------------------------------------------------------------
+
+  def make_admin
+    User.create!(name: "Admin", email: "ws-admin@example.com", password: @password, role: :admin)
+  end
+
+  def make_participating_facilitator(workshop:)
+    fac = User.create!(name: "Elena", email: "ws-elena-#{SecureRandom.hex(2)}@example.com",
+                       password: @password, role: :facilitator)
+    WorkshopParticipation.create!(user: fac, workshop: workshop)
+    fac
+  end
+
+  test "GET edit redirects unauthenticated users to login" do
+    get edit_workshop_url(@workshop)
+    assert_redirected_to new_session_path
+  end
+
+  test "GET edit redirects participants with access denied" do
+    sign_in(@participant)
+    get edit_workshop_url(@workshop)
+    assert_redirected_to root_path
+    assert_not_nil flash[:alert]
+  end
+
+  test "GET edit redirects a facilitator who does not participate in this workshop" do
+    sign_in(@facilitator) # facilitator without WorkshopParticipation
+    get edit_workshop_url(@workshop)
+    assert_redirected_to root_path
+    assert_not_nil flash[:alert]
+  end
+
+  test "GET edit renders for an admin" do
+    sign_in(make_admin)
+    get edit_workshop_url(@workshop)
+    assert_response :success
+  end
+
+  test "GET edit renders for a facilitator who participates in the workshop" do
+    sign_in(make_participating_facilitator(workshop: @workshop))
+    get edit_workshop_url(@workshop)
+    assert_response :success
+  end
+
+  test "PATCH update persists translated, plain, and contact fields" do
+    sign_in(make_admin)
+    patch workshop_url(@workshop), params: {
+      workshop: {
+        title_translations: { "es" => "Nuevo título", "en" => "New title" },
+        description_translations: { "es" => "Nueva descripción", "en" => "New description" },
+        location: "Madrid, Spain",
+        partner: "New Partner",
+        starts_on: "2027-01-01",
+        ends_on: "2027-01-02",
+        contact_email: "hello@imasus.eu"
+      }
+    }
+    assert_redirected_to workshop_url(@workshop)
+
+    @workshop.reload
+    assert_equal "Nuevo título",       @workshop.title_translations["es"]
+    assert_equal "New title",          @workshop.title_translations["en"]
+    assert_equal "Madrid, Spain",      @workshop.location
+    assert_equal "New Partner",        @workshop.partner
+    assert_equal Date.new(2027, 1, 1), @workshop.starts_on
+    assert_equal Date.new(2027, 1, 2), @workshop.ends_on
+    assert_equal "hello@imasus.eu",    @workshop.contact_email
+  end
+
+  test "PATCH update rejects ends_on before starts_on" do
+    sign_in(make_admin)
+    patch workshop_url(@workshop), params: {
+      workshop: { starts_on: "2027-02-01", ends_on: "2027-01-15" }
+    }
+    assert_response :unprocessable_content
+    @workshop.reload
+    assert_not_equal Date.new(2027, 2, 1), @workshop.starts_on
+  end
+
+  test "PATCH update rejects malformed contact_email" do
+    sign_in(make_admin)
+    patch workshop_url(@workshop), params: {
+      workshop: { contact_email: "not-an-email" }
+    }
+    assert_response :unprocessable_content
+    @workshop.reload
+    assert_nil @workshop.contact_email
+  end
+
+  test "PATCH update is blocked for non-managers" do
+    sign_in(@participant)
+    patch workshop_url(@workshop), params: {
+      workshop: { partner: "Hijacked" }
+    }
+    assert_redirected_to root_path
+    @workshop.reload
+    assert_not_equal "Hijacked", @workshop.partner
+  end
+
+  test "edit form does not expose an editable slug field" do
+    sign_in(make_admin)
+    get edit_workshop_url(@workshop)
+    assert_response :success
+    assert_select "input[name='workshop[slug]']", count: 0
+  end
+
+  test "workshop show page renders an Edit workshop link for managers" do
+    sign_in(make_admin)
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", edit_workshop_path(@workshop), text: I18n.t("workshops.show.edit_workshop")
+  end
+
+  test "workshop show page hides the Edit workshop link from non-managers" do
+    sign_in(@participant)
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", edit_workshop_path(@workshop), count: 0
+  end
+
+  test "workshop show page hides the Edit workshop link from visitors" do
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", edit_workshop_path(@workshop), count: 0
+  end
+
+  test "public index published count excludes disabled projects" do
+    visible = Project.create!(workshop: @workshop, title: "Visible Counted", language: "es", status: "draft")
+    hidden  = Project.create!(workshop: @workshop, title: "Hidden Counted",  language: "es", status: "draft")
+    [ visible, hidden ].each { |p| ProjectMembership.create!(project: p, user: @participant) }
+    publish_project!(visible)
+    publish_project!(hidden)
+
+    admin = User.create!(name: "Admin", email: "admin-wsi@example.com",
+                          password: "correct horse battery staple", role: :admin)
+    hidden.disable!(by: admin)
+
+    get workshops_url
+    assert_response :success
+    assert_select "dd", text: I18n.t("workshops.index.published_project_count", count: 1), minimum: 1
+  end
 end

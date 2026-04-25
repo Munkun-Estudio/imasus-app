@@ -48,6 +48,14 @@
                   new_workshop_invitation_path(@workshop),
                   class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
     <% end %>
+    <% if @workshop.manageable_by?(current_user) %>
+      <%= link_to t("workshops.show.edit_workshop"),
+                  edit_workshop_path(@workshop),
+                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
+      <%= link_to t("workshops.show.participants"),
+                  workshop_participants_path(@workshop),
+                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
+    <% end %>
   </div>
 
   <% if current_user %>

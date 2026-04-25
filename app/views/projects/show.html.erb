@@ -12,6 +12,34 @@
     </div>
   <% end %>
 
+  <% if @project.disabled? %>
+    <div data-disabled-banner
+         class="mt-6 rounded-2xl border border-imasus-red/30 bg-imasus-red/5 px-5 py-4 text-sm leading-relaxed text-imasus-red">
+      <p class="font-semibold"><%= t("projects.disabled.banner_heading") %></p>
+      <p class="mt-1 text-imasus-red/80"><%= t("projects.disabled.banner_body") %></p>
+    </div>
+  <% end %>
+
+  <% if @project.workshop.manageable_by?(current_user) %>
+    <div class="mt-4">
+      <% if @project.disabled? %>
+        <%= button_to enable_project_path(@project),
+                      method: :patch,
+                      data: { turbo_confirm: t("projects.enable.confirm") },
+                      class: "inline-flex items-center rounded-full bg-imasus-mint px-4 py-2 text-sm font-bold text-imasus-dark-green transition hover:brightness-95" do %>
+          <%= t("projects.enable.button") %>
+        <% end %>
+      <% else %>
+        <%= button_to disable_project_path(@project),
+                      method: :patch,
+                      data: { turbo_confirm: t("projects.disable.confirm") },
+                      class: "inline-flex items-center rounded-full border border-imasus-red/30 bg-imasus-red/5 px-4 py-2 text-sm font-bold text-imasus-red transition hover:bg-imasus-red/10" do %>
+          <%= t("projects.disable.button") %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
   <header class="mt-6 max-w-3xl">
     <div class="flex items-start justify-between gap-4">
       <div class="flex-1 min-w-0">

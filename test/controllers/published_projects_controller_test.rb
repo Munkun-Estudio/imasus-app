@@ -71,4 +71,13 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "a[href=?]", edit_project_publication_path(@published), count: 0
   end
+
+  test "show returns 404 for a disabled published project" do
+    admin = User.create!(name: "Admin", email: "admin-pp@example.com",
+                          password: @password, role: :admin)
+    @published.disable!(by: admin)
+
+    get published_project_url(slug: @published.slug)
+    assert_response :not_found
+  end
 end

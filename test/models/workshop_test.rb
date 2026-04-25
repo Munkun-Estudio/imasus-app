@@ -90,4 +90,40 @@ class WorkshopTest < ActiveSupport::TestCase
     assert_not workshop.valid?
     assert_includes workshop.errors[:contact_email], "is invalid"
   end
+
+  # --- manageable_by? (spec 13) ---
+
+  test "manageable_by? is true for any admin" do
+    workshop = Workshop.create!(workshop_attributes)
+    admin = User.create!(name: "A", email: "manage-a@example.com", role: :admin)
+    assert workshop.manageable_by?(admin)
+  end
+
+  test "manageable_by? is true for a facilitator who participates in the workshop" do
+    workshop = Workshop.create!(workshop_attributes)
+    fac = User.create!(name: "F", email: "manage-f@example.com", role: :facilitator)
+    WorkshopParticipation.create!(user: fac, workshop: workshop)
+    assert workshop.manageable_by?(fac)
+  end
+
+  test "manageable_by? is false for a facilitator who does not participate" do
+    workshop = Workshop.create!(workshop_attributes)
+    other_workshop = Workshop.create!(workshop_attributes(slug: "italy",
+                                                          partner: "Lottozero",
+                                                          location: "Prato",
+                                                          title_translations: { "it" => "Workshop Italia" },
+                                                          description_translations: { "it" => "Italia." }))
+    fac = User.create!(name: "F", email: "manage-fo@example.com", role: :facilitator)
+    WorkshopParticipation.create!(user: fac, workshop: other_workshop)
+    assert_not workshop.manageable_by?(fac)
+  end
+
+  test "manageable_by? is false for participants and visitors" do
+    workshop = Workshop.create!(workshop_attributes)
+    participant = User.create!(name: "P", email: "manage-p@example.com", role: :participant)
+    WorkshopParticipation.create!(user: participant, workshop: workshop)
+
+    assert_not workshop.manageable_by?(participant)
+    assert_not workshop.manageable_by?(nil)
+  end
 end
