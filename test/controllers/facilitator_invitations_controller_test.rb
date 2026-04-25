@@ -28,7 +28,7 @@ class FacilitatorInvitationsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil flash[:alert]
   end
 
-  test "PATCH update sets password, clears token, signs in, redirects to admin root" do
+  test "PATCH update sets password, clears token, signs in, redirects to home" do
     patch facilitator_invitation_path(token: @token), params: {
       user: { name: "Updated", password: "fresh password 42", password_confirmation: "fresh password 42" }
     }
@@ -38,7 +38,7 @@ class FacilitatorInvitationsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil @facilitator.invitation_accepted_at
     assert_equal "Updated", @facilitator.name
     assert @facilitator.authenticate("fresh password 42")
-    assert_redirected_to admin_root_path
+    assert_redirected_to root_path
     assert_equal @facilitator.id, session[:user_id]
   end
 

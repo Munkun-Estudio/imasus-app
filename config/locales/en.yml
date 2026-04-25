@@ -239,9 +239,6 @@ en:
       notice: "Your password has been updated."
     token_invalid: "That password reset link is invalid or has expired. Request a new one."
   admin:
-    dashboard:
-      index:
-        title: "Admin dashboard"
     facilitators:
       index:
         title: "Facilitators"
@@ -513,6 +510,9 @@ en:
       members_heading: "Team"
       last_updated: "Last updated %{date}"
       edit_link: "Edit published page"
+  settings:
+    edit:
+      title: "Settings"
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

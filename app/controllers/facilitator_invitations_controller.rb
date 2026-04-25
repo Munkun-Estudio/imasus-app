@@ -11,7 +11,7 @@ class FacilitatorInvitationsController < ApplicationController
     if @user.update(facilitator_accept_params)
       @user.accept_invitation!
       sign_in_as(@user)
-      redirect_to admin_root_path,
+      redirect_to root_path,
                   notice: t("facilitator_invitations.update.notice",
                             default: "Welcome to IMASUS. Your account is ready.")
     else
