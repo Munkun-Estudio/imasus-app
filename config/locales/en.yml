@@ -231,6 +231,15 @@ en:
         other: "%{count} errors prevented saving this workshop:"
     update:
       success: "Workshop updated."
+    new:
+      title: "New workshop"
+      heading: "Create a workshop"
+      lead: "Create a new IMASUS workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
+      back_to_index: "← Back to workshops"
+      submit: "Create workshop"
+      cancel: "Cancel"
+    create:
+      success: "Workshop created."
   workshop_participants:
     index:
       title: "Participants — %{workshop}"

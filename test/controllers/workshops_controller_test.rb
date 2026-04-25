@@ -312,6 +312,94 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  # ---------------------------------------------------------------------
+  # Workshop creation (workshop-management spec)
+  # ---------------------------------------------------------------------
+
+  test "GET new redirects unauthenticated users to login" do
+    get new_workshop_url
+    assert_redirected_to new_session_path
+  end
+
+  test "GET new redirects participants with access denied" do
+    sign_in(@participant)
+    get new_workshop_url
+    assert_redirected_to root_path
+    assert_not_nil flash[:alert]
+  end
+
+  test "GET new renders for admin" do
+    sign_in(make_admin)
+    get new_workshop_url
+    assert_response :success
+    assert_select "form[action=?]", workshops_path
+  end
+
+  test "GET new renders for any facilitator regardless of prior workshop participations" do
+    fac = User.create!(name: "New Fac", email: "newfac@example.com",
+                       password: @password, role: :facilitator)
+    sign_in(fac)
+    get new_workshop_url
+    assert_response :success
+  end
+
+  test "POST create persists workshop and auto-attaches the creator as a workshop participation" do
+    fac = User.create!(name: "Beatriz", email: "beatriz@example.com",
+                       password: @password, role: :facilitator)
+    sign_in(fac)
+
+    assert_difference -> { Workshop.count }, 1 do
+      assert_difference -> { WorkshopParticipation.count }, 1 do
+        post workshops_path, params: {
+          workshop: {
+            title_translations: { "en" => "Portugal Workshop" },
+            description_translations: { "en" => "An IMASUS workshop in Lisbon." },
+            location: "Lisbon, Portugal",
+            starts_on: "2027-01-15",
+            ends_on: "2027-01-16",
+            contact_email: "portugal@imasus.eu"
+          }
+        }
+      end
+    end
+
+    workshop = Workshop.find_by!(slug: "portugal-workshop")
+    assert_redirected_to workshop_path(workshop)
+    assert WorkshopParticipation.exists?(user: fac, workshop: workshop),
+           "creator should be auto-attached as a workshop participation"
+    assert workshop.manageable_by?(fac), "creator should immediately be able to manage"
+  end
+
+  test "POST create renders new with 422 when validations fail" do
+    sign_in(make_admin)
+    post workshops_path, params: {
+      workshop: {
+        title_translations: {},
+        description_translations: {},
+        location: "",
+        starts_on: nil,
+        ends_on: nil
+      }
+    }
+    assert_response :unprocessable_content
+  end
+
+  test "POST create forbidden for participants" do
+    sign_in(@participant)
+    assert_no_difference -> { Workshop.count } do
+      post workshops_path, params: {
+        workshop: {
+          title_translations: { "en" => "Hijack" },
+          description_translations: { "en" => "Hijack." },
+          location: "Nowhere",
+          starts_on: "2027-02-01",
+          ends_on: "2027-02-01"
+        }
+      }
+    end
+    assert_redirected_to root_path
+  end
+
   test "PATCH update persists per-locale agenda content" do
     sign_in(make_admin)
     patch workshop_url(@workshop), params: {

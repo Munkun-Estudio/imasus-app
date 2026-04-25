@@ -1,10 +1,10 @@
-<% content_for :title, t(".title", workshop: @workshop.title) %>
+<% content_for :title, t(".title") %>
 
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <div class="max-w-3xl">
-    <%= link_to workshop_path(@workshop),
+    <%= link_to workshops_path,
                 class: "inline-flex items-center text-sm text-imasus-dark-green/60 hover:text-imasus-dark-green" do %>
-      <%= t(".back_to_workshop") %>
+      <%= t(".back_to_index") %>
     <% end %>
 
     <h1 class="mt-2 text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
@@ -16,9 +16,9 @@
 
     <%= render "form",
                workshop: @workshop,
-               form_url: workshop_path(@workshop),
+               form_url: workshops_path,
                submit_label: t(".submit"),
-               cancel_url: workshop_path(@workshop),
+               cancel_url: workshops_path,
                cancel_label: t(".cancel") %>
   </div>
 </div>
