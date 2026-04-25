@@ -93,6 +93,7 @@ es:
       cta:
         invite_participants: "Invitar participantes"
         open_workshop: "Abrir taller"
+        edit_workshop: "Editar"
       resources:
         heading: "Recursos públicos"
       empty: "Aún no tienes talleres asignados. La administración configurará tu acceso pronto."
@@ -186,6 +187,8 @@ es:
       open_agenda: "Abrir agenda"
       agenda_page: "Ver agenda completa"
       invite_participants: "Invitar participantes"
+      edit_workshop: "Editar taller"
+      participants: "Participantes"
       new_project: "Empezar un proyecto"
       projects_heading: "Proyectos"
       published_projects_heading: "Proyectos publicados"
@@ -199,6 +202,48 @@ es:
       eyebrow: "Agenda del taller"
       title: "Agenda de %{workshop}"
       back_to_workshop: "← Volver al taller"
+    edit:
+      title: "Editar %{workshop}"
+      heading: "Editar taller"
+      lead: "Actualiza el título y la descripción (por idioma), las fechas, el partner y el correo de contacto del taller."
+      back_to_workshop: "← Volver al taller"
+      submit: "Guardar taller"
+      cancel: "Cancelar"
+      locale_tabs_label: "Idioma"
+      sections:
+        translated: "Título y descripción"
+        details: "Detalles"
+        contact: "Contacto"
+      fields:
+        title: "Título"
+        description: "Descripción"
+        location: "Ubicación"
+        partner: "Partner"
+        starts_on: "Empieza el"
+        ends_on: "Acaba el"
+        contact_email: "Correo de contacto"
+        contact_email_hint: "Destino del enlace mailto: 'Solicitar plaza' que aparece en la página pública del visitante."
+      errors_heading:
+        one: "1 error impidió guardar el taller:"
+        other: "%{count} errores impidieron guardar el taller:"
+    update:
+      success: "Taller actualizado."
+  workshop_participants:
+    index:
+      title: "Participantes — %{workshop}"
+      heading: "Participantes de %{workshop}"
+      lead: "Personas asociadas a este taller. Eliminar a una persona solo termina su asociación al taller; sus proyectos y su cuenta se mantienen."
+      back_to_workshop: "← Volver al taller"
+      empty: "Aún no hay participantes. Invita a personas desde el flujo de invitación al taller."
+      remove: "Eliminar"
+      confirm_remove: "¿Eliminar a %{name} de este taller?"
+      joined_on: "Se unió el %{date}"
+      projects:
+        one: "1 proyecto en este taller"
+        other: "%{count} proyectos en este taller"
+    destroy:
+      success: "%{name} ha sido eliminado/a de este taller."
+      forbidden: "Esa persona no se puede eliminar."
   sessions:
     new:
       title: "Iniciar sesión"
@@ -491,6 +536,18 @@ es:
       success: "Proyecto actualizado."
     destroy:
       success: "Proyecto eliminado."
+    disable:
+      button: "Desactivar proyecto"
+      confirm: "¿Desactivar este proyecto? Su acceso público quedará oculto hasta que vuelvas a activarlo."
+      success: "Proyecto desactivado."
+    enable:
+      button: "Activar proyecto"
+      confirm: "¿Reactivar este proyecto? Se restaurará el acceso público."
+      success: "Proyecto activado."
+    disabled:
+      banner_heading: "Este proyecto está desactivado."
+      banner_body: "Una persona facilitadora lo ha ocultado de las páginas públicas. Editar y publicar quedan en pausa hasta que se active de nuevo."
+      chip: "Desactivado"
     form:
       title: "Título"
       description: "Descripción"
