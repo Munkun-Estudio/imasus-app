@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       get :agenda
     end
     resources :invitations, only: [ :new, :create ], controller: "workshop_invitations"
+    resources :participants, only: [ :index, :destroy ],
+              controller: "workshop_participants",
+              param: :user_id
   end
   resources :glossary_terms, path: "glossary", param: :slug do
     member do

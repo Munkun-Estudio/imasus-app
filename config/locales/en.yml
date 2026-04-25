@@ -188,6 +188,7 @@ en:
       agenda_page: "View full agenda"
       invite_participants: "Invite participants"
       edit_workshop: "Edit workshop"
+      participants: "Participants"
       new_project: "Start a project"
       projects_heading: "Projects"
       published_projects_heading: "Published projects"
@@ -227,6 +228,22 @@ en:
         other: "%{count} errors prevented saving this workshop:"
     update:
       success: "Workshop updated."
+  workshop_participants:
+    index:
+      title: "Participants — %{workshop}"
+      heading: "Participants of %{workshop}"
+      lead: "People associated with this workshop. Removing a participant only ends their workshop association — their projects and account remain."
+      back_to_workshop: "← Back to workshop"
+      empty: "No participants yet. Invite some via the workshop invitation flow."
+      remove: "Remove"
+      confirm_remove: "Remove %{name} from this workshop?"
+      joined_on: "Joined %{date}"
+      projects:
+        one: "1 project in this workshop"
+        other: "%{count} projects in this workshop"
+    destroy:
+      success: "%{name} removed from this workshop."
+      forbidden: "That participant cannot be removed."
   challenges:
     index:
       title: "Challenges"
