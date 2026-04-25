@@ -123,4 +123,70 @@ class WorkshopTest < ActiveSupport::TestCase
     assert_not workshop.manageable_by?(participant)
     assert_not workshop.manageable_by?(nil)
   end
+
+  # --- creatable_by? (workshop-management spec) ---
+
+  test "creatable_by? is true for admin" do
+    admin = User.create!(name: "A", email: "create-a@example.com", role: :admin)
+    assert Workshop.creatable_by?(admin)
+  end
+
+  test "creatable_by? is true for any facilitator regardless of workshop participations" do
+    fac = User.create!(name: "F", email: "create-f@example.com", role: :facilitator)
+    assert Workshop.creatable_by?(fac)
+  end
+
+  test "creatable_by? is false for participants and visitors" do
+    participant = User.create!(name: "P", email: "create-p@example.com", role: :participant)
+    assert_not Workshop.creatable_by?(participant)
+    assert_not Workshop.creatable_by?(nil)
+  end
+
+  # --- slug auto-generation (workshop-management spec) ---
+
+  test "slug auto-generated from title preferring en when available" do
+    workshop = Workshop.new(workshop_attributes(slug: nil,
+                                                title_translations: { "es" => "Taller Sevilla", "en" => "Sevilla Workshop" }))
+    workshop.save!
+    assert_equal "sevilla-workshop", workshop.slug
+  end
+
+  test "slug auto-generated falls through es, it, el when en is absent" do
+    workshop = Workshop.new(workshop_attributes(slug: nil,
+                                                title_translations: { "it" => "Workshop Prato" }))
+    workshop.save!
+    assert_equal "workshop-prato", workshop.slug
+  end
+
+  test "slug collision is resolved with -2, -3 suffix" do
+    Workshop.create!(workshop_attributes(slug: "demo",
+                                          title_translations: { "en" => "Demo" }))
+    second = Workshop.new(workshop_attributes(slug: nil,
+                                              title_translations: { "en" => "Demo" }))
+    second.save!
+    assert_equal "demo-2", second.slug
+
+    third = Workshop.new(workshop_attributes(slug: nil,
+                                             title_translations: { "en" => "Demo" }))
+    third.save!
+    assert_equal "demo-3", third.slug
+  end
+
+  test "slug truncated to max 100 characters before collision suffix" do
+    long_title = "x" * 200
+    workshop = Workshop.new(workshop_attributes(slug: nil,
+                                                title_translations: { "en" => long_title }))
+    workshop.save!
+    assert workshop.slug.length <= 100
+  end
+
+  test "slug not regenerated on subsequent saves" do
+    workshop = Workshop.new(workshop_attributes(slug: nil,
+                                                title_translations: { "en" => "Original" }))
+    workshop.save!
+    original = workshop.slug
+
+    workshop.update!(title_translations: { "en" => "Different Title" })
+    assert_equal original, workshop.reload.slug
+  end
 end
