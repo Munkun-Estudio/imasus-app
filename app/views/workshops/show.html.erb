@@ -33,11 +33,13 @@
       <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".dates") %></dt>
       <dd class="mt-2 text-base font-semibold text-imasus-dark-green"><%= workshop_date_range(@workshop) %></dd>
     </div>
-    <div>
-      <%= link_to t(".agenda_page"),
-                  agenda_workshop_path(@workshop),
-                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
-    </div>
+    <% if current_user %>
+      <div>
+        <%= link_to t(".agenda_page"),
+                    agenda_workshop_path(@workshop),
+                    class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
+      </div>
+    <% end %>
   </dl>
 
   <div class="mt-8 flex flex-wrap gap-3">
@@ -48,9 +50,15 @@
     <% end %>
   </div>
 
-  <%= render "projects",
-             workshop: @workshop,
-             projects: @projects,
-             attending: @attending,
-             user_project_ids: @user_project_ids %>
+  <% if current_user %>
+    <%= render "projects",
+               workshop: @workshop,
+               projects: @projects,
+               attending: @attending,
+               user_project_ids: @user_project_ids %>
+  <% else %>
+    <%= render "published_projects",
+               workshop: @workshop,
+               projects: @published_projects %>
+  <% end %>
 </div>

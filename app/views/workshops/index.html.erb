@@ -42,6 +42,10 @@
                 <dt class="inline font-semibold text-imasus-dark-green"><%= t(".dates") %>:</dt>
                 <dd class="inline"><%= workshop_date_range(workshop) %></dd>
               </div>
+              <div>
+                <dt class="inline font-semibold text-imasus-dark-green"><%= t(".published_projects") %>:</dt>
+                <dd class="inline"><%= t(".published_project_count", count: published_project_count(workshop)) %></dd>
+              </div>
             </dl>
 
             <p class="mt-5 max-w-3xl text-base leading-7 text-stone-700"><%= workshop_excerpt(workshop) %></p>
@@ -50,9 +54,11 @@
               <%= link_to t(".open_workshop"),
                           workshop_path(workshop),
                           class: "inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
-              <%= link_to t(".open_agenda"),
-                          agenda_workshop_path(workshop),
-                          class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
+              <% if current_user %>
+                <%= link_to t(".open_agenda"),
+                            agenda_workshop_path(workshop),
+                            class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
+              <% end %>
             </div>
           </article>
         </li>
