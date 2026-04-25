@@ -25,21 +25,87 @@ it:
       lottozero: "Lottozero"
       echn: "ECHN"
       munkun: "Munkun"
+  # TODO: translate spec-7 home/settings/user_menu/roles strings to it.
+  # English placeholders are kept here so the structure ships; the IMASUS
+  # Italian team will refine the copy.
   home:
     index:
       title: "Home"
-      eyebrow: "Workshop IMASUS"
-      heading: "Strumenti di immaginazione per studenti che affrontano sfide reali."
-      lead: "IMASUS App è la piattaforma workshop per studenti e facilitatori che sviluppano nuove risposte a grandi sfide attraverso l'approccio di immaginazione ispirato a Diane Nijs."
-      visit_imasus: "Visita IMASUS"
-      read_interview: "Leggi l'intervista sull'immaginazione"
-      status: "Progetto in fase di sviluppo"
-      why_title: "Perché esiste questa applicazione"
-      why_text: "IMASUS App supporta percorsi di workshop in cui gli studenti passano da una sfida ampia alla riflessione strutturata, allo sviluppo di concetti e alla prima formulazione di soluzioni, utilizzando l'approccio di immaginazione."
-      who_title: "A chi è rivolta"
-      who_text: "Studenti e facilitatori che partecipano ai workshop IMASUS in Grecia, Italia e Spagna. Ogni workshop riunisce team interdisciplinari per affrontare sfide reali di sostenibilità nell'industria tessile."
-      what_title: "Cosa puoi fare"
-      what_text: "Esplorare un database di materiali, lavorare con moduli di formazione, documentare il tuo processo con foto e video, sviluppare prototipi e pubblicare una pagina pubblica del progetto che riassume il tuo percorso."
+    visitor:
+      hero:
+        eyebrow: "IMASUS Workshops"
+        heading: "Imagineering tools for collaborative challenges."
+        lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
+        see_workshops: "Apri i workshop"
+        log_in: "Accedi"
+      workshops:
+        heading: "Workshop in corso e passati"
+        lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
+        see_workshop: "Apri workshop"
+        request_spot: "Richiedi un posto"
+        partner_with: "con %{partner}"
+      featured_projects:
+        heading: "Progetti in evidenza"
+        lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
+        empty: "Workshop projects appear here when participants publish their work."
+      resources:
+        heading: "Esplora le risorse"
+        materials:
+          title: "Materiali"
+          lead: "A database of sustainable textiles, fibres, and finishes with photos and microscopy."
+        training:
+          title: "Formazione"
+          lead: "Modules on imagineering, system thinking, and the IMASUS lenses."
+        challenges:
+          title: "Sfide"
+          lead: "Ten industry challenges (C1–C10) used to focus team work."
+        glossary:
+          title: "Glossario"
+          lead: "Key terms used across the IMASUS materials, training, and methodology."
+    participant:
+      greeting: "Bentornato/a, %{name}."
+      projects:
+        heading: "I tuoi progetti"
+      workshops:
+        heading: "I tuoi workshop"
+      empty_no_projects:
+        heading: "Pronto/a a iniziare il tuo primo progetto?"
+        lead: "Choose a workshop below — projects are created from the workshop page."
+      empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      resources:
+        heading: "Esplora"
+      last_activity: "Ultima attività %{time} fa"
+      status:
+        draft: "Bozza"
+        published: "Pubblicato"
+      cta:
+        add_first_log_entry: "Aggiungi la tua prima voce"
+        open_project: "Apri progetto"
+        continue_log: "Continua il diario"
+        publish: "Pubblica"
+        view_public: "Vai alla pagina pubblica"
+        edit_publication: "Modifica pubblicazione"
+    facilitator:
+      greeting: "Bentornato/a, %{name}."
+      workshops:
+        heading: "I tuoi workshop"
+      stats:
+        participants: "Partecipanti"
+        drafts: "Bozze"
+        published: "Pubblicati"
+      cta:
+        invite_participants: "Invita partecipanti"
+        open_workshop: "Apri workshop"
+      resources:
+        heading: "Risorse pubbliche"
+      empty: "Non sei ancora associato a nessun workshop. L'amministrazione configurerà il tuo accesso a breve."
+    admin:
+      greeting: "Bentornato/a, %{name}."
+      workshops:
+        heading: "Tutti i workshop"
+      cta:
+        manage_facilitators: "Gestisci facilitatori"
+        all_projects: "Tutti i progetti"
   materials:
     index:
       title: "Database materiali"
@@ -430,6 +496,50 @@ it:
       success: "Voce eliminata."
     errors:
       forbidden: "Non sei autorizzato a eliminare questa voce."
+  user_menu:
+    log_in: "Accedi"
+    log_out: "Esci"
+    settings: "Impostazioni"
+  roles:
+    admin: "Amministrazione"
+    facilitator: "Facilitazione"
+    participant: "Partecipante"
+  settings:
+    edit:
+      title: "Impostazioni"
+      lead: "Gestisci il tuo account, password, profilo e lingua."
+      submit: "Salva modifiche"
+      errors:
+        heading: "Non siamo riusciti a salvare le modifiche:"
+      account:
+        heading: "Account"
+        name: "Nome completo"
+        email: "Email"
+      password:
+        heading: "Password"
+        hint: "Lascia i campi vuoti per mantenere la password attuale."
+        current: "Password attuale"
+        new: "Nuova password"
+        confirmation: "Conferma nuova password"
+      profile:
+        heading: "Profilo"
+        institution: "Istituzione"
+        country: "Paese"
+        bio: "Breve bio"
+        links: "Link"
+        links_hint: "Un link per riga. Sito personale, LinkedIn, Behance, Instagram, ecc."
+      preferences:
+        heading: "Preferenze"
+        locale: "Lingua"
+        locale_hint: "Si applica all'interfaccia e alle email. Il selettore in alto a destra resta un override puntuale."
+        system_default: "Predefinito di sistema"
+        locales:
+          en: "English"
+          es: "Español"
+          it: "Italiano"
+          el: "Ελληνικά"
+    update:
+      success: "Le tue impostazioni sono state aggiornate."
   errors:
     access_denied: "Non sei autorizzato a visualizzare questa pagina."
     messages:

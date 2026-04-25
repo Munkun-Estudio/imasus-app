@@ -21,4 +21,10 @@ class WorkshopSeedTest < ActiveSupport::TestCase
       Workshop.seed_from_yaml!
     end
   end
+
+  test "seed_from_yaml loads contact_email when present in the seed entry" do
+    Workshop.seed_from_yaml!
+    workshop = Workshop.find_by!(slug: "spain")
+    assert_equal "spain@imasus.eu", workshop.contact_email
+  end
 end

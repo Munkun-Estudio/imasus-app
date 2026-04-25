@@ -1,0 +1,13 @@
+<%# Locals: workshops (ActiveRecord::Relation<Workshop>).
+    Compact list of workshops the user is in. Used both as a foregrounded
+    empty-state CTA (no projects yet) and as a quieter footer-style strip
+    when projects already exist. %>
+<div data-workshop-strip class="mt-4 flex flex-wrap gap-2">
+  <% workshops.each do |workshop| %>
+    <%= link_to workshop_path(workshop),
+                class: "inline-flex flex-col rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+      <span class="text-sm font-bold text-imasus-dark-green"><%= workshop.title %></span>
+      <span class="mt-0.5 text-xs text-imasus-dark-green/60"><%= workshop.location %></span>
+    <% end %>
+  <% end %>
+</div>

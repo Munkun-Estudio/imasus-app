@@ -31,6 +31,11 @@ class User < ApplicationRecord
   # generator. We manage the token ourselves for consistency with invitations.
   has_secure_password validations: false, reset_token: false
 
+  # Virtual accessor for the settings password-rotation flow. Holds the
+  # user's existing password while the form is being processed; never
+  # persisted.
+  attr_accessor :current_password
+
   has_many :workshop_participations, dependent: :destroy
   has_many :workshops, through: :workshop_participations
 
@@ -48,6 +53,9 @@ class User < ApplicationRecord
   validates :role,  presence: true
   validates :password, length: { minimum: 8 }, if: -> { password.present? }
   validates :password, confirmation: true, if: -> { password.present? }
+  validates :preferred_locale,
+            inclusion: { in: I18n.available_locales.map(&:to_s) },
+            allow_nil: true
 
   # Generates a fresh invitation token and persists it with the sent-at
   # timestamp. The caller is responsible for sending the corresponding mailer.

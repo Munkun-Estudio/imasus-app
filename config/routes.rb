@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :published_projects, only: [ :show ], path: "published", param: :slug
 
   resource :session, only: [ :new, :create, :destroy ]
+  resource :settings, only: [ :edit, :update ]
 
   get   "password_reset/new",  to: "password_resets#new",    as: :new_password_reset
   post  "password_reset",      to: "password_resets#create", as: :password_resets
@@ -56,7 +57,6 @@ Rails.application.routes.draw do
   patch "password_resets/:token",      to: "password_resets#update", as: :password_reset
 
   namespace :admin do
-    root to: "dashboard#index"
     resources :facilitators, only: [ :index, :new, :create ]
   end
 

@@ -59,10 +59,10 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "POST create honours stored return_to" do
-    get admin_root_path
+    get admin_facilitators_path
     assert_redirected_to new_session_path
 
     post session_path, params: { email: @user.email, password: @password }
-    assert_redirected_to admin_root_path
+    assert_redirected_to admin_facilitators_path
   end
 end

@@ -28,18 +28,81 @@ en:
   home:
     index:
       title: "Home"
-      eyebrow: "IMASUS Workshops"
-      heading: "Imagineering tools for students working on real-world challenges."
-      lead: "IMASUS App is the workshop platform for students and facilitators developing new responses to large challenges through the imagineering approach inspired by Diane Nijs."
-      visit_imasus: "Visit IMASUS"
-      read_interview: "Read the Imagineering Interview"
-      status: "Project foundation in progress"
-      why_title: "Why this app exists"
-      why_text: "IMASUS App supports workshop journeys where students move from a broad challenge to structured reflection, concept development, and early solution framing — using the imagineering approach."
-      who_title: "Who is it for"
-      who_text: "Students and facilitators participating in IMASUS workshops across Greece, Italy, and Spain. Each workshop brings together interdisciplinary teams to tackle real sustainability challenges in the textile industry."
-      what_title: "What you can do"
-      what_text: "Explore a materials database, work through training modules, log your process with photos and videos, develop prototypes, and publish a public project page summarising your journey."
+    visitor:
+      hero:
+        eyebrow: "IMASUS Workshops"
+        heading: "Imagineering tools for collaborative challenges."
+        lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
+        see_workshops: "See workshops"
+        log_in: "Log in"
+      workshops:
+        heading: "Upcoming and past workshops"
+        lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
+        see_workshop: "See workshop"
+        request_spot: "Request a spot"
+        partner_with: "with %{partner}"
+      featured_projects:
+        heading: "Featured projects"
+        lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
+        empty: "Workshop projects appear here when participants publish their work."
+      resources:
+        heading: "Explore the resources"
+        materials:
+          title: "Materials"
+          lead: "A database of sustainable textiles, fibres, and finishes with photos and microscopy."
+        training:
+          title: "Training"
+          lead: "Modules on imagineering, system thinking, and the IMASUS lenses."
+        challenges:
+          title: "Challenges"
+          lead: "Ten industry challenges (C1–C10) used to focus team work."
+        glossary:
+          title: "Glossary"
+          lead: "Key terms used across the IMASUS materials, training, and methodology."
+    participant:
+      greeting: "Welcome back, %{name}."
+      projects:
+        heading: "Your projects"
+      workshops:
+        heading: "Your workshops"
+      empty_no_projects:
+        heading: "Ready to start your first project?"
+        lead: "Choose a workshop below — projects are created from the workshop page."
+      empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      resources:
+        heading: "Explore"
+      last_activity: "Last activity %{time} ago"
+      status:
+        draft: "Draft"
+        published: "Published"
+      cta:
+        add_first_log_entry: "Add your first log entry"
+        open_project: "Open project"
+        continue_log: "Continue your log"
+        publish: "Publish"
+        view_public: "View public page"
+        edit_publication: "Edit publication"
+    facilitator:
+      greeting: "Welcome back, %{name}."
+      workshops:
+        heading: "Your workshops"
+      stats:
+        participants: "Participants"
+        drafts: "Drafts"
+        published: "Published"
+      cta:
+        invite_participants: "Invite participants"
+        open_workshop: "Open workshop"
+      resources:
+        heading: "Public resources"
+      empty: "You're not associated with any workshop yet. An admin will set up your workshop access shortly."
+    admin:
+      greeting: "Welcome back, %{name}."
+      workshops:
+        heading: "All workshops"
+      cta:
+        manage_facilitators: "Manage facilitators"
+        all_projects: "All projects"
   materials:
     index:
       title: "Materials DB"
@@ -239,9 +302,6 @@ en:
       notice: "Your password has been updated."
     token_invalid: "That password reset link is invalid or has expired. Request a new one."
   admin:
-    dashboard:
-      index:
-        title: "Admin dashboard"
     facilitators:
       index:
         title: "Facilitators"
@@ -287,6 +347,14 @@ en:
     update:
       notice: "Welcome to IMASUS. You can start exploring the workshop now."
     token_invalid: "That invitation link is invalid or has expired. Please contact your facilitator."
+  user_menu:
+    log_in: "Log in"
+    log_out: "Log out"
+    settings: "Settings"
+  roles:
+    admin: "Admin"
+    facilitator: "Facilitator"
+    participant: "Participant"
   errors:
     access_denied: "You are not authorised to view that page."
     messages:
@@ -513,6 +581,42 @@ en:
       members_heading: "Team"
       last_updated: "Last updated %{date}"
       edit_link: "Edit published page"
+  settings:
+    edit:
+      title: "Settings"
+      lead: "Manage your account, password, profile, and language preference."
+      submit: "Save changes"
+      errors:
+        heading: "We couldn't save your changes:"
+      account:
+        heading: "Account"
+        name: "Full name"
+        email: "Email"
+      password:
+        heading: "Password"
+        hint: "Leave the password fields empty to keep your current password."
+        current: "Current password"
+        new: "New password"
+        confirmation: "Confirm new password"
+      profile:
+        heading: "Profile"
+        institution: "Institution"
+        country: "Country"
+        bio: "Short bio"
+        links: "Links"
+        links_hint: "One link per line. Personal site, LinkedIn, Behance, Instagram, etc."
+      preferences:
+        heading: "Preferences"
+        locale: "Language"
+        locale_hint: "Used for the interface and emails. The top-right switcher remains a one-shot override."
+        system_default: "System default"
+        locales:
+          en: "English"
+          es: "Español"
+          it: "Italiano"
+          el: "Ελληνικά"
+    update:
+      success: "Your settings were updated."
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

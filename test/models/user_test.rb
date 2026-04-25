@@ -137,4 +137,28 @@ class UserTest < ActiveSupport::TestCase
     assert_nil user.password_reset_token
     assert_nil user.password_reset_sent_at
   end
+
+  test "preferred_locale defaults to nil (system default)" do
+    user = User.new(valid_attributes)
+    assert_nil user.preferred_locale
+  end
+
+  test "preferred_locale accepts every available I18n locale" do
+    I18n.available_locales.each do |locale|
+      user = User.new(valid_attributes(email: "u-#{locale}@example.com",
+                                       preferred_locale: locale.to_s))
+      assert user.valid?, "expected #{locale} to be a valid preferred_locale: #{user.errors.full_messages}"
+    end
+  end
+
+  test "preferred_locale rejects values outside the available locales" do
+    user = User.new(valid_attributes(preferred_locale: "fr"))
+    assert_not user.valid?
+    assert_includes user.errors[:preferred_locale], "is not included in the list"
+  end
+
+  test "preferred_locale allows nil" do
+    user = User.new(valid_attributes(preferred_locale: nil))
+    assert user.valid?, user.errors.full_messages.to_sentence
+  end
 end

@@ -35,7 +35,9 @@ class ShellLayoutTest < ActionDispatch::IntegrationTest
     get root_url
     assert_response :success
 
-    assert_select "nav[aria-label]" do
+    # Scope to the primary nav swatches; the user menu (auth chrome below
+    # the swatches) legitimately contains a "Log in" link.
+    assert_select "[data-role='primary-nav']" do
       assert_select "a", text: /Log/i, count: 0
       assert_select "a", text: /Prototype/i, count: 0
     end

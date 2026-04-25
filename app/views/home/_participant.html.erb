@@ -1,0 +1,73 @@
+<div data-home-variant="participant" class="px-6 py-12 sm:px-10 lg:px-16">
+  <h1 class="text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
+    <%= t(".greeting", name: current_user.name) %>
+  </h1>
+
+  <% if @projects.any? %>
+    <%# Project cards (journey-state) %>
+    <section class="mt-10">
+      <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+        <%= t(".projects.heading") %>
+      </h2>
+
+      <div class="mt-4 grid gap-5 lg:grid-cols-2">
+        <% @projects.each do |project| %>
+          <%= render "home/project_card", project: project %>
+        <% end %>
+      </div>
+    </section>
+    <%# TODO(bookmarks): bookmarks section here once bookmarks ships. %>
+
+    <% if @workshops.any? %>
+      <section class="mt-12">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+          <%= t(".workshops.heading") %>
+        </h2>
+        <%= render "home/workshop_strip", workshops: @workshops %>
+      </section>
+    <% end %>
+  <% elsif @workshops.any? %>
+    <%# Empty state — has workshops, no projects: foreground workshops %>
+    <section data-empty-state="no-projects" class="mt-10">
+      <h2 class="text-xl font-bold tracking-tight text-imasus-dark-green sm:text-2xl">
+        <%= t(".empty_no_projects.heading") %>
+      </h2>
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-imasus-dark-green/60">
+        <%= t(".empty_no_projects.lead") %>
+      </p>
+      <%= render "home/workshop_strip", workshops: @workshops %>
+    </section>
+  <% else %>
+    <%# Empty state — no workshops at all (rare) %>
+    <section data-empty-state="no-workshops" class="mt-10 rounded-2xl border border-dashed border-imasus-dark-green/15 bg-white px-6 py-10">
+      <p class="text-sm leading-relaxed text-imasus-dark-green/60">
+        <%= t(".empty_no_workshops") %>
+      </p>
+    </section>
+  <% end %>
+
+  <%# Public resources teaser — calmer presentation than the visitor home %>
+  <section class="mt-16">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+      <%= t(".resources.heading") %>
+    </h2>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <%= link_to materials_path, data: { resource_card: true, resource: "materials" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.materials.title") %></p>
+      <% end %>
+      <%= link_to training_index_path, data: { resource_card: true, resource: "training" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.training.title") %></p>
+      <% end %>
+      <%= link_to challenges_path, data: { resource_card: true, resource: "challenges" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.challenges.title") %></p>
+      <% end %>
+      <%= link_to glossary_terms_path, data: { resource_card: true, resource: "glossary" },
+                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
+        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.glossary.title") %></p>
+      <% end %>
+    </div>
+  </section>
+</div>
