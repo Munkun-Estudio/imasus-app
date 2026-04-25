@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_25_102232) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_25_152152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -140,6 +140,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_102232) do
     t.bigint "challenge_id"
     t.datetime "created_at", null: false
     t.text "description"
+    t.datetime "disabled_at"
+    t.bigint "disabled_by_id"
     t.string "language", null: false
     t.datetime "publication_updated_at"
     t.string "slug"
@@ -148,6 +150,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_102232) do
     t.datetime "updated_at", null: false
     t.bigint "workshop_id", null: false
     t.index ["challenge_id"], name: "index_projects_on_challenge_id"
+    t.index ["disabled_by_id"], name: "index_projects_on_disabled_by_id"
     t.index ["slug"], name: "index_projects_on_slug", unique: true, where: "(slug IS NOT NULL)"
     t.index ["workshop_id"], name: "index_projects_on_workshop_id"
   end
@@ -217,6 +220,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_102232) do
   add_foreign_key "project_memberships", "projects"
   add_foreign_key "project_memberships", "users"
   add_foreign_key "projects", "challenges"
+  add_foreign_key "projects", "users", column: "disabled_by_id"
   add_foreign_key "projects", "workshops"
   add_foreign_key "workshop_participations", "users"
   add_foreign_key "workshop_participations", "workshops"

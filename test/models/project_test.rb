@@ -315,4 +315,83 @@ class ProjectTest < ActiveSupport::TestCase
     project.save!
     assert project.slug.length <= 100
   end
+
+  # --- Soft-disable (spec 13) ---
+
+  test "disabled? is false on a fresh project" do
+    assert_not @project.disabled?
+    assert_nil @project.disabled_at
+    assert_nil @project.disabled_by
+  end
+
+  test "disable! records timestamp and actor" do
+    freeze_time do
+      @project.disable!(by: @admin)
+      assert @project.disabled?
+      assert_equal Time.current, @project.disabled_at
+      assert_equal @admin, @project.disabled_by
+    end
+  end
+
+  test "disable! is idempotent" do
+    @project.disable!(by: @admin)
+    first = @project.disabled_at
+
+    travel 5.minutes do
+      @project.disable!(by: @facilitator)
+    end
+
+    assert_equal first, @project.reload.disabled_at
+    assert_equal @admin, @project.disabled_by
+  end
+
+  test "enable! clears the disabled state" do
+    @project.disable!(by: @admin)
+    @project.enable!
+    assert_not @project.disabled?
+    assert_nil @project.disabled_at
+    assert_nil @project.disabled_by
+  end
+
+  test "active scope excludes disabled projects" do
+    @project.disable!(by: @admin)
+    other = Project.create!(workshop: @workshop, title: "Other", language: "en", status: "draft")
+    assert_includes Project.active, other
+    assert_not_includes Project.active, @project
+  end
+
+  test "editable_by? returns false for members while disabled" do
+    assert @project.editable_by?(@member), "sanity check: member can edit before disable"
+    @project.disable!(by: @admin)
+    assert_not @project.editable_by?(@member)
+  end
+
+  test "editable_by? returns false for admins while disabled" do
+    assert @project.editable_by?(@admin), "sanity check: admin can edit before disable"
+    @project.disable!(by: @admin)
+    assert_not @project.editable_by?(@admin)
+  end
+
+  test "visible_to? still returns true for members while disabled" do
+    @project.disable!(by: @admin)
+    assert @project.visible_to?(@member)
+    assert @project.visible_to?(@admin)
+    assert @project.visible_to?(@facilitator)
+    assert_not @project.visible_to?(@outsider)
+  end
+
+  test "publishable_by? returns false while disabled" do
+    @project.disable!(by: @admin)
+    assert_not @project.publishable_by?(@member)
+  end
+
+  test "republishable_by? returns false while disabled" do
+    attach_hero(@project)
+    @project.process_summary = "<p>S</p>"
+    @project.status = "published"
+    @project.save!
+
+    @project.disable!(by: @admin)
+    assert_not @project.republishable_by?(@member)
+  end
 end
