@@ -56,6 +56,18 @@ class Workshop < ApplicationRecord
     translated_with_any_locale_fallback(:description_translations)
   end
 
+  # @return [Boolean] true when +user+ may edit or moderate this workshop.
+  #   Admins always; facilitators only when they have a
+  #   {WorkshopParticipation} on this workshop. Used as the authorisation
+  #   gate for spec-13 surfaces (workshop edit, participants list, project
+  #   moderation).
+  def manageable_by?(user)
+    return false if user.nil?
+    return true  if user.admin?
+
+    user.facilitator? && participants.include?(user)
+  end
+
   # Returns the locale-appropriate agenda rich text, falling back through the
   # current locale chain and then to the first non-blank agenda present on the
   # record.

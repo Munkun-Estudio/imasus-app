@@ -199,6 +199,32 @@ en:
       eyebrow: "Workshop Agenda"
       title: "%{workshop} agenda"
       back_to_workshop: "← Back to workshop"
+    edit:
+      title: "Edit %{workshop}"
+      heading: "Edit workshop"
+      lead: "Update the workshop's title and description (per locale), schedule, partner, and contact email."
+      back_to_workshop: "← Back to workshop"
+      submit: "Save workshop"
+      cancel: "Cancel"
+      locale_tabs_label: "Language"
+      sections:
+        translated: "Title and description"
+        details: "Details"
+        contact: "Contact"
+      fields:
+        title: "Title"
+        description: "Description"
+        location: "Location"
+        partner: "Partner"
+        starts_on: "Starts on"
+        ends_on: "Ends on"
+        contact_email: "Contact email"
+        contact_email_hint: "Used as the destination of the public Request a spot mailto: CTA on the visitor home."
+      errors_heading:
+        one: "1 error prevented saving this workshop:"
+        other: "%{count} errors prevented saving this workshop:"
+    update:
+      success: "Workshop updated."
   challenges:
     index:
       title: "Challenges"
