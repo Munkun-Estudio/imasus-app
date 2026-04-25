@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :require_login
-  before_action :set_project,        only: [ :show, :edit, :update, :destroy ]
-  before_action :require_visible,    only: [ :show ]
-  before_action :require_editable,   only: [ :edit, :update ]
+  before_action :set_project,         only: [ :show, :edit, :update, :destroy, :disable, :enable ]
+  before_action :require_visible,     only: [ :show ]
+  before_action :require_editable,    only: [ :edit, :update ]
   before_action :require_destroyable, only: [ :destroy ]
+  before_action :require_moderator,   only: [ :disable, :enable ]
 
   # @note Participants are redirected to their workshops (their projects now
   #   live inside the workshop show page). Admin and facilitator still see the
@@ -64,6 +65,20 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, notice: t("projects.destroy.success")
   end
 
+  # @note Soft-disables the project. Idempotent; allowed for admins and
+  #   workshop facilitators. Re-enable via {#enable}.
+  def disable
+    @project.disable!(by: current_user)
+    redirect_to project_path(@project), notice: t("projects.disable.success")
+  end
+
+  # @note Clears the disabled state. Allowed for admins and workshop
+  #   facilitators.
+  def enable
+    @project.enable!
+    redirect_to project_path(@project), notice: t("projects.enable.success")
+  end
+
   private
 
   def set_project
@@ -107,5 +122,12 @@ class ProjectsController < ApplicationController
     unless @project.editable_by?(current_user)
       redirect_to project_path(@project), alert: t("projects.errors.not_editable")
     end
+  end
+
+  def require_moderator
+    return if @project.workshop.manageable_by?(current_user)
+
+    redirect_to root_path, alert: t("errors.access_denied",
+                                     default: "You are not authorised to view that page.")
   end
 end

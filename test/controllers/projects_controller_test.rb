@@ -239,4 +239,76 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       delete project_url(@project)
     end
   end
+
+  # --- moderation (spec 13) ---
+
+  test "PATCH disable soft-disables the project for an admin" do
+    sign_in(@admin)
+    freeze_time do
+      patch disable_project_url(@project)
+      @project.reload
+      assert @project.disabled?
+      assert_equal Time.current, @project.disabled_at
+      assert_equal @admin, @project.disabled_by
+    end
+    assert_redirected_to project_path(@project)
+  end
+
+  test "PATCH disable allowed for a facilitator who manages the workshop" do
+    WorkshopParticipation.create!(user: @facilitator, workshop: @workshop)
+    sign_in(@facilitator)
+    patch disable_project_url(@project)
+    assert @project.reload.disabled?
+  end
+
+  test "PATCH disable forbidden for a facilitator who does not manage the workshop" do
+    sign_in(@facilitator)
+    patch disable_project_url(@project)
+    assert_redirected_to root_path
+    assert_not @project.reload.disabled?
+  end
+
+  test "PATCH disable forbidden for participants" do
+    sign_in(@member)
+    patch disable_project_url(@project)
+    assert_redirected_to root_path
+    assert_not @project.reload.disabled?
+  end
+
+  test "PATCH enable clears the disabled state" do
+    @project.disable!(by: @admin)
+    sign_in(@admin)
+    patch enable_project_url(@project)
+    assert_not @project.reload.disabled?
+  end
+
+  test "show page renders the disabled banner when the project is disabled" do
+    @project.disable!(by: @admin)
+    sign_in(@member)
+    get project_url(@project)
+    assert_response :success
+    assert_select "[data-disabled-banner]"
+  end
+
+  test "show page hides edit and publish CTAs when disabled" do
+    @project.disable!(by: @admin)
+    sign_in(@member)
+    get project_url(@project)
+    assert_response :success
+    assert_select "a[href=?]", edit_project_path(@project), count: 0
+    assert_select "a[href=?]", new_project_publication_path(@project), count: 0
+  end
+
+  test "show page exposes the Disable button for managers when active" do
+    sign_in(@admin)
+    get project_url(@project)
+    assert_select "form[action=?]", disable_project_path(@project)
+  end
+
+  test "show page exposes the Enable button for managers when disabled" do
+    @project.disable!(by: @admin)
+    sign_in(@admin)
+    get project_url(@project)
+    assert_select "form[action=?]", enable_project_path(@project)
+  end
 end

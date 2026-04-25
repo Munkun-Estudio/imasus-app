@@ -41,6 +41,10 @@ Rails.application.routes.draw do
   end
 
   resources :projects do
+    member do
+      patch :disable
+      patch :enable
+    end
     resources :memberships, only: [ :new, :create, :destroy ], controller: "project_memberships"
     resources :log_entries, only: [ :index, :new, :create, :destroy ] do
       member { get :delete_confirmation }

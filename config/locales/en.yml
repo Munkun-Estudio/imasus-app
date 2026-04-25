@@ -489,6 +489,18 @@ en:
       success: "Project updated."
     destroy:
       success: "Project deleted."
+    disable:
+      button: "Disable project"
+      confirm: "Disable this project? Public access will be hidden until you re-enable it."
+      success: "Project disabled."
+    enable:
+      button: "Enable project"
+      confirm: "Re-enable this project? Public access will be restored."
+      success: "Project enabled."
+    disabled:
+      banner_heading: "This project is currently disabled."
+      banner_body: "A facilitator has hidden it from public surfaces. Editing and publishing are paused until it is re-enabled."
+      chip: "Disabled"
     form:
       title: "Title"
       description: "Description"
