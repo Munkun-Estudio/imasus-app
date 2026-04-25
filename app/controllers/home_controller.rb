@@ -4,6 +4,9 @@
 class HomeController < ApplicationController
   FEATURED_PROJECT_LIMIT = 6
 
+  # @note Picks a variant based on +current_user&.role+. The string lands
+  #   in +@variant+ and the matching `_<variant>.html.erb` partial is
+  #   rendered by `index.html.erb`.
   def index
     @variant = current_user&.role || "visitor"
 

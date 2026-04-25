@@ -7,10 +7,16 @@
 class SettingsController < ApplicationController
   before_action :require_login
 
+  # @note Renders the four-section form (Account / Password / Profile /
+  #   Preferences). Pre-populates fields from the signed-in user.
   def edit
     @user = current_user
   end
 
+  # @note Empty password fields skip the rotation challenge entirely; a
+  #   new password requires +current_password+ to authenticate. An empty
+  #   +preferred_locale+ is normalised to nil so the inclusion validation
+  #   accepts "System default".
   def update
     @user = current_user
 
