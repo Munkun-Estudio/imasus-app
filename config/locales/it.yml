@@ -43,7 +43,6 @@ it:
         lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
         see_workshop: "Apri workshop"
         request_spot: "Richiedi un posto"
-        partner_with: "con %{partner}"
       featured_projects:
         heading: "Progetti in evidenza"
         lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
@@ -181,6 +180,7 @@ it:
         other: "%{count} progetti"
       open_workshop: "Apri workshop"
       open_agenda: "Apri agenda"
+      new_workshop: "Nuovo workshop"
       empty_title: "Nessun workshop disponibile per ora."
       empty_body: "I dettagli del workshop appariranno qui quando saranno confermati."
     show:
@@ -195,6 +195,7 @@ it:
       invite_participants: "Invita partecipanti"
       edit_workshop: "Modifica workshop"
       participants: "Partecipanti"
+      manage: "Gestisci"
       new_project: "Avvia un progetto"
       projects_heading: "Progetti"
       published_projects_heading: "Progetti pubblicati"
@@ -224,8 +225,9 @@ it:
       fields:
         title: "Title"
         description: "Description"
+        agenda: "Agenda"
+        agenda_hint: "Rich text. Headings, lists, and inline formatting are supported. Each locale carries its own agenda body."
         location: "Location"
-        partner: "Partner"
         starts_on: "Starts on"
         ends_on: "Ends on"
         contact_email: "Contact email"
@@ -235,6 +237,15 @@ it:
         other: "%{count} errors prevented saving this workshop:"
     update:
       success: "Workshop aggiornato."
+    new:
+      title: "Nuovo workshop"
+      heading: "Crea un workshop"
+      lead: "Create a new IMASUS workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
+      back_to_index: "← Torna ai workshop"
+      submit: "Crea workshop"
+      cancel: "Annulla"
+    create:
+      success: "Workshop creato."
   workshop_participants:
     # TODO: translate spec-13 workshop participants strings (it).
     index:
