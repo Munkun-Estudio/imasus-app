@@ -23,6 +23,7 @@ class HomeController < ApplicationController
   def load_visitor_data
     @workshops          = Workshop.ordered
     @featured_projects  = Project.published
+                                  .includes(:workshop)
                                   .order(publication_updated_at: :desc)
                                   .limit(FEATURED_PROJECT_LIMIT)
   end

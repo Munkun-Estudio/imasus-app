@@ -37,13 +37,13 @@
               </div>
               <div data-stat="draft_projects" class="rounded-xl bg-imasus-light-pink/30 px-3 py-2">
                 <span data-count class="block text-lg font-bold text-imasus-dark-green">
-                  <%= workshop.projects.where(status: "draft").size %>
+                  <%= workshop.projects.count { |p| p.status == "draft" } %>
                 </span>
                 <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.drafts") %></span>
               </div>
               <div data-stat="published_projects" class="rounded-xl bg-imasus-mint/40 px-3 py-2">
                 <span data-count class="block text-lg font-bold text-imasus-dark-green">
-                  <%= workshop.projects.where(status: "published").size %>
+                  <%= workshop.projects.count { |p| p.status == "published" } %>
                 </span>
                 <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.published") %></span>
               </div>
