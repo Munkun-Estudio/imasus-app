@@ -1,4 +1,118 @@
-<%# Stub view; populated in slice 8 with Account / Password / Profile / Preferences sections. %>
-<div class="px-6 py-12">
-  <h1 class="text-2xl font-bold text-imasus-dark-green"><%= t("settings.edit.title") %></h1>
+<% content_for :title, t(".title") %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <div class="max-w-2xl">
+    <h1 class="text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
+      <%= t(".title") %>
+    </h1>
+    <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/60">
+      <%= t(".lead") %>
+    </p>
+
+    <% if flash[:notice].present? %>
+      <p class="mt-6 rounded-2xl bg-imasus-mint/40 px-4 py-3 text-sm text-imasus-dark-green">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
+
+    <% if @user.errors.any? %>
+      <div class="mt-6 rounded-2xl border border-imasus-red/30 bg-imasus-red/10 px-4 py-3 text-sm text-imasus-red">
+        <p class="font-semibold"><%= t(".errors.heading") %></p>
+        <ul class="mt-1 list-inside list-disc">
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with model: @user, url: settings_path, method: :patch, local: true,
+                  data: { settings_form: true }, class: "mt-8 space-y-10" do |f| %>
+
+      <%# Account section %>
+      <section data-settings-section="account" class="space-y-4">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+          <%= t(".account.heading") %>
+        </h2>
+        <div>
+          <%= f.label :name, t(".account.name"), class: form_label_classes %>
+          <%= f.text_field :name, class: form_input_classes %>
+        </div>
+        <div>
+          <%= f.label :email, t(".account.email"), class: form_label_classes %>
+          <%= f.email_field :email, class: form_input_classes %>
+        </div>
+      </section>
+
+      <%# Password section %>
+      <section data-settings-section="password" class="space-y-4">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+          <%= t(".password.heading") %>
+        </h2>
+        <p class="text-xs text-imasus-dark-green/60">
+          <%= t(".password.hint") %>
+        </p>
+        <div>
+          <%= f.label :current_password, t(".password.current"), class: form_label_classes %>
+          <%= f.password_field :current_password, autocomplete: "current-password", class: form_input_classes %>
+        </div>
+        <div>
+          <%= f.label :password, t(".password.new"), class: form_label_classes %>
+          <%= f.password_field :password, autocomplete: "new-password", class: form_input_classes %>
+        </div>
+        <div>
+          <%= f.label :password_confirmation, t(".password.confirmation"), class: form_label_classes %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: form_input_classes %>
+        </div>
+      </section>
+
+      <%# Profile section %>
+      <section data-settings-section="profile" class="space-y-4">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+          <%= t(".profile.heading") %>
+        </h2>
+        <div>
+          <%= f.label :institution, t(".profile.institution"), class: form_label_classes %>
+          <%= f.text_field :institution, class: form_input_classes %>
+        </div>
+        <div>
+          <%= f.label :country, t(".profile.country"), class: form_label_classes %>
+          <%= f.select :country,
+                       options_for_select(participant_country_options, @user.country),
+                       { include_blank: true }, class: form_input_classes %>
+        </div>
+        <div>
+          <%= f.label :bio, t(".profile.bio"), class: form_label_classes %>
+          <%= f.text_area :bio, rows: 4, class: form_textarea_classes %>
+        </div>
+        <div>
+          <%= f.label :links, t(".profile.links"), class: form_label_classes %>
+          <p class="mb-1 text-xs text-imasus-dark-green/55"><%= t(".profile.links_hint") %></p>
+          <%= f.text_area :links, rows: 3, class: form_textarea_classes %>
+        </div>
+      </section>
+
+      <%# Preferences section %>
+      <section data-settings-section="preferences" class="space-y-4">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+          <%= t(".preferences.heading") %>
+        </h2>
+        <div>
+          <%= f.label :preferred_locale, t(".preferences.locale"), class: form_label_classes %>
+          <%= f.select :preferred_locale,
+                       options_for_select(
+                         I18n.available_locales.map { |loc| [ t(".preferences.locales.#{loc}"), loc.to_s ] },
+                         @user.preferred_locale
+                       ),
+                       { include_blank: t(".preferences.system_default") },
+                       class: form_input_classes %>
+          <p class="mt-1 text-xs text-imasus-dark-green/55"><%= t(".preferences.locale_hint") %></p>
+        </div>
+      </section>
+
+      <div class="pt-2">
+        <%= f.submit t(".submit"), class: form_primary_button_classes %>
+      </div>
+    <% end %>
+  </div>
 </div>

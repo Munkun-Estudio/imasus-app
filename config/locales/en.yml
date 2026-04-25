@@ -576,6 +576,39 @@ en:
   settings:
     edit:
       title: "Settings"
+      lead: "Manage your account, password, profile, and language preference."
+      submit: "Save changes"
+      errors:
+        heading: "We couldn't save your changes:"
+      account:
+        heading: "Account"
+        name: "Full name"
+        email: "Email"
+      password:
+        heading: "Password"
+        hint: "Leave the password fields empty to keep your current password."
+        current: "Current password"
+        new: "New password"
+        confirmation: "Confirm new password"
+      profile:
+        heading: "Profile"
+        institution: "Institution"
+        country: "Country"
+        bio: "Short bio"
+        links: "Links"
+        links_hint: "One link per line. Personal site, LinkedIn, Behance, Instagram, etc."
+      preferences:
+        heading: "Preferences"
+        locale: "Language"
+        locale_hint: "Used for the interface and emails. The top-right switcher remains a one-shot override."
+        system_default: "System default"
+        locales:
+          en: "English"
+          es: "Español"
+          it: "Italiano"
+          el: "Ελληνικά"
+    update:
+      success: "Your settings were updated."
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

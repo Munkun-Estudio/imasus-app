@@ -31,6 +31,11 @@ class User < ApplicationRecord
   # generator. We manage the token ourselves for consistency with invitations.
   has_secure_password validations: false, reset_token: false
 
+  # Virtual accessor for the settings password-rotation flow. Holds the
+  # user's existing password while the form is being processed; never
+  # persisted.
+  attr_accessor :current_password
+
   has_many :workshop_participations, dependent: :destroy
   has_many :workshops, through: :workshop_participations
 
