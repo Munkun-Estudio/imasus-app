@@ -5,13 +5,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     @password = "correct horse battery staple"
   end
 
-  def make_workshop(slug: "spain-2026", contact_email: nil, partner: "Munkun",
+  def make_workshop(slug: "spain-2026", contact_email: nil,
                    location: "Zaragoza, Spain")
     Workshop.create!(
       slug: slug,
       title_translations: { "en" => "IMASUS Spain" },
       description_translations: { "en" => "A workshop in Zaragoza." },
-      partner: partner,
       location: location,
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28),
@@ -76,7 +75,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
 
   test "workshop without contact_email omits the Request a spot CTA" do
     workshop = make_workshop(slug: "italy-2026", contact_email: nil,
-                             partner: "Lottozero", location: "Prato, Italy")
+location: "Prato, Italy")
     get root_url
     assert_select "[data-workshop-card][data-slug=?]", workshop.slug do
       assert_select "a[href^=?]", "mailto:", count: 0
@@ -175,7 +174,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
 
   test "participant with workshops but no projects sees the workshops-strip prompt" do
     user = make_participant
-    workshop = make_workshop(slug: "italy-2026", partner: "Lottozero", location: "Prato, Italy")
+    workshop = make_workshop(slug: "italy-2026", location: "Prato, Italy")
     attach_to_workshop(user, workshop)
     sign_in(user)
     get root_url
@@ -291,7 +290,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
   test "facilitator workshop card has an Edit link only when the facilitator manages the workshop" do
     facilitator = make_facilitator
     spain  = make_workshop(slug: "spain-fac", contact_email: nil)
-    italy  = make_workshop(slug: "italy-fac", partner: "Lottozero",
+    italy  = make_workshop(slug: "italy-fac",
                            location: "Prato, Italy")
     WorkshopParticipation.create!(user: facilitator, workshop: spain)
     # facilitator is NOT a participant of italy
@@ -346,7 +345,7 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
 
   test "admin home lists every workshop, not just those the admin participates in" do
     admin = make_admin
-    other = make_workshop(slug: "italy-2026", partner: "Lottozero", location: "Prato, Italy")
+    other = make_workshop(slug: "italy-2026", location: "Prato, Italy")
     spain = make_workshop(slug: "spain-2026")
     sign_in(admin)
     get root_url

@@ -40,7 +40,6 @@ en:
         lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
         see_workshop: "See workshop"
         request_spot: "Request a spot"
-        partner_with: "with %{partner}"
       featured_projects:
         heading: "Featured projects"
         lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
@@ -208,7 +207,7 @@ en:
     edit:
       title: "Edit %{workshop}"
       heading: "Edit workshop"
-      lead: "Update the workshop's title and description (per locale), schedule, partner, and contact email."
+      lead: "Update the workshop's title and description (per locale), schedule, location, and contact email."
       back_to_workshop: "← Back to workshop"
       submit: "Save workshop"
       cancel: "Cancel"
@@ -221,7 +220,6 @@ en:
         title: "Title"
         description: "Description"
         location: "Location"
-        partner: "Partner"
         starts_on: "Starts on"
         ends_on: "Ends on"
         contact_email: "Contact email"

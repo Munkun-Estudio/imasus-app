@@ -52,11 +52,6 @@
               <% end %>
             </p>
           <% end %>
-          <% if workshop.partner.present? %>
-            <p class="mt-1 text-xs text-imasus-dark-green/60">
-              <%= t(".workshops.partner_with", partner: workshop.partner) %>
-            </p>
-          <% end %>
           <% if workshop.description.present? %>
             <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/70 line-clamp-4">
               <%= workshop.description %>

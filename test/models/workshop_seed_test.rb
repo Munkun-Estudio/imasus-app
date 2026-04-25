@@ -7,7 +7,6 @@ class WorkshopSeedTest < ActiveSupport::TestCase
     end
 
     workshop = Workshop.find_by!(slug: "spain")
-    assert_equal "Munkun", workshop.partner
     assert_equal Date.new(2026, 4, 28), workshop.starts_on
     assert_equal Date.new(2026, 4, 28), workshop.ends_on
 

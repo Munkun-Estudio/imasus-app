@@ -7,7 +7,6 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
       slug: "spain-2026",
       title_translations: { "es" => "Taller IMASUS Espana" },
       description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
-      partner: "Munkun",
       location: "Zaragoza, Spain",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)
@@ -58,7 +57,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "facilitator sees only projects from workshops they participate in" do
     other_workshop = Workshop.create!(
-      slug: "italy-2026", partner: "Lottozero", location: "Prato",
+      slug: "italy-2026", location: "Prato",
       starts_on: Date.current, ends_on: Date.current,
       title_translations: { "it" => "Italia" }, description_translations: { "it" => "Italia." }
     )

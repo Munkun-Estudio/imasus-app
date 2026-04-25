@@ -7,7 +7,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
       slug: "spain",
       title_translations: { "es" => "Taller IMASUS Espana" },
       description_translations: { "es" => "Un taller IMASUS en Zaragoza." },
-      partner: "Munkun",
       location: "Zaragoza, Spain",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)
@@ -162,7 +161,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
       slug: "italy",
       title_translations: { "it" => "Workshop IMASUS Italia" },
       description_translations: { "it" => "Un workshop IMASUS in Italia." },
-      partner: "Lottozero",
       location: "Prato, Italy",
       starts_on: Date.new(2026, 5, 12),
       ends_on: Date.new(2026, 5, 12)
@@ -251,7 +249,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
         title_translations: { "es" => "Nuevo título", "en" => "New title" },
         description_translations: { "es" => "Nueva descripción", "en" => "New description" },
         location: "Madrid, Spain",
-        partner: "New Partner",
         starts_on: "2027-01-01",
         ends_on: "2027-01-02",
         contact_email: "hello@imasus.eu"
@@ -263,7 +260,6 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Nuevo título",       @workshop.title_translations["es"]
     assert_equal "New title",          @workshop.title_translations["en"]
     assert_equal "Madrid, Spain",      @workshop.location
-    assert_equal "New Partner",        @workshop.partner
     assert_equal Date.new(2027, 1, 1), @workshop.starts_on
     assert_equal Date.new(2027, 1, 2), @workshop.ends_on
     assert_equal "hello@imasus.eu",    @workshop.contact_email
@@ -292,11 +288,11 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
   test "PATCH update is blocked for non-managers" do
     sign_in(@participant)
     patch workshop_url(@workshop), params: {
-      workshop: { partner: "Hijacked" }
+      workshop: { location: "Hijacked Town" }
     }
     assert_redirected_to root_path
     @workshop.reload
-    assert_not_equal "Hijacked", @workshop.partner
+    assert_not_equal "Hijacked Town", @workshop.location
   end
 
   test "edit form does not expose an editable slug field" do

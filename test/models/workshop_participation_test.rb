@@ -7,7 +7,6 @@ class WorkshopParticipationTest < ActiveSupport::TestCase
       slug: "greece-2026",
       title_translations: { "el" => "Ergastirio IMASUS Ellada" },
       description_translations: { "el" => "Perigrafi ergastiriou." },
-      partner: "ECHN",
       location: "Athens, Greece",
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)

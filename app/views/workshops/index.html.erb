@@ -18,16 +18,13 @@
       <% @workshops.each do |workshop| %>
         <li>
           <article class="flex h-full flex-col rounded-xl border border-imasus-dark-green/10 bg-white px-6 py-6 shadow-sm">
-            <div class="flex flex-wrap items-center gap-3">
-              <span class="rounded-full bg-imasus-light-blue/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green">
-                <%= workshop.partner %>
-              </span>
-              <% if attending_workshop?(workshop) %>
+            <% if attending_workshop?(workshop) %>
+              <div class="flex flex-wrap items-center gap-3">
                 <span class="rounded-full bg-imasus-mint/50 px-3 py-1 text-xs font-semibold text-imasus-dark-green">
                   <%= t(".attending") %>
                 </span>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
 
             <h2 class="mt-5 text-2xl font-bold text-imasus-dark-green">
               <%= link_to workshop.title, workshop_path(workshop), class: "hover:underline" %>

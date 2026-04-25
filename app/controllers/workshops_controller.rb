@@ -57,7 +57,7 @@ class WorkshopsController < ApplicationController
 
   def workshop_params
     params.require(:workshop).permit(
-      :location, :partner, :starts_on, :ends_on, :contact_email,
+      :location, :starts_on, :ends_on, :contact_email,
       title_translations: {},
       description_translations: {}
     )

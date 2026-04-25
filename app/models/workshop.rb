@@ -18,7 +18,7 @@ class Workshop < ApplicationRecord
 
   validates :slug,     presence: true, uniqueness: { case_sensitive: false }
   validates :location, presence: true
-  validates :partner, :starts_on, :ends_on, presence: true
+  validates :starts_on, :ends_on, presence: true
   validates :contact_email,
             format: { with: URI::MailTo::EMAIL_REGEXP },
             allow_blank: true
@@ -29,7 +29,7 @@ class Workshop < ApplicationRecord
 
   scope :ordered, -> { order(:starts_on, :location) }
   scope :ready_for_listing, lambda {
-    where.not(partner: nil, starts_on: nil, ends_on: nil)
+    where.not(starts_on: nil, ends_on: nil)
       .where.not(title_translations: {})
       .where.not(description_translations: {})
       .order(:starts_on, :location)
@@ -109,7 +109,6 @@ class Workshop < ApplicationRecord
       workshop.assign_attributes(
         title_translations: entry.fetch("title_translations", {}),
         description_translations: entry.fetch("description_translations", {}),
-        partner: entry.fetch("partner"),
         location: entry.fetch("location"),
         starts_on: entry.fetch("starts_on"),
         ends_on: entry.fetch("ends_on"),
