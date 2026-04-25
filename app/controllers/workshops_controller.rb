@@ -9,6 +9,7 @@ class WorkshopsController < ApplicationController
 
   def show
     @published_projects = @workshop.projects
+                                   .active
                                    .published
                                    .includes(:members, :challenge, hero_image_attachment: :blob)
                                    .order(publication_updated_at: :desc, created_at: :desc)

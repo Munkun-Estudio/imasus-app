@@ -103,6 +103,20 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-featured-projects-empty]"
   end
 
+  test "visitor home excludes disabled published projects from the featured list" do
+    workshop = make_workshop
+    visible  = make_published_project(workshop: workshop, title: "Visible",  published_at: 1.hour.ago)
+    hidden   = make_published_project(workshop: workshop, title: "Hidden",   published_at: 2.hours.ago)
+    admin    = User.create!(name: "Admin", email: "admin-vis@example.com",
+                            password: @password, role: :admin)
+    hidden.disable!(by: admin)
+
+    get root_url
+    assert_select "[data-featured-project]", count: 1
+    assert_match visible.title, response.body
+    assert_no_match Regexp.new(Regexp.escape(hidden.title)), response.body
+  end
+
   test "visitor home renders four public-resource teaser cards" do
     get root_url
     assert_select "[data-resource-card][data-resource=materials]"

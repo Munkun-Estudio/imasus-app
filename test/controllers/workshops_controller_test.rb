@@ -180,4 +180,37 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", text: "Taller IMASUS Espana"
   end
+
+  test "public show excludes disabled published projects" do
+    visible = Project.create!(workshop: @workshop, title: "Visible", language: "es", status: "draft")
+    hidden  = Project.create!(workshop: @workshop, title: "Disabled Project", language: "es", status: "draft")
+    [ visible, hidden ].each { |p| ProjectMembership.create!(project: p, user: @participant) }
+    publish_project!(visible)
+    publish_project!(hidden)
+
+    admin = User.create!(name: "Admin", email: "admin-wsx@example.com",
+                          password: "correct horse battery staple", role: :admin)
+    hidden.disable!(by: admin)
+
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", published_project_path(slug: visible.slug)
+    assert_select "a[href=?]", published_project_path(slug: hidden.slug), count: 0
+  end
+
+  test "public index published count excludes disabled projects" do
+    visible = Project.create!(workshop: @workshop, title: "Visible Counted", language: "es", status: "draft")
+    hidden  = Project.create!(workshop: @workshop, title: "Hidden Counted",  language: "es", status: "draft")
+    [ visible, hidden ].each { |p| ProjectMembership.create!(project: p, user: @participant) }
+    publish_project!(visible)
+    publish_project!(hidden)
+
+    admin = User.create!(name: "Admin", email: "admin-wsi@example.com",
+                          password: "correct horse battery staple", role: :admin)
+    hidden.disable!(by: admin)
+
+    get workshops_url
+    assert_response :success
+    assert_select "dd", text: I18n.t("workshops.index.published_project_count", count: 1), minimum: 1
+  end
 end

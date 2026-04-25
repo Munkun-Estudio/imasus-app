@@ -18,7 +18,7 @@ module WorkshopsHelper
   # @param workshop [Workshop]
   # @return [Integer] number of public projects for the workshop
   def published_project_count(workshop)
-    workshop.projects.count(&:published?)
+    workshop.projects.count { |p| p.published? && !p.disabled? }
   end
 
   # @param project [Project]
