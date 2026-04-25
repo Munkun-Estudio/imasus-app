@@ -119,6 +119,11 @@ it:
       open_agenda: "Apri agenda"
       agenda_page: "Vedi agenda completa"
       invite_participants: "Invita partecipanti"
+      new_project: "Avvia un progetto"
+      projects_heading: "Progetti"
+      no_projects: "Ancora nessun progetto."
+      no_projects_cta: "Avvia un progetto"
+      your_project: "Il tuo progetto"
     agenda:
       eyebrow: "Agenda workshop"
       title: "Agenda di %{workshop}"
@@ -205,6 +210,78 @@ it:
       submit: "Invia inviti"
     create:
       notice: "%{invited} invitate, %{skipped} già registrate, %{invalid} email non valide."
+  project_publications:
+    new:
+      title: "Pubblica il progetto"
+      heading: "Pubblica il progetto"
+      welcome_eyebrow: "Pubblicazione"
+      welcome_heading: "Trasformiamo il vostro processo in un progetto pubblico."
+      welcome_body: "Passerete attraverso quattro passaggi di riflessione. In ognuno potete scrivere una breve risposta e scegliere momenti dal registro di processo. Alla fine assembleremo tutto in una bozza modificabile."
+      begin: "Inizia pubblicazione"
+      workflow:
+        reflect:
+          heading: "Riflettere"
+          body: "Rispondete a domande su problema, processo, apprendimenti e risultato."
+        reuse:
+          heading: "Riutilizzare il registro"
+          body: "Selezionate note, immagini o video dal registro come evidenze."
+        edit:
+          heading: "Modificare la storia finale"
+          body: "Rivedete tutto in un editor prima di pubblicare."
+      log_entries_available:
+        one: "Avete 1 voce del registro disponibile da riutilizzare."
+        other: "Avete %{count} voci del registro disponibili da riutilizzare."
+      log_entries_empty: "Non ci sono ancora voci nel registro. Potete pubblicare con le vostre risposte o tornare indietro per aggiungerle prima."
+      step_label: "Passo %{current} di %{total}"
+      progress_label: "Avanzamento pubblicazione"
+      next: "Continua"
+      back: "Indietro"
+      lead: "Trasforma il vostro lavoro in una pagina pubblica."
+      challenge_heading: "Sfida"
+      no_challenge: "Nessuna sfida collegata a questo progetto."
+      problem_heading: "Il problema"
+      problem_hint: "Cosa stavate cercando di affrontare?"
+      process_heading: "Il vostro processo"
+      process_hint: "Cosa avete provato? Selezionate voci del registro che mostrano evidenze del processo."
+      insights_heading: "Apprendimenti"
+      insights_hint: "Cosa avete imparato? Selezionate voci del registro che supportano questi apprendimenti."
+      outcome_heading: "Risultato"
+      outcome_hint: "Dove siete arrivati? Selezionate voci del registro che mostrano il risultato."
+      log_picker_heading: "Usa evidenze dal registro di processo"
+      log_picker_hint: "Selezionate voci intere da includere in questa sezione. Potrete modificarle o rimuoverle nella composizione."
+      log_entry_count:
+        one: "1 voce"
+        other: "%{count} voci"
+      no_log_entries: "Non ci sono ancora voci nel registro."
+      log_media_image: "Immagine"
+      log_media_video: "Video"
+      composition_heading: "Composizione"
+      composition_hint: "Intrecciate le sezioni precedenti nella storia da pubblicare."
+      process_summary_label: "Sintesi pubblicata"
+      hero_image_label: "Immagine di copertina"
+      hero_image_hint: "JPEG o PNG. Le immagini orizzontali funzionano meglio."
+      submit: "Pubblica progetto"
+      cancel: "Annulla"
+    edit:
+      title: "Modifica progetto pubblicato"
+      heading: "Modifica progetto pubblicato"
+      lead: "Aggiorna la pagina pubblica. Lo slug URL resta invariato."
+      submit: "Salva modifiche"
+      cancel: "Annulla"
+    create:
+      success: "Progetto pubblicato."
+    update:
+      success: "Progetto pubblicato aggiornato."
+    errors:
+      forbidden: "Non puoi pubblicare questo progetto."
+      missing_hero: "Manca l'immagine di copertina."
+      missing_summary: "Manca la sintesi pubblicata."
+  published_projects:
+    show:
+      workshop_label: "Workshop"
+      members_heading: "Team"
+      last_updated: "Aggiornato il %{date}"
+      edit_link: "Modifica pagina pubblicata"
   participant_invitation_mailer:
     invite:
       subject: "Sei stata o sei stato invitato al workshop IMASUS %{workshop}"
@@ -293,10 +370,19 @@ it:
       delete_confirm_body: "L'eliminazione di «%{term}» non può essere annullata."
       delete_confirm_submit: "Elimina"
   projects:
+    index:
+      participant_redirect: "I tuoi progetti vivono nel tuo workshop."
+    status:
+      draft: "Bozza"
+      published: "Pubblicato"
     show:
       process_log: "Registro del processo →"
       process_log_eyebrow: "Attività del workshop"
       process_log_cta: "Apri il registro del processo"
+      publish_eyebrow: "Pronto a condividere?"
+      publish_cta: "Pubblica il tuo lavoro"
+      published_eyebrow: "Pubblicato"
+      view_publication_cta: "Vedi la pagina pubblica"
       edit: "Modifica"
       delete: "Elimina"
       add_member: "Aggiungi persone"

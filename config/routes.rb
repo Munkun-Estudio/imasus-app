@@ -42,7 +42,11 @@ Rails.application.routes.draw do
     resources :log_entries, only: [ :index, :new, :create, :destroy ] do
       member { get :delete_confirmation }
     end
+    resource :publication, only: [ :new, :create, :edit, :update ],
+                           controller: "project_publications"
   end
+
+  resources :published_projects, only: [ :show ], path: "published", param: :slug
 
   resource :session, only: [ :new, :create, :destroy ]
 

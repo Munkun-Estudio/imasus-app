@@ -75,6 +75,38 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "show renders the projects section listing workshop projects" do
+    WorkshopParticipation.create!(user: @participant, workshop: @workshop)
+    project = Project.create!(workshop: @workshop, title: "Kapok", language: "es", status: "draft")
+    ProjectMembership.create!(project: project, user: @participant)
+
+    sign_in(@participant)
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "[data-project-id='#{project.id}']"
+    assert_select "[data-role='your-project']"
+  end
+
+  test "show projects section shows a published project linking to its public page" do
+    WorkshopParticipation.create!(user: @participant, workshop: @workshop)
+    project = Project.create!(workshop: @workshop, title: "Published Kapok", language: "es", status: "draft")
+    ProjectMembership.create!(project: project, user: @participant)
+    project.hero_image.attach(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+    project.process_summary = "<p>Summary</p>"
+    project.status = "published"
+    project.publication_updated_at = Time.current
+    project.save!
+
+    sign_in(@participant)
+    get workshop_url(@workshop)
+    assert_response :success
+    assert_select "a[href=?]", published_project_path(slug: project.slug)
+  end
+
   test "show falls back to another available locale when current locale is missing" do
     sign_in(@participant)
 

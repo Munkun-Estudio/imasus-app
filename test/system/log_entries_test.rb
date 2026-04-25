@@ -22,7 +22,7 @@ class LogEntriesTest < ApplicationSystemTestCase
   end
 
   def teardown
-    LogEntry.delete_all
+    LogEntry.destroy_all
     super
   end
 

@@ -9,11 +9,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   self.use_transactional_tests = false
 
   def teardown
+    LogEntry.destroy_all
+    Project.destroy_all
+    Workshop.destroy_all
+    User.destroy_all
+
     ProjectMembership.delete_all
-    Project.delete_all
     WorkshopParticipation.delete_all
-    User.delete_all
-    Workshop.delete_all
     super
   end
 end

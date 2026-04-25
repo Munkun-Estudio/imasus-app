@@ -1,0 +1,208 @@
+<% form_url    = local_assigns.fetch(:form_url) %>
+<% form_method = local_assigns.fetch(:form_method, :post) %>
+<% form_scope  = form_method == :post ? "new" : "edit" %>
+<% is_wizard   = form_method == :post %>
+<% log_entries = local_assigns.fetch(:log_entries, []) %>
+
+<%= form_with model: project,
+              url: form_url,
+              method: form_method,
+              multipart: true,
+              data: (is_wizard ? {
+                controller: "publication-wizard",
+                publication_wizard_problem_heading_value:  t("project_publications.new.problem_heading"),
+                publication_wizard_process_heading_value:  t("project_publications.new.process_heading"),
+                publication_wizard_insights_heading_value: t("project_publications.new.insights_heading"),
+                publication_wizard_outcome_heading_value:  t("project_publications.new.outcome_heading"),
+              } : {}) do |f| %>
+
+  <% if project.errors.any? %>
+    <div class="<%= form_error_box_classes %>" data-role="errors">
+      <ul class="list-disc pl-5">
+        <% project.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if is_wizard %>
+
+    <%# Progress dots %>
+    <nav class="mb-8 flex items-center justify-center gap-2"
+         aria-label="<%= t("project_publications.new.progress_label") %>">
+      <% 6.times do |i| %>
+        <span data-publication-wizard-target="dot"
+              aria-current="<%= i == 0 ? "step" : "false" %>"
+              class="h-2.5 w-2.5 rounded-full bg-stone-200 transition-colors aria-[current=step]:bg-imasus-dark-green"></span>
+      <% end %>
+    </nav>
+
+    <%# ── Step 0: Welcome ── %>
+    <div data-publication-wizard-target="step">
+      <div class="rounded-2xl border border-imasus-dark-green/10 bg-white p-8 text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/40">
+          <%= t("project_publications.new.welcome_eyebrow") %>
+        </p>
+        <h2 class="mt-4 text-2xl font-bold text-imasus-dark-green">
+          <%= t("project_publications.new.welcome_heading") %>
+        </h2>
+        <p class="mx-auto mt-3 max-w-md text-base text-stone-600">
+          <%= t("project_publications.new.welcome_body") %>
+        </p>
+        <div class="mx-auto mt-6 grid max-w-xl gap-3 text-left sm:grid-cols-3">
+          <% %w[reflect reuse edit].each do |workflow_step| %>
+            <div class="rounded-xl bg-stone-50 p-4">
+              <p class="text-sm font-semibold text-imasus-dark-green">
+                <%= t("project_publications.new.workflow.#{workflow_step}.heading") %>
+              </p>
+              <p class="mt-1 text-xs leading-5 text-stone-500">
+                <%= t("project_publications.new.workflow.#{workflow_step}.body") %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+        <p class="mx-auto mt-5 max-w-md text-sm text-stone-500">
+          <% if log_entries.any? %>
+            <%= t("project_publications.new.log_entries_available", count: log_entries.size) %>
+          <% else %>
+            <%= t("project_publications.new.log_entries_empty") %>
+          <% end %>
+        </p>
+        <% if project.challenge.present? %>
+          <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-imasus-light-blue/30 px-4 py-2 text-sm text-imasus-dark-green">
+            <span class="font-semibold"><%= project.challenge.code %></span>
+            <span class="text-imasus-dark-green/50">—</span>
+            <span><%= project.challenge.question %></span>
+          </div>
+        <% end %>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button type="button" data-action="click->publication-wizard#next"
+                class="rounded-full bg-imasus-dark-green px-6 py-2.5 text-sm font-semibold text-white hover:bg-imasus-dark-green/90">
+          <%= t("project_publications.new.begin") %>
+        </button>
+      </div>
+    </div>
+
+    <%# ── Step 1: Problem ── %>
+    <div data-publication-wizard-target="step" hidden>
+      <div class="rounded-2xl border border-imasus-dark-green/10 bg-white p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/40">
+          <%= t("project_publications.new.step_label", current: 2, total: 6) %>
+        </p>
+        <h2 class="mt-2 text-xl font-bold text-imasus-dark-green">
+          <%= t("project_publications.new.problem_heading") %>
+        </h2>
+        <% if project.challenge.present? %>
+          <p class="mt-1 text-sm font-semibold text-imasus-dark-green/60">
+            <%= project.challenge.question %>
+          </p>
+        <% end %>
+        <p class="mt-2 text-sm text-stone-500"><%= t("project_publications.new.problem_hint") %></p>
+        <textarea id="wizard_problem" rows="6"
+                  class="mt-4 block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm text-stone-700 placeholder-stone-400 focus:border-imasus-dark-green/40 focus:outline-none focus:ring-1 focus:ring-imasus-dark-green/40"></textarea>
+      </div>
+      <div class="mt-6 flex items-center justify-between">
+        <button type="button" data-action="click->publication-wizard#back"
+                class="text-sm font-semibold text-stone-500 hover:text-stone-700">
+          <%= t("project_publications.new.back") %>
+        </button>
+        <button type="button" data-action="click->publication-wizard#next"
+                class="rounded-full bg-imasus-dark-green px-6 py-2.5 text-sm font-semibold text-white hover:bg-imasus-dark-green/90">
+          <%= t("project_publications.new.next") %>
+        </button>
+      </div>
+    </div>
+
+    <%# ── Step 2: Process ── %>
+    <div data-publication-wizard-target="step" hidden>
+      <div class="rounded-2xl border border-imasus-dark-green/10 bg-white p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/40">
+          <%= t("project_publications.new.step_label", current: 3, total: 6) %>
+        </p>
+        <h2 class="mt-2 text-xl font-bold text-imasus-dark-green">
+          <%= t("project_publications.new.process_heading") %>
+        </h2>
+        <p class="mt-2 text-sm text-stone-500"><%= t("project_publications.new.process_hint") %></p>
+        <textarea id="wizard_process" rows="6"
+                  class="mt-4 block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm text-stone-700 placeholder-stone-400 focus:border-imasus-dark-green/40 focus:outline-none focus:ring-1 focus:ring-imasus-dark-green/40"></textarea>
+        <%= render "log_entry_picker", log_entries: log_entries, section: "process" %>
+      </div>
+      <div class="mt-6 flex items-center justify-between">
+        <button type="button" data-action="click->publication-wizard#back"
+                class="text-sm font-semibold text-stone-500 hover:text-stone-700">
+          <%= t("project_publications.new.back") %>
+        </button>
+        <button type="button" data-action="click->publication-wizard#next"
+                class="rounded-full bg-imasus-dark-green px-6 py-2.5 text-sm font-semibold text-white hover:bg-imasus-dark-green/90">
+          <%= t("project_publications.new.next") %>
+        </button>
+      </div>
+    </div>
+
+    <%# ── Step 3: Insights ── %>
+    <div data-publication-wizard-target="step" hidden>
+      <div class="rounded-2xl border border-imasus-dark-green/10 bg-white p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/40">
+          <%= t("project_publications.new.step_label", current: 4, total: 6) %>
+        </p>
+        <h2 class="mt-2 text-xl font-bold text-imasus-dark-green">
+          <%= t("project_publications.new.insights_heading") %>
+        </h2>
+        <p class="mt-2 text-sm text-stone-500"><%= t("project_publications.new.insights_hint") %></p>
+        <textarea id="wizard_insights" rows="6"
+                  class="mt-4 block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm text-stone-700 placeholder-stone-400 focus:border-imasus-dark-green/40 focus:outline-none focus:ring-1 focus:ring-imasus-dark-green/40"></textarea>
+        <%= render "log_entry_picker", log_entries: log_entries, section: "insights" %>
+      </div>
+      <div class="mt-6 flex items-center justify-between">
+        <button type="button" data-action="click->publication-wizard#back"
+                class="text-sm font-semibold text-stone-500 hover:text-stone-700">
+          <%= t("project_publications.new.back") %>
+        </button>
+        <button type="button" data-action="click->publication-wizard#next"
+                class="rounded-full bg-imasus-dark-green px-6 py-2.5 text-sm font-semibold text-white hover:bg-imasus-dark-green/90">
+          <%= t("project_publications.new.next") %>
+        </button>
+      </div>
+    </div>
+
+    <%# ── Step 4: Outcome ── %>
+    <div data-publication-wizard-target="step" hidden>
+      <div class="rounded-2xl border border-imasus-dark-green/10 bg-white p-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/40">
+          <%= t("project_publications.new.step_label", current: 5, total: 6) %>
+        </p>
+        <h2 class="mt-2 text-xl font-bold text-imasus-dark-green">
+          <%= t("project_publications.new.outcome_heading") %>
+        </h2>
+        <p class="mt-2 text-sm text-stone-500"><%= t("project_publications.new.outcome_hint") %></p>
+        <textarea id="wizard_outcome" rows="6"
+                  class="mt-4 block w-full rounded-md border border-imasus-dark-green/20 px-3 py-2 text-sm text-stone-700 placeholder-stone-400 focus:border-imasus-dark-green/40 focus:outline-none focus:ring-1 focus:ring-imasus-dark-green/40"></textarea>
+        <%= render "log_entry_picker", log_entries: log_entries, section: "outcome" %>
+      </div>
+      <div class="mt-6 flex items-center justify-between">
+        <button type="button" data-action="click->publication-wizard#back"
+                class="text-sm font-semibold text-stone-500 hover:text-stone-700">
+          <%= t("project_publications.new.back") %>
+        </button>
+        <button type="button" data-action="click->publication-wizard#next"
+                class="rounded-full bg-imasus-dark-green px-6 py-2.5 text-sm font-semibold text-white hover:bg-imasus-dark-green/90">
+          <%= t("project_publications.new.next") %>
+        </button>
+      </div>
+    </div>
+
+    <%# ── Step 5: Composition ── %>
+    <div data-publication-wizard-target="step" hidden>
+      <%= render "composition_fields", f: f, project: project, form_scope: form_scope, show_back: true %>
+    </div>
+
+  <% else %>
+
+    <%# Edit mode: composition only, no wizard %>
+    <%= render "composition_fields", f: f, project: project, form_scope: form_scope, show_back: false %>
+
+  <% end %>
+
+<% end %>

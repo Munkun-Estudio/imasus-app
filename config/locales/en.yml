@@ -120,6 +120,10 @@ en:
       agenda_page: "View full agenda"
       invite_participants: "Invite participants"
       new_project: "Start a project"
+      projects_heading: "Projects"
+      no_projects: "No projects yet."
+      no_projects_cta: "Start a project"
+      your_project: "Your project"
     agenda:
       eyebrow: "Workshop Agenda"
       title: "%{workshop} agenda"
@@ -320,6 +324,10 @@ en:
       empty_title: "No projects yet."
       empty_body: "Ready to start? Create your first project and pick a challenge."
       empty_cta: "Create a project"
+      participant_redirect: "Your projects live inside your workshop."
+    status:
+      draft: "Draft"
+      published: "Published"
     new:
       heading: "New project"
       title: "New project"
@@ -350,6 +358,10 @@ en:
       process_log: "Process log →"
       process_log_eyebrow: "Workshop activity"
       process_log_cta: "Open process log"
+      publish_eyebrow: "Ready to share?"
+      publish_cta: "Publish your work"
+      published_eyebrow: "Published"
+      view_publication_cta: "View public page"
     edit:
       title: "Edit project"
     update:
@@ -430,6 +442,77 @@ en:
       success: "Entry deleted."
     errors:
       forbidden: "You are not allowed to delete that entry."
+  project_publications:
+    new:
+      title: "Publish your project"
+      heading: "Publish your project"
+      welcome_eyebrow: "Publication"
+      welcome_heading: "Let's turn your process into a public project."
+      welcome_body: "You’ll move through four reflection steps. In each one, you can write a short answer and choose moments from your process log to include. At the end, we’ll assemble everything into one editable publication draft."
+      begin: "Start publication"
+      workflow:
+        reflect:
+          heading: "Reflect"
+          body: "Answer prompts about the problem, process, insights, and outcome."
+        reuse:
+          heading: "Reuse your log"
+          body: "Select notes, images, or videos from your process log as evidence."
+        edit:
+          heading: "Edit the final story"
+          body: "Review everything in one editor before publishing."
+      log_entries_available:
+        one: "You have 1 process log entry available to reuse."
+        other: "You have %{count} process log entries available to reuse."
+      log_entries_empty: "You don’t have any process log entries yet. You can still publish from your answers, or go back and add log entries first."
+      step_label: "Step %{current} of %{total}"
+      progress_label: "Publication progress"
+      next: "Continue"
+      back: "Back"
+      challenge_heading: "Challenge"
+      no_challenge: "No challenge linked to this project."
+      problem_heading: "The problem"
+      problem_hint: "After working on it, how would you describe the problem in your own words?"
+      process_heading: "Your process"
+      process_hint: "What did you try? What steps did your team take? Choose log entries that show evidence of that process."
+      insights_heading: "Insights"
+      insights_hint: "What did you discover or learn? Choose log entries that support those insights."
+      outcome_heading: "Outcome"
+      outcome_hint: "What did you produce, propose, or prototype? Choose log entries that show where you landed."
+      log_picker_heading: "Use evidence from your process log"
+      log_picker_hint: "Select whole entries to include in this section. You can edit or remove them in the composition step."
+      log_entry_count:
+        one: "1 entry"
+        other: "%{count} entries"
+      no_log_entries: "No process log entries yet."
+      log_media_image: "Image"
+      log_media_video: "Video"
+      composition_heading: "Composition"
+      composition_hint: "Your answers have been assembled below. Edit freely — reorder, expand, or trim before publishing."
+      process_summary_label: "Published summary"
+      hero_image_label: "Hero image"
+      hero_image_hint: "JPEG or PNG. Wide images work best."
+      submit: "Publish project"
+      cancel: "Cancel"
+    edit:
+      title: "Edit published project"
+      heading: "Edit published project"
+      lead: "Refine the public page. The URL slug stays the same — only the content is updated."
+      submit: "Save changes"
+      cancel: "Cancel"
+    create:
+      success: "Project published."
+    update:
+      success: "Published project updated."
+    errors:
+      forbidden: "You are not allowed to publish this project."
+      missing_hero: "A hero image is required before publishing."
+      missing_summary: "A published summary is required before publishing."
+  published_projects:
+    show:
+      workshop_label: "Workshop"
+      members_heading: "Team"
+      last_updated: "Last updated %{date}"
+      edit_link: "Edit published page"
   participant_invitation_mailer:
     invite:
       subject: "You have been invited to the %{workshop} IMASUS workshop"

@@ -1,0 +1,71 @@
+<section class="mt-12 max-w-5xl">
+  <div class="flex items-center justify-between gap-4">
+    <h2 class="text-xl font-bold text-imasus-dark-green"><%= t("workshops.show.projects_heading") %></h2>
+    <% if attending && projects.any? %>
+      <%= link_to t("workshops.show.new_project"),
+                  new_project_path(workshop_id: workshop.id),
+                  class: "inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+    <% end %>
+  </div>
+
+  <% if projects.empty? %>
+    <div class="mt-6 rounded-2xl border border-dashed border-imasus-dark-green/20 bg-stone-50 p-8">
+      <p class="text-base text-stone-600"><%= t("workshops.show.no_projects") %></p>
+      <% if attending %>
+        <%= link_to t("workshops.show.no_projects_cta"),
+                    new_project_path(workshop_id: workshop.id),
+                    class: "mt-4 inline-flex items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+      <% end %>
+    </div>
+  <% else %>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+      <% projects.each do |project| %>
+        <% is_own = user_project_ids.include?(project.id) %>
+        <% destination =
+             if project.published?
+               published_project_path(slug: project.slug)
+             elsif project.editable_by?(current_user)
+               project_path(project)
+             end %>
+        <li data-project-id="<%= project.id %>"
+            data-role="<%= "your-project" if is_own %>"
+            class="<%= is_own ? 'border-2 border-imasus-mint' : 'border border-imasus-dark-green/10' %> rounded-2xl bg-white p-5">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <% if destination %>
+                <%= link_to project.title, destination,
+                            class: "block text-base font-semibold text-imasus-dark-green hover:underline" %>
+              <% else %>
+                <span class="block text-base font-semibold text-imasus-dark-green"><%= project.title %></span>
+              <% end %>
+              <% if project.challenge.present? %>
+                <p class="mt-1 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50">
+                  <%= project.challenge.code %>
+                </p>
+              <% end %>
+            </div>
+            <span class="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-stone-600">
+              <%= t("projects.status.#{project.status}") %>
+            </span>
+          </div>
+
+          <div class="mt-4 flex items-center gap-3">
+            <div class="flex -space-x-2">
+              <% project.members.each do |member| %>
+                <span title="<%= member.name %>"
+                      class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-white bg-imasus-dark-green/10 text-[10px] font-bold uppercase text-imasus-dark-green">
+                  <%= member.name.split.map { |w| w[0].upcase }.first(2).join %>
+                </span>
+              <% end %>
+            </div>
+            <% if is_own %>
+              <span class="rounded-full bg-imasus-mint/50 px-2.5 py-0.5 text-[11px] font-semibold text-imasus-dark-green">
+                <%= t("workshops.show.your_project") %>
+              </span>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>

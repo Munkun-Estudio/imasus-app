@@ -7,6 +7,11 @@ class WorkshopsController < ApplicationController
   end
 
   def show
+    @projects = @workshop.projects
+                         .includes(:members, :challenge)
+                         .order(created_at: :desc)
+    @attending = WorkshopParticipation.exists?(user: current_user, workshop: @workshop)
+    @user_project_ids = current_user.projects.where(workshop: @workshop).pluck(:id).to_set
   end
 
   def agenda

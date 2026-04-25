@@ -134,3 +134,13 @@ Project content is authored once in one language (defaulted from `workshop.commu
 
 ### Last-member destroy via after_destroy callback
 When the final `ProjectMembership` is destroyed, an `after_destroy` callback on the join model destroys the project. Chosen over a model-level callback on `Project` to keep the invariant close to the triggering action. No soft-delete — draft projects are cheap to recreate.
+
+## 2026-04-24 — Spec 12: Project publication IA
+
+### Projects are discovered via the workshop page; `/projects` index is admin/facilitator only
+
+After spec 11 landed, participants had no visible navigation path back to their project. Considered options: (a) a "My projects" link in a user dropdown, (b) a projects section on the workshop show page, (c) the Home participant dashboard (spec 7). Decision: option (b). Projects belong to a workshop — listing them on the workshop page matches the mental model and avoids a separate surface. The participant's own project is visually distinguished in the list.
+
+`/projects` index survives as a cross-workshop list for admins and facilitators but has no nav entry for participants. Participants find projects via the workshop; Home (spec 7) will surface the active project as a dashboard card when it lands.
+
+Rejected: a dedicated `/projects` participant index — redundant once workshop listing exists and Home is built; would require maintaining a third discovery surface.

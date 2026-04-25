@@ -36,17 +36,17 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_session_path
   end
 
-  test "participant sees only their own projects" do
+  test "participant is redirected from index to their workshops with a notice" do
     sign_in(@member)
     get projects_url
-    assert_response :success
-    assert_select "[data-project-id='#{@project.id}']"
+    assert_redirected_to workshops_path
+    assert_equal I18n.t("projects.index.participant_redirect"), flash[:notice]
   end
 
-  test "participant without projects sees an empty state" do
+  test "participant without projects is also redirected" do
     sign_in(@outsider)
     get projects_url
-    assert_response :success
+    assert_redirected_to workshops_path
   end
 
   test "admin sees all projects" do
@@ -156,10 +156,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "show redirects a non-member participant" do
+  test "show redirects a non-member participant to their workshops" do
     sign_in(@outsider)
     get project_url(@project)
-    assert_redirected_to projects_path
+    assert_redirected_to workshops_path
     assert_not_nil flash[:alert]
   end
 

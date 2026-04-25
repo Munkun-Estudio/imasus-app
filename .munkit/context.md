@@ -185,7 +185,7 @@ Specs are created under `.munkit/specs/` as work begins. This list is the agreed
 | 8 | `authentication` ✅ | User model (has_secure_password), admin/facilitator/participant roles, invitation flow, transactional emails | 1 |
 | 9 | `workshops` ✅ | Workshop model, seed for 3 known workshops, index + detail + per-country agenda page, WorkshopParticipation join | 1, 8 |
 | 10 | `projects-and-teams` ✅ | Project model, ProjectMembership, create project (solo or team), add members, link to workshop + challenge | 8, 9 |
-| 11 | `process-log` | LogEntry with Action Text, timeline view, create entries with photos/videos/material references. Belongs to project. | 3, 10 |
+| 11 | `process-log` ✅ | LogEntry with Action Text, timeline view, create entries with photos/videos/material references. Belongs to project. | 3, 10 |
 | 12 | `project-publication` | Publishing wizard (guided reflection), draft→published lifecycle, public URL, Behance-style page with material/training embeds | 10, 11 |
 | 13 | `facilitator-tools` | Workshop management, participant invitation UI, project moderation (disable participant/project), view all projects in a workshop | 8, 9, 10 |
 | 14 | `workshops-public-listing` | Public page listing workshops and their published projects (no login required) | 9, 12 |
