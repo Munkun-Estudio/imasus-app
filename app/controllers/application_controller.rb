@@ -77,10 +77,39 @@ class ApplicationController < ActionController::Base
     session.delete(:return_to) || default
   end
 
+  # Resolves the request locale and runs the action under it.
+  #
+  # Resolution order:
+  #   1. params[:locale]            — explicit one-shot override
+  #   2. current_user.preferred_locale — stored authenticated preference
+  #   3. cookies[:locale]           — visitor stickiness (existing behaviour)
+  #   4. I18n.default_locale        — fallback
+  #
+  # Invalid candidates (locale not in I18n.available_locales) fall through
+  # to the next source rather than raising. The cookie is only refreshed
+  # when the request explicitly carries a locale param, to avoid a stored
+  # preference being silently overwritten by a default.
   def set_locale(&action)
-    locale = params[:locale] || cookies[:locale] || I18n.default_locale
-    locale = I18n.default_locale unless I18n.available_locales.include?(locale.to_sym)
-    cookies[:locale] = { value: locale, expires: 1.year.from_now }
+    locale = resolved_locale
+    cookies[:locale] = { value: locale, expires: 1.year.from_now } if params[:locale].present?
     I18n.with_locale(locale, &action)
+  end
+
+  def resolved_locale
+    locale_candidates.find { |candidate| valid_locale?(candidate) } || I18n.default_locale
+  end
+
+  def locale_candidates
+    [
+      params[:locale],
+      current_user&.preferred_locale,
+      cookies[:locale]
+    ]
+  end
+
+  def valid_locale?(candidate)
+    return false if candidate.blank?
+
+    I18n.available_locales.map(&:to_s).include?(candidate.to_s)
   end
 end
