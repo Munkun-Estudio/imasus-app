@@ -3,7 +3,9 @@
     <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
       <%# EU funding notice %>
       <div class="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6 lg:max-w-2xl">
-        <%= image_tag "eu-funded-white.png", alt: "Funded by the European Union", class: "h-20 w-auto shrink-0" %>
+        <%# self-start prevents the parent flex-col from stretching the
+           near-square PNG to full container width on mobile. %>
+        <%= image_tag "eu-funded-white.png", alt: "Funded by the European Union", class: "h-20 w-auto shrink-0 self-start" %>
         <p class="text-xs leading-relaxed text-white/60"><%= t("footer.eu_notice") %></p>
       </div>
 

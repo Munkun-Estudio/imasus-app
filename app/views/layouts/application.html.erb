@@ -27,7 +27,9 @@
   <body class="min-h-screen bg-stone-100" data-controller="mobile-menu">
     <%# Mobile header — visible below lg breakpoint %>
     <header class="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-imasus-dark-green/10 bg-white px-4 py-3 lg:hidden">
-      <a href="<%= root_path %>" class="text-lg font-bold text-imasus-dark-green">IMASUS</a>
+      <a href="<%= root_path %>" class="inline-flex items-center">
+        <%= image_tag "logo.svg", alt: "IMASUS", class: "h-8 w-auto" %>
+      </a>
       <div class="flex items-center gap-2">
         <div data-locale-switcher-position="mobile-header">
           <%= render "shared/locale_switcher" %>
