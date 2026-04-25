@@ -39,21 +39,31 @@
     <% end %>
   </dl>
 
-  <div class="mt-8 flex flex-wrap gap-3">
-    <% if current_user&.facilitator? || current_user&.admin? %>
+  <%# Manage cluster: primary edit + secondary people actions, grouped together
+      so the show page reads as "the workshop, then the things you can do to manage it." %>
+  <% if @workshop.manageable_by?(current_user) %>
+    <div class="mt-8 flex flex-wrap items-center gap-2 rounded-2xl border border-imasus-dark-green/10 bg-white px-3 py-2">
+      <p class="px-2 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45">
+        <%= t("workshops.show.manage") %>
+      </p>
+      <%= link_to t("workshops.show.edit_workshop"),
+                  edit_workshop_path(@workshop),
+                  class: "inline-flex items-center rounded-full bg-imasus-dark-green px-4 py-2 text-sm font-semibold text-white" %>
+      <%= link_to t("workshops.show.participants"),
+                  workshop_participants_path(@workshop),
+                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-4 py-2 text-sm font-semibold text-imasus-dark-green" %>
+      <%= link_to t("workshops.show.invite_participants", default: "Invite participants"),
+                  new_workshop_invitation_path(@workshop),
+                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-4 py-2 text-sm font-semibold text-imasus-dark-green" %>
+    </div>
+  <% elsif current_user&.facilitator? || current_user&.admin? %>
+    <%# Facilitator outside their own workshops keeps the existing invite affordance only. %>
+    <div class="mt-8 flex flex-wrap gap-3">
       <%= link_to t("workshops.show.invite_participants", default: "Invite participants"),
                   new_workshop_invitation_path(@workshop),
                   class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
-    <% end %>
-    <% if @workshop.manageable_by?(current_user) %>
-      <%= link_to t("workshops.show.edit_workshop"),
-                  edit_workshop_path(@workshop),
-                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
-      <%= link_to t("workshops.show.participants"),
-                  workshop_participants_path(@workshop),
-                  class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-5 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   <% if current_user %>
     <%= render "projects",
