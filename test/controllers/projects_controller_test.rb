@@ -56,11 +56,35 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-project-id='#{@project.id}']"
   end
 
-  test "facilitator sees all projects" do
+  test "facilitator sees only projects from workshops they participate in" do
+    other_workshop = Workshop.create!(
+      slug: "italy-2026", partner: "Lottozero", location: "Prato",
+      starts_on: Date.current, ends_on: Date.current,
+      title_translations: { "it" => "Italia" }, description_translations: { "it" => "Italia." }
+    )
+    other_member = User.create!(name: "OM", email: "om@example.com",
+                                  password: @password, role: :participant)
+    WorkshopParticipation.create!(user: other_member, workshop: other_workshop)
+    other_project = Project.create!(workshop: other_workshop, title: "Other Workshop Project",
+                                     language: "it", status: "draft")
+    ProjectMembership.create!(project: other_project, user: other_member)
+
+    WorkshopParticipation.create!(user: @facilitator, workshop: @workshop)
     sign_in(@facilitator)
     get projects_url
     assert_response :success
     assert_select "[data-project-id='#{@project.id}']"
+    assert_select "[data-project-id='#{other_project.id}']", count: 0
+  end
+
+  test "admin sees disabled projects with the disabled chip on the index" do
+    @project.disable!(by: @admin)
+    sign_in(@admin)
+    get projects_url
+    assert_response :success
+    assert_select "[data-project-id='#{@project.id}']" do
+      assert_select "[data-disabled-chip]"
+    end
   end
 
   # --- new ---

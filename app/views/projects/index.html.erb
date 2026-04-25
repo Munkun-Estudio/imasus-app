@@ -34,7 +34,15 @@
                       <%= project.members.count %> <%= "member".pluralize(project.members.count) %>
                     </p>
                   </div>
-                  <span class="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-stone-600"><%= project.status %></span>
+                  <span class="flex items-center gap-2">
+                    <% if project.disabled? %>
+                      <span data-disabled-chip
+                            class="rounded-full bg-imasus-red/10 px-2.5 py-0.5 text-xs font-semibold text-imasus-red">
+                        <%= t("projects.disabled.chip") %>
+                      </span>
+                    <% end %>
+                    <span class="rounded-full bg-stone-100 px-2.5 py-0.5 text-xs font-semibold text-stone-600"><%= project.status %></span>
+                  </span>
                 <% end %>
               </li>
             <% end %>

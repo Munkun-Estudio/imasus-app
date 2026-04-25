@@ -7,15 +7,17 @@ class ProjectsController < ApplicationController
   before_action :require_moderator,   only: [ :disable, :enable ]
 
   # @note Participants are redirected to their workshops (their projects now
-  #   live inside the workshop show page). Admin and facilitator still see the
-  #   cross-cutting list here.
+  #   live inside the workshop show page). Admins see every project;
+  #   facilitators are scoped to projects in their own workshops (spec 13).
   def index
     if current_user.participant?
       redirect_to workshops_path, notice: t("projects.index.participant_redirect")
       return
     end
 
-    @projects = Project.includes(:workshop, :members).order(created_at: :desc)
+    scope = Project.includes(:workshop, :members).order(created_at: :desc)
+    scope = scope.where(workshop_id: current_user.workshop_ids) if current_user.facilitator?
+    @projects = scope
   end
 
   # @note Requires +workshop_id+ param and workshop participation.
