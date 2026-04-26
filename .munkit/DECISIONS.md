@@ -188,3 +188,9 @@ This supersedes the previously-deferred `workshop-agenda-edit` slug.
 Workshop slug is auto-generated from the first non-blank title in the `en → es → it → el` fallback order, parameterized, capped at 100 chars, with `-2`/`-3` suffix on collision. Generated once and never regenerated on later saves — same shape as `Project#assign_slug` from spec 12.
 
 No draft / published workshop state. Facilitators fill the form once and submit; a workshop with translated title + description and dates is publicly visible immediately. No `workshops#destroy` from this surface — cascades through projects + log entries are a separate decision; revisit when someone asks.
+
+## 2026-04-26 — Fly.io deployment baseline
+
+Production deploys to Fly.io app `imasus-app` in Paris (`cdg`) because Fly does not currently offer a Madrid/Spain region in this account. The app uses the Fly-managed Postgres `DATABASE_URL` as the default database endpoint for Rails, Solid Cache, Solid Queue, and Solid Cable. The Solid adapter configs keep override hooks (`CACHE_DATABASE_URL`, `QUEUE_DATABASE_URL`, `CABLE_DATABASE_URL`) so the services can be split later without changing code.
+
+Uploads use a private Tigris bucket through Active Storage proxy URLs. Tigris is Fly's S3-compatible object storage path, which avoids a separate AWS setup for the first production launch while keeping the repository public-safe: only secret names and config are committed, and the access key values live in Fly secrets. GitHub Actions deploys pushes to `main` with a Fly deploy token stored as `FLY_API_TOKEN`.
