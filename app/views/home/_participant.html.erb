@@ -16,7 +16,37 @@
         <% end %>
       </div>
     </section>
-    <%# TODO(bookmarks): bookmarks section here once bookmarks ships. %>
+    <%
+      bookmark_dot_color = {
+        "TrainingModule" => "bg-imasus-navy",
+        "Material"       => "bg-imasus-light-blue",
+        "Challenge"      => "bg-imasus-mint",
+        "GlossaryTerm"   => "bg-imasus-light-pink"
+      }
+    %>
+    <% if @recent_bookmarks.any? %>
+      <section class="mt-12" data-home-section="bookmarks">
+        <div class="rounded-2xl border border-imasus-dark-green/10 bg-white px-5 py-4 shadow-sm">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+              <%= t(".bookmarks.heading") %>
+            </h2>
+            <%= link_to t(".bookmarks.see_all"), bookmarks_path,
+                  class: "text-xs font-medium text-imasus-dark-green/60 hover:text-imasus-dark-green" %>
+          </div>
+          <ul class="mt-3 divide-y divide-imasus-dark-green/5">
+            <% @recent_bookmarks.each do |bookmark| %>
+              <li class="flex items-center gap-3 py-2">
+                <span class="mt-px h-2 w-2 shrink-0 rounded-full <%= bookmark_dot_color.fetch(bookmark.bookmarkable_type, "bg-imasus-dark-green/20") %>"
+                      title="<%= bookmark.bookmarkable_type.underscore.humanize %>"></span>
+                <%= link_to bookmark.label, bookmark.url,
+                      class: "min-w-0 flex-1 truncate text-sm font-medium text-imasus-dark-green hover:underline" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+    <% end %>
 
     <% if @workshops.any? %>
       <section class="mt-12">
