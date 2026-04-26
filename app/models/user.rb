@@ -42,6 +42,8 @@ class User < ApplicationRecord
   has_many :project_memberships, dependent: :destroy
   has_many :projects, through: :project_memberships
 
+  has_many :bookmarks, dependent: :destroy
+
   enum :role, { admin: 0, facilitator: 1, participant: 2 }, default: :participant
 
   before_validation :normalise_email
