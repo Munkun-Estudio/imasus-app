@@ -1,0 +1,16 @@
+<%# Locals: current (String, "about" or a module slug), module_slugs (Array<String>).
+    Renders the tab strip used at the top of every training surface — the
+    landing About tab plus one tab per module. Same widget on the index
+    (training#index) and on each section (training#show). %>
+<nav class="mb-8 flex flex-wrap gap-2" aria-label="<%= t("training.show.module_nav_label") %>">
+  <% about_active = current == "about" %>
+  <%= link_to t("training.about.tab"),
+        training_index_path,
+        class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{about_active ? 'bg-imasus-dark-green text-white' : 'border border-imasus-dark-green/15 text-imasus-dark-green/60 hover:border-imasus-dark-green/30'}" %>
+  <% module_slugs.each do |slug| %>
+    <% active = slug == current %>
+    <%= link_to slug.titleize,
+          training_show_path(slug: slug, section: "training-module"),
+          class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{active ? 'bg-imasus-dark-green text-white' : 'border border-imasus-dark-green/15 text-imasus-dark-green/60 hover:border-imasus-dark-green/30'}" %>
+  <% end %>
+</nav>

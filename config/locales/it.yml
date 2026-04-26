@@ -155,6 +155,10 @@ it:
   training:
     index:
       title: "Formazione"
+    about:
+      tab: "Introduzione"
+      heading: "Introduzione"
+      empty: "Il contenuto introduttivo è in preparazione. Scegli un modulo dalle schede in alto per iniziare a leggere."
     show:
       module_nav_label: "Navigazione moduli"
       section_nav_label: "Navigazione sezioni"

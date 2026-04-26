@@ -152,6 +152,10 @@ en:
   training:
     index:
       title: "Training"
+    about:
+      tab: "About"
+      heading: "About"
+      empty: "Introduction content is being prepared. Pick a module from the tabs above to start reading."
     show:
       module_nav_label: "Module navigation"
       section_nav_label: "Section navigation"
