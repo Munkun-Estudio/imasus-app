@@ -17,7 +17,8 @@ class TrainingModule::Renderer
   # @return [String] rendered HTML
   def self.call(markdown)
     html = Kramdown::Document.new(markdown, input: "kramdown", html_to_native: false).to_html
-    process_images(html)
+    html = process_images(html)
+    add_paragraph_ids(html)
   end
 
   def self.process_images(html)
@@ -45,4 +46,18 @@ class TrainingModule::Renderer
     tag.sub(/<img/, '<img loading="lazy"')
   end
   private_class_method :add_lazy_loading
+
+  # Adds sequential id attributes to <p> tags that do not already have one.
+  # Ids take the form "p-1", "p-2", … and are used as stable anchor targets
+  # for the training-bookmark Stimulus controller.
+  def self.add_paragraph_ids(html)
+    counter = 0
+    html.gsub(/<p(\s[^>]*)?>/) do |tag|
+      counter += 1
+      next tag if tag.match?(/\bid=/)
+
+      tag.sub("<p", %(<p id="p-#{counter}"))
+    end
+  end
+  private_class_method :add_paragraph_ids
 end

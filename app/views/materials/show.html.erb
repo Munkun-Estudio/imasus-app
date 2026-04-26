@@ -15,12 +15,17 @@
 
 <article class="px-6 py-10 sm:px-10 lg:px-16">
   <%= link_to t("materials.show.back_to_index"), materials_path,
-        class: "text-sm text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+        class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
 
-  <header class="mt-6">
-    <h1 class="text-3xl font-bold text-imasus-dark-green sm:text-4xl">
+  <header class="mt-6 flex items-start gap-3">
+    <h1 class="flex-1 text-3xl font-bold text-imasus-dark-green sm:text-4xl">
       <%= @material.trade_name %>
     </h1>
+    <%= bookmark_toggle(
+          bookmarkable_type: "Material",
+          resource_key:      @material.id.to_s,
+          label:             @material.trade_name,
+          url:               material_path(@material)) %>
   </header>
 
   <% if gallery_items.any? %>

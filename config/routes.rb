@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
   resources :published_projects, only: [ :show ], path: "published", param: :slug
 
+  resources :bookmarks, only: [ :index, :create, :destroy ]
+
   resource :session, only: [ :new, :create, :destroy ]
   resource :settings, only: [ :edit, :update ]
 

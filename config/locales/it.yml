@@ -13,6 +13,7 @@ it:
     resources_group: "Risorse"
     aria_label: "Navigazione principale"
     toggle_menu: "Apri menu"
+    bookmarks: "Segnalibri"
   locale_switcher:
     label: "Lingua"
   footer:
@@ -71,6 +72,9 @@ it:
         heading: "Pronto/a a iniziare il tuo primo progetto?"
         lead: "Choose a workshop below — projects are created from the workshop page."
       empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      bookmarks:
+        heading: "I tuoi segnalibri"
+        see_all: "Vedi tutti"
       resources:
         heading: "Esplora"
       last_activity: "Ultima attività %{time} fa"
@@ -84,6 +88,7 @@ it:
         publish: "Pubblica"
         view_public: "Vai alla pagina pubblica"
         edit_publication: "Modifica pubblicazione"
+        open_workshop: "Apri workshop"
     facilitator:
       greeting: "Bentornato/a, %{name}."
       workshops:
@@ -482,8 +487,9 @@ it:
       category_filter_label: "Filtra per categoria"
       letters_label: "Salta alla lettera"
       empty: "Nessun termine nel glossario per il momento."
+      know_more: "Scopri di più"
     show:
-      back_to_index: "Torna al glossario"
+      back_to_index: "← Torna al glossario"
       category_label: "Categoria"
       examples_label: "Esempi"
       meta_description: "Definizione del glossario per %{term} nel vocabolario del workshop IMASUS."
@@ -604,6 +610,23 @@ it:
     selected:
       one: "1 file selezionato"
       other: "%{count} file selezionati"
+  bookmarks:
+    save: "Salva segnalibro"
+    unsave: "Rimuovi segnalibro"
+    index:
+      title: "Segnalibri"
+      remove: "Rimuovi"
+      groups:
+        training_module: "Formazione"
+        material: "Materiali"
+        glossary_term: "Glossario"
+        challenge: "Sfide"
+      empty:
+        default: "Niente salvato qui ancora."
+        training_module: "Nessun brano di formazione salvato."
+        material: "Nessun materiale salvato."
+        glossary_term: "Nessun termine del glossario salvato."
+        challenge: "Nessuna sfida salvata."
   user_menu:
     log_in: "Accedi"
     log_out: "Esci"

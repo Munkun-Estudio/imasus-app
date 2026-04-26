@@ -30,10 +30,11 @@ class HomeController < ApplicationController
   end
 
   def load_participant_data
-    @projects = current_user.projects
-                            .includes(:workshop, :challenge, :members, :log_entries)
-                            .order(updated_at: :desc)
-    @workshops = current_user.workshops
+    @projects         = current_user.projects
+                                    .includes(:workshop, :challenge, :members, :log_entries)
+                                    .order(updated_at: :desc)
+    @workshops        = current_user.workshops
+    @recent_bookmarks = current_user.bookmarks.recent.limit(6)
   end
 
   def load_facilitator_data

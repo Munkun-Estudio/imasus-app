@@ -197,7 +197,7 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
 | Slug | What | Status |
 |------|------|--------|
 | `workshop-management` | Drop `workshop.partner`; inline per-locale agenda editing in the workshop edit form; allow admins + facilitators to create workshops with auto-generated slug + auto-attached creator participation; "New workshop" CTA on `/workshops`; show-page polish. Supersedes `workshop-agenda-edit`. | In review (PR #25) |
-| `bookmarks` | Bookmark model, toggle UI on materials/training/glossary/challenges, `/bookmarks` index, integrates into participant home. | Pending |
+| `bookmarks` | Bookmark model; page-level toggle on materials/glossary show pages and challenge cards; anchor-level (heading + paragraph) toggle inside training module sections; `/bookmarks` index grouped by type; "Your bookmarks" strip on Home; Bookmarks link in User menu. | In progress |
 | `request-a-spot` | May upgrade per-workshop `mailto:` CTAs to a real form with persistence and facilitator notification. | Pending |
 | `activity-feed` | Facilitator/admin recent-activity strip, synthesized from existing tables. | Pending |
 | `trix-resource-embeds` | Trix toolbar embeds for materials/training in `process_summary`. | Pending |

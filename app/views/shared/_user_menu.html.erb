@@ -22,6 +22,10 @@
           <%= current_user.email %>
         </p>
       </div>
+      <%= link_to bookmarks_path,
+                  class: "block rounded-xl px-3 py-2 text-sm font-medium text-imasus-dark-green hover:bg-imasus-mint/30" do %>
+        <%= t("nav.bookmarks") %>
+      <% end %>
       <%= link_to edit_settings_path,
                   class: "block rounded-xl px-3 py-2 text-sm font-medium text-imasus-dark-green hover:bg-imasus-mint/30" do %>
         <%= t("user_menu.settings") %>

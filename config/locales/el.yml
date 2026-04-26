@@ -13,6 +13,7 @@ el:
     resources_group: "Πόροι"
     aria_label: "Κύρια πλοήγηση"
     toggle_menu: "Εναλλαγή μενού"
+    bookmarks: "Σελιδοδείκτες"
   locale_switcher:
     label: "Γλώσσα"
   footer:
@@ -71,6 +72,9 @@ el:
         heading: "Έτοιμος/η να ξεκινήσεις το πρώτο σου έργο;"
         lead: "Choose a workshop below — projects are created from the workshop page."
       empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      bookmarks:
+        heading: "Οι σελιδοδείκτες σου"
+        see_all: "Δες όλους"
       resources:
         heading: "Εξερεύνηση"
       last_activity: "Τελευταία δραστηριότητα πριν από %{time}"
@@ -84,6 +88,7 @@ el:
         publish: "Δημοσίευση"
         view_public: "Προβολή δημόσιας σελίδας"
         edit_publication: "Επεξεργασία δημοσίευσης"
+        open_workshop: "Άνοιγμα εργαστηρίου"
     facilitator:
       greeting: "Καλώς ήρθες ξανά, %{name}."
       workshops:
@@ -482,8 +487,9 @@ el:
       category_filter_label: "Φιλτράρισμα ανά κατηγορία"
       letters_label: "Μετάβαση σε γράμμα"
       empty: "Δεν υπάρχουν ακόμη όροι στο γλωσσάρι."
+      know_more: "Μάθετε περισσότερα"
     show:
-      back_to_index: "Επιστροφή στο γλωσσάρι"
+      back_to_index: "← Επιστροφή στο γλωσσάρι"
       category_label: "Κατηγορία"
       examples_label: "Παραδείγματα"
       meta_description: "Ορισμός γλωσσαρίου για %{term} στο λεξιλόγιο του εργαστηρίου IMASUS."
@@ -604,6 +610,23 @@ el:
     selected:
       one: "1 αρχείο επιλεγμένο"
       other: "%{count} αρχεία επιλεγμένα"
+  bookmarks:
+    save: "Αποθήκευση σελιδοδείκτη"
+    unsave: "Αφαίρεση σελιδοδείκτη"
+    index:
+      title: "Σελιδοδείκτες"
+      remove: "Αφαίρεση"
+      groups:
+        training_module: "Εκπαίδευση"
+        material: "Υλικά"
+        glossary_term: "Γλωσσάρι"
+        challenge: "Προκλήσεις"
+      empty:
+        default: "Δεν έχεις αποθηκεύσει τίποτα ακόμα."
+        training_module: "Δεν έχεις αποθηκεύσει αποσπάσματα εκπαίδευσης."
+        material: "Δεν έχεις αποθηκεύσει υλικά."
+        glossary_term: "Δεν έχεις αποθηκεύσει όρους γλωσσαρίου."
+        challenge: "Δεν έχεις αποθηκεύσει προκλήσεις."
   user_menu:
     log_in: "Σύνδεση"
     log_out: "Αποσύνδεση"
