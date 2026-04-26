@@ -46,28 +46,13 @@
     </section>
   <% end %>
 
-  <%# Public resources teaser — calmer presentation than the visitor home %>
+  <%# Public resources teaser — same styled grid as the visitor home %>
   <section class="mt-16">
     <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
       <%= t(".resources.heading") %>
     </h2>
-    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-      <%= link_to materials_path, data: { resource_card: true, resource: "materials" },
-                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
-        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.materials.title") %></p>
-      <% end %>
-      <%= link_to training_index_path, data: { resource_card: true, resource: "training" },
-                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
-        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.training.title") %></p>
-      <% end %>
-      <%= link_to challenges_path, data: { resource_card: true, resource: "challenges" },
-                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
-        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.challenges.title") %></p>
-      <% end %>
-      <%= link_to glossary_terms_path, data: { resource_card: true, resource: "glossary" },
-                  class: "rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
-        <p class="text-xs font-bold text-imasus-dark-green"><%= t("home.visitor.resources.glossary.title") %></p>
-      <% end %>
+    <div class="mt-4">
+      <%= render "shared/resources_grid" %>
     </div>
   </section>
 </div>
