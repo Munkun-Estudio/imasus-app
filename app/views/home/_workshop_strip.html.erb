@@ -1,13 +1,24 @@
 <%# Locals: workshops (ActiveRecord::Relation<Workshop>).
-    Compact list of workshops the user is in. Used both as a foregrounded
-    empty-state CTA (no projects yet) and as a quieter footer-style strip
-    when projects already exist. %>
-<div data-workshop-strip class="mt-4 flex flex-wrap gap-2">
+    Renders workshop cards in a responsive grid. Used both as a foregrounded
+    empty-state CTA (no projects yet) and as a secondary strip when projects
+    already exist. Dark-green inverted cards give workshops high visual weight. %>
+<div data-workshop-strip class="mt-4 grid gap-4 sm:grid-cols-2">
   <% workshops.each do |workshop| %>
     <%= link_to workshop_path(workshop),
-                class: "inline-flex flex-col rounded-xl border border-imasus-dark-green/10 bg-white px-4 py-3 transition hover:border-imasus-dark-green/30" do %>
-      <span class="text-sm font-bold text-imasus-dark-green"><%= workshop.title %></span>
-      <span class="mt-0.5 text-xs text-imasus-dark-green/60"><%= workshop.location %></span>
+                class: "group flex flex-col rounded-2xl bg-imasus-dark-green p-5 transition hover:bg-imasus-navy" do %>
+      <span class="text-xs font-bold uppercase tracking-widest text-white/40">
+        <%= workshop.starts_on.strftime("%-d %b") %>
+        <% if workshop.ends_on != workshop.starts_on %>
+          – <%= workshop.ends_on.strftime("%-d %b %Y") %>
+        <% else %>
+          <%= workshop.starts_on.strftime("%Y") %>
+        <% end %>
+      </span>
+      <span class="mt-2 text-lg font-bold leading-snug text-white"><%= workshop.title %></span>
+      <span class="mt-1 text-sm text-white/60"><%= workshop.location %></span>
+      <span class="mt-5 inline-flex w-fit items-center rounded-full bg-white/10 px-3 py-1.5 text-xs font-bold text-white transition group-hover:bg-white/20">
+        <%= t("home.participant.cta.open_workshop") %>
+      </span>
     <% end %>
   <% end %>
 </div>
