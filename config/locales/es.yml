@@ -13,6 +13,7 @@ es:
     resources_group: "Recursos"
     aria_label: "Navegación principal"
     toggle_menu: "Abrir menú"
+    bookmarks: "Marcadores"
   locale_switcher:
     label: "Idioma"
   footer:
@@ -68,6 +69,9 @@ es:
         heading: "¿Listo/a para empezar tu primer proyecto?"
         lead: "Elige un taller — los proyectos se crean desde la página del taller."
       empty_no_workshops: "La facilitación configurará tu acceso al taller en breve. Lo verás aquí en cuanto esté listo."
+      bookmarks:
+        heading: "Tus marcadores"
+        see_all: "Ver todos"
       resources:
         heading: "Explora"
       last_activity: "Última actividad hace %{time}"
@@ -81,6 +85,7 @@ es:
         publish: "Publicar"
         view_public: "Ver página pública"
         edit_publication: "Editar publicación"
+        open_workshop: "Abrir taller"
     facilitator:
       greeting: "Bienvenido/a de nuevo, %{name}."
       workshops:
@@ -477,8 +482,9 @@ es:
       category_filter_label: "Filtrar por categoría"
       letters_label: "Saltar a la letra"
       empty: "Todavía no hay términos en el glosario."
+      know_more: "Saber más"
     show:
-      back_to_index: "Volver al glosario"
+      back_to_index: "← Volver al glosario"
       category_label: "Categoría"
       examples_label: "Ejemplos"
       meta_description: "Definición de glosario para %{term} en el vocabulario del taller IMASUS."
@@ -662,6 +668,23 @@ es:
     selected:
       one: "1 archivo seleccionado"
       other: "%{count} archivos seleccionados"
+  bookmarks:
+    save: "Guardar marcador"
+    unsave: "Quitar marcador"
+    index:
+      title: "Marcadores"
+      remove: "Eliminar"
+      groups:
+        training_module: "Formación"
+        material: "Materiales"
+        glossary_term: "Glosario"
+        challenge: "Retos"
+      empty:
+        default: "Nada guardado aquí todavía."
+        training_module: "No hay pasajes de formación guardados."
+        material: "No hay materiales guardados."
+        glossary_term: "No hay términos de glosario guardados."
+        challenge: "No hay retos guardados."
   user_menu:
     log_in: "Iniciar sesión"
     log_out: "Cerrar sesión"

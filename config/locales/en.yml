@@ -13,6 +13,7 @@ en:
     resources_group: "Resources"
     aria_label: "Main navigation"
     toggle_menu: "Toggle menu"
+    bookmarks: "Bookmarks"
   locale_switcher:
     label: "Language"
   footer:
@@ -68,6 +69,9 @@ en:
         heading: "Ready to start your first project?"
         lead: "Choose a workshop below — projects are created from the workshop page."
       empty_no_workshops: "Your facilitator will set up your workshop access shortly. You'll see your workshop here once it's ready."
+      bookmarks:
+        heading: "Your bookmarks"
+        see_all: "See all"
       resources:
         heading: "Explore"
       last_activity: "Last activity %{time} ago"
@@ -81,6 +85,7 @@ en:
         publish: "Publish"
         view_public: "View public page"
         edit_publication: "Edit publication"
+        open_workshop: "Open workshop"
     facilitator:
       greeting: "Welcome back, %{name}."
       workshops:
@@ -306,8 +311,9 @@ en:
       category_filter_label: "Filter by category"
       letters_label: "Jump to letter"
       empty: "No glossary terms yet."
+      know_more: "Know more"
     show:
-      back_to_index: "Back to glossary"
+      back_to_index: "← Back to glossary"
       category_label: "Category"
       examples_label: "Examples"
       meta_description: "Glossary definition for %{term} in the IMASUS workshop vocabulary."
@@ -437,6 +443,23 @@ en:
     selected:
       one: "1 file selected"
       other: "%{count} files selected"
+  bookmarks:
+    save: "Save bookmark"
+    unsave: "Remove bookmark"
+    index:
+      title: "Bookmarks"
+      remove: "Remove"
+      groups:
+        training_module: "Training"
+        material: "Materials"
+        glossary_term: "Glossary"
+        challenge: "Challenges"
+      empty:
+        default: "Nothing saved here yet."
+        training_module: "No training passages saved yet."
+        material: "No materials saved yet."
+        glossary_term: "No glossary terms saved yet."
+        challenge: "No challenges saved yet."
   user_menu:
     log_in: "Log in"
     log_out: "Log out"

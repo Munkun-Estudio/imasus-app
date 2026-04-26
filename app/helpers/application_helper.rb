@@ -55,4 +55,28 @@ module ApplicationHelper
 
     current == path || current.start_with?("#{path}/")
   end
+
+  # Returns the bookmark for +resource_key+ and +type+ owned by the current
+  # user, or nil. Builds a per-request memoised set to avoid repeated queries
+  # when multiple toggles are on the same page.
+  def current_bookmark(bookmarkable_type:, resource_key:)
+    return nil unless logged_in?
+
+    @bookmark_lookup ||= current_user.bookmarks.index_by { |b| "#{b.bookmarkable_type}:#{b.resource_key}" }
+    @bookmark_lookup["#{bookmarkable_type}:#{resource_key}"]
+  end
+
+  # Renders a bookmark toggle button for an AR-backed resource (Material,
+  # GlossaryTerm, Challenge). Pass +bookmarkable_type+ as the plain-string
+  # type name and +resource_key+ as the stable identifier (record id or code).
+  def bookmark_toggle(bookmarkable_type:, resource_key:, label:, url:)
+    return unless logged_in?
+
+    bookmark = current_bookmark(bookmarkable_type: bookmarkable_type, resource_key: resource_key)
+    dom_id   = "bookmark-toggle-#{bookmarkable_type.underscore}-#{resource_key.to_s.parameterize}"
+
+    render partial: "bookmarks/toggle",
+           locals:  { bookmark: bookmark, bookmarkable_type: bookmarkable_type,
+                      resource_key: resource_key, label: label, url: url, dom_id: dom_id }
+  end
 end
