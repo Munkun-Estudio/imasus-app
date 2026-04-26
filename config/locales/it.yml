@@ -598,6 +598,12 @@ it:
       success: "Voce eliminata."
     errors:
       forbidden: "Non sei autorizzato a eliminare questa voce."
+  file_drop_zone:
+    upload_link: "Carica un file"
+    or_drag_and_drop: "o trascinalo qui"
+    selected:
+      one: "1 file selezionato"
+      other: "%{count} file selezionati"
   user_menu:
     log_in: "Accedi"
     log_out: "Esci"

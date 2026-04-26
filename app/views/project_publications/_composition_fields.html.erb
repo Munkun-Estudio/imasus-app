@@ -16,7 +16,6 @@
     <p class="text-sm font-semibold text-imasus-dark-green">
       <%= t("project_publications.new.hero_image_label") %>
     </p>
-    <p class="mt-0.5 text-xs text-stone-500"><%= t("project_publications.new.hero_image_hint") %></p>
     <%# TODO: add croppable crop UI once gem compatibility with mini_magick is confirmed %>
     <% if project.hero_image.attached? && project.hero_image.blob&.persisted? %>
       <div class="mt-3">
@@ -24,8 +23,13 @@
                               alt: project.title, class: "rounded-lg" %>
       </div>
     <% end %>
-    <%= f.file_field :hero_image, accept: "image/png,image/jpeg",
-                     class: "mt-3 block text-sm" %>
+    <div class="mt-3">
+      <%= render "shared/file_drop_zone",
+                 form: f,
+                 attribute: :hero_image,
+                 accept: "image/png,image/jpeg",
+                 hint: t("project_publications.new.hero_image_hint") %>
+    </div>
   </div>
 
   <%# Process summary (Trix) %>

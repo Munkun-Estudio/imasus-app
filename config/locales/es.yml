@@ -656,6 +656,12 @@ es:
       success: "Entrada eliminada."
     errors:
       forbidden: "No tienes permiso para eliminar esa entrada."
+  file_drop_zone:
+    upload_link: "Sube un archivo"
+    or_drag_and_drop: "o arrástralo aquí"
+    selected:
+      one: "1 archivo seleccionado"
+      other: "%{count} archivos seleccionados"
   user_menu:
     log_in: "Iniciar sesión"
     log_out: "Cerrar sesión"

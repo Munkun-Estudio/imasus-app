@@ -431,6 +431,12 @@ en:
     update:
       notice: "Welcome to IMASUS. You can start exploring the workshop now."
     token_invalid: "That invitation link is invalid or has expired. Please contact your facilitator."
+  file_drop_zone:
+    upload_link: "Upload a file"
+    or_drag_and_drop: "or drag and drop"
+    selected:
+      one: "1 file selected"
+      other: "%{count} files selected"
   user_menu:
     log_in: "Log in"
     log_out: "Log out"

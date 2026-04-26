@@ -22,11 +22,12 @@
   <div>
     <%= f.label :media, t("log_entries.form.media"),
                 class: "block text-sm font-semibold text-imasus-dark-green mb-2" %>
-    <p class="text-xs text-stone-400 mb-2"><%= t("log_entries.form.media_hint") %></p>
-    <%= f.file_field :media,
-                     multiple: true,
-                     accept: "image/jpeg,image/png,image/webp,video/mp4,video/quicktime",
-                     class: "block w-full text-sm text-stone-600" %>
+    <%= render "shared/file_drop_zone",
+               form: f,
+               attribute: :media,
+               multiple: true,
+               accept: "image/jpeg,image/png,image/webp,video/mp4,video/quicktime",
+               hint: t("log_entries.form.media_hint") %>
   </div>
 
   <div class="flex gap-4">

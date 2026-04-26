@@ -598,6 +598,12 @@ el:
       success: "Η καταχώριση διαγράφηκε."
     errors:
       forbidden: "Δεν έχετε εξουσιοδότηση να διαγράψετε αυτήν την καταχώριση."
+  file_drop_zone:
+    upload_link: "Ανέβασε αρχείο"
+    or_drag_and_drop: "ή σύρε εδώ"
+    selected:
+      one: "1 αρχείο επιλεγμένο"
+      other: "%{count} αρχεία επιλεγμένα"
   user_menu:
     log_in: "Σύνδεση"
     log_out: "Αποσύνδεση"

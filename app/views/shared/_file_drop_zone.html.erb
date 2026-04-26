@@ -1,0 +1,61 @@
+<%# Reusable file upload drop zone, matching the IMASUS palette.
+
+  Locals:
+    form      — the form builder (e.g. f from form_with)
+    attribute — the model attribute (e.g. :media, :hero_image)
+    multiple  — boolean (default false)
+    accept    — comma-separated MIME types or extensions (default nil)
+    hint      — String shown below the icon (e.g. "JPEG / PNG / MP4. 50 MB max").
+                Optional.
+    label     — String shown as the click-to-upload CTA. Optional;
+                defaults to t("file_drop_zone.upload_link"). %>
+
+<%
+  multiple ||= false
+  hint     ||= nil
+  label    ||= t("file_drop_zone.upload_link")
+  accept   ||= nil
+
+  # Generate a stable ID so the visible label can be associated with
+  # the hidden input via for=. Uses the form's object_name + attribute.
+  field_id = "file_drop_zone_#{form.object_name}_#{attribute}".gsub(/[^\w]/, "_")
+%>
+
+<div data-controller="file-drop-zone"
+     data-file-drop-zone-multiple-value="<%= multiple %>"
+     class="rounded-2xl border border-dashed border-imasus-dark-green/20 px-6 py-10 transition
+            data-[active]:border-imasus-dark-green/50
+            data-[active]:bg-imasus-mint/15">
+  <div class="flex flex-col items-center text-center">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+         aria-hidden="true"
+         class="h-12 w-12 text-imasus-dark-green/30">
+      <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"/>
+    </svg>
+
+    <div class="mt-4 flex flex-wrap justify-center gap-1 text-sm text-imasus-dark-green/70">
+      <label for="<%= field_id %>"
+             class="cursor-pointer font-semibold text-imasus-dark-green underline-offset-2 hover:underline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-imasus-mint">
+        <span><%= label %></span>
+        <%= form.file_field attribute,
+              multiple: multiple,
+              accept: accept,
+              id: field_id,
+              data: { file_drop_zone_target: "input", action: "change->file-drop-zone#filesChanged" },
+              class: "sr-only" %>
+      </label>
+      <span><%= t("file_drop_zone.or_drag_and_drop") %></span>
+    </div>
+
+    <% if hint %>
+      <p class="mt-2 text-xs leading-5 text-imasus-dark-green/50"><%= hint %></p>
+    <% end %>
+
+    <p data-file-drop-zone-target="status"
+       class="mt-3 hidden text-xs font-medium text-imasus-dark-green"
+       data-empty="<%= t("file_drop_zone.selected", count: 0) %>"
+       data-one="<%= t("file_drop_zone.selected", count: 1) %>"
+       data-other="<%= t("file_drop_zone.selected", count: "%{count}") %>"></p>
+  </div>
+</div>
