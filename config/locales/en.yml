@@ -377,7 +377,15 @@ en:
     facilitators:
       index:
         title: "Facilitators"
+        eyebrow: "Admin"
+        lead: "People invited as facilitators of IMASUS workshops. Each can manage the workshops they participate in."
         new: "Invite facilitator"
+        empty: "No facilitators yet. Invite your first one with the button above."
+        active: "Active"
+        pending: "Invitation pending"
+        workshops_count:
+          one: "1 workshop"
+          other: "%{count} workshops"
       new:
         title: "Invite a new facilitator"
         name: "Full name"

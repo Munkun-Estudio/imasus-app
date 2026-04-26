@@ -1,16 +1,68 @@
-<h1><%= t("admin.facilitators.index.title", default: "Facilitators") %></h1>
+<% content_for :title, t("admin.facilitators.index.title", default: "Facilitators") %>
 
-<p><%= link_to t("admin.facilitators.index.new", default: "Invite a facilitator"), new_admin_facilitator_path %></p>
-
-<ul>
-  <% @facilitators.each do |facilitator| %>
-    <li>
-      <strong><%= facilitator.name %></strong> — <%= facilitator.email %>
-      <% if facilitator.invitation_accepted_at.present? %>
-        <em><%= t("admin.facilitators.index.active", default: "active") %></em>
-      <% else %>
-        <em><%= t("admin.facilitators.index.pending", default: "invitation pending") %></em>
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <div class="max-w-5xl">
+    <header class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div class="max-w-2xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50">
+          <%= t("admin.facilitators.index.eyebrow", default: "Admin") %>
+        </p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
+          <%= t("admin.facilitators.index.title", default: "Facilitators") %>
+        </h1>
+        <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/60">
+          <%= t("admin.facilitators.index.lead", default: "People invited as facilitators of IMASUS workshops. Each can manage the workshops they participate in.") %>
+        </p>
+      </div>
+      <%= link_to new_admin_facilitator_path,
+                  class: "inline-flex shrink-0 items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" do %>
+        <%= t("admin.facilitators.index.new", default: "Invite facilitator") %>
       <% end %>
-    </li>
-  <% end %>
-</ul>
+    </header>
+
+    <% if flash[:notice].present? %>
+      <p class="mt-6 rounded-2xl bg-imasus-mint/40 px-4 py-3 text-sm text-imasus-dark-green">
+        <%= flash[:notice] %>
+      </p>
+    <% end %>
+
+    <% if @facilitators.empty? %>
+      <p class="mt-10 rounded-2xl border border-dashed border-imasus-dark-green/15 bg-white px-6 py-10 text-sm leading-relaxed text-imasus-dark-green/60">
+        <%= t("admin.facilitators.index.empty", default: "No facilitators yet. Invite your first one with the button above.") %>
+      </p>
+    <% else %>
+      <ul class="mt-10 divide-y divide-imasus-dark-green/10 rounded-2xl border border-imasus-dark-green/10 bg-white">
+        <% @facilitators.each do |facilitator| %>
+          <% accepted = facilitator.invitation_accepted_at.present? %>
+          <li data-facilitator-row data-user-id="<%= facilitator.id %>"
+              class="flex flex-wrap items-center gap-4 px-5 py-4">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-imasus-dark-green text-sm font-bold text-white">
+              <%= facilitator.name.to_s.split.map { |part| part[0] }.join.upcase[0, 2] %>
+            </span>
+            <div class="min-w-0 flex-1">
+              <p class="truncate text-sm font-bold text-imasus-dark-green"><%= facilitator.name %></p>
+              <p class="truncate text-xs text-imasus-dark-green/60"><%= facilitator.email %></p>
+              <% if accepted && facilitator.workshops.any? %>
+                <p class="mt-1 text-xs text-imasus-dark-green/60">
+                  <%= t("admin.facilitators.index.workshops_count", count: facilitator.workshops.count, default: "%{count} workshops") %>:
+                  <%= facilitator.workshops.map(&:title).join(" · ") %>
+                </p>
+              <% end %>
+            </div>
+            <% if accepted %>
+              <span data-status="active"
+                    class="inline-flex items-center rounded-full bg-imasus-mint/40 px-3 py-1 text-xs font-semibold text-imasus-dark-green">
+                <%= t("admin.facilitators.index.active", default: "Active") %>
+              </span>
+            <% else %>
+              <span data-status="pending"
+                    class="inline-flex items-center rounded-full bg-imasus-light-pink/40 px-3 py-1 text-xs font-semibold text-imasus-dark-green">
+                <%= t("admin.facilitators.index.pending", default: "Invitation pending") %>
+              </span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

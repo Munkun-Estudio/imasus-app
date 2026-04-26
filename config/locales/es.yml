@@ -294,6 +294,17 @@ es:
     token_invalid: "Ese enlace de recuperación no es válido o ha caducado. Solicita uno nuevo."
   admin:
     facilitators:
+      index:
+        title: "Facilitación"
+        eyebrow: "Administración"
+        lead: "Personas invitadas como facilitación de los talleres IMASUS. Cada una puede gestionar los talleres en los que participa."
+        new: "Invitar a facilitación"
+        empty: "Aún no hay personas facilitadoras. Invita a la primera con el botón de arriba."
+        active: "Activa"
+        pending: "Invitación pendiente"
+        workshops_count:
+          one: "1 taller"
+          other: "%{count} talleres"
       new:
         title: "Invitar a una persona facilitadora"
         name: "Nombre completo"

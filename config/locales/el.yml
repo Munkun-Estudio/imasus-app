@@ -299,6 +299,17 @@ el:
     token_invalid: "Αυτός ο σύνδεσμος επαναφοράς δεν είναι έγκυρος ή έχει λήξει. Ζητήστε νέο."
   admin:
     facilitators:
+      index:
+        title: "Διευκολυντές"
+        eyebrow: "Διαχείριση"
+        lead: "People invited as facilitators of IMASUS workshops. Each can manage the workshops they participate in."
+        new: "Πρόσκληση διευκολυντή"
+        empty: "Δεν υπάρχουν διευκολυντές ακόμα. Καλέστε τον πρώτο με το κουμπί παραπάνω."
+        active: "Ενεργός/ή"
+        pending: "Πρόσκληση σε εκκρεμότητα"
+        workshops_count:
+          one: "1 εργαστήριο"
+          other: "%{count} εργαστήρια"
       new:
         title: "Πρόσκληση συντονίστριας ή συντονιστή"
         name: "Ονοματεπώνυμο"
