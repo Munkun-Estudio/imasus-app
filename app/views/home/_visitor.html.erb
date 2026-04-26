@@ -121,31 +121,8 @@
       <%= t(".resources.heading") %>
     </h2>
 
-    <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <%= link_to materials_path, data: { resource_card: true, resource: "materials" },
-                  class: "rounded-2xl border border-imasus-dark-green/10 bg-imasus-light-blue/30 p-5 transition hover:bg-imasus-light-blue/50" do %>
-        <p class="text-xs font-medium uppercase tracking-wide text-imasus-dark-green/50">02</p>
-        <h3 class="mt-2 text-base font-bold text-imasus-dark-green"><%= t(".resources.materials.title") %></h3>
-        <p class="mt-2 text-xs leading-relaxed text-imasus-dark-green/70"><%= t(".resources.materials.lead") %></p>
-      <% end %>
-      <%= link_to training_index_path, data: { resource_card: true, resource: "training" },
-                  class: "rounded-2xl border border-imasus-navy/10 bg-imasus-navy p-5 text-white transition hover:brightness-110" do %>
-        <p class="text-xs font-medium uppercase tracking-wide text-white/60">03</p>
-        <h3 class="mt-2 text-base font-bold"><%= t(".resources.training.title") %></h3>
-        <p class="mt-2 text-xs leading-relaxed text-white/70"><%= t(".resources.training.lead") %></p>
-      <% end %>
-      <%= link_to challenges_path, data: { resource_card: true, resource: "challenges" },
-                  class: "rounded-2xl border border-imasus-dark-green/10 bg-imasus-mint/40 p-5 transition hover:bg-imasus-mint/60" do %>
-        <p class="text-xs font-medium uppercase tracking-wide text-imasus-dark-green/50">04</p>
-        <h3 class="mt-2 text-base font-bold text-imasus-dark-green"><%= t(".resources.challenges.title") %></h3>
-        <p class="mt-2 text-xs leading-relaxed text-imasus-dark-green/70"><%= t(".resources.challenges.lead") %></p>
-      <% end %>
-      <%= link_to glossary_terms_path, data: { resource_card: true, resource: "glossary" },
-                  class: "rounded-2xl border border-imasus-dark-green/10 bg-imasus-light-pink/40 p-5 transition hover:bg-imasus-light-pink/60" do %>
-        <p class="text-xs font-medium uppercase tracking-wide text-imasus-dark-green/50">05</p>
-        <h3 class="mt-2 text-base font-bold text-imasus-dark-green"><%= t(".resources.glossary.title") %></h3>
-        <p class="mt-2 text-xs leading-relaxed text-imasus-dark-green/70"><%= t(".resources.glossary.lead") %></p>
-      <% end %>
+    <div class="mt-8">
+      <%= render "shared/resources_grid" %>
     </div>
   </section>
 </div>

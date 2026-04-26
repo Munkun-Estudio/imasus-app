@@ -152,6 +152,10 @@ es:
   training:
     index:
       title: "Formación"
+    about:
+      tab: "Introducción"
+      heading: "Introducción"
+      empty: "El contenido introductorio se está preparando. Elige un módulo en las pestañas de arriba para empezar a leer."
     show:
       module_nav_label: "Navegación de módulos"
       section_nav_label: "Navegación de secciones"
@@ -294,6 +298,17 @@ es:
     token_invalid: "Ese enlace de recuperación no es válido o ha caducado. Solicita uno nuevo."
   admin:
     facilitators:
+      index:
+        title: "Facilitación"
+        eyebrow: "Administración"
+        lead: "Personas invitadas como facilitación de los talleres IMASUS. Cada una puede gestionar los talleres en los que participa."
+        new: "Invitar a facilitación"
+        empty: "Aún no hay personas facilitadoras. Invita a la primera con el botón de arriba."
+        active: "Activa"
+        pending: "Invitación pendiente"
+        workshops_count:
+          one: "1 taller"
+          other: "%{count} talleres"
       new:
         title: "Invitar a una persona facilitadora"
         name: "Nombre completo"
@@ -641,6 +656,12 @@ es:
       success: "Entrada eliminada."
     errors:
       forbidden: "No tienes permiso para eliminar esa entrada."
+  file_drop_zone:
+    upload_link: "Sube un archivo"
+    or_drag_and_drop: "o arrástralo aquí"
+    selected:
+      one: "1 archivo seleccionado"
+      other: "%{count} archivos seleccionados"
   user_menu:
     log_in: "Iniciar sesión"
     log_out: "Cerrar sesión"

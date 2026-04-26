@@ -152,6 +152,10 @@ en:
   training:
     index:
       title: "Training"
+    about:
+      tab: "About"
+      heading: "About"
+      empty: "Introduction content is being prepared. Pick a module from the tabs above to start reading."
     show:
       module_nav_label: "Module navigation"
       section_nav_label: "Section navigation"
@@ -377,7 +381,15 @@ en:
     facilitators:
       index:
         title: "Facilitators"
+        eyebrow: "Admin"
+        lead: "People invited as facilitators of IMASUS workshops. Each can manage the workshops they participate in."
         new: "Invite facilitator"
+        empty: "No facilitators yet. Invite your first one with the button above."
+        active: "Active"
+        pending: "Invitation pending"
+        workshops_count:
+          one: "1 workshop"
+          other: "%{count} workshops"
       new:
         title: "Invite a new facilitator"
         name: "Full name"
@@ -419,6 +431,12 @@ en:
     update:
       notice: "Welcome to IMASUS. You can start exploring the workshop now."
     token_invalid: "That invitation link is invalid or has expired. Please contact your facilitator."
+  file_drop_zone:
+    upload_link: "Upload a file"
+    or_drag_and_drop: "or drag and drop"
+    selected:
+      one: "1 file selected"
+      other: "%{count} files selected"
   user_menu:
     log_in: "Log in"
     log_out: "Log out"
