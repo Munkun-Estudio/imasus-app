@@ -71,9 +71,9 @@
       <main class="flex-1">
         <%= yield %>
       </main>
-
-      <%= render "shared/footer" %>
     </div>
+
+    <%= render "shared/footer", sidebar_offset: true %>
 
     <%# Modal slot for Turbo Frame modals (delete confirmations, etc.) %>
     <%= turbo_frame_tag "modal" %>

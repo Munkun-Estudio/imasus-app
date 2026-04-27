@@ -2,7 +2,7 @@ class BookmarksController < ApplicationController
   before_action :require_login
   before_action :set_bookmark, only: :destroy
 
-  GROUPED_TYPES = %w[TrainingModule Material GlossaryTerm Challenge].freeze
+  GROUPED_TYPES = %w[Material TrainingModule Challenge GlossaryTerm].freeze
 
   def index
     all = current_user.bookmarks.recent

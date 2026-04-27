@@ -158,6 +158,17 @@ location: "Prato, Italy")
     post session_path, params: { email: user.email, password: @password }
   end
 
+  def make_bookmark(user:, label: "Saved material", created_at: Time.current)
+    Bookmark.create!(
+      user: user,
+      bookmarkable_type: "Material",
+      resource_key: SecureRandom.hex(4),
+      label: label,
+      url: "/materials/#{label.parameterize}",
+      created_at: created_at
+    )
+  end
+
   test "GET / renders the participant variant for a participant user" do
     user = make_participant
     sign_in(user)
@@ -170,6 +181,42 @@ location: "Prato, Italy")
     sign_in(user)
     get root_url
     assert_select "[data-empty-state=no-workshops]"
+  end
+
+  test "participant with bookmarks but no projects sees recent bookmarks on home" do
+    user = make_participant
+    make_bookmark(user: user, label: "Kapok")
+
+    sign_in(user)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks]" do
+      assert_select "a[href=?]", bookmarks_path, text: I18n.t("home.participant.bookmarks.see_all")
+      assert_select "a[href=?]", "/materials/kapok", text: "Kapok"
+    end
+  end
+
+  test "participant without bookmarks does not see the bookmarks section" do
+    user = make_participant
+
+    sign_in(user)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks]", count: 0
+  end
+
+  test "home recent bookmarks are limited to six newest bookmarks" do
+    user = make_participant
+    7.times do |i|
+      make_bookmark(user: user, label: "Saved #{i}", created_at: i.hours.ago)
+    end
+
+    sign_in(user)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks] li", count: 6
+    assert_match "Saved 0", response.body
+    assert_no_match "Saved 6", response.body
   end
 
   test "participant with workshops but no projects sees the workshops-strip prompt" do
@@ -241,6 +288,16 @@ location: "Prato, Italy")
     sign_in(facilitator)
     get root_url
     assert_select "[data-home-variant=facilitator]"
+  end
+
+  test "facilitator with bookmarks sees recent bookmarks on home" do
+    facilitator = make_facilitator
+    make_bookmark(user: facilitator, label: "Facilitator save")
+
+    sign_in(facilitator)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks] a", text: "Facilitator save"
   end
 
   test "facilitator home lists their workshops with participant and project counts" do
@@ -341,6 +398,16 @@ location: "Prato, Italy")
     sign_in(admin)
     get root_url
     assert_select "[data-home-variant=admin]"
+  end
+
+  test "admin with bookmarks sees recent bookmarks on home" do
+    admin = make_admin
+    make_bookmark(user: admin, label: "Admin save")
+
+    sign_in(admin)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks] a", text: "Admin save"
   end
 
   test "admin home lists every workshop, not just those the admin participates in" do
