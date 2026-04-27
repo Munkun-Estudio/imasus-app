@@ -49,6 +49,48 @@ If `config/master.key` is unavailable, set `SECRET_KEY_BASE` as a temporary
 runtime secret instead and recover the real Rails master key before relying on
 encrypted credentials.
 
+## Transactional Email
+
+Production sends facilitator invitations, participant invitations, and password
+reset emails through Amazon SES SMTP in `eu-west-1`. Reuse the verified
+`imasus.eu` SES identity, but keep an app-specific IAM SMTP user so credentials
+can be rotated without affecting the newsletter stack.
+
+Set these Fly secrets:
+
+```sh
+flyctl secrets set --app imasus-app \
+  APP_HOST=app.imasus.eu \
+  MAILER_FROM="IMASUS <no-reply@imasus.eu>" \
+  SMTP_ADDRESS=email-smtp.eu-west-1.amazonaws.com \
+  SMTP_PORT=587 \
+  SMTP_DOMAIN=imasus.eu \
+  SMTP_USERNAME=... \
+  SMTP_PASSWORD=...
+```
+
+Optional overrides:
+
+```sh
+flyctl secrets set --app imasus-app \
+  SMTP_AUTHENTICATION=plain \
+  SMTP_ENABLE_STARTTLS_AUTO=true
+```
+
+`APP_HOST` must be the hostname only, without `https://`; Rails uses it to build
+absolute invitation and password-reset links.
+
+After setting the secrets, redeploy and smoke-test delivery from a production
+console:
+
+```sh
+flyctl deploy --remote-only
+flyctl ssh console --app imasus-app -C "bin/rails runner 'user = User.admin.first || User.first; PasswordResetMailer.reset(user, \"smoke-test-token\").deliver_now'"
+```
+
+The smoke-test command sends a password-reset-shaped email to the selected user
+with a fake token; do not click the link.
+
 After Solid Queue tables are configured, remove the temporary
 `ACTIVE_JOB_QUEUE_ADAPTER = "async"` setting and run a deploy with
 `SOLID_QUEUE_IN_PUMA = "true"` or a separate worker process.

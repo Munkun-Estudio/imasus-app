@@ -1,0 +1,20 @@
+<% page_title = strip_tags(content_for(:title).presence || "IMASUS App").squish %>
+<% page_description = strip_tags(content_for(:meta_description).presence || "Imagineering workshops for sustainable material futures.").squish %>
+<% page_url = request.original_url %>
+<% og_image_url = image_url("og-image.png") %>
+
+<meta name="description" content="<%= page_description %>">
+
+<meta property="og:site_name" content="IMASUS App">
+<meta property="og:type" content="website">
+<meta property="og:title" content="<%= page_title %>">
+<meta property="og:description" content="<%= page_description %>">
+<meta property="og:url" content="<%= page_url %>">
+<meta property="og:image" content="<%= og_image_url %>">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<%= page_title %>">
+<meta name="twitter:description" content="<%= page_description %>">
+<meta name="twitter:image" content="<%= og_image_url %>">
