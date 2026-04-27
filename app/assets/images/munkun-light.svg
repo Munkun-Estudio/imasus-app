@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="402px" height="58px" viewBox="0 0 402 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.2 (39069) - http://www.bohemiancoding.com/sketch -->
+    <title>MUNKUN_BLANCO</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0.4" y="0.2" width="400.6" height="57.6"></rect>
+        <rect id="path-3" x="0.4" y="0.2" width="400.6" height="57.6"></rect>
+        <rect id="path-5" x="0.4" y="0.2" width="400.6" height="57.6"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="MUNKUN_BLANCO">
+            <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="55.9 1.2 36.9 48.8 17.2 1.2 0.4 1.2 0.4 56.8 10.9 56.8 10.9 15.5 28.4 56.8 44.9 56.8 61.3 15.6 61.3 56.8 72.2 56.8 72.2 1.2"></polygon>
+            <g id="Clipped">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="SVGID_1_"></g>
+                <path d="M131.5,31.4 L131.5,1.2 L120.6,1.2 L120.6,30.6 C120.6,36.1 119.3,40 116.7,42.5 C114.1,45 110.7,46.3 106.4,46.3 C102.1,46.3 98.7,45 96.1,42.5 C93.5,40 92.2,36 92.2,30.6 L92.2,1.2 L81.4,1.2 L81.4,31.4 C81.4,35.7 82.1,39.5 83.5,42.9 C84.9,46.3 86.8,49 89.1,51 C91.5,53 94.1,54.6 97.1,55.6 C100,56.6 103.2,57.1 106.5,57.1 C109.8,57.1 113,56.6 115.9,55.6 C118.8,54.6 121.5,53 123.9,51 C126.3,49 128.2,46.3 129.5,42.9 C130.8,39.5 131.5,35.7 131.5,31.4" id="Shape" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)"></path>
+            </g>
+            <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="183.9 1.2 183.9 48.2 152.2 1.2 140.7 1.2 140.7 56.8 151.2 56.8 151.2 19.2 175.9 56.8 194.4 56.8 194.4 1.2"></polygon>
+            <g id="Clipped">
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="SVGID_00000147934049750838464350000004805998871928660408_"></g>
+                <path d="M338.2,31.3 L338.2,1.2 L327.3,1.2 L327.3,30.6 C327.3,36.1 326,40 323.4,42.5 C320.8,45 317.4,46.3 313.1,46.3 C308.8,46.3 305.4,45 302.8,42.5 C300.2,40 298.9,36 298.9,30.6 L298.9,1.2 L288,1.2 L288,31.4 C288,35.7 288.7,39.5 290.1,42.9 C291.5,46.3 293.4,49 295.7,51 C298.1,53 300.7,54.6 303.7,55.6 C306.6,56.6 309.8,57.1 313.1,57.1 C316.4,57.1 319.6,56.6 322.5,55.6 C325.4,54.6 328.1,53 330.5,51 C332.9,49 334.8,46.3 336.1,42.9 C337.5,39.5 338.2,35.6 338.2,31.3" id="Shape" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-4)"></path>
+            </g>
+            <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="390.6 1 390.6 48 358.9 1 347.4 1 347.4 56.6 357.8 56.6 357.8 19 382.6 56.6 401.1 56.6 401.1 1"></polygon>
+            <g id="Clipped">
+                <mask id="mask-6" fill="white">
+                    <use xlink:href="#path-5"></use>
+                </mask>
+                <g id="SVGID_00000090285471103391269560000002355430779358134959_"></g>
+                <path d="M262.5,29 L281.7,7.7 L273.5,0.2 L260.4,14.7 C257,18.4 254.3,20.9 252.3,22.1 C250.3,23.3 247.6,23.9 244.3,23.9 L216.9,23.9 L216.9,1.2 L206,1.2 L206,56.8 L216.9,56.8 L216.9,34.1 L244.3,34.1 C247.6,34.1 250.2,34.7 252.3,35.9 C254.3,37.1 257.1,39.6 260.4,43.3 L273.5,57.8 L281.7,50.3 L262.5,29 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-6)"></path>
+            </g>
+        </g>
+    </g>
+</svg>

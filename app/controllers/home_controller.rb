@@ -16,6 +16,8 @@ class HomeController < ApplicationController
     when "facilitator" then load_facilitator_data
     when "admin"       then load_admin_data
     end
+
+    load_recent_bookmarks if current_user
   end
 
   private
@@ -34,7 +36,6 @@ class HomeController < ApplicationController
                                     .includes(:workshop, :challenge, :members, :log_entries)
                                     .order(updated_at: :desc)
     @workshops        = current_user.workshops
-    @recent_bookmarks = current_user.bookmarks.recent.limit(6)
   end
 
   def load_facilitator_data
@@ -43,5 +44,9 @@ class HomeController < ApplicationController
 
   def load_admin_data
     @workshops = Workshop.ordered.includes(:participants, :projects)
+  end
+
+  def load_recent_bookmarks
+    @recent_bookmarks = current_user.bookmarks.recent.limit(6)
   end
 end

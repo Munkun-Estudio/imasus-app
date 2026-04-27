@@ -1,4 +1,12 @@
-<footer class="border-t border-imasus-dark-green/10 bg-gradient-to-b from-imasus-dark-green to-imasus-navy px-6 py-12 text-white/90 sm:px-10 lg:px-16">
+<%
+  sidebar_offset = local_assigns.fetch(:sidebar_offset, false)
+  footer_classes = [
+    "border-t border-imasus-dark-green/10 bg-gradient-to-b from-imasus-dark-green to-imasus-navy px-6 py-12 text-white/90 sm:px-10 lg:px-16",
+    ("lg:ml-64" if sidebar_offset)
+  ].compact.join(" ")
+%>
+
+<footer class="<%= footer_classes %>">
   <div class="space-y-10">
     <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
       <%# EU funding notice %>
@@ -21,8 +29,16 @@
       </div>
     </div>
 
-    <div class="border-t border-white/10 pt-6">
+    <div class="flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-xs text-white/40"><%= t("footer.copyright") %></p>
+      <%= link_to "https://munkun.com",
+            target: "_blank",
+            rel: "noopener noreferrer",
+            aria: { label: "#{t("footer.developed_by")} #{t("footer.partners.munkun")}" },
+            class: "inline-flex items-center gap-3 self-start text-white/50 transition hover:text-white sm:self-auto" do %>
+        <span class="text-xs font-medium uppercase tracking-widest"><%= t("footer.developed_by") %></span>
+        <%= image_tag "munkun-light.svg", alt: t("footer.partners.munkun"), class: "h-4 w-auto opacity-80" %>
+      <% end %>
     </div>
   </div>
 </footer>

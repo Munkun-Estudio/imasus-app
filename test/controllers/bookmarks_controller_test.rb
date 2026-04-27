@@ -44,6 +44,36 @@ class BookmarksControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, "Theirs"
   end
 
+  test "GET /bookmarks lists groups in navigation order" do
+    sign_in @user
+    get bookmarks_url
+
+    labels = response.body.scan(%r{<h2[^>]*>\s*([^<]+?)\s*</h2>}).flatten
+    assert_equal [
+      I18n.t("bookmarks.index.groups.material"),
+      I18n.t("bookmarks.index.groups.training_module"),
+      I18n.t("bookmarks.index.groups.challenge"),
+      I18n.t("bookmarks.index.groups.glossary_term")
+    ], labels
+  end
+
+  test "GET /bookmarks renders training image bookmarks with a preview thumbnail" do
+    sign_in @user
+    Bookmark.create!(
+      user: @user,
+      bookmarkable_type: "TrainingModule",
+      resource_key: "design-for-modularity/training-module/en/p-20",
+      label: "image3.jpg",
+      url: "/training/design-for-modularity/training-module?locale=en#p-20"
+    )
+
+    get bookmarks_url
+
+    assert_select "[data-bookmark-preview][src=?]",
+                  "/content/training-modules/media/design-for-modularity/en/training-module/media/image3.jpg"
+    assert_select "p", text: "/training/design-for-modularity/training-module?locale=en#p-20", count: 0
+  end
+
   # Create
 
   test "POST /bookmarks redirects unauthenticated user" do

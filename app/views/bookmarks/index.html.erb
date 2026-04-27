@@ -5,7 +5,7 @@
     <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
   </header>
 
-  <div class="mt-10 space-y-12 max-w-3xl">
+  <div class="mt-10 max-w-4xl space-y-10">
     <% @grouped.each do |type, bookmarks| %>
       <section>
         <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
@@ -13,41 +13,54 @@
         </h2>
 
         <% if bookmarks.any? %>
-          <ul class="mt-4 divide-y divide-imasus-dark-green/10">
-            <% bookmarks.each do |bookmark| %>
-              <li id="bookmark-row-<%= bookmark.id %>"
-                  class="flex items-start justify-between gap-4 py-3">
-                <div class="min-w-0">
-                  <%= link_to bookmark.label,
-                        bookmark.url,
-                        class: "block truncate text-sm font-medium text-imasus-dark-green hover:underline" %>
-                  <p class="mt-0.5 truncate text-xs text-imasus-dark-green/50">
-                    <%= bookmark.url %>
-                  </p>
-                </div>
-                <%= form_with url: bookmark_path(bookmark), method: :delete,
-                              data: { turbo_stream: "" },
-                              class: "shrink-0" do |f| %>
-                  <%= f.hidden_field :context, value: "index" %>
-                  <button type="submit"
-                          aria-label="<%= t(".remove") %>"
-                          title="<%= t(".remove") %>"
-                          class="rounded-full p-1 text-imasus-dark-green/30 transition hover:bg-imasus-red/10 hover:text-imasus-red">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
-                    </svg>
-                  </button>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
+          <div class="mt-4 rounded-2xl border border-imasus-dark-green/10 bg-white px-5 py-3 shadow-sm">
+            <ul class="divide-y divide-imasus-dark-green/5">
+              <% bookmarks.each do |bookmark| %>
+                <% preview_src = bookmark_preview_image_src(bookmark) %>
+                <li id="bookmark-row-<%= bookmark.id %>"
+                    class="flex items-center justify-between gap-4 py-3">
+                  <div class="flex min-w-0 flex-1 items-center gap-3">
+                    <span class="h-2 w-2 shrink-0 rounded-full <%= bookmark_dot_color(bookmark) %>"
+                          title="<%= bookmark.bookmarkable_type.underscore.humanize %>"></span>
+                    <% if preview_src.present? %>
+                      <%= link_to bookmark.url, class: "shrink-0", aria: { label: bookmark.label } do %>
+                        <%= image_tag preview_src,
+                              alt: "",
+                              loading: "lazy",
+                              data: { bookmark_preview: "" },
+                              class: "h-12 w-16 rounded-md border border-imasus-dark-green/10 object-cover" %>
+                      <% end %>
+                    <% end %>
+                    <%= link_to bookmark.label,
+                          bookmark.url,
+                          class: "min-w-0 flex-1 truncate text-sm font-medium text-imasus-dark-green hover:underline" %>
+                  </div>
+                  <%= form_with url: bookmark_path(bookmark), method: :delete,
+                                data: { turbo_stream: "" },
+                                class: "shrink-0" do |f| %>
+                    <%= f.hidden_field :context, value: "index" %>
+                    <button type="submit"
+                            aria-label="<%= t(".remove") %>"
+                            title="<%= t(".remove") %>"
+                            class="rounded-full p-1 text-imasus-dark-green/30 transition hover:bg-imasus-red/10 hover:text-imasus-red">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-4 w-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/>
+                      </svg>
+                    </button>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
         <% else %>
-          <p class="mt-4 text-sm text-imasus-dark-green/50">
-            <%= t(".empty.#{type.underscore}",
-                  default: t(".empty.default"),
-                  link_start: "",
-                  link_end: "") %>
-          </p>
+          <div class="mt-4 rounded-2xl border border-dashed border-imasus-dark-green/10 bg-white px-5 py-4">
+            <p class="text-sm text-imasus-dark-green/50">
+              <%= t(".empty.#{type.underscore}",
+                    default: t(".empty.default"),
+                    link_start: "",
+                    link_end: "") %>
+            </p>
+          </div>
         <% end %>
       </section>
     <% end %>
