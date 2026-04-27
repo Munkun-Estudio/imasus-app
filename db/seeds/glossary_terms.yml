@@ -234,3 +234,547 @@
     en:
       - "The SEM micrograph revealed the fibre's hollow structure"
       - "A material's micrograph can explain its thermal behaviour"
+
+- term:
+    en: Amino acids
+    es: Aminoácidos
+    it: Amminoacidi
+    el: Αμινοξέα
+  category: science
+  definition:
+    en: >
+      Organic compounds that combine to form proteins; essential for biological
+      functions and often involved in bio-based material synthesis.
+    es: >
+      Compuestos orgánicos que se combinan para formar proteínas; son esenciales
+      para las funciones biológicas y a menudo intervienen en la síntesis de
+      materiales de base biológica.
+    it: >
+      Composti organici che si combinano per formare proteine; sono essenziali
+      per le funzioni biologiche e spesso coinvolti nella sintesi di materiali
+      a base biologica.
+    el: >
+      Οργανικές ενώσεις που συνδυάζονται για να σχηματίσουν πρωτεΐνες· είναι
+      απαραίτητες για τις βιολογικές λειτουργίες και συχνά συμμετέχουν στη
+      σύνθεση υλικών βιολογικής προέλευσης.
+
+- term:
+    en: Antibacterial
+    es: Antibacteriano
+    it: Antibatterico
+    el: Αντιβακτηριακό
+  category: science
+  definition:
+    en: >
+      A substance or property that prevents bacterial growth or kills bacteria,
+      often used in medical or hygienic materials.
+    es: >
+      Sustancia o propiedad que impide el crecimiento bacteriano o elimina
+      bacterias, utilizada a menudo en materiales médicos o higiénicos.
+    it: >
+      Sostanza o proprietà che impedisce la crescita batterica o uccide i
+      batteri, spesso usata in materiali medici o igienici.
+    el: >
+      Ουσία ή ιδιότητα που εμποδίζει την ανάπτυξη βακτηρίων ή σκοτώνει
+      βακτήρια, και χρησιμοποιείται συχνά σε ιατρικά ή υγιεινά υλικά.
+
+- term:
+    en: Antiseptic
+    es: Antiséptico
+    it: Antisettico
+    el: Αντισηπτικό
+  category: science
+  definition:
+    en: >
+      A substance that inhibits the growth and development of microorganisms on
+      living tissues, used for sterilization and wound care.
+    es: >
+      Sustancia que inhibe el crecimiento y desarrollo de microorganismos en
+      tejidos vivos, utilizada para la esterilización y el cuidado de heridas.
+    it: >
+      Sostanza che inibisce la crescita e lo sviluppo di microrganismi sui
+      tessuti viventi, usata per la sterilizzazione e la cura delle ferite.
+    el: >
+      Ουσία που αναστέλλει την ανάπτυξη μικροοργανισμών σε ζωντανούς ιστούς,
+      και χρησιμοποιείται για αποστείρωση και φροντίδα τραυμάτων.
+
+- term:
+    en: Bio-based
+    es: De base biológica
+    it: A base biologica
+    el: Βιολογικής προέλευσης
+  category: science
+  definition:
+    en: >
+      Derived from biological sources, such as plants or microbes, rather than
+      fossil fuels; often used in sustainable materials.
+    es: >
+      Derivado de fuentes biológicas, como plantas o microbios, en lugar de
+      combustibles fósiles; se utiliza a menudo en materiales sostenibles.
+    it: >
+      Derivato da fonti biologiche, come piante o microbi, invece che da
+      combustibili fossili; spesso usato nei materiali sostenibili.
+    el: >
+      Προερχόμενο από βιολογικές πηγές, όπως φυτά ή μικρόβια, αντί για ορυκτά
+      καύσιμα· χρησιμοποιείται συχνά σε βιώσιμα υλικά.
+
+- term:
+    en: Biomass
+    es: Biomasa
+    it: Biomassa
+    el: Βιομάζα
+  category: science
+  definition:
+    en: >
+      Organic matter from plants or animals used as a renewable energy source or
+      raw material for bioproducts.
+    es: >
+      Materia orgánica procedente de plantas o animales utilizada como fuente de
+      energía renovable o como materia prima para bioproductos.
+    it: >
+      Materia organica proveniente da piante o animali usata come fonte di
+      energia rinnovabile o come materia prima per bioprodotti.
+    el: >
+      Οργανική ύλη από φυτά ή ζώα που χρησιμοποιείται ως ανανεώσιμη πηγή
+      ενέργειας ή ως πρώτη ύλη για βιοπροϊόντα.
+
+- term:
+    en: Biosynthetic value chain
+    es: Cadena de valor biosintética
+    it: Catena del valore biosintetica
+    el: Βιοσυνθετική αλυσίδα αξίας
+  category: industry
+  definition:
+    en: >
+      A production chain based on biosynthesis, where biological processes are
+      used to manufacture materials or chemicals.
+    es: >
+      Cadena de producción basada en la biosíntesis, en la que se utilizan
+      procesos biológicos para fabricar materiales o sustancias químicas.
+    it: >
+      Catena produttiva basata sulla biosintesi, in cui processi biologici sono
+      usati per produrre materiali o sostanze chimiche.
+    el: >
+      Αλυσίδα παραγωγής βασισμένη στη βιοσύνθεση, όπου βιολογικές διεργασίες
+      χρησιμοποιούνται για την παραγωγή υλικών ή χημικών ουσιών.
+
+- term:
+    en: Biosynthesis
+    es: Biosíntesis
+    it: Biosintesi
+    el: Βιοσύνθεση
+  category: science
+  definition:
+    en: >
+      The natural process by which living organisms produce complex molecules
+      from simpler ones using enzymes.
+    es: >
+      Proceso natural mediante el cual los organismos vivos producen moléculas
+      complejas a partir de otras más simples utilizando enzimas.
+    it: >
+      Processo naturale attraverso cui gli organismi viventi producono molecole
+      complesse a partire da molecole più semplici usando enzimi.
+    el: >
+      Η φυσική διαδικασία με την οποία οι ζωντανοί οργανισμοί παράγουν σύνθετα
+      μόρια από απλούστερα με τη βοήθεια ενζύμων.
+
+- term:
+    en: By-products
+    es: Subproductos
+    it: Sottoprodotti
+    el: Παραπροϊόντα
+  category: industry
+  definition:
+    en: >
+      Secondary products generated during the manufacture or breakdown of
+      another product, sometimes useful or recyclable.
+    es: >
+      Productos secundarios generados durante la fabricación o descomposición de
+      otro producto, que a veces pueden ser útiles o reciclables.
+    it: >
+      Prodotti secondari generati durante la produzione o la degradazione di un
+      altro prodotto, talvolta utili o riciclabili.
+    el: >
+      Δευτερεύοντα προϊόντα που παράγονται κατά την κατασκευή ή τη διάσπαση
+      ενός άλλου προϊόντος, μερικές φορές χρήσιμα ή ανακυκλώσιμα.
+
+- term:
+    en: Chitin
+    es: Quitina
+    it: Chitina
+    el: Χιτίνη
+  category: science
+  definition:
+    en: >
+      A natural polymer found in the exoskeletons of crustaceans and insects;
+      used in biodegradable materials and medical applications.
+    es: >
+      Polímero natural presente en los exoesqueletos de crustáceos e insectos;
+      se utiliza en materiales biodegradables y aplicaciones médicas.
+    it: >
+      Polimero naturale presente negli esoscheletri di crostacei e insetti;
+      usato in materiali biodegradabili e applicazioni mediche.
+    el: >
+      Φυσικό πολυμερές που βρίσκεται στους εξωσκελετούς καρκινοειδών και
+      εντόμων· χρησιμοποιείται σε βιοδιασπώμενα υλικά και ιατρικές εφαρμογές.
+
+- term:
+    en: Cow gut tissue
+    es: Tejido intestinal bovino
+    it: Tessuto intestinale bovino
+    el: Ιστός εντέρου βοοειδών
+  category: science
+  definition:
+    en: >
+      Biological material derived from cow intestines, historically used for
+      surgical sutures or strings, such as tennis or musical instrument strings.
+    es: >
+      Material biológico derivado de los intestinos de vaca, utilizado
+      históricamente para suturas quirúrgicas o cuerdas, como las de tenis o de
+      instrumentos musicales.
+    it: >
+      Materiale biologico derivato dall'intestino bovino, storicamente usato
+      per suture chirurgiche o corde, come quelle da tennis o per strumenti
+      musicali.
+    el: >
+      Βιολογικό υλικό που προέρχεται από έντερα αγελάδας, ιστορικά
+      χρησιμοποιημένο για χειρουργικά ράμματα ή χορδές, όπως χορδές τένις ή
+      μουσικών οργάνων.
+
+- term:
+    en: Deacetylation
+    es: Desacetilación
+    it: Deacetilazione
+    el: Αποακετυλίωση
+  category: science
+  definition:
+    en: >
+      A chemical process that removes acetyl groups from a molecule, often used
+      in modifying biopolymers like chitin into chitosan.
+    es: >
+      Proceso químico que elimina grupos acetilo de una molécula, utilizado a
+      menudo para modificar biopolímeros como la quitina y convertirla en
+      quitosano.
+    it: >
+      Processo chimico che rimuove gruppi acetile da una molecola, spesso usato
+      per modificare biopolimeri come la chitina in chitosano.
+    el: >
+      Χημική διεργασία που αφαιρεί ακετυλομάδες από ένα μόριο, συχνά για την
+      τροποποίηση βιοπολυμερών όπως η χιτίνη σε χιτοζάνη.
+
+- term:
+    en: Extrude
+    es: Extruir
+    it: Estrudere
+    el: Εξώθηση
+  category: industry
+  definition:
+    en: >
+      To force a material through a shaped die to form a continuous shape; a
+      process used in plastic and fibre manufacturing.
+    es: >
+      Forzar un material a pasar por una matriz con forma para crear una forma
+      continua; es un proceso utilizado en la fabricación de plásticos y fibras.
+    it: >
+      Forzare un materiale attraverso una matrice sagomata per formare una
+      forma continua; processo usato nella produzione di plastiche e fibre.
+    el: >
+      Η διέλευση ενός υλικού μέσα από διαμορφωμένη μήτρα για τη δημιουργία
+      συνεχούς σχήματος· διαδικασία που χρησιμοποιείται στην παραγωγή πλαστικών
+      και ινών.
+
+- term:
+    en: Fermentation
+    es: Fermentación
+    it: Fermentazione
+    el: Ζύμωση
+  category: science
+  definition:
+    en: >
+      A metabolic process converting sugars to acids, gases, or alcohol, often
+      used in food, biofuels, and bio-based material production.
+    es: >
+      Proceso metabólico que convierte azúcares en ácidos, gases o alcohol, y
+      que se utiliza a menudo en alimentos, biocombustibles y producción de
+      materiales de base biológica.
+    it: >
+      Processo metabolico che converte zuccheri in acidi, gas o alcol, spesso
+      usato negli alimenti, nei biocarburanti e nella produzione di materiali a
+      base biologica.
+    el: >
+      Μεταβολική διαδικασία που μετατρέπει σάκχαρα σε οξέα, αέρια ή αλκοόλη,
+      και χρησιμοποιείται συχνά σε τρόφιμα, βιοκαύσιμα και παραγωγή υλικών
+      βιολογικής προέλευσης.
+
+- term:
+    en: Genetically engineered micro-organisms
+    es: Microorganismos modificados genéticamente
+    it: Microrganismi geneticamente modificati
+    el: Γενετικά τροποποιημένοι μικροοργανισμοί
+  category: science
+  definition:
+    en: >
+      Microbes that have been genetically modified to produce useful substances
+      like enzymes, fibres, or chemicals.
+    es: >
+      Microbios modificados genéticamente para producir sustancias útiles, como
+      enzimas, fibras o sustancias químicas.
+    it: >
+      Microbi geneticamente modificati per produrre sostanze utili, come
+      enzimi, fibre o sostanze chimiche.
+    el: >
+      Μικρόβια που έχουν τροποποιηθεί γενετικά για να παράγουν χρήσιμες ουσίες,
+      όπως ένζυμα, ίνες ή χημικές ουσίες.
+
+- term:
+    en: Industrial granules
+    es: Gránulos industriales
+    it: Granuli industriali
+    el: Βιομηχανικοί κόκκοι
+  category: industry
+  definition:
+    en: >
+      Small, often pelletized, particles used as raw material in industrial
+      processes such as molding or extrusion.
+    es: >
+      Partículas pequeñas, a menudo peletizadas, utilizadas como materia prima
+      en procesos industriales como el moldeo o la extrusión.
+    it: >
+      Piccole particelle, spesso pellettizzate, usate come materia prima in
+      processi industriali come lo stampaggio o l'estrusione.
+    el: >
+      Μικρά, συχνά πελλετοποιημένα σωματίδια που χρησιμοποιούνται ως πρώτη ύλη
+      σε βιομηχανικές διεργασίες όπως η χύτευση ή η εξώθηση.
+
+- term:
+    en: Material lamination
+    es: Laminación de materiales
+    it: Laminazione dei materiali
+    el: Πλαστικοποίηση υλικών
+  category: industry
+  definition:
+    en: >
+      The process of bonding layers of materials together to improve strength,
+      durability, or functionality.
+    es: >
+      Proceso de unir capas de materiales para mejorar la resistencia, la
+      durabilidad o la funcionalidad.
+    it: >
+      Processo di unione di strati di materiali per migliorare resistenza,
+      durabilità o funzionalità.
+    el: >
+      Η διαδικασία συγκόλλησης στρώσεων υλικών μεταξύ τους για τη βελτίωση της
+      αντοχής, της διάρκειας ζωής ή της λειτουργικότητας.
+
+- term:
+    en: Microbial fermentation
+    es: Fermentación microbiana
+    it: Fermentazione microbica
+    el: Μικροβιακή ζύμωση
+  category: science
+  definition:
+    en: >
+      The use of microbes to carry out fermentation, often for creating
+      bio-based chemicals, fuels, or fibres.
+    es: >
+      Uso de microbios para llevar a cabo fermentación, a menudo con el fin de
+      crear sustancias químicas, combustibles o fibras de base biológica.
+    it: >
+      Uso di microbi per realizzare la fermentazione, spesso per creare
+      sostanze chimiche, combustibili o fibre a base biologica.
+    el: >
+      Η χρήση μικροβίων για την πραγματοποίηση ζύμωσης, συχνά για τη δημιουργία
+      χημικών ουσιών, καυσίμων ή ινών βιολογικής προέλευσης.
+
+- term:
+    en: Mycelium
+    es: Micelio
+    it: Micelio
+    el: Μυκήλιο
+  category: science
+  definition:
+    en: >
+      The root-like structure of fungi, used in biofabrication to create
+      sustainable materials such as packaging, leather alternatives, and
+      insulation.
+    es: >
+      Estructura similar a una raíz propia de los hongos, utilizada en
+      biofabricación para crear materiales sostenibles como envases,
+      alternativas al cuero y aislamiento.
+    it: >
+      Struttura dei funghi simile a una radice, usata nella biofabbricazione
+      per creare materiali sostenibili come imballaggi, alternative alla pelle e
+      isolanti.
+    el: >
+      Η ριζόμορφη δομή των μυκήτων, που χρησιμοποιείται στη βιοκατασκευή για τη
+      δημιουργία βιώσιμων υλικών όπως συσκευασίες, εναλλακτικές του δέρματος
+      και μονώσεις.
+
+- term:
+    en: Myco-fibers
+    es: Micofibras
+    it: Micofibre
+    el: Μυκοΐνες
+  category: science
+  definition:
+    en: >
+      Fibres derived from fungi, often biodegradable and used in sustainable
+      textiles or composites.
+    es: >
+      Fibras derivadas de hongos, a menudo biodegradables y utilizadas en
+      textiles o compuestos sostenibles.
+    it: >
+      Fibre derivate dai funghi, spesso biodegradabili e usate in tessili o
+      compositi sostenibili.
+    el: >
+      Ίνες που προέρχονται από μύκητες, συχνά βιοδιασπώμενες και
+      χρησιμοποιούμενες σε βιώσιμα υφάσματα ή σύνθετα υλικά.
+
+- term:
+    en: Pesticides
+    es: Pesticidas
+    it: Pesticidi
+    el: Φυτοφάρμακα
+  category: industry
+  definition:
+    en: >
+      Chemical or biological agents used to kill or control pests, often
+      associated with agriculture and environmental concerns.
+    es: >
+      Agentes químicos o biológicos utilizados para eliminar o controlar plagas,
+      asociados a menudo con la agricultura y preocupaciones ambientales.
+    it: >
+      Agenti chimici o biologici usati per eliminare o controllare parassiti,
+      spesso associati all'agricoltura e a preoccupazioni ambientali.
+    el: >
+      Χημικοί ή βιολογικοί παράγοντες που χρησιμοποιούνται για την εξόντωση ή
+      τον έλεγχο επιβλαβών οργανισμών, συχνά συνδεδεμένοι με τη γεωργία και
+      περιβαλλοντικές ανησυχίες.
+
+- term:
+    en: Petrochemicals
+    es: Petroquímicos
+    it: Petrolchimici
+    el: Πετροχημικά
+  category: industry
+  definition:
+    en: >
+      Chemical products derived from petroleum or natural gas, used to
+      manufacture plastics, fibres, and synthetic materials.
+    es: >
+      Productos químicos derivados del petróleo o del gas natural, utilizados
+      para fabricar plásticos, fibras y materiales sintéticos.
+    it: >
+      Prodotti chimici derivati dal petrolio o dal gas naturale, usati per
+      produrre plastiche, fibre e materiali sintetici.
+    el: >
+      Χημικά προϊόντα που προέρχονται από πετρέλαιο ή φυσικό αέριο και
+      χρησιμοποιούνται για την παραγωγή πλαστικών, ινών και συνθετικών υλικών.
+
+- term:
+    en: Polyamides
+    es: Poliamidas
+    it: Poliammidi
+    el: Πολυαμίδια
+  category: science
+  definition:
+    en: >
+      Polymers with recurring amide groups, including both natural forms such as
+      proteins and synthetic forms such as nylon.
+    es: >
+      Polímeros con grupos amida recurrentes, que incluyen formas naturales
+      como las proteínas y formas sintéticas como el nailon.
+    it: >
+      Polimeri con gruppi ammide ricorrenti, che includono forme naturali come
+      le proteine e forme sintetiche come il nylon.
+    el: >
+      Πολυμερή με επαναλαμβανόμενες αμιδικές ομάδες, που περιλαμβάνουν τόσο
+      φυσικές μορφές όπως οι πρωτεΐνες όσο και συνθετικές μορφές όπως το νάιλον.
+
+- term:
+    en: Polluting polysaccharides
+    es: Polisacáridos contaminantes
+    it: Polisaccaridi inquinanti
+    el: Ρυπογόνοι πολυσακχαρίτες
+  category: science
+  definition:
+    en: >
+      Polysaccharide-based substances or waste streams that can become
+      pollutants when released or discarded without recovery.
+    es: >
+      Sustancias o flujos de residuos basados en polisacáridos que pueden
+      convertirse en contaminantes cuando se liberan o se desechan sin
+      recuperación.
+    it: >
+      Sostanze o flussi di rifiuti a base di polisaccaridi che possono
+      diventare inquinanti quando vengono rilasciati o smaltiti senza recupero.
+    el: >
+      Ουσίες ή ροές αποβλήτων με βάση πολυσακχαρίτες που μπορούν να γίνουν
+      ρύποι όταν απελευθερώνονται ή απορρίπτονται χωρίς ανάκτηση.
+
+- term:
+    en: Post-consumer waste
+    es: Residuos posconsumo
+    it: Rifiuti post-consumo
+    el: Απόβλητα μετά την κατανάλωση
+  category: industry
+  definition:
+    en: >
+      Materials discarded by end-users after use, often collected for recycling
+      or waste-to-energy processes.
+    es: >
+      Materiales desechados por los usuarios finales después de su uso, a menudo
+      recogidos para reciclaje o procesos de valorización energética.
+    it: >
+      Materiali scartati dagli utenti finali dopo l'uso, spesso raccolti per il
+      riciclo o per processi di recupero energetico dai rifiuti.
+    el: >
+      Υλικά που απορρίπτονται από τους τελικούς χρήστες μετά τη χρήση, συχνά
+      συλλεγόμενα για ανακύκλωση ή διεργασίες παραγωγής ενέργειας από απόβλητα.
+
+- term:
+    en: Spandex
+    es: Spandex
+    it: Spandex
+    el: Σπάντεξ
+  category: industry
+  definition:
+    en: >
+      A synthetic fibre known for exceptional elasticity and used in clothing,
+      especially activewear. Also known as elastane, it is made from long-chain
+      synthetic polymers called polyurethanes.
+    es: >
+      Fibra sintética conocida por su excepcional elasticidad y utilizada en
+      prendas de vestir, especialmente ropa deportiva. También conocida como
+      elastano, está hecha de polímeros sintéticos de cadena larga llamados
+      poliuretanos.
+    it: >
+      Fibra sintetica nota per la sua eccezionale elasticità e usata
+      nell'abbigliamento, soprattutto sportivo. Conosciuta anche come elastan, è
+      composta da polimeri sintetici a catena lunga chiamati poliuretani.
+    el: >
+      Συνθετική ίνα γνωστή για την εξαιρετική ελαστικότητά της και
+      χρησιμοποιούμενη στην ένδυση, ιδιαίτερα στα αθλητικά ρούχα. Είναι επίσης
+      γνωστή ως ελαστάνη και παράγεται από συνθετικά πολυμερή μακράς αλυσίδας
+      που ονομάζονται πολυουρεθάνες.
+
+- term:
+    en: Spinneret
+    es: Hilera
+    it: Filiera
+    el: Κλωστική μήτρα
+  category: industry
+  definition:
+    en: >
+      A device with tiny holes through which polymer solutions are extruded to
+      form fibres in synthetic fibre production.
+    es: >
+      Dispositivo con pequeños orificios a través de los cuales se extruyen
+      soluciones poliméricas para formar fibras en la producción de fibras
+      sintéticas.
+    it: >
+      Dispositivo con piccoli fori attraverso cui vengono estruse soluzioni
+      polimeriche per formare fibre nella produzione di fibre sintetiche.
+    el: >
+      Συσκευή με μικροσκοπικές οπές μέσα από τις οποίες εξωθούνται πολυμερικά
+      διαλύματα για τον σχηματισμό ινών στην παραγωγή συνθετικών ινών.
