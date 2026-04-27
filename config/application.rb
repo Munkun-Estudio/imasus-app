@@ -27,8 +27,8 @@ module ImasusApp
     config.i18n.available_locales = %i[en es it el]
     config.i18n.default_locale = :en
 
-    # Use proxy URLs so a CDN can cache Active Storage responses in front of the app.
-    config.active_storage.resolve_model_to_route = :rails_storage_proxy
+    # Direct public URLs — Tigris serves files from its CDN, no Rails proxy needed.
+    config.active_storage.resolve_model_to_route = :rails_storage_redirect
     config.active_storage.variant_processor = :mini_magick
   end
 end

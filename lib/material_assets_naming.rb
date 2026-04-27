@@ -1,6 +1,6 @@
 module MaterialAssetsNaming
   VIDEO_EXTENSIONS = %w[.mp4 .mov .webm].freeze
-  MICROSCOPY_SUFFIX = /-m(?<n>\d+)\z/i
+  MICROSCOPY_SUFFIX = /[-_]m_?(?<n>\d+)\z/i
 
   module_function
 

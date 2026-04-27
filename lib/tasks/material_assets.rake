@@ -30,6 +30,7 @@ namespace :material_assets do
 
   desc "Import material media from a local folder that mirrors the Drive layout"
   task :import, [ :path ] => :environment do |_, args|
+    ActiveJob::Base.queue_adapter = :inline
     path = args[:path] or abort("Usage: bin/rake 'material_assets:import[/path/to/Materials DB Images]'")
 
     result = MaterialAssetsImporter.new(path).import!

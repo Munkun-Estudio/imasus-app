@@ -101,6 +101,36 @@ class MaterialAssetsImporterTest < ActiveSupport::TestCase
     assert_equal 2, result.files_ignored.size
   end
 
+  test "classifies microscopies named with _mN separator" do
+    build_drive_folder(
+      "Lifematerials-Kapok",
+      files: {
+        "Lifematerials-Kapok.jpg"    => :image,
+        "Lifematerials-Kapok_m1.jpg" => :image,
+        "Lifematerials-Kapok_m2.jpg" => :image
+      }
+    )
+
+    MaterialAssetsImporter.new(@tmp_root).import!
+
+    assert_equal [ 0, 1 ], @material.reload.microscopies.pluck(:position).sort
+  end
+
+  test "classifies microscopies named with -m_N separator" do
+    build_drive_folder(
+      "Lifematerials-Kapok",
+      files: {
+        "Lifematerials-Kapok.jpg"      => :image,
+        "Lifematerials-Kapok-m_1.jpg"  => :image,
+        "Lifematerials-Kapok-m_2.jpg"  => :image
+      }
+    )
+
+    MaterialAssetsImporter.new(@tmp_root).import!
+
+    assert_equal [ 0, 1 ], @material.reload.microscopies.pluck(:position).sort
+  end
+
   test "folder name is matched case-insensitively against the material slug" do
     build_drive_folder(
       "LIFEMATERIALS-Kapok",

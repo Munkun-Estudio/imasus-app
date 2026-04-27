@@ -51,7 +51,7 @@
                    controls
                    preload="metadata"
                    playsinline>
-              <source src="<%= rails_blob_url(item[:asset].file) %>"
+              <source src="<%= url_for(item[:asset].file) %>"
                       type="<%= item[:asset].file.content_type %>">
             </video>
           <% else %>
