@@ -1109,3 +1109,59 @@
   supplier_url: https://comistra.com/news/regenerated-wool-a-way-to-save-the-planet/
   supplier_name: Comistra
   slug: regenerated-wool
+- trade_name: Eeden World
+  material_of_origin: Recycled materials
+  availability_status: in_development
+  description:
+    en: Eeden is a technology company based in Germany that is developing advanced solutions for the chemical recycling of cotton and polyester textiles. Their technology makes it possible to separate and recover cellulose and PET monomers, which are then transformed into virgin-quality fibers such as lyocell, viscose, and polyester, contributing to a more circular textile industry.
+  interesting_properties: {}
+  structure: {}
+  what_problem_it_solves:
+    en: Eeden solves the challenge of recycling cotton-polyester blends, which are usually difficult to separate and reuse. Its technology enables the recovery of high-quality materials to create new fibers, supporting circularity.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+  supplier_url: https://eeden.world/
+  supplier_name: "[https://eeden.world/](https://eeden.world/) Pilot stage"
+  slug: eeden-world
+- trade_name: Jingyi Yang Algae-based Bioplastic
+  material_of_origin: Seaweed
+  availability_status: in_development
+  description:
+    en: Algae-based bioplastic developed by Jingyi Yang, a material that explores new possibilities in sustainable fashion through natural resources.
+  interesting_properties:
+    en: One of its environmental benefits is that it is fully biodegradable, water-soluble, and compostable under natural conditions, helping to reduce long-lasting waste in the environment. From a functional and aesthetic perspective, it has a leather-like feel, a semi-translucent appearance, and flexibility that changes depending on thickness.
+  structure: {}
+  what_problem_it_solves:
+    en: Fully biodegradable, water-soluble, and compostable under natural conditions, helping to reduce long-lasting waste in the environment.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - seaweed
+    application:
+    - clothing
+    - accessories
+    - home_textiles
+  supplier_name: Pilot stage material system with small-batch production capability.
+  slug: jingyi-yang-algae-based-bioplastic
+- trade_name: Rustic Wool
+  material_of_origin: Wool
+  availability_status: commercial
+  description:
+    en: Rustic wool is made from wool that is a byproduct of sheep farming and is often discarded or undervalued. By using this existing resource, it helps reduce agricultural waste and makes better use of materials already produced. It also has a lower environmental impact, as it does not require additional processing or new raw material production, while providing a natural, biodegradable alternative to synthetic fibers.
+  interesting_properties:
+    en: In Europe, much of the wool from sheep farming is undervalued and treated as waste due to low market demand and high processing costs. As a result, significant quantities are discarded, burned, or buried, despite being a natural and biodegradable material with potential for sustainable applications.
+  structure: {}
+  what_problem_it_solves:
+    en: Helps address agricultural waste and underutilized resources by valorizing wool that is often discarded or of low commercial value. It provides a natural, biodegradable, and insulating material, offering a low-impact alternative to synthetic fibers while supporting more circular and regenerative use of animal-based resources.
+  sensorial_qualities: {}
+  tags:
+    textile_imitating:
+    - wool
+    application:
+    - clothing
+  supplier_name: By-product of sheep farming
+  slug: rustic-wool
