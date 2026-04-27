@@ -18,6 +18,7 @@ class TrainingModule::Renderer
   def self.call(markdown)
     html = Kramdown::Document.new(markdown, input: "kramdown", html_to_native: false).to_html
     html = process_images(html)
+    html = add_image_ids(html)
     add_paragraph_ids(html)
   end
 
@@ -46,6 +47,20 @@ class TrainingModule::Renderer
     tag.sub(/<img/, '<img loading="lazy"')
   end
   private_class_method :add_lazy_loading
+
+  # Adds sequential id attributes to standalone <img> tags. Images wrapped in a
+  # paragraph can still be bookmarked through the paragraph anchor; standalone
+  # images need their own stable target.
+  def self.add_image_ids(html)
+    counter = 0
+    html.gsub(/<img\s[^>]*>/i) do |tag|
+      counter += 1
+      next tag if tag.match?(/\bid=/)
+
+      tag.sub("<img", %(<img id="image-#{counter}"))
+    end
+  end
+  private_class_method :add_image_ids
 
   # Adds sequential id attributes to <p> tags that do not already have one.
   # Ids take the form "p-1", "p-2", … and are used as stable anchor targets

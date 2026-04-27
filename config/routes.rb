@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  resources :materials, only: [ :index, :show ], param: :slug do
+  resources :materials, only: [ :index, :show, :edit, :update ], param: :slug do
     member do
       get :preview
     end

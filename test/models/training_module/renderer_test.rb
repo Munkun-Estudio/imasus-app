@@ -28,6 +28,12 @@ class TrainingModule::RendererTest < ActiveSupport::TestCase
     assert_includes html, 'loading="lazy"'
   end
 
+  test "adds stable ids to img tags for image bookmarks" do
+    markdown = '<img src="/assets/training-modules/media/test.png" alt="test" />'
+    html = TrainingModule::Renderer.call(markdown)
+    assert_includes html, 'id="image-1"'
+  end
+
   test "preserves alt attributes on img tags" do
     markdown = '<img src="/assets/training-modules/media/test.png" alt="A cool image" />'
     html = TrainingModule::Renderer.call(markdown)

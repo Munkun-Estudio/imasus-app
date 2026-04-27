@@ -4,6 +4,14 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
   setup do
     Tag.seed_from_yaml!
     Material.seed_from_yaml!
+    @password = "correcthorsebatterystaple"
+    @admin = User.create!(name: "Admin", email: "materials-admin@example.com", password: @password, role: :admin)
+    @facilitator = User.create!(name: "Facilitator", email: "materials-facilitator@example.com", password: @password, role: :facilitator)
+    @participant = User.create!(name: "Participant", email: "materials-participant@example.com", password: @password, role: :participant)
+  end
+
+  def sign_in(user)
+    post session_path, params: { email: user.email, password: @password }
   end
 
   # Matches the per-card marker rendered in the view so we can assert
@@ -278,6 +286,64 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     material = Material.order(:position).first
     get material_url(material.slug)
     assert_select "h1", text: material.trade_name
+  end
+
+  test "participant does not see material edit affordance" do
+    sign_in(@participant)
+    material = Material.order(:position).first
+    get material_url(material.slug)
+    assert_select "[data-role='edit-material']", count: 0
+  end
+
+  test "facilitator sees material edit affordance" do
+    sign_in(@facilitator)
+    material = Material.order(:position).first
+    get material_url(material.slug)
+    assert_select "[data-role='edit-material'][href=?]", edit_material_path(material)
+  end
+
+  test "participant cannot edit a material" do
+    sign_in(@participant)
+    material = Material.order(:position).first
+    get edit_material_url(material.slug)
+    assert_redirected_to root_path
+  end
+
+  test "facilitator can edit a material" do
+    sign_in(@facilitator)
+    material = Material.order(:position).first
+    get edit_material_url(material.slug)
+    assert_response :success
+  end
+
+  test "facilitator can update material copy" do
+    sign_in(@facilitator)
+    material = Material.order(:position).first
+
+    patch material_url(material.slug), params: {
+      material: {
+        trade_name: material.trade_name,
+        availability_status: material.availability_status,
+        description_translations: material.description_translations.merge("en" => "Updated curator description.")
+      }
+    }
+
+    assert_redirected_to material_path(material)
+    assert_equal "Updated curator description.", material.reload.description_in(:en)
+  end
+
+  test "participant cannot update a material" do
+    sign_in(@participant)
+    material = Material.order(:position).first
+
+    patch material_url(material.slug), params: {
+      material: {
+        trade_name: "Hacked"
+      }
+    }
+
+    assert_redirected_to root_path
+    assert_not_equal "Hacked", material.reload.trade_name
   end
 
   test "GET /materials/:slug returns 404 for unknown slug" do

@@ -1,0 +1,16 @@
+<% content_for :title, t("materials.edit.title", name: @material.trade_name) %>
+
+<div class="px-6 py-12 sm:px-10 lg:px-16">
+  <div class="max-w-4xl">
+    <%= link_to t("materials.edit.back_to_material", name: @material.trade_name), material_path(@material),
+          class: "text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+
+    <h1 class="mt-6 text-3xl font-bold text-imasus-dark-green">
+      <%= t("materials.edit.title", name: @material.trade_name) %>
+    </h1>
+
+    <div class="mt-8">
+      <%= render "form", material: @material, tags_by_facet: @tags_by_facet %>
+    </div>
+  </div>
+</div>

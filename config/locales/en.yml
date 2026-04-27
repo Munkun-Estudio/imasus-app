@@ -109,6 +109,8 @@ en:
         manage_facilitators: "Manage facilitators"
         all_projects: "All projects"
   materials:
+    actions:
+      edit: "Edit"
     index:
       title: "Materials"
       lead: "Explore sustainable materials gathered for IMASUS workshops. Filter by origin, the textile they imitate, or the application you have in mind."
@@ -154,6 +156,24 @@ en:
         supplier: "Supplier"
         availability: "Availability"
         material_of_origin: "Raw material"
+    edit:
+      title: "Edit %{name}"
+      back_to_material: "← Back to %{name}"
+    update:
+      notice: "Material updated."
+    form:
+      errors_heading:
+        one: "Fix 1 issue before saving"
+        other: "Fix %{count} issues before saving"
+      trade_name_label: "Trade name"
+      availability_status_label: "Availability"
+      supplier_name_label: "Supplier name"
+      supplier_url_label: "Supplier URL"
+      material_of_origin_label: "Raw material"
+      locale_tabs_label: "Material languages"
+      tags_label: "Tags"
+      submit_update: "Save material"
+      cancel: "Cancel"
   training:
     index:
       title: "Training"
@@ -218,7 +238,7 @@ en:
       project_last_updated: "Last updated %{date}"
     agenda:
       eyebrow: "Workshop Agenda"
-      title: "%{workshop} agenda"
+      title: "%{workshop}"
       back_to_workshop: "← Back to workshop"
     edit:
       title: "Edit %{workshop}"

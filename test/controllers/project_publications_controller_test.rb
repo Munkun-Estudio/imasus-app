@@ -56,6 +56,12 @@ class ProjectPublicationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "new styles the final Trix editor content area" do
+    sign_in(@member)
+    get new_project_publication_url(@project)
+    assert_select "trix-editor.trix-content"
+  end
+
   test "new shows process log entries for reuse" do
     LogEntry.create!(project: @project, author: @member, body: "We tested indigo on wool.")
 
