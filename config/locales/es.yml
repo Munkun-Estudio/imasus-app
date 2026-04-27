@@ -109,6 +109,8 @@ es:
         manage_facilitators: "Gestionar facilitación"
         all_projects: "Todos los proyectos"
   materials:
+    actions:
+      edit: "Editar"
     index:
       title: "Materiales"
       lead: "Explora materiales sostenibles reunidos para los talleres IMASUS. Filtra por origen, por el tejido al que imitan o por la aplicación que tienes en mente."
@@ -154,6 +156,24 @@ es:
         supplier: "Proveedor"
         availability: "Disponibilidad"
         material_of_origin: "Materia prima"
+    edit:
+      title: "Editar %{name}"
+      back_to_material: "← Volver a %{name}"
+    update:
+      notice: "Material actualizado."
+    form:
+      errors_heading:
+        one: "Corrige 1 problema antes de guardar"
+        other: "Corrige %{count} problemas antes de guardar"
+      trade_name_label: "Nombre comercial"
+      availability_status_label: "Disponibilidad"
+      supplier_name_label: "Nombre del proveedor"
+      supplier_url_label: "URL del proveedor"
+      material_of_origin_label: "Materia prima"
+      locale_tabs_label: "Idiomas del material"
+      tags_label: "Etiquetas"
+      submit_update: "Guardar material"
+      cancel: "Cancelar"
   training:
     index:
       title: "Formación"
@@ -218,7 +238,7 @@ es:
       project_last_updated: "Ultima actualizacion %{date}"
     agenda:
       eyebrow: "Agenda del taller"
-      title: "Agenda de %{workshop}"
+      title: "%{workshop}"
       back_to_workshop: "← Volver al taller"
     edit:
       title: "Editar %{workshop}"

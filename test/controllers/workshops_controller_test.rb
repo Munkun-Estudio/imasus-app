@@ -94,6 +94,15 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
+  test "agenda title uses the workshop title without appending agenda" do
+    sign_in(@participant)
+
+    get agenda_workshop_url(@workshop)
+
+    assert_select "header h1", text: @workshop.title
+    assert_select "header h1", text: /agenda/i, count: 0
+  end
+
   test "show renders the projects section listing workshop projects" do
     WorkshopParticipation.create!(user: @participant, workshop: @workshop)
     project = Project.create!(workshop: @workshop, title: "Kapok", language: "es", status: "draft")

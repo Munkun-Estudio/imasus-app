@@ -112,6 +112,8 @@ it:
         manage_facilitators: "Gestisci facilitatori"
         all_projects: "Tutti i progetti"
   materials:
+    actions:
+      edit: "Modifica"
     index:
       title: "Materiali"
       lead: "Esplora i materiali sostenibili raccolti per i workshop IMASUS. Filtra per origine, per il tessuto che imitano o per l'applicazione che hai in mente."
@@ -157,6 +159,24 @@ it:
         supplier: "Fornitore"
         availability: "Disponibilità"
         material_of_origin: "Materia prima"
+    edit:
+      title: "Modifica %{name}"
+      back_to_material: "← Torna a %{name}"
+    update:
+      notice: "Materiale aggiornato."
+    form:
+      errors_heading:
+        one: "Correggi 1 problema prima di salvare"
+        other: "Correggi %{count} problemi prima di salvare"
+      trade_name_label: "Nome commerciale"
+      availability_status_label: "Disponibilità"
+      supplier_name_label: "Nome del fornitore"
+      supplier_url_label: "URL del fornitore"
+      material_of_origin_label: "Materia prima"
+      locale_tabs_label: "Lingue del materiale"
+      tags_label: "Tag"
+      submit_update: "Salva materiale"
+      cancel: "Annulla"
   training:
     index:
       title: "Formazione"
@@ -221,7 +241,7 @@ it:
       project_last_updated: "Ultimo aggiornamento %{date}"
     agenda:
       eyebrow: "Agenda workshop"
-      title: "Agenda di %{workshop}"
+      title: "%{workshop}"
       back_to_workshop: "← Torna al workshop"
     # TODO: translate spec-13 workshop edit + participant strings (it).
     edit:

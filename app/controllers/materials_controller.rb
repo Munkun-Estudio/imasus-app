@@ -5,7 +5,8 @@
 # and a grid of material cards. Unknown facets and unknown chip slugs are
 # silently ignored so shareable URLs stay robust as the vocabulary evolves.
 class MaterialsController < ApplicationController
-  before_action :set_material, only: [ :show, :preview ]
+  before_action :require_curator, only: [ :edit, :update ]
+  before_action :set_material, only: [ :show, :preview, :edit, :update ]
 
   # GET /materials
   # GET /materials?origin_type=plants,fungi&application=clothing&q=cypress
@@ -45,6 +46,23 @@ class MaterialsController < ApplicationController
     render partial: "materials/preview",
            locals:  { material: @material },
            layout:  false
+  end
+
+  # GET /materials/:slug/edit
+  def edit
+    @tags_by_facet = Tag.all.group_by(&:facet)
+  end
+
+  # PATCH /materials/:slug
+  def update
+    @tags_by_facet = Tag.all.group_by(&:facet)
+
+    if @material.update(material_params)
+      apply_selected_tags if tag_selection_submitted?
+      redirect_to material_path(@material), notice: t(".notice", default: "Material updated.")
+    else
+      render :edit, status: :unprocessable_content
+    end
   end
 
   private
@@ -96,5 +114,43 @@ class MaterialsController < ApplicationController
     return {} if materials.empty?
 
     MaterialTagging.where(material_id: materials.map(&:id)).group(:tag_id).count
+  end
+
+  def material_params
+    locales = I18n.available_locales.map(&:to_s)
+    params.require(:material).permit(
+      :trade_name,
+      :supplier_name,
+      :supplier_url,
+      :material_of_origin,
+      :availability_status,
+      description_translations:            locales,
+      sensorial_qualities_translations:    locales,
+      what_problem_it_solves_translations: locales,
+      interesting_properties_translations: locales,
+      structure_translations:              locales
+    )
+  end
+
+  def selected_tag_ids
+    params.fetch(:material, {})
+          .fetch(:tag_ids, [])
+          .reject(&:blank?)
+          .map(&:to_i)
+  end
+
+  def apply_selected_tags
+    @material.taggings.where.not(tag_id: selected_tag_ids).destroy_all
+    (selected_tag_ids - @material.tags.pluck(:id)).each do |tag_id|
+      @material.taggings.create!(tag_id: tag_id)
+    end
+  end
+
+  def tag_selection_submitted?
+    params.fetch(:material, {}).key?(:tag_ids)
+  end
+
+  def require_curator
+    require_role :admin, :facilitator
   end
 end

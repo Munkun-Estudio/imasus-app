@@ -112,6 +112,8 @@ el:
         manage_facilitators: "Διαχείριση διευκολυντών"
         all_projects: "Όλα τα έργα"
   materials:
+    actions:
+      edit: "Επεξεργασία"
     index:
       title: "Υλικά"
       lead: "Εξερευνήστε βιώσιμα υλικά που συγκεντρώθηκαν για τα εργαστήρια IMASUS. Φιλτράρετε κατά προέλευση, κατά το ύφασμα που μιμούνται ή κατά την εφαρμογή που έχετε στο μυαλό σας."
@@ -157,6 +159,24 @@ el:
         supplier: "Προμηθευτής"
         availability: "Διαθεσιμότητα"
         material_of_origin: "Πρώτη ύλη"
+    edit:
+      title: "Επεξεργασία %{name}"
+      back_to_material: "← Πίσω στο %{name}"
+    update:
+      notice: "Το υλικό ενημερώθηκε."
+    form:
+      errors_heading:
+        one: "Διορθώστε 1 πρόβλημα πριν την αποθήκευση"
+        other: "Διορθώστε %{count} προβλήματα πριν την αποθήκευση"
+      trade_name_label: "Εμπορική ονομασία"
+      availability_status_label: "Διαθεσιμότητα"
+      supplier_name_label: "Όνομα προμηθευτή"
+      supplier_url_label: "URL προμηθευτή"
+      material_of_origin_label: "Πρώτη ύλη"
+      locale_tabs_label: "Γλώσσες υλικού"
+      tags_label: "Ετικέτες"
+      submit_update: "Αποθήκευση υλικού"
+      cancel: "Ακύρωση"
   training:
     index:
       title: "Εκπαίδευση"
@@ -221,7 +241,7 @@ el:
       project_last_updated: "Τελευταία ενημέρωση %{date}"
     agenda:
       eyebrow: "Ατζέντα εργαστηρίου"
-      title: "Ατζέντα για %{workshop}"
+      title: "%{workshop}"
       back_to_workshop: "← Επιστροφή στο εργαστήριο"
     # TODO: translate spec-13 workshop edit + participant strings (el).
     edit:

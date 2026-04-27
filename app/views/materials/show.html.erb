@@ -21,6 +21,12 @@
     <h1 class="flex-1 text-3xl font-bold text-imasus-dark-green sm:text-4xl">
       <%= @material.trade_name %>
     </h1>
+    <% if curator? %>
+      <%= link_to t("materials.actions.edit"),
+            edit_material_path(@material),
+            data: { role: "edit-material" },
+            class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-3 py-1.5 text-sm font-semibold text-imasus-dark-green hover:bg-imasus-mint/20" %>
+    <% end %>
     <%= bookmark_toggle(
           bookmarkable_type: "Material",
           resource_key:      @material.id.to_s,

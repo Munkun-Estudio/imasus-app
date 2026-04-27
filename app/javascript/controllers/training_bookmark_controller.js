@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Annotates training module content with per-heading and per-paragraph
-// bookmark toggles. Runs client-side so the bookmark icons appear without
-// modifying the sanitised HTML on the server.
+// Annotates training module content with per-heading, per-paragraph, and
+// standalone image bookmark toggles. Runs client-side so the bookmark icons
+// appear without modifying the sanitised HTML on the server.
 //
 // Expected data attributes on the <article> element:
 //   data-controller="training-bookmark"
@@ -25,7 +25,8 @@ export default class extends Controller {
   }
 
   annotate() {
-    this.element.querySelectorAll("h1, h2, h3, h4, p").forEach(el => {
+    this.element.querySelectorAll("h1, h2, h3, h4, p, img").forEach(el => {
+      if (el.matches("img") && el.closest("p, figure")) return
       if (!el.id) return  // paragraphs already have server-assigned ids; skip if somehow absent
 
       const resourceKey = `${this.moduleSlugValue}/${this.sectionValue}/${this.localeValue}/${el.id}`
@@ -38,8 +39,20 @@ export default class extends Controller {
   }
 
   labelFor(el) {
-    const text = el.textContent.trim()
+    const text = el.textContent.trim() || this.imageLabelFor(el) || this.t("image")
     return text.length > 100 ? text.slice(0, 97) + "…" : text
+  }
+
+  imageLabelFor(el) {
+    const img = el.matches("img") ? el : el.querySelector("img")
+    if (!img) return null
+
+    const alt = img.getAttribute("alt")?.trim()
+    if (alt) return alt
+
+    const src = img.getAttribute("src") || ""
+    const filename = src.split("/").filter(Boolean).pop()
+    return filename ? decodeURIComponent(filename) : null
   }
 
   wrapElement(el, resourceKey, bookmarkId, label, url) {
@@ -144,6 +157,9 @@ export default class extends Controller {
       unsave: document.documentElement.lang === "es" ? "Quitar marcador" :
               document.documentElement.lang === "it" ? "Rimuovi segnalibro" :
               document.documentElement.lang === "el" ? "Αφαίρεση σελιδοδείκτη" : "Remove bookmark",
+      image:  document.documentElement.lang === "es" ? "Imagen del módulo" :
+              document.documentElement.lang === "it" ? "Immagine del modulo" :
+              document.documentElement.lang === "el" ? "Εικόνα ενότητας" : "Module image",
     }
     return translations[key] ?? key
   }
