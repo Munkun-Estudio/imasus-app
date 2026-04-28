@@ -9,24 +9,24 @@ class MobileNavigationTest < ApplicationSystemTestCase
     visit root_url
 
     # Sidebar should be hidden on mobile
-    assert_no_selector "nav[aria-label]", visible: :visible
+    assert_no_selector "aside [data-role='primary-nav']", visible: :visible
 
     # Click hamburger to open
     find("[data-mobile-menu-target='toggle']").click
-    assert_selector "nav[aria-label]", visible: :visible
+    assert_selector "aside [data-role='primary-nav']", visible: :visible
 
     # Click hamburger again to close
     find("[data-mobile-menu-target='toggle']").click
-    assert_no_selector "nav[aria-label]", visible: :visible
+    assert_no_selector "aside [data-role='primary-nav']", visible: :visible
   end
 
   test "sidebar closes when pressing Escape" do
     visit root_url
 
     find("[data-mobile-menu-target='toggle']").click
-    assert_selector "nav[aria-label]", visible: :visible
+    assert_selector "aside [data-role='primary-nav']", visible: :visible
 
     find("body").send_keys(:escape)
-    assert_no_selector "nav[aria-label]", visible: :visible
+    assert_no_selector "aside [data-role='primary-nav']", visible: :visible
   end
 end
