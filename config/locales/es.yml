@@ -20,7 +20,11 @@ es:
     project_name: "IMASUS"
     eu_notice: "Financiado por la Unión Europea. Las opiniones expresadas son exclusivamente las del autor o autores y no reflejan necesariamente las de la Unión Europea ni las de la Agencia Ejecutiva Europea de Educación y Cultura (EACEA). Ni la Unión Europea ni la EACEA pueden ser consideradas responsables de las mismas."
     copyright: "© 2024–2026 Proyecto IMASUS."
+    copyright_prefix: "© 2024–2026 Proyecto"
     developed_by: "Desarrollado por"
+    legal_label: "Enlaces legales"
+    privacy: "Política de privacidad"
+    terms: "Condiciones de uso"
     partners_label: "Socios"
     partners:
       inma: "INMA (CSIC)"
