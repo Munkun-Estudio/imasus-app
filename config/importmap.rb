@@ -2,6 +2,7 @@
 
 pin "application"
 pin "trix"
+pin "trix_headings"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@hotwired/turbo-rails", to: "turbo.min.js"
 pin "@hotwired/stimulus", to: "stimulus.min.js"
