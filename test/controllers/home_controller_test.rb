@@ -124,6 +124,26 @@ location: "Prato, Italy")
     assert_select "[data-resource-card][data-resource=challenges]"
   end
 
+  test "visitor home renders the why-how-what explainer band" do
+    get root_url
+    assert_select "[data-home-section=explainer]" do
+      assert_select "[data-explainer-card][data-pillar=why] *",
+                    text: I18n.t("home.visitor.explainer.why.heading")
+      assert_select "[data-explainer-card][data-pillar=how] *",
+                    text: I18n.t("home.visitor.explainer.how.heading")
+      assert_select "[data-explainer-card][data-pillar=what] *",
+                    text: I18n.t("home.visitor.explainer.what.heading")
+    end
+  end
+
+  test "visitor home renders the imagineering loom diagram" do
+    get root_url
+    assert_select "[data-home-section=imagineering-loom]" do
+      assert_select "img[alt=?]", I18n.t("home.visitor.loom.diagram_alt")
+    end
+    assert_match I18n.t("home.visitor.loom.heading"), response.body
+  end
+
   # ---------------------------------------------------------------------
   # Participant variant
   # ---------------------------------------------------------------------
