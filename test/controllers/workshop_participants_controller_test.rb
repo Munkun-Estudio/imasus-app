@@ -41,6 +41,25 @@ class WorkshopParticipantsControllerTest < ActionDispatch::IntegrationTest
     assert_select "[data-participant-row][data-user-id=?]", @participant.id.to_s do
       assert_select "*", text: /Maria/
       assert_select "*", text: /Demo Institute/
+      assert_select "[data-participant-status=accepted]", text: I18n.t("workshop_participants.index.status.accepted")
+    end
+  end
+
+  test "GET index distinguishes invited participants whose registration is pending" do
+    pending = User.create!(
+      name: "Pending",
+      email: "pending@example.com",
+      role: :participant,
+      invitation_token: "pending-token",
+      invitation_sent_at: Time.current
+    )
+    WorkshopParticipation.create!(user: pending, workshop: @workshop)
+
+    sign_in(@admin)
+    get workshop_participants_url(@workshop)
+
+    assert_select "[data-participant-row][data-user-id=?]", pending.id.to_s do
+      assert_select "[data-participant-status=pending]", text: I18n.t("workshop_participants.index.status.pending")
     end
   end
 

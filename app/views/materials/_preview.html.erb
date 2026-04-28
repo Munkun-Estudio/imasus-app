@@ -1,5 +1,6 @@
 <%# locals: (material:) %>
 <%= turbo_frame_tag "preview" do %>
+  <% cover_asset = material.cover_asset %>
   <div data-controller="preview-sidebar"
        data-action="click->preview-sidebar#backdrop keydown.esc@window->preview-sidebar#close"
        class="fixed inset-0 z-40 flex items-end justify-end bg-imasus-dark-green/20 sm:items-stretch">
@@ -23,8 +24,8 @@
       </header>
 
       <div class="aspect-[4/3] w-full bg-imasus-mint/20">
-        <% if material.macro_asset&.file&.attached? %>
-          <%= image_variant_tag material.macro_asset.file,
+        <% if cover_asset&.file&.attached? %>
+          <%= image_variant_tag cover_asset.file,
                 preset: :detail,
                 alt: material.trade_name,
                 class: "h-full w-full object-cover" %>

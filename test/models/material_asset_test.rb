@@ -114,6 +114,20 @@ class MaterialAssetTest < ActiveSupport::TestCase
     assert_nil material.macro_asset
   end
 
+  test "material.cover_asset prefers the macro asset" do
+    micro = build_asset(kind: "microscopy", position: 0); micro.save!
+    macro = build_asset(kind: "macro"); macro.save!
+
+    assert_equal macro, material.reload.cover_asset
+  end
+
+  test "material.cover_asset falls back to the first microscopy" do
+    later = build_asset(kind: "microscopy", position: 1); later.save!
+    first = build_asset(kind: "microscopy", position: 0); first.save!
+
+    assert_equal first, material.reload.cover_asset
+  end
+
   test "material.microscopies returns microscopies ordered by position" do
     m2 = build_asset(kind: "microscopy", position: 1); m2.save!
     m1 = build_asset(kind: "microscopy", position: 0); m1.save!

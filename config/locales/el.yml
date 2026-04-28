@@ -292,6 +292,9 @@ el:
       remove: "Αφαίρεση"
       confirm_remove: "Αφαίρεση του/της %{name} από αυτό το εργαστήριο;"
       joined_on: "Joined %{date}"
+      status:
+        accepted: "Αποδεκτή"
+        pending: "Προσκεκλημένος"
       projects:
         one: "1 project in this workshop"
         other: "%{count} projects in this workshop"
@@ -440,7 +443,7 @@ el:
       composition_hint: "Συνδυάστε τις ενότητες στην ιστορία που θα δημοσιεύσετε."
       process_summary_label: "Δημοσιευμένη σύνοψη"
       hero_image_label: "Κεντρική εικόνα"
-      hero_image_hint: "JPEG ή PNG. Οι ευρείες εικόνες λειτουργούν καλύτερα."
+      hero_image_hint: "JPEG ή PNG. Χρησιμοποιήστε οριζόντια εικόνα, ιδανικά 16:9 ή 3:2. Οι τετράγωνες ή κάθετες φωτογραφίες θα περικοπούν στη δημόσια σελίδα."
       submit: "Δημοσίευση"
       cancel: "Ακύρωση"
     edit:

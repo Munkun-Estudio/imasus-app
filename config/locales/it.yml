@@ -292,6 +292,9 @@ it:
       remove: "Rimuovi"
       confirm_remove: "Rimuovere %{name} da questo workshop?"
       joined_on: "Joined %{date}"
+      status:
+        accepted: "Accettato"
+        pending: "Invitato"
       projects:
         one: "1 project in this workshop"
         other: "%{count} projects in this workshop"
@@ -440,7 +443,7 @@ it:
       composition_hint: "Intrecciate le sezioni precedenti nella storia da pubblicare."
       process_summary_label: "Sintesi pubblicata"
       hero_image_label: "Immagine di copertina"
-      hero_image_hint: "JPEG o PNG. Le immagini orizzontali funzionano meglio."
+      hero_image_hint: "JPEG o PNG. Usa un'immagine orizzontale, idealmente 16:9 o 3:2. Le foto quadrate o verticali verranno ritagliate nella pagina pubblica."
       submit: "Pubblica progetto"
       cancel: "Annulla"
     edit:

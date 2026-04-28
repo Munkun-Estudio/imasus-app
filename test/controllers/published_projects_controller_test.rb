@@ -11,7 +11,9 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
       starts_on: Date.new(2026, 4, 28),
       ends_on: Date.new(2026, 4, 28)
     )
-    @member   = User.create!(name: "Member",   email: "member@example.com",   password: @password, role: :participant)
+    @member   = User.create!(name: "Member",   email: "member@example.com",   password: @password, role: :participant,
+                              institution: "Demo Institute", country: "ES", bio: "Works with biomaterials.",
+                              links: "https://example.com/member")
     @outsider = User.create!(name: "Outsider", email: "outsider@example.com", password: @password, role: :participant)
     WorkshopParticipation.create!(user: @member, workshop: @workshop)
 
@@ -62,6 +64,19 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     get published_project_url(slug: @published.slug)
     assert_response :success
     assert_select "a[href=?]", edit_project_publication_path(@published)
+  end
+
+  test "show renders participant profile cards in the team section" do
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "#published-project-team-heading", text: I18n.t("published_projects.show.members_heading")
+    assert_select "[data-team-member=?]", @member.id.to_s do
+      assert_select "h3", text: @member.name
+      assert_select "*", text: /Demo Institute/
+      assert_select "*", text: /Works with biomaterials/
+      assert_select "a[href=?]", "https://example.com/member", text: "example.com"
+    end
   end
 
   test "non-member logged-in user does not see edit link" do

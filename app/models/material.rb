@@ -70,6 +70,13 @@ class Material < ApplicationRecord
     assets.find_by(kind: :macro)
   end
 
+  # @return [MaterialAsset, nil] the image used in compact cover contexts.
+  #   Prefer the macro photo, falling back to the first microscopy when a
+  #   material has microscopy media but no macro.
+  def cover_asset
+    macro_asset || microscopies.first
+  end
+
   # @return [ActiveRecord::Relation<MaterialAsset>, Array<MaterialAsset>] microscopy assets ordered
   #   from highest zoom (position 0, the `m1` slot) to lowest.
   def microscopies
