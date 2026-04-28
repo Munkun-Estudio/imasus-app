@@ -196,6 +196,27 @@ location: "Prato, Italy")
     end
   end
 
+  test "participant home renders training image bookmarks with a preview thumbnail" do
+    user = make_participant
+    Bookmark.create!(
+      user: user,
+      bookmarkable_type: "TrainingModule",
+      resource_key: "design-for-modularity/training-module/en/p-20",
+      label: "image3.jpg",
+      url: "/training/design-for-modularity/training-module?locale=en#p-20"
+    )
+
+    sign_in(user)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks]" do
+      assert_select "[data-bookmark-preview][src=?]",
+                    "/content/training-modules/media/design-for-modularity/en/training-module/media/image3.jpg"
+      assert_select "a[href=?]", "/training/design-for-modularity/training-module?locale=en#p-20",
+                    text: "image3.jpg"
+    end
+  end
+
   test "participant without bookmarks does not see the bookmarks section" do
     user = make_participant
 
