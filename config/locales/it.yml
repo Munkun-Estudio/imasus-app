@@ -40,6 +40,21 @@ it:
         lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
         see_workshops: "Apri i workshop"
         log_in: "Accedi"
+      # TODO: translate
+      explainer:
+        eyebrow: "About IMASUS"
+        why:
+          eyebrow: "Why"
+          heading: "The textile industry we want"
+          lead: "Textiles are among the largest contributors to environmental degradation. IMASUS treats that as a generative starting point — not just a problem to fix."
+        how:
+          eyebrow: "How"
+          heading: "Imagineering as a method"
+          lead: "A creative-leadership approach by Diane Nijs that moves teams through three design spaces — Inspiration, Ideation, Implementation — to reframe complex challenges into shared visions."
+        what:
+          eyebrow: "What"
+          heading: "Open workshops, open knowledge"
+          lead: "Workshops for young textile professionals in Zaragoza, Prato and Athens, backed by an open platform of materials, training modules and industry challenges."
       workshops:
         heading: "Workshop in corso e passati"
         lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."

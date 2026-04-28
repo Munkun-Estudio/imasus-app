@@ -25,6 +25,37 @@
     </div>
   </section>
 
+  <%# Why / How / What — explainer band %>
+  <section data-home-section="explainer" class="mt-20">
+    <p class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+      <%= t(".explainer.eyebrow") %>
+    </p>
+
+    <%
+      pillar_styles = {
+        why:  "bg-imasus-mint/40",
+        how:  "bg-imasus-light-blue/30",
+        what: "bg-imasus-light-pink/40"
+      }
+    %>
+    <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% pillar_styles.each do |pillar, bg_class| %>
+        <article data-explainer-card data-pillar="<%= pillar %>"
+                 class="flex flex-col rounded-2xl border border-imasus-dark-green/10 p-6 <%= bg_class %>">
+          <p class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+            <%= t(".explainer.#{pillar}.eyebrow") %>
+          </p>
+          <h3 class="mt-3 text-lg font-bold leading-snug text-imasus-dark-green">
+            <%= t(".explainer.#{pillar}.heading") %>
+          </h3>
+          <p class="mt-3 text-sm leading-relaxed text-imasus-dark-green/70">
+            <%= t(".explainer.#{pillar}.lead") %>
+          </p>
+        </article>
+      <% end %>
+    </div>
+  </section>
+
   <%# Workshops %>
   <section id="workshops" class="mt-20">
     <h2 class="text-2xl font-bold tracking-tight text-imasus-dark-green sm:text-3xl">
