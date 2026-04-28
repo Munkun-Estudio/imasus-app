@@ -81,7 +81,7 @@ export default class extends Controller {
     btn.className = [
       "bookmark-anchor-btn",
       "absolute -right-8 top-0 z-10",
-      saved ? "" : "opacity-0 group-hover/anchor:opacity-100 focus:opacity-100",
+      saved || this.alwaysShowButtons() ? "" : this.hiddenUntilHoverClasses(),
       "rounded-full p-1 transition",
       saved
         ? "text-imasus-dark-green"
@@ -114,7 +114,7 @@ export default class extends Controller {
         btn.dataset.bookmarkId = ""
         btn.title     = this.t("save")
         btn.className = btn.className
-          .replace("text-imasus-dark-green", "opacity-0 group-hover/anchor:opacity-100 focus:opacity-100 text-imasus-dark-green/30 hover:text-imasus-dark-green")
+          .replace("text-imasus-dark-green", `${this.alwaysShowButtons() ? "" : this.hiddenUntilHoverClasses()} text-imasus-dark-green/30 hover:text-imasus-dark-green`)
           .trim()
         btn.innerHTML = this.outlineIcon()
       }
@@ -141,7 +141,7 @@ export default class extends Controller {
         btn.dataset.bookmarkId = data.id
         btn.title     = this.t("unsave")
         btn.className = btn.className
-          .replace("opacity-0 group-hover/anchor:opacity-100 focus:opacity-100", "")
+          .replace(this.hiddenUntilHoverClasses(), "")
           .replace("text-imasus-dark-green/30 hover:text-imasus-dark-green", "text-imasus-dark-green")
           .trim()
         btn.innerHTML = this.filledIcon()
@@ -162,6 +162,14 @@ export default class extends Controller {
               document.documentElement.lang === "el" ? "Εικόνα ενότητας" : "Module image",
     }
     return translations[key] ?? key
+  }
+
+  alwaysShowButtons() {
+    return !window.matchMedia || !window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  }
+
+  hiddenUntilHoverClasses() {
+    return "opacity-0 group-hover/anchor:opacity-100 focus:opacity-100"
   }
 
   filledIcon() {

@@ -287,6 +287,9 @@ es:
       remove: "Eliminar"
       confirm_remove: "¿Eliminar a %{name} de este taller?"
       joined_on: "Se unió el %{date}"
+      status:
+        accepted: "Aceptado"
+        pending: "Invitado"
       projects:
         one: "1 proyecto en este taller"
         other: "%{count} proyectos en este taller"
@@ -435,7 +438,7 @@ es:
       composition_hint: "Teje las secciones anteriores en la historia que quereis publicar."
       process_summary_label: "Resumen publicado"
       hero_image_label: "Imagen principal"
-      hero_image_hint: "JPEG o PNG. Las imagenes apaisadas funcionan mejor."
+      hero_image_hint: "JPEG o PNG. Usa una imagen horizontal, idealmente 16:9 o 3:2. Las fotos cuadradas o verticales se recortarán en la página pública."
       submit: "Publicar proyecto"
       cancel: "Cancelar"
     edit:

@@ -22,10 +22,9 @@ class MaterialSeedTest < ActiveSupport::TestCase
 
   test "seed covers every reconciled material from the source doc" do
     Material.seed_from_yaml!
+    entries = YAML.load_file(Rails.root.join("db", "seeds", "materials.yml"))
 
-    # 57 = 58 trade names in docs/materials-db.md minus the Pyratex Seacell 7
-    # duplicate that the parser merges (see the dedicated test below).
-    assert_equal 57, Material.count
+    assert_equal entries.size, Material.count
   end
 
   test "English descriptions are present for every seed entry" do

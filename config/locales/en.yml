@@ -287,6 +287,9 @@ en:
       remove: "Remove"
       confirm_remove: "Remove %{name} from this workshop?"
       joined_on: "Joined %{date}"
+      status:
+        accepted: "Accepted"
+        pending: "Invited"
       projects:
         one: "1 project in this workshop"
         other: "%{count} projects in this workshop"
@@ -704,7 +707,7 @@ en:
       composition_hint: "Your answers have been assembled below. Edit freely — reorder, expand, or trim before publishing."
       process_summary_label: "Published summary"
       hero_image_label: "Hero image"
-      hero_image_hint: "JPEG or PNG. Wide images work best."
+      hero_image_hint: "JPEG or PNG. Use a horizontal image, ideally 16:9 or 3:2. Square or vertical photos will be cropped in the public layout."
       submit: "Publish project"
       cancel: "Cancel"
     edit:

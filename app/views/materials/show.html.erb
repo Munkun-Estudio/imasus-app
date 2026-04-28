@@ -81,7 +81,7 @@
                       aria-label="<%= item[:alt] %>"
                       class="relative block h-20 w-28 overflow-hidden rounded-lg bg-imasus-mint/20 ring-2 ring-transparent transition hover:ring-imasus-dark-green/40 focus:outline-none focus:ring-imasus-dark-green/60 data-[gallery-active=true]:ring-imasus-dark-green">
                 <% if item[:kind] == "video" %>
-                  <% poster = @material.macro_asset %>
+                  <% poster = @material.cover_asset %>
                   <% if poster&.file&.attached? %>
                     <%= image_variant_tag poster.file,
                           preset: :thumbnail,
