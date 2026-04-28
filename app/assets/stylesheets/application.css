@@ -115,3 +115,10 @@ details > summary::-webkit-details-marker { display: none; }
 
 .trix-content strong { font-weight: 700; }
 .trix-content em { font-style: italic; }
+
+trix-toolbar .trix-button--text {
+  min-width: 2.6em;
+  height: 1.6em;
+  padding-inline: 0.55em;
+  text-indent: 0;
+}

@@ -1,0 +1,97 @@
+en:
+  legal: &legal_content
+    eyebrow: "Legal"
+    privacy:
+      title: "Privacy Policy"
+      lead: "This page explains how IMASUS App collects, uses, publishes, and protects personal information."
+      sections:
+        - title: "Data Controller"
+          paragraphs:
+            - "Project name: IMASUS."
+            - "Address: Instituto de Nanociencia y Materiales de Aragón (INMA), C/ Pedro Cerbuna, 12, 50009 Zaragoza, Spain."
+            - "Email: webmasterINMA [at] unizar [.es]. Phone: (+34) 876 55 33 22."
+        - title: "Information We Collect"
+          paragraphs:
+            - "We collect information that users, facilitators, or administrators provide to operate IMASUS workshops and project portfolios."
+          bullets:
+            - "Account and invitation details, including name, email address, role, password, invitation status, preferred language, institution, and country."
+            - "Participant profile information, including short biography or interests and optional public profile links such as LinkedIn, Instagram, Behance, or a personal website."
+            - "Workshop participation, project membership, project titles, challenge selections, log entries, uploaded images or videos, and publication content."
+            - "Technical information needed to keep the service secure and working, such as session cookies and basic server logs."
+        - title: "How We Use Information"
+          bullets:
+            - "To invite users, authenticate accounts, and manage workshop access."
+            - "To let participants create projects, collaborate with team members, document their process, and publish portfolio pages."
+            - "To let facilitators manage workshops, invitations, participants, and projects within their workshops."
+            - "To maintain security, troubleshoot issues, and fulfil legal or contractual obligations connected with the IMASUS project."
+        - title: "Published Project Pages"
+          paragraphs:
+            - "When a team publishes a project, the public page may include the project content, selected media, and participant profile cards. This can include names, institution, country, short biography, and optional profile links supplied by the participants. Published projects are visible without login and may be linked from the IMASUS website."
+            - "Participants should only publish information and media they are comfortable making public and have permission to share."
+        - title: "Analytics and Cookies"
+          paragraphs:
+            - "IMASUS App uses Plausible Analytics through stats.munkun.com to understand aggregate usage. Plausible is privacy-friendly analytics that does not use cookies and does not store IP addresses or persistent identifiers."
+            - "The app does not use advertising cookies, marketing pixels, cross-site tracking, or analytics cookies. Because Plausible is cookieless and the remaining cookies are necessary or preference cookies, we do not show a cookie consent banner."
+          bullets:
+            - "Session cookie: keeps users signed in, protects account access, and supports security features such as CSRF protection. This is necessary for the service."
+            - "Locale cookie: remembers the language selected by the user for up to one year. It is used only for that interface preference and not for profiling, advertising, or analytics."
+            - "Plausible Analytics: collects aggregate usage statistics without cookies, browser storage, local storage, or persistent device identifiers."
+        - title: "Information Sharing"
+          paragraphs:
+            - "We do not sell personal information. We share information only when needed to operate the service, comply with legal obligations, protect rights, or support the IMASUS project. Published project pages are public by design once a participant team publishes them."
+        - title: "Information Security"
+          paragraphs:
+            - "We use appropriate technical and organisational measures to protect personal information against unauthorised access, loss, misuse, or disclosure."
+        - title: "Your Rights"
+          paragraphs:
+            - "You may request access, correction, deletion, restriction, portability, or objection to processing of your personal information. To exercise these rights, contact us using the details above."
+        - title: "Changes to This Policy"
+          paragraphs:
+            - "We may update this privacy policy occasionally. Changes will be posted on this page."
+    terms:
+      title: "Terms of Use"
+      lead: "These terms describe the conditions for using IMASUS App and publishing project portfolio pages."
+      sections:
+        - title: "General Information"
+          paragraphs:
+            - "Project name: IMASUS."
+            - "Address: Instituto de Nanociencia y Materiales de Aragón (INMA), C/ Pedro Cerbuna, 12, 50009 Zaragoza, Spain."
+            - "Email: webmasterINMA [at] unizar [.es]. Phone: (+34) 876 55 33 22."
+        - title: "Use of the App"
+          paragraphs:
+            - "IMASUS App supports workshops, learning resources, project collaboration, process documentation, and published project portfolios. You agree to use the app lawfully and respectfully, without infringing the rights of other users or disrupting the service."
+        - title: "Accounts and Invitations"
+          paragraphs:
+            - "Participant and facilitator accounts are invitation-based. You are responsible for keeping your account credentials confidential and for the content submitted through your account."
+        - title: "Participant Content and Publication"
+          paragraphs:
+            - "Participants retain responsibility for the text, images, videos, links, and profile information they add to projects. When a project is published, selected content and participant profile cards become publicly accessible as a portfolio page."
+            - "Do not upload or publish content that you do not have permission to use, that includes personal information about others without permission, or that is unlawful, harmful, discriminatory, or misleading."
+        - title: "Intellectual Property"
+          paragraphs:
+            - "IMASUS materials, training content, glossary entries, challenge descriptions, graphics, logos, images, and software are owned by IMASUS or its licensors unless otherwise stated. They may not be reproduced, distributed, modified, or reused without explicit written consent from IMASUS."
+            - "By adding content to a project, participants grant IMASUS the permission needed to host, display, and, when the team chooses to publish, make that content publicly available as part of the project page."
+        - title: "Third-Party Links"
+          paragraphs:
+            - "The app may contain links to third-party websites or participant profile pages. These links are provided for convenience and do not imply endorsement. IMASUS is not responsible for third-party content or privacy practices."
+        - title: "Moderation"
+          paragraphs:
+            - "Facilitators and administrators may disable participants, projects, or published pages when needed to manage workshops, address conflicts, protect rights, or keep the service safe."
+        - title: "Limitation of Liability"
+          paragraphs:
+            - "IMASUS is not responsible for damage or loss arising from use of the app or information contained in it, except where liability cannot be excluded under applicable law."
+        - title: "Modifications to Terms"
+          paragraphs:
+            - "IMASUS may update these terms at any time. Changes will be effective when posted on this page."
+        - title: "Jurisdiction and Applicable Law"
+          paragraphs:
+            - "These terms are governed by Spanish law. Disputes arising from use of the app will be subject to the courts of Zaragoza, Spain, unless mandatory law provides otherwise."
+es:
+  legal:
+    <<: *legal_content
+it:
+  legal:
+    <<: *legal_content
+el:
+  legal:
+    <<: *legal_content

@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get "privacy", to: "legal_pages#privacy", as: :privacy
+  get "terms", to: "legal_pages#terms", as: :terms
+
   resources :materials, only: [ :index, :show, :edit, :update ], param: :slug do
     member do
       get :preview
