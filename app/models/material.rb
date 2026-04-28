@@ -94,13 +94,16 @@ class Material < ApplicationRecord
 
   # Idempotent loader that upserts every entry in the seed YAML. Matches each
   # record by the slug derived from the English `trade_name`, so re-running the
-  # loader updates translations, tags, and metadata without duplicating rows.
+  # loader never duplicates rows. Existing rows keep edited content by default;
+  # pass `overwrite: true` or set `SEED_OVERWRITE_CONTENT=1` /
+  # `SEED_MATERIALS=overwrite` to intentionally refresh content from YAML.
   #
   # @param path [Pathname, String] seed file path
+  # @param overwrite [Boolean] whether existing content should be replaced
   # @return [Integer] the number of materials after loading
   # @raise [ActiveRecord::RecordInvalid] if any entry fails validation
   # @raise [ArgumentError] if a material entry references an unknown tag slug
-  def self.seed_from_yaml!(path: SEED_PATH)
+  def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:materials))
     entries = YAML.load_file(path)
 
     entries.each_with_index do |entry, index|
@@ -108,22 +111,50 @@ class Material < ApplicationRecord
       slug       = entry.fetch("slug") { trade_name.parameterize }
 
       material = find_or_initialize_by(slug: slug)
-      material.trade_name          = trade_name
-      material.supplier_name       = entry["supplier_name"]
-      material.supplier_url        = entry["supplier_url"]
-      material.material_of_origin  = entry["material_of_origin"]
-      material.availability_status = entry.fetch("availability_status")
-      material.position            = entry.fetch("position", index)
+      material.trade_name = SeedPolicy.value(material.trade_name, trade_name, overwrite: overwrite)
+      material.supplier_name = SeedPolicy.value(material.supplier_name, entry["supplier_name"], overwrite: overwrite)
+      material.supplier_url = SeedPolicy.value(material.supplier_url, entry["supplier_url"], overwrite: overwrite)
+      material.material_of_origin = SeedPolicy.value(
+        material.material_of_origin,
+        entry["material_of_origin"],
+        overwrite: overwrite
+      )
+      material.availability_status = SeedPolicy.value(
+        material.availability_status,
+        entry.fetch("availability_status"),
+        overwrite: overwrite
+      )
+      material.position = SeedPolicy.value(material.position, entry.fetch("position", index), overwrite: overwrite)
 
-      material.description_translations            = entry.fetch("description", {})
-      material.interesting_properties_translations = entry.fetch("interesting_properties", {})
-      material.structure_translations              = entry.fetch("structure", {})
-      material.sensorial_qualities_translations    = entry.fetch("sensorial_qualities", {})
-      material.what_problem_it_solves_translations = entry.fetch("what_problem_it_solves", {})
+      material.description_translations = SeedPolicy.translations(
+        material.description_translations,
+        entry.fetch("description", {}),
+        overwrite: overwrite
+      )
+      material.interesting_properties_translations = SeedPolicy.translations(
+        material.interesting_properties_translations,
+        entry.fetch("interesting_properties", {}),
+        overwrite: overwrite
+      )
+      material.structure_translations = SeedPolicy.translations(
+        material.structure_translations,
+        entry.fetch("structure", {}),
+        overwrite: overwrite
+      )
+      material.sensorial_qualities_translations = SeedPolicy.translations(
+        material.sensorial_qualities_translations,
+        entry.fetch("sensorial_qualities", {}),
+        overwrite: overwrite
+      )
+      material.what_problem_it_solves_translations = SeedPolicy.translations(
+        material.what_problem_it_solves_translations,
+        entry.fetch("what_problem_it_solves", {}),
+        overwrite: overwrite
+      )
 
       material.save!
 
-      apply_tags!(material, entry["tags"] || {})
+      apply_tags!(material, entry["tags"] || {}, overwrite: overwrite)
     end
 
     count
@@ -135,12 +166,12 @@ class Material < ApplicationRecord
   # @param material [Material]
   # @param tags_by_facet [Hash{String => Array<String>}] facet => tag slugs
   # @raise [ArgumentError] if any tag slug is unknown
-  def self.apply_tags!(material, tags_by_facet)
+  def self.apply_tags!(material, tags_by_facet, overwrite:)
     tag_ids = tags_by_facet.flat_map do |facet, slugs|
       Array(slugs).map { |slug| resolve_tag_id!(facet, slug) }
     end
 
-    material.taggings.where.not(tag_id: tag_ids).destroy_all
+    material.taggings.where.not(tag_id: tag_ids).destroy_all if overwrite
 
     (tag_ids - material.tags.pluck(:id)).each do |tag_id|
       material.taggings.create!(tag_id: tag_id)

@@ -1,9 +1,18 @@
-# Idempotent seed data for the IMASUS app.
+# Idempotent, production-safe seed data for the IMASUS app.
+#
+# By default, content seed loaders create missing records and fill blank fields
+# without overwriting edits made in production. To intentionally refresh
+# repository-backed content from YAML, run:
+#
+#   SEED_OVERWRITE_CONTENT=1 bin/rails db:seed
+#
+# or use one of the more specific flags documented below.
 #
 # The admin user is read from environment variables so credentials never land
 # in the repository. In development these can be set via `.env` or exported
 # before running `bin/rails db:seed`. In production they come from the host.
 
+overwrite_admin = SeedPolicy.overwrite?(:admin)
 admin_email = ENV.fetch("IMASUS_ADMIN_EMAIL", "admin@imasus.local")
 admin_name  = ENV.fetch("IMASUS_ADMIN_NAME", "IMASUS Admin")
 admin_password = ENV["IMASUS_ADMIN_PASSWORD"].presence ||
@@ -13,13 +22,17 @@ if admin_password.nil?
   warn "Skipping admin seed: set IMASUS_ADMIN_PASSWORD to create the admin user."
 else
   admin = User.find_or_initialize_by(email: admin_email.downcase)
-  admin.name ||= admin_name
-  admin.role = :admin
-  admin.password = admin_password
-  admin.password_confirmation = admin_password
+  if admin.new_record? || overwrite_admin
+    admin.name = admin_name
+    admin.role = :admin
+    admin.password = admin_password
+    admin.password_confirmation = admin_password
+  else
+    admin.name = SeedPolicy.value(admin.name, admin_name, overwrite: overwrite_admin)
+  end
   admin.invitation_accepted_at ||= Time.current
   admin.save!
-  puts "Seeded admin user: #{admin.email}"
+  puts "Seeded admin user: #{admin.email}#{overwrite_admin ? ' (overwrite)' : ''}"
 end
 
 Workshop.seed_from_yaml!
@@ -36,6 +49,17 @@ puts "Seeded #{Tag.count} material tags."
 
 Material.seed_from_yaml!
 puts "Seeded #{Material.count} materials."
+
+# Use `bin/rails db:seed:refresh_content` or one of these flags when the
+# repository YAML is intentionally the source of truth for existing rows:
+#
+#   SEED_OVERWRITE_CONTENT=1  # all content loaders
+#   SEED_WORKSHOPS=overwrite
+#   SEED_GLOSSARY_TERMS=overwrite
+#   SEED_CHALLENGES=overwrite
+#   SEED_TAGS=overwrite
+#   SEED_MATERIALS=overwrite
+#   SEED_ADMIN=overwrite
 
 # Development-only demo users.
 #

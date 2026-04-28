@@ -57,6 +57,7 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Production transactional email uses Amazon SES SMTP in `eu-west-1` through a dedicated IAM SMTP user. Fly secrets: `MAILER_FROM`, `SMTP_ADDRESS`, `SMTP_PORT`, `SMTP_DOMAIN`, `SMTP_USERNAME`, `SMTP_PASSWORD`; optional `SMTP_AUTHENTICATION` and `SMTP_ENABLE_STARTTLS_AUTO`. `APP_HOST` must be a bare hostname because mailers generate absolute invitation and password-reset links from it.
 - Initial Fly launch uses `ACTIVE_JOB_QUEUE_ADAPTER=async` and does not set `SOLID_QUEUE_IN_PUMA` because the production Solid Queue tables still need explicit schema provisioning.
 - Fly sets the primary `DATABASE_URL`; production `cache`, `queue`, and `cable` database configs fall back to that same URL unless `CACHE_DATABASE_URL`, `QUEUE_DATABASE_URL`, or `CABLE_DATABASE_URL` are explicitly provided later.
+- Production seeds are conservative by default: `bin/rails db:seed` creates missing seed records and fills blank fields without overwriting production edits. Use `bin/rails db:seed:refresh_content` or `SEED_OVERWRITE_CONTENT=1 bin/rails db:seed` for intentional YAML-driven refreshes. Granular flags include `SEED_WORKSHOPS=overwrite`, `SEED_GLOSSARY_TERMS=overwrite`, `SEED_CHALLENGES=overwrite`, `SEED_TAGS=overwrite`, `SEED_MATERIALS=overwrite`, and `SEED_ADMIN=overwrite`.
 
 ## Boundaries
 
