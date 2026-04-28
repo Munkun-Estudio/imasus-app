@@ -136,6 +136,14 @@ location: "Prato, Italy")
     end
   end
 
+  test "visitor home renders the imagineering loom diagram" do
+    get root_url
+    assert_select "[data-home-section=imagineering-loom]" do
+      assert_select "img[alt=?]", I18n.t("home.visitor.loom.diagram_alt")
+    end
+    assert_match I18n.t("home.visitor.loom.heading"), response.body
+  end
+
   # ---------------------------------------------------------------------
   # Participant variant
   # ---------------------------------------------------------------------
