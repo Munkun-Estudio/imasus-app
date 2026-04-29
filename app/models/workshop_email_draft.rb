@@ -2,17 +2,23 @@ class WorkshopEmailDraft
   include ActiveModel::Model
   include ActiveModel::Attributes
 
+  MAX_PDF_ATTACHMENT_SIZE = 10.megabytes
+
   attribute :audience, :string
   attribute :subject, :string
   attribute :body, :string
+  attribute :pdf_attachment_signed_id, :string
 
-  attr_accessor :workshop, :sender
+  attr_accessor :workshop, :sender, :pdf_attachment_blob
 
   validates :workshop, :sender, presence: true
-  validates :audience, inclusion: { in: WorkshopEmailBroadcast::AUDIENCES }
   validates :subject, presence: true
   validate :body_present
   validate :sender_is_admin
+  validate :pdf_attachment_is_resolved
+  validate :pdf_attachment_is_pdf
+  validate :pdf_attachment_size_within_limit
+  validate :audience_valid_for_delivery, on: :delivery
   validate :recipients_present, on: :delivery
 
   def recipients
@@ -63,6 +69,18 @@ class WorkshopEmailDraft
            default: audience.to_s.humanize)
   end
 
+  def pdf_attachment?
+    pdf_attachment_blob.present?
+  end
+
+  def pdf_attachment_filename
+    pdf_attachment_blob&.filename&.to_s
+  end
+
+  def pdf_attachment_byte_size
+    pdf_attachment_blob&.byte_size.to_i
+  end
+
   private
 
   def body_present
@@ -82,5 +100,34 @@ class WorkshopEmailDraft
 
     errors.add(:base, I18n.t("admin.workshop_emails.errors.empty_audience",
                              default: "This workshop does not have any recipients in the selected audience."))
+  end
+
+  def audience_valid_for_delivery
+    return if audience.in?(WorkshopEmailBroadcast::AUDIENCES)
+
+    errors.add(:audience, :inclusion)
+  end
+
+  def pdf_attachment_is_resolved
+    return if pdf_attachment_signed_id.blank? || pdf_attachment_blob.present?
+
+    errors.add(:pdf_attachment, I18n.t("admin.workshop_emails.errors.invalid_attachment",
+                                       default: "The attached PDF could not be loaded. Please upload it again."))
+  end
+
+  def pdf_attachment_is_pdf
+    return unless pdf_attachment?
+    return if pdf_attachment_blob.content_type == "application/pdf"
+
+    errors.add(:pdf_attachment, I18n.t("admin.workshop_emails.errors.attachment_must_be_pdf",
+                                       default: "Attach a PDF file."))
+  end
+
+  def pdf_attachment_size_within_limit
+    return unless pdf_attachment?
+    return if pdf_attachment_blob.byte_size <= MAX_PDF_ATTACHMENT_SIZE
+
+    errors.add(:pdf_attachment, I18n.t("admin.workshop_emails.errors.attachment_too_large",
+                                       default: "The PDF must be 10 MB or smaller."))
   end
 end

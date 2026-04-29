@@ -3,6 +3,7 @@ class WorkshopEmailBroadcast < ApplicationRecord
 
   belongs_to :sender, class_name: "User"
   belongs_to :workshop
+  has_one_attached :pdf_attachment
 
   validates :audience, inclusion: { in: AUDIENCES }
   validates :subject, :body_html, :body_text, :sent_at, presence: true

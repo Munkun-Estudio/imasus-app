@@ -21,6 +21,8 @@ class SendWorkshopEmailBroadcast
       sent_at: Time.current
     )
 
+    broadcast.pdf_attachment.attach(draft.pdf_attachment_blob) if draft.pdf_attachment?
+
     draft.recipients.find_each do |recipient|
       WorkshopEmailBroadcastMailer.broadcast(broadcast, recipient).deliver_later
     end

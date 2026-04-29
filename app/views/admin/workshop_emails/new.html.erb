@@ -12,6 +12,18 @@
     <p class="mt-4 text-base leading-7 text-stone-700"><%= t(".lead", default: "Write a manual follow-up or news update for this workshop. Preview it first, send a test to yourself if needed, then confirm the real send.") %></p>
   </header>
 
+  <% if flash[:notice].present? %>
+    <p class="mt-8 rounded-2xl bg-imasus-mint/40 px-4 py-3 text-sm text-imasus-dark-green">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+
+  <% if flash[:alert].present? %>
+    <p class="mt-8 rounded-2xl bg-imasus-red/10 px-4 py-3 text-sm text-imasus-red">
+      <%= flash[:alert] %>
+    </p>
+  <% end %>
+
   <% if @draft.errors.any? %>
     <div class="<%= form_error_box_classes %> mt-8" role="alert">
       <h2 class="font-semibold text-imasus-red"><%= t(".errors_heading", count: @draft.errors.count, default: "Fix %{count} issue(s) before continuing.") %></h2>
@@ -49,6 +61,13 @@
             </div>
           </dl>
 
+          <% if @draft.pdf_attachment? %>
+            <div class="mt-5 rounded-2xl border border-imasus-dark-green/10 bg-imasus-light-blue/15 px-4 py-3 text-sm text-stone-700">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".attachment", default: "PDF attachment") %></p>
+              <p class="mt-1 font-medium text-imasus-dark-green"><%= @draft.pdf_attachment_filename %></p>
+            </div>
+          <% end %>
+
           <div class="mt-6 rounded-2xl border border-imasus-dark-green/10 bg-stone-50 p-5">
             <div class="prose prose-stone max-w-none trix-content">
               <%= @draft.normalized_html.html_safe %>
@@ -60,9 +79,11 @@
                           local: true,
                           data: { turbo: false },
                           class: "contents" do %>
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <%= hidden_field_tag "workshop_email[audience]", @draft.audience %>
               <%= hidden_field_tag "workshop_email[subject]", @draft.subject %>
               <%= hidden_field_tag "workshop_email[body]", @draft.body %>
+              <%= hidden_field_tag "workshop_email[pdf_attachment_signed_id]", @draft.pdf_attachment_signed_id if @draft.pdf_attachment? %>
               <%= hidden_field_tag :edit_mode, "1" %>
               <%= submit_tag t(".back_to_edit", default: "Back to edit"),
                              class: "inline-flex items-center justify-center rounded-full border border-imasus-dark-green/20 px-5 py-3 text-sm font-semibold text-imasus-dark-green transition hover:bg-imasus-dark-green/5" %>
@@ -72,9 +93,11 @@
                           local: true,
                           data: { turbo: false },
                           class: "contents" do %>
+              <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
               <%= hidden_field_tag "workshop_email[audience]", @draft.audience %>
               <%= hidden_field_tag "workshop_email[subject]", @draft.subject %>
               <%= hidden_field_tag "workshop_email[body]", @draft.body %>
+              <%= hidden_field_tag "workshop_email[pdf_attachment_signed_id]", @draft.pdf_attachment_signed_id if @draft.pdf_attachment? %>
               <%= hidden_field_tag :confirm_send, "1" %>
               <%= submit_tag t(".confirm_send", default: "Confirm and send"),
                              class: form_primary_button_classes,
@@ -90,6 +113,7 @@
                       local: true,
                       data: { turbo: false },
                       class: "space-y-6" do |f| %>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
           <div>
             <label class="<%= form_label_classes %>"><%= t(".workshop", default: "Workshop") %></label>
             <div class="<%= form_input_classes(readonly: true) %>"><%= @workshop.title %></div>
@@ -112,6 +136,29 @@
             <%= f.label :body, t(".body", default: "Email body"), class: form_label_classes %>
             <p class="mb-2 text-xs text-imasus-dark-green/55"><%= t(".body_hint", default: "Use the editor for light formatting, links, and lists. The email will be sent as HTML with a plain-text fallback.") %></p>
             <%= rich_textarea_tag "workshop_email[body]", @draft.body, class: "trix-content trix-content--email-compose" %>
+          </div>
+
+          <div>
+            <%= f.label :pdf_attachment, t(".attachment", default: "PDF attachment"), class: form_label_classes %>
+            <p class="mb-2 text-xs text-imasus-dark-green/55"><%= t(".attachment_hint", default: "Optional. PDF only, up to 10 MB.") %></p>
+            <%= render "shared/file_drop_zone",
+                       form: f,
+                       attribute: :pdf_attachment,
+                       accept: "application/pdf,.pdf",
+                       hint: t(".attachment_drop_zone_hint", default: "One PDF attachment. 10 MB max."),
+                       label: t(".attachment_upload", default: "Upload a PDF") %>
+            <%= hidden_field_tag "workshop_email[pdf_attachment_signed_id]", @draft.pdf_attachment_signed_id if @draft.pdf_attachment? %>
+
+            <% if @draft.pdf_attachment? %>
+              <div class="mt-3 rounded-2xl border border-imasus-dark-green/10 bg-stone-50 px-4 py-3">
+                <p class="text-sm font-medium text-imasus-dark-green"><%= @draft.pdf_attachment_filename %></p>
+                <p class="mt-1 text-xs text-stone-700"><%= number_to_human_size(@draft.pdf_attachment_byte_size) %></p>
+                <label class="mt-3 inline-flex items-center gap-2 text-sm text-stone-700">
+                  <%= check_box_tag "workshop_email[remove_pdf_attachment]", "1", false, class: "rounded border-imasus-dark-green/20 text-imasus-dark-green focus:ring-imasus-mint" %>
+                  <span><%= t(".remove_attachment", default: "Remove this PDF") %></span>
+                </label>
+              </div>
+            <% end %>
           </div>
 
           <div class="flex flex-wrap items-center gap-3">

@@ -35,6 +35,13 @@ class Admin::WorkshopEmailsControllerTest < ActionDispatch::IntegrationTest
     }
   end
 
+  def pdf_upload
+    Rack::Test::UploadedFile.new(
+      Rails.root.join("test/fixtures/files/sample-document.pdf"),
+      "application/pdf"
+    )
+  end
+
   test "unauthenticated users are redirected to login" do
     get admin_workshop_emails_path(@workshop)
     assert_redirected_to new_session_path
@@ -66,6 +73,14 @@ class Admin::WorkshopEmailsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h2", text: "Past update"
   end
 
+  test "new composer embeds authenticity tokens in rendered forms" do
+    sign_in(@admin)
+    get new_admin_workshop_email_path(@workshop)
+
+    assert_response :success
+    assert_select "input[name=?][type=?]", "authenticity_token", "hidden", minimum: 1
+  end
+
   test "preview renders recipient count without persisting a broadcast" do
     sign_in(@admin)
 
@@ -79,6 +94,17 @@ class Admin::WorkshopEmailsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type=submit][value=?]", I18n.t("admin.workshop_emails.new.confirm_send")
     assert_select "input[type=submit][value=?]", I18n.t("admin.workshop_emails.new.back_to_edit")
     assert_select "select[name=?]", "workshop_email[audience]", count: 0
+  end
+
+  test "preview preserves an uploaded pdf attachment" do
+    sign_in(@admin)
+
+    post admin_workshop_emails_path(@workshop),
+         params: draft_params.merge(workshop_email: draft_params.fetch(:workshop_email).merge(pdf_attachment: pdf_upload))
+
+    assert_response :success
+    assert_select "p", text: "sample-document.pdf"
+    assert_select "input[name=?][type=?]", "workshop_email[pdf_attachment_signed_id]", "hidden", count: 2
   end
 
   test "back to edit returns from preview to the composer without sending" do
@@ -99,12 +125,21 @@ class Admin::WorkshopEmailsControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference -> { WorkshopEmailBroadcast.count } do
       assert_emails 1 do
-        post send_test_admin_workshop_emails_path(@workshop), params: draft_params
+        post send_test_admin_workshop_emails_path(@workshop),
+             params: draft_params(audience: nil).merge(workshop_email: draft_params(audience: nil).fetch(:workshop_email).merge(pdf_attachment: pdf_upload))
       end
     end
 
+    assert_redirected_to %r{/admin/workshops/spain/emails/new}
+    assert_match "workshop_email%5Bpdf_attachment_signed_id%5D=", response.location
+    follow_redirect!
     assert_response :success
     assert_match @admin.email, flash[:notice]
+    assert_select "select[name=?]", "workshop_email[audience]", count: 1
+    assert_select "input[type=submit][value=?]", I18n.t("admin.workshop_emails.new.confirm_send"), count: 0
+    assert_select "input[name=?][type=?]", "workshop_email[pdf_attachment_signed_id]", "hidden", count: 1
+    assert_equal 1, ActionMailer::Base.deliveries.last.attachments.count
+    assert_equal "sample-document.pdf", ActionMailer::Base.deliveries.last.attachments.first.filename.to_s
   end
 
   test "confirmed send persists the broadcast and emails every selected recipient" do
@@ -112,7 +147,8 @@ class Admin::WorkshopEmailsControllerTest < ActionDispatch::IntegrationTest
 
     assert_difference -> { WorkshopEmailBroadcast.count }, 1 do
       assert_emails 2 do
-        post admin_workshop_emails_path(@workshop), params: draft_params.merge(confirm_send: "1")
+        post admin_workshop_emails_path(@workshop),
+             params: draft_params.merge(confirm_send: "1", workshop_email: draft_params.fetch(:workshop_email).merge(pdf_attachment: pdf_upload))
       end
     end
 
@@ -121,6 +157,7 @@ class Admin::WorkshopEmailsControllerTest < ActionDispatch::IntegrationTest
     assert_equal @workshop, broadcast.workshop
     assert_equal "both", broadcast.audience
     assert_equal 2, broadcast.recipient_count
+    assert broadcast.pdf_attachment.attached?
     assert_redirected_to admin_workshop_emails_path(@workshop)
   end
 
