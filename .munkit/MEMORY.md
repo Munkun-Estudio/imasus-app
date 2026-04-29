@@ -64,4 +64,4 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Do not choose a license or product direction details that the team has not confirmed yet.
 - Do not treat placeholder workshop copy or landing page content as final product content.
 - Evaluation/grading of projects is explicitly out of scope.
-- No in-app notifications — transactional emails only (registration, password recovery, invitation).
+- No in-app notifications. Email is limited to transactional flows (registration, password recovery, invitations) plus admin-only manual workshop broadcasts for follow-ups/news; no broader CRM, automation, or newsletter system.

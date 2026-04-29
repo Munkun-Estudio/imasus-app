@@ -67,6 +67,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :facilitators, only: [ :index, :new, :create ]
+    resources :workshops, only: [], param: :slug do
+      resources :emails, only: [ :index, :new, :create ], controller: "workshop_emails" do
+        post :send_test, on: :collection
+      end
+    end
   end
 
   get   "facilitator_invitations/:token/edit", to: "facilitator_invitations#edit",   as: :edit_facilitator_invitation

@@ -1,0 +1,7 @@
+<%= render "shell",
+           badge: t(".badge", default: "Test email"),
+           footer_text: t(".footer", default: "Sent by %{sender} through IMASUS.", sender: @sender.name) do %>
+  <div class="trix-content">
+    <%= @body_html.html_safe %>
+  </div>
+<% end %>

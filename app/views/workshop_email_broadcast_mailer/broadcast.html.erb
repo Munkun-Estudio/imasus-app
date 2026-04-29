@@ -1,0 +1,7 @@
+<%= render "shell",
+           badge: t(".badge", default: "Workshop update"),
+           footer_text: t(".footer", default: "Sent by %{sender} through IMASUS.", sender: @broadcast.sender.name) do %>
+  <div class="trix-content">
+    <%= @broadcast.body_html.html_safe %>
+  </div>
+<% end %>

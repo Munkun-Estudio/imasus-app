@@ -46,6 +46,10 @@
                           class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
                 <%= t("home.facilitator.cta.edit_workshop") %>
               <% end %>
+              <%= link_to new_admin_workshop_email_path(workshop),
+                          class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
+                <%= t("home.admin.cta.workshop_emails", default: "Emails") %>
+              <% end %>
             </div>
 
             <div class="mt-4 grid grid-cols-3 gap-2 text-center">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_26_155447) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_29_110428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -198,6 +198,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_26_155447) do
     t.index ["password_reset_token"], name: "index_users_on_password_reset_token", unique: true, where: "(password_reset_token IS NOT NULL)"
   end
 
+  create_table "workshop_email_broadcasts", force: :cascade do |t|
+    t.string "audience", null: false
+    t.text "body_html", null: false
+    t.text "body_text", null: false
+    t.datetime "created_at", null: false
+    t.integer "recipient_count", default: 0, null: false
+    t.bigint "sender_id", null: false
+    t.datetime "sent_at", null: false
+    t.string "subject", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "workshop_id", null: false
+    t.index ["sender_id"], name: "index_workshop_email_broadcasts_on_sender_id"
+    t.index ["sent_at"], name: "index_workshop_email_broadcasts_on_sent_at"
+    t.index ["workshop_id"], name: "index_workshop_email_broadcasts_on_workshop_id"
+  end
+
   create_table "workshop_participations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -234,6 +250,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_26_155447) do
   add_foreign_key "projects", "challenges"
   add_foreign_key "projects", "users", column: "disabled_by_id"
   add_foreign_key "projects", "workshops"
+  add_foreign_key "workshop_email_broadcasts", "users", column: "sender_id"
+  add_foreign_key "workshop_email_broadcasts", "workshops"
   add_foreign_key "workshop_participations", "users"
   add_foreign_key "workshop_participations", "workshops"
 end
