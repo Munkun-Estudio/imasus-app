@@ -46,14 +46,14 @@ class Admin::WorkshopEmailsController < ApplicationController
       subject: @draft.normalized_subject,
       body_html: @draft.normalized_html,
       body_text: @draft.normalized_text,
-      recipient: current_user
+      recipient: current_user,
+      pdf_attachment_blob: @draft.pdf_attachment_blob
     ).deliver_later
 
-    @preview_mode = true
-    flash.now[:notice] = t(".notice",
-                           default: "Sent a test email to %{email}.",
-                           email: current_user.email)
-    render :new
+    redirect_to new_admin_workshop_email_path(@workshop, workshop_email: draft_attributes),
+                notice: t(".notice",
+                          default: "Sent a test email to %{email}.",
+                          email: current_user.email)
   end
 
   private
@@ -66,14 +66,23 @@ class Admin::WorkshopEmailsController < ApplicationController
     WorkshopEmailDraft.new(
       workshop: @workshop,
       sender: current_user,
-      audience: workshop_email_params[:audience],
-      subject: workshop_email_params[:subject],
-      body: workshop_email_params[:body]
+      audience: draft_attributes[:audience],
+      subject: draft_attributes[:subject],
+      body: draft_attributes[:body],
+      pdf_attachment_signed_id: draft_attributes[:pdf_attachment_signed_id],
+      pdf_attachment_blob: resolved_pdf_attachment_blob
     )
   end
 
-  def workshop_email_params
-    params.fetch(:workshop_email, {}).permit(:audience, :subject, :body)
+  def draft_attributes
+    attrs = params.fetch(:workshop_email, {}).permit(:audience, :subject, :body, :pdf_attachment_signed_id).to_h
+    attrs["pdf_attachment_signed_id"] =
+      if remove_pdf_attachment?
+        nil
+      else
+        resolved_pdf_attachment_blob&.signed_id || attrs["pdf_attachment_signed_id"]
+      end
+    attrs
   end
 
   def load_recent_broadcasts
@@ -83,5 +92,32 @@ class Admin::WorkshopEmailsController < ApplicationController
   def render_new_with_errors
     @preview_mode = false
     render :new, status: :unprocessable_content
+  end
+
+  def resolved_pdf_attachment_blob
+    return @resolved_pdf_attachment_blob if defined?(@resolved_pdf_attachment_blob)
+
+    @resolved_pdf_attachment_blob =
+      if remove_pdf_attachment?
+        nil
+      elsif uploaded_pdf_attachment.present?
+        ActiveStorage::Blob.create_and_upload!(
+          io: uploaded_pdf_attachment.tempfile,
+          filename: uploaded_pdf_attachment.original_filename,
+          content_type: uploaded_pdf_attachment.content_type
+        )
+      elsif params.dig(:workshop_email, :pdf_attachment_signed_id).present?
+        ActiveStorage::Blob.find_signed(params.dig(:workshop_email, :pdf_attachment_signed_id))
+      end
+  rescue ActiveSupport::MessageVerifier::InvalidSignature, ActiveRecord::RecordNotFound
+    @resolved_pdf_attachment_blob = nil
+  end
+
+  def uploaded_pdf_attachment
+    params.dig(:workshop_email, :pdf_attachment)
+  end
+
+  def remove_pdf_attachment?
+    params.dig(:workshop_email, :remove_pdf_attachment) == "1"
   end
 end

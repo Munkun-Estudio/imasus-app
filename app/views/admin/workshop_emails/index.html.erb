@@ -49,6 +49,17 @@
             </div>
           </dl>
 
+          <% if broadcast.pdf_attachment.attached? %>
+            <div class="mt-5 rounded-2xl border border-imasus-dark-green/10 bg-imasus-light-blue/15 px-4 py-3 text-sm text-stone-700">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".attachment", default: "PDF attachment") %></p>
+              <p class="mt-1">
+                <%= link_to broadcast.pdf_attachment.filename.to_s,
+                            url_for(broadcast.pdf_attachment),
+                            class: "font-medium text-imasus-dark-green underline-offset-2 hover:underline" %>
+              </p>
+            </div>
+          <% end %>
+
           <div class="mt-5 rounded-2xl bg-stone-50 p-4">
             <div class="prose prose-stone max-w-none trix-content">
               <%= sanitized_email_html(broadcast.body_html) %>

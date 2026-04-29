@@ -44,6 +44,7 @@ communications surface without turning the product into a campaign tool.
 ### Composer
 
 - [ ] Admin can enter a subject line and HTML body.
+- [ ] Admin may optionally attach one PDF file to the email.
 - [ ] The body is authored in a rich-text editor consistent with the app's
       existing editor stack, or a constrained HTML-capable surface if that is
       materially simpler to implement.
@@ -58,6 +59,8 @@ communications surface without turning the product into a campaign tool.
 
 - [ ] Sending creates one email per recipient through the app mailer layer.
 - [ ] The delivered email includes an HTML part and a plain-text part.
+- [ ] If a PDF attachment is present, it is included in both test sends and
+      real sends.
 - [ ] The plain-text part may be generated from the HTML body in this spec; it
       does not require separate authoring.
 - [ ] Subject and body are frozen at send time for that delivery batch.
@@ -70,6 +73,8 @@ communications surface without turning the product into a campaign tool.
       sent later without reading SMTP logs.
 - [ ] The persisted record stores at least: sender, workshop, audience type,
       subject, HTML body snapshot, recipient count, and sent timestamp.
+- [ ] If a PDF attachment is present, the send record retains it so admins can
+      see that it was included later.
 - [ ] A workshop-level or admin-level index page lists previous sends newest
       first.
 - [ ] This spec does not require per-recipient delivery/open/click analytics.
@@ -109,7 +114,7 @@ end
 - Template library, saved blocks, or branded template builder.
 - Audience segmentation by participation status, project activity, country,
   role within project, or any other derived rule.
-- Attachments.
+- Multiple attachments or non-PDF attachments.
 - A/B testing, open tracking, click tracking, or unsubscribe analytics.
 - Reply handling / shared inbox workflows.
 - General-purpose newsletter infrastructure for the public website.

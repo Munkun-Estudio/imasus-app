@@ -384,6 +384,9 @@ it:
         both: "Participants and facilitators"
       errors:
         empty_audience: "This workshop does not have any recipients in the selected audience."
+        invalid_attachment: "The attached PDF could not be loaded. Please upload it again."
+        attachment_must_be_pdf: "Attach a PDF file."
+        attachment_too_large: "The PDF must be 10 MB or smaller."
       index:
         title: "Emails for %{workshop}"
         back_to_workshop: "← Back to workshop"
@@ -394,6 +397,7 @@ it:
         audience: "Audience"
         sender: "Sender"
         workshop: "Workshop"
+        attachment: "PDF attachment"
         empty_title: "No workshop emails sent yet."
         empty_body: "When an admin sends a workshop follow-up or news email, it will appear here."
       new:
@@ -408,6 +412,11 @@ it:
         subject: "Subject"
         body: "Email body"
         body_hint: "Use the editor for light formatting, links, and lists. The email will be sent as HTML with a plain-text fallback."
+        attachment: "PDF attachment"
+        attachment_hint: "Optional. PDF only, up to 10 MB."
+        attachment_drop_zone_hint: "One PDF attachment. 10 MB max."
+        attachment_upload: "Upload a PDF"
+        remove_attachment: "Remove this PDF"
         preview: "Review recipients and preview"
         send_test: "Send test to myself"
         preview_heading: "Preview"

@@ -29,3 +29,14 @@ Scratch space and rationale for the lightweight admin broadcast email spec.
 - Existing production mail path is SES SMTP (`MEMORY.md` Deployment), so the
   implementation can build on the established mailer stack rather than adding
   a new provider.
+
+## Follow-up: PDF attachment
+
+- Expanded the original no-attachments boundary to allow one optional PDF per
+  workshop broadcast.
+- Implementation uses an Active Storage blob uploaded during the first POST,
+  then round-trips its signed blob id through preview, back-to-edit, confirm,
+  and send-test flows. No draft table was introduced.
+- Validation is draft-level: PDF only, max 10 MB.
+- Real sends persist the attachment on `WorkshopEmailBroadcast`; test sends
+  attach the blob directly without persisting a broadcast record.
