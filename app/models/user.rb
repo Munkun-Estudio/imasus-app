@@ -43,6 +43,7 @@ class User < ApplicationRecord
   has_many :projects, through: :project_memberships
 
   has_many :bookmarks, dependent: :destroy
+  has_many :workshop_email_broadcasts, foreign_key: :sender_id, inverse_of: :sender
 
   enum :role, { admin: 0, facilitator: 1, participant: 2 }, default: :participant
 

@@ -58,6 +58,13 @@ details > summary::-webkit-details-marker { display: none; }
   text-decoration: underline;
 }
 
+/* Workshop email composer should feel like a real writing surface rather than
+   a one-line input. Keep this scoped so other Trix surfaces preserve their
+   existing sizing. */
+trix-editor.trix-content.trix-content--email-compose {
+  min-height: 16rem;
+}
+
 /* Action Text rendered output and the Trix editor's editable area —
    both share the .trix-content class. Tailwind's preflight resets
    list-style and heading margins, which strips the visual rhythm
