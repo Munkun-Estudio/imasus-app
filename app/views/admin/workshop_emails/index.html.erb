@@ -51,7 +51,7 @@
 
           <div class="mt-5 rounded-2xl bg-stone-50 p-4">
             <div class="prose prose-stone max-w-none trix-content">
-              <%= broadcast.body_html.html_safe %>
+              <%= sanitized_email_html(broadcast.body_html) %>
             </div>
           </div>
         </article>

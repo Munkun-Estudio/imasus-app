@@ -1,4 +1,11 @@
 module ApplicationHelper
+  EMAIL_HTML_TAGS = %w[
+    a br div em figcaption figure h1 h2 h3 img li ol p span strong ul
+  ].freeze
+  EMAIL_HTML_ATTRIBUTES = %w[
+    alt class href src target rel
+  ].freeze
+
   # Navigation items with their associated swatch color and IA group.
   #
   # Groups:
@@ -78,5 +85,13 @@ module ApplicationHelper
     render partial: "bookmarks/toggle",
            locals:  { bookmark: bookmark, bookmarkable_type: bookmarkable_type,
                       resource_key: resource_key, label: label, url: url, dom_id: dom_id }
+  end
+
+  # Sanitizes stored workshop-email HTML before rendering it back into the
+  # admin history page. The sent snapshot is frozen for traceability, but it
+  # still needs an explicit allowlist at render time to keep Brakeman and the
+  # browser on the safe side.
+  def sanitized_email_html(html)
+    sanitize(html.to_s, tags: EMAIL_HTML_TAGS, attributes: EMAIL_HTML_ATTRIBUTES)
   end
 end
