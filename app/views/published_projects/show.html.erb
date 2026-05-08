@@ -17,11 +17,9 @@
     <h1 class="mt-4 text-4xl font-bold text-imasus-dark-green"><%= @project.title %></h1>
 
     <% if @project.challenge.present? %>
-      <p class="mt-3">
-        <span class="rounded-full bg-imasus-light-blue/35 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green">
-          <%= @project.challenge.code %>
-        </span>
-      </p>
+      <div class="mt-6">
+        <%= render "challenges/card", challenge: @project.challenge, mode: :public %>
+      </div>
     <% end %>
 
     <% if @project.publication_updated_at %>
@@ -30,7 +28,7 @@
       </p>
     <% end %>
 
-    <div class="mt-10 prose prose-stone max-w-none">
+    <div class="mt-10">
       <%= @project.process_summary %>
     </div>
 

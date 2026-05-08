@@ -28,6 +28,29 @@ class MaterialTest < ActiveSupport::TestCase
     assert_equal "A fiber", I18n.with_locale(:it) { record.description }
   end
 
+  # --- Translatable: blank locale slots --------------------------------------
+
+  test "blank locale slots are dropped from translation columns on save" do
+    record = Material.create!(valid_attributes(
+      description_translations:            { "en" => "A fiber", "es" => "", "it" => "  " },
+      sensorial_qualities_translations:    { "en" => "Soft",     "es" => "" },
+      what_problem_it_solves_translations: { "en" => "Replaces nylon", "el" => "\n" }
+    ))
+
+    record.reload
+    assert_equal({ "en" => "A fiber" },         record.description_translations)
+    assert_equal({ "en" => "Soft" },            record.sensorial_qualities_translations)
+    assert_equal({ "en" => "Replaces nylon" },  record.what_problem_it_solves_translations)
+  end
+
+  test "blank locale slots are dropped on update too" do
+    record = Material.create!(valid_attributes)
+    record.update!(description_translations: { "en" => "Updated", "es" => "", "it" => "" })
+
+    record.reload
+    assert_equal({ "en" => "Updated" }, record.description_translations)
+  end
+
   test "translatable narrative fields are all declared" do
     record = Material.new(
       interesting_properties_translations: { "en" => "Breathable" },
