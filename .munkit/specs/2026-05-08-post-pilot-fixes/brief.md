@@ -70,10 +70,12 @@ ship as one tightly-scoped PR.
 - [ ] Inline images embedded in the participant's process summary render
       correctly on `/published/:slug`: visible, sensible dimensions, not
       broken.
+- [ ] When a participant picks a process-log entry with image attachments
+      via the publication wizard, those images are persisted into
+      `process_summary` and rendered on the published page. The body and
+      caption rendering correctly while the images are missing — the
+      original symptom — must no longer happen.
 - [ ] The hero image continues to render as it does today.
-- [ ] If the issue is in ActionText attachment rendering, the fix lives in
-      the published-project view layer (partial, helper, or attachment
-      template) without changing how participants author content.
 - [ ] A reproduction case is captured in `notes.md` with the minimal
       authoring steps that triggered the bug, so the fix can be verified.
 

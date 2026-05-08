@@ -193,6 +193,17 @@ no rendering change can split it — flag in `notes.md` and don't try to
   `.trix-content` — clamps `<img>` to container width, centers it, restores
   the figure margins that Tailwind preflight strips, and styles the caption.
   This fixes both "image overflows the column" and "image looks unstyled".
+- **Inline images uploaded via the publication wizard's log-entry picker
+  were being dropped entirely** (text body of the entry survived, image
+  attachments did not). Root cause: `publication_wizard_controller.js` was
+  injecting `<action-text-attachment sgid="…">` markup via `editor.loadHTML`,
+  but Trix's HTML parser does not recognise that element — `@rails/actiontext`
+  only handles upload events, not parser registration — so the attachments
+  were silently stripped before form submit. Fix: emit the
+  `<figure data-trix-attachment="{json}">` markup that Trix recognises
+  natively (the same shape `to_trix_html` produces when re-opening saved
+  content). The picker now exposes blob `filesize`, `width`, `height`, and
+  `previewable` so the JSON has everything Trix expects.
 - **No backfill** of existing materials. The read-side fix already handles
   legacy blank-string slots. New writes will be compacted by the
   `before_validation` callback.

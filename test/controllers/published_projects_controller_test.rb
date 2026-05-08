@@ -86,6 +86,36 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", edit_project_publication_path(@published), count: 0
   end
 
+  test "show renders inline image attachments embedded via Trix figure markup" do
+    # The publication wizard JS injects log-entry media into Trix using
+    # `<figure data-trix-attachment="{json}">`, which Trix's parser recognises
+    # and ActionText stores as a proper attachment. Once stored, the public
+    # page must render an actual <img> for each attachment — not just
+    # surrounding text.
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "inline.png",
+      content_type: "image/png"
+    )
+    blob.analyze
+    attrs = {
+      sgid:        blob.attachable_sgid,
+      contentType: "image/png",
+      filename:    "inline.png",
+      filesize:    blob.byte_size,
+      width:       blob.metadata["width"],
+      height:      blob.metadata["height"],
+      previewable: blob.representable?
+    }
+    figure = %(<figure data-trix-attachment="#{ERB::Util.html_escape(attrs.to_json)}" data-trix-content-type="image/png"></figure>)
+    @published.update!(process_summary: "<blockquote>PROTOTIPO</blockquote>#{figure}<p><em>alejandro · 28/04/2026</em></p>")
+
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select ".trix-content figure.attachment img"
+  end
+
   test "show wraps the process summary in trix-content without a redundant prose wrapper" do
     get published_project_url(slug: @published.slug)
     assert_response :success
