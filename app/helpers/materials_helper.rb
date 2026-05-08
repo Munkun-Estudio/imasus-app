@@ -51,7 +51,7 @@ module MaterialsHelper
   # @param attribute [Symbol] one of {Material::TRANSLATED_ATTRIBUTES}
   # @return [ActiveSupport::SafeBuffer, nil]
   def material_prose(material, attribute)
-    value = material.public_send(:"#{attribute}_in", I18n.locale) ||
+    value = material.public_send(:"#{attribute}_in", I18n.locale).presence ||
             material.public_send(:"#{attribute}_in", Material::BASE_LOCALE)
     return nil if value.to_s.strip.empty?
 
@@ -124,7 +124,7 @@ module MaterialsHelper
   # @param material [Material]
   # @return [String, nil]
   def material_meta_description(material)
-    value = material.description_in(I18n.locale) ||
+    value = material.description_in(I18n.locale).presence ||
             material.description_in(Material::BASE_LOCALE)
     return nil if value.to_s.strip.empty?
 

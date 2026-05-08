@@ -26,6 +26,11 @@
 module Translatable
   extend ActiveSupport::Concern
 
+  included do
+    class_attribute :_translatable_columns, instance_writer: false, default: []
+    before_validation :_compact_translatable_blanks
+  end
+
   class_methods do
     # Declares one or more translatable attributes backed by `<attr>_translations`
     # JSONB columns.
@@ -35,6 +40,7 @@ module Translatable
     def translates(*attrs)
       attrs.each do |attr|
         column = :"#{attr}_translations"
+        self._translatable_columns = _translatable_columns + [ column ]
 
         define_method(attr) do
           translations = public_send(column) || {}
@@ -63,6 +69,24 @@ module Translatable
           translations[locale.to_s]
         end
       end
+    end
+  end
+
+  private
+
+  # Drops locale slots whose value is blank (`nil`, `""`, whitespace-only) from
+  # every `<attr>_translations` JSONB column before validation. Keeps the
+  # column free of noise that a form may post for unfilled locales, and lets
+  # readers treat "missing" and "blank" identically.
+  def _compact_translatable_blanks
+    self.class._translatable_columns.each do |column|
+      current = public_send(column)
+      next unless current.is_a?(Hash)
+
+      cleaned = current.reject { |_, v| v.to_s.strip.empty? }
+      next if cleaned == current
+
+      public_send(:"#{column}=", cleaned)
     end
   end
 end

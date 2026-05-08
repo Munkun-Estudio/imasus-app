@@ -86,6 +86,54 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", edit_project_publication_path(@published), count: 0
   end
 
+  test "show wraps the process summary in trix-content without a redundant prose wrapper" do
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    # ActionText emits the body inside <div class="trix-content">. The published
+    # page should rely on .trix-content styling rather than wrap it again in
+    # `prose`, which has no rules for the <div>-as-paragraph markup that Trix
+    # produces and only adds noise.
+    assert_select ".trix-content"
+    assert_select ".prose .trix-content", count: 0
+  end
+
+  test "show renders the challenge as a full card linking to the challenges page" do
+    challenge = Challenge.create!(
+      code: "C6",
+      category: "material",
+      question_translations: { "en" => "How might we replace plastics?" },
+      description_translations: { "en" => "Framing description for C6." }
+    )
+    @published.update!(challenge: challenge)
+
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "article[data-challenge=?]", "C6" do
+      assert_select "h3 a[href=?]", challenges_path
+      assert_select "a[data-turbo-frame=preview]", count: 0
+    end
+  end
+
+  test "show hides the challenge bookmark toggle even when logged in" do
+    challenge = Challenge.create!(
+      code: "C7",
+      category: "design",
+      question_translations: { "en" => "How might we ..." },
+      description_translations: { "en" => "..." }
+    )
+    @published.update!(challenge: challenge)
+    sign_in(@member)
+
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "article[data-challenge=?]", "C7" do
+      assert_select ".bookmark-toggle", count: 0
+    end
+  end
+
   test "show returns 404 for a disabled published project" do
     admin = User.create!(name: "Admin", email: "admin-pp@example.com",
                           password: @password, role: :admin)

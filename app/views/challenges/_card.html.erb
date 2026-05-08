@@ -1,4 +1,4 @@
-<%# locals: (challenge:) %>
+<%# locals: (challenge:, mode: :preview) %>
 <%
   accent_class = case challenge.category
                  when "material" then "border-l-imasus-dark-green"
@@ -14,12 +14,16 @@
                when "business" then "bg-imasus-light-pink/40 text-imasus-dark-green"
                else                 "bg-imasus-dark-green/10 text-imasus-dark-green"
                end
-%>
-<%= turbo_frame_tag dom_id(challenge) do %>
+
+  public_mode = mode == :public
+  link_target = public_mode ? challenges_path : preview_challenge_path(challenge.to_param)
+  link_data   = public_mode ? {} : { turbo_frame: "preview" }
+
+  card = capture do %>
   <article id="<%= challenge.code.downcase %>"
            data-challenge="<%= challenge.code %>"
            class="group relative flex h-full flex-col gap-3 rounded-lg border border-imasus-dark-green/10 border-l-4 <%= accent_class %> bg-white p-5 shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-imasus-dark-green/40">
-    <% if logged_in? %>
+    <% if logged_in? && !public_mode %>
       <div class="absolute right-2 top-2 z-10">
         <%= bookmark_toggle(
               bookmarkable_type: "Challenge",
@@ -38,15 +42,15 @@
     </div>
 
     <h3 class="text-base font-semibold text-imasus-dark-green">
-      <%= link_to preview_challenge_path(challenge.to_param),
+      <%= link_to link_target,
             aria: { label: t("challenges.card.open_label", code: challenge.code) },
-            data: { turbo_frame: "preview" },
+            data: link_data,
             class: "before:absolute before:inset-0 before:z-0 before:content-[''] focus:outline-none hover:underline" do %>
         <%= challenge.question %>
       <% end %>
     </h3>
 
-    <% if curator? %>
+    <% if curator? && !public_mode %>
       <div class="mt-auto flex justify-end">
         <%= link_to t("challenges.actions.edit"),
               edit_challenge_path(challenge.to_param),
@@ -55,4 +59,9 @@
       </div>
     <% end %>
   </article>
+<% end %>
+<% if public_mode %>
+  <%= card %>
+<% else %>
+  <%= turbo_frame_tag dom_id(challenge) do %><%= card %><% end %>
 <% end %>
