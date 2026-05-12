@@ -48,6 +48,14 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "nav[aria-label=?]", "Main navigation", count: 0
   end
 
+  test "show uses the IMASUS logo in the public header" do
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "header a[href=?] img[alt=?][src*=?]", root_path, "IMASUS", "logo"
+    assert_select "header a", text: "IMASUS", count: 0
+  end
+
   test "show returns 404 for unknown slug" do
     get published_project_url(slug: "nope-nope")
     assert_response :not_found
