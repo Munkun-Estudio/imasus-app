@@ -51,4 +51,24 @@ class ChallengeSeedTest < ActiveSupport::TestCase
     # is placeholder.
     assert_not_nil c1.question_in(:es)
   end
+
+  test "seed_from_yaml! preserves edited challenge copy by default" do
+    Challenge.seed_from_yaml!
+    c1 = Challenge.find_by!(code: "C1")
+    c1.update!(question_translations: c1.question_translations.merge("en" => "Edited question?"))
+
+    Challenge.seed_from_yaml!
+
+    assert_equal "Edited question?", c1.reload.question_translations["en"]
+  end
+
+  test "seed_from_yaml! refreshes edited challenge copy when overwriting" do
+    Challenge.seed_from_yaml!
+    c1 = Challenge.find_by!(code: "C1")
+    c1.update!(question_translations: c1.question_translations.merge("en" => "Edited question?"))
+
+    Challenge.seed_from_yaml!(overwrite: true)
+
+    assert_not_equal "Edited question?", c1.reload.question_translations["en"]
+  end
 end

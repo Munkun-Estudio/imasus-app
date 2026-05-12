@@ -80,4 +80,34 @@ class MaterialSeedTest < ActiveSupport::TestCase
   ensure
     File.delete(path) if path && File.exist?(path)
   end
+
+  test "seed_from_yaml! preserves edited material fields by default" do
+    Material.seed_from_yaml!
+    material = Material.find_by!(slug: "lifematerials-cypress-denim")
+    material.update!(
+      trade_name: "Edited Cypress",
+      description_translations: material.description_translations.merge("en" => "Edited description")
+    )
+
+    Material.seed_from_yaml!
+    material.reload
+
+    assert_equal "Edited Cypress", material.trade_name
+    assert_equal "Edited description", material.description_translations["en"]
+  end
+
+  test "seed_from_yaml! refreshes edited material fields when overwriting" do
+    Material.seed_from_yaml!
+    material = Material.find_by!(slug: "lifematerials-cypress-denim")
+    material.update!(
+      trade_name: "Edited Cypress",
+      description_translations: material.description_translations.merge("en" => "Edited description")
+    )
+
+    Material.seed_from_yaml!(overwrite: true)
+    material.reload
+
+    assert_equal "Lifematerials-Cypress Denim", material.trade_name
+    assert_not_equal "Edited description", material.description_translations["en"]
+  end
 end

@@ -40,22 +40,37 @@ class GlossaryTerm < ApplicationRecord
 
   # Idempotent loader that upserts every entry in the seed YAML. Each entry is
   # matched by a slug derived from its English `term`, so re-running the loader
-  # updates translations, category, and examples without duplicating rows.
+  # never duplicates rows. Existing rows keep edited content by default; pass
+  # `overwrite: true` or set `SEED_OVERWRITE_CONTENT=1` /
+  # `SEED_GLOSSARY_TERMS=overwrite` to intentionally refresh content from YAML.
   #
   # @param path [Pathname, String] seed file path (tests override this)
+  # @param overwrite [Boolean] whether existing content should be replaced
   # @return [Integer] the number of glossary terms after loading
   # @raise [ActiveRecord::RecordInvalid] if any entry fails validation
-  def self.seed_from_yaml!(path: SEED_PATH)
+  def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:glossary_terms))
     entries = YAML.load_file(path)
 
     entries.each do |entry|
       slug = entry.dig("term", "en").to_s.parameterize
 
       term = find_or_initialize_by(slug: slug)
-      term.term_translations       = entry.fetch("term")
-      term.definition_translations = entry.fetch("definition")
-      term.examples_translations   = entry.fetch("examples", {})
-      term.category                = entry.fetch("category")
+      term.term_translations = SeedPolicy.translations(
+        term.term_translations,
+        entry.fetch("term"),
+        overwrite: overwrite
+      )
+      term.definition_translations = SeedPolicy.translations(
+        term.definition_translations,
+        entry.fetch("definition"),
+        overwrite: overwrite
+      )
+      term.examples_translations = SeedPolicy.translations(
+        term.examples_translations,
+        entry.fetch("examples", {}),
+        overwrite: overwrite
+      )
+      term.category = SeedPolicy.value(term.category, entry.fetch("category"), overwrite: overwrite)
       term.save!
     end
 

@@ -30,9 +30,14 @@ class Tag < ApplicationRecord
 
   validate :base_locale_name_present
 
+  # Existing tags keep edited names by default; pass `overwrite: true` or set
+  # `SEED_OVERWRITE_CONTENT=1` / `SEED_TAGS=overwrite` to intentionally refresh
+  # content from YAML.
+  #
   # @param path [Pathname, String] seed file path
+  # @param overwrite [Boolean] whether existing content should be replaced
   # @return [Integer] the number of tags after loading
-  def self.seed_from_yaml!(path: SEED_PATH)
+  def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:tags))
     entries = YAML.load_file(path)
 
     entries.each do |entry|
@@ -40,7 +45,11 @@ class Tag < ApplicationRecord
       slug  = entry.fetch("slug")
 
       tag = find_or_initialize_by(facet: facet, slug: slug)
-      tag.name_translations = entry.fetch("name")
+      tag.name_translations = SeedPolicy.translations(
+        tag.name_translations,
+        entry.fetch("name"),
+        overwrite: overwrite
+      )
       tag.save!
     end
 

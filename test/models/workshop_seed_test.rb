@@ -26,4 +26,59 @@ class WorkshopSeedTest < ActiveSupport::TestCase
     workshop = Workshop.find_by!(slug: "spain")
     assert_equal "spain@imasus.eu", workshop.contact_email
   end
+
+  test "seed_from_yaml preserves edited agenda and metadata by default" do
+    Workshop.seed_from_yaml!
+    workshop = Workshop.find_by!(slug: "spain")
+    workshop.update!(
+      title_translations: { "es" => "Titulo editado" },
+      contact_email: "edited@example.com",
+      location: "Edited location"
+    )
+    workshop.agenda_es = "<h2>Agenda editada</h2><p>Texto propio.</p>"
+    workshop.save!
+
+    Workshop.seed_from_yaml!
+    workshop.reload
+
+    assert_equal "Titulo editado", workshop.title_translations["es"]
+    assert_equal "edited@example.com", workshop.contact_email
+    assert_equal "Edited location", workshop.location
+    assert_includes workshop.agenda_es.body.to_plain_text.to_s, "Agenda editada"
+  end
+
+  test "seed_from_yaml overwrites edited agenda and metadata when requested" do
+    Workshop.seed_from_yaml!
+    workshop = Workshop.find_by!(slug: "spain")
+    workshop.update!(
+      title_translations: { "es" => "Titulo editado" },
+      contact_email: "edited@example.com"
+    )
+    workshop.agenda_es = "<h2>Agenda editada</h2><p>Texto propio.</p>"
+    workshop.save!
+
+    Workshop.seed_from_yaml!(overwrite: true)
+    workshop.reload
+
+    assert_equal "Taller IMASUS Espana", workshop.title_translations["es"]
+    assert_equal "spain@imasus.eu", workshop.contact_email
+    assert_includes workshop.agenda_es.body.to_plain_text.to_s, "Sesion 1"
+  end
+
+  test "seed_from_yaml only prunes unseeded workshops when overwriting" do
+    Workshop.create!(
+      slug: "manual",
+      title_translations: { "en" => "Manual" },
+      description_translations: { "en" => "Created in production." },
+      location: "Manual location",
+      starts_on: Date.new(2026, 5, 1),
+      ends_on: Date.new(2026, 5, 2)
+    )
+
+    Workshop.seed_from_yaml!
+    assert Workshop.exists?(slug: "manual")
+
+    Workshop.seed_from_yaml!(overwrite: true)
+    assert_not Workshop.exists?(slug: "manual")
+  end
 end

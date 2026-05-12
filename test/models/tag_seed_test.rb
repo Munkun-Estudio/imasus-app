@@ -38,4 +38,24 @@ class TagSeedTest < ActiveSupport::TestCase
       assert tag.name_in(:en).present?, "expected '#{tag.facet}/#{tag.slug}' to have an English name"
     end
   end
+
+  test "seed_from_yaml! preserves edited tag names by default" do
+    Tag.seed_from_yaml!
+    plants = Tag.find_by!(facet: "origin_type", slug: "plants")
+    plants.update!(name_translations: plants.name_translations.merge("en" => "Edited plants"))
+
+    Tag.seed_from_yaml!
+
+    assert_equal "Edited plants", plants.reload.name_translations["en"]
+  end
+
+  test "seed_from_yaml! refreshes edited tag names when overwriting" do
+    Tag.seed_from_yaml!
+    plants = Tag.find_by!(facet: "origin_type", slug: "plants")
+    plants.update!(name_translations: plants.name_translations.merge("en" => "Edited plants"))
+
+    Tag.seed_from_yaml!(overwrite: true)
+
+    assert_equal "Plants", plants.reload.name_translations["en"]
+  end
 end

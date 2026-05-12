@@ -47,20 +47,31 @@ class Challenge < ApplicationRecord
   end
 
   # Idempotent loader that upserts every entry in the seed YAML. Each entry is
-  # matched by `code`, so re-running updates the question, description, and
-  # category without duplicating rows.
+  # matched by `code`, so re-running never duplicates rows. Existing rows keep
+  # edited content by default; pass `overwrite: true` or set
+  # `SEED_OVERWRITE_CONTENT=1` / `SEED_CHALLENGES=overwrite` to intentionally
+  # refresh content from YAML.
   #
   # @param path [Pathname, String] seed file path (tests override this)
+  # @param overwrite [Boolean] whether existing content should be replaced
   # @return [Integer] the number of challenges after loading
   # @raise [ActiveRecord::RecordInvalid] if any entry fails validation
-  def self.seed_from_yaml!(path: SEED_PATH)
+  def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:challenges))
     entries = YAML.load_file(path)
 
     entries.each do |entry|
       challenge = find_or_initialize_by(code: entry.fetch("code"))
-      challenge.category                 = entry.fetch("category")
-      challenge.question_translations    = entry.fetch("question")
-      challenge.description_translations = entry.fetch("description")
+      challenge.category = SeedPolicy.value(challenge.category, entry.fetch("category"), overwrite: overwrite)
+      challenge.question_translations = SeedPolicy.translations(
+        challenge.question_translations,
+        entry.fetch("question"),
+        overwrite: overwrite
+      )
+      challenge.description_translations = SeedPolicy.translations(
+        challenge.description_translations,
+        entry.fetch("description"),
+        overwrite: overwrite
+      )
       challenge.save!
     end
 

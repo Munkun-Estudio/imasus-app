@@ -50,4 +50,28 @@ class GlossaryTermSeedTest < ActiveSupport::TestCase
              "expected '#{term.slug}' to have an English definition"
     end
   end
+
+  test "seed_from_yaml! preserves edited translations by default" do
+    GlossaryTerm.seed_from_yaml!
+    framework = GlossaryTerm.find_by!(slug: "framework")
+    framework.update!(
+      definition_translations: framework.definition_translations.merge("en" => "Edited definition")
+    )
+
+    GlossaryTerm.seed_from_yaml!
+
+    assert_equal "Edited definition", framework.reload.definition_translations["en"]
+  end
+
+  test "seed_from_yaml! refreshes edited translations when overwriting" do
+    GlossaryTerm.seed_from_yaml!
+    framework = GlossaryTerm.find_by!(slug: "framework")
+    framework.update!(
+      definition_translations: framework.definition_translations.merge("en" => "Edited definition")
+    )
+
+    GlossaryTerm.seed_from_yaml!(overwrite: true)
+
+    assert_not_equal "Edited definition", framework.reload.definition_translations["en"]
+  end
 end

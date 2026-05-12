@@ -112,33 +112,47 @@ class Workshop < ApplicationRecord
     COMMUNICATION_LOCALES.find { |locale| content_present_for_locale?(locale) } || I18n.default_locale.to_s
   end
 
-  # Idempotently loads workshops from {SEED_PATH}.
+  # Idempotently loads workshops from {SEED_PATH}. By default this is
+  # production-safe: existing records keep edited fields and only blank fields
+  # are filled from the seed. Pass `overwrite: true` or set
+  # `SEED_OVERWRITE_CONTENT=1` / `SEED_WORKSHOPS=overwrite` to intentionally
+  # refresh content from YAML.
   #
+  # @param overwrite [Boolean] whether existing content should be replaced
   # @return [void]
-  def self.seed_from_yaml!
+  def self.seed_from_yaml!(overwrite: SeedPolicy.overwrite?(:workshops))
     payload = YAML.safe_load_file(SEED_PATH, permitted_classes: [ Date ], aliases: true).fetch("workshops")
     seeded_slugs = payload.map { |entry| entry.fetch("slug") }
 
     payload.each do |entry|
       workshop = find_or_initialize_by(slug: entry.fetch("slug"))
-      workshop.assign_attributes(
-        title_translations: entry.fetch("title_translations", {}),
-        description_translations: entry.fetch("description_translations", {}),
-        location: entry.fetch("location"),
-        starts_on: entry.fetch("starts_on"),
-        ends_on: entry.fetch("ends_on"),
-        contact_email: entry["contact_email"]
+      workshop.title_translations = SeedPolicy.translations(
+        workshop.title_translations,
+        entry.fetch("title_translations", {}),
+        overwrite: overwrite
       )
+      workshop.description_translations = SeedPolicy.translations(
+        workshop.description_translations,
+        entry.fetch("description_translations", {}),
+        overwrite: overwrite
+      )
+      workshop.location = SeedPolicy.value(workshop.location, entry.fetch("location"), overwrite: overwrite)
+      workshop.starts_on = SeedPolicy.value(workshop.starts_on, entry.fetch("starts_on"), overwrite: overwrite)
+      workshop.ends_on = SeedPolicy.value(workshop.ends_on, entry.fetch("ends_on"), overwrite: overwrite)
+      workshop.contact_email = SeedPolicy.value(workshop.contact_email, entry["contact_email"], overwrite: overwrite)
       workshop.save!
 
       AGENDA_LOCALES.each do |locale|
         html = entry.fetch("agenda_translations", {})[locale]
         next if html.blank?
+        next if !overwrite && workshop.public_send(:"agenda_#{locale}").body&.to_plain_text.to_s.strip.present?
 
         workshop.public_send(:"agenda_#{locale}=", html)
       end
       workshop.save!
     end
+
+    return unless overwrite
 
     where.not(slug: seeded_slugs)
          .left_outer_joins(:participations)
