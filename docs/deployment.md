@@ -28,6 +28,18 @@ Fly secrets that Active Storage needs: `AWS_ACCESS_KEY_ID`,
 `AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `AWS_ENDPOINT_URL_S3`, and `BUCKET_NAME`.
 The app also accepts `AWS_S3_BUCKET` for compatibility with AWS S3.
 
+After the bucket exists and the app has the storage secrets, apply the CORS
+rule required by browser direct uploads from Action Text / Trix:
+
+```sh
+flyctl ssh console --app imasus-app -C "bin/rails active_storage:configure_cors"
+```
+
+The default allowed origins are `https://app.imasus.eu` and
+`https://imasus-app.fly.dev`. Override them with a comma-separated
+`ACTIVE_STORAGE_CORS_ORIGINS` value if another production origin needs to
+support direct uploads.
+
 ## Fly.io
 
 Create the app and attach PostgreSQL:
