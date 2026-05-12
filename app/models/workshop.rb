@@ -13,6 +13,7 @@ class Workshop < ApplicationRecord
   has_many :participants,   through: :participations, source: :user
 
   has_many :projects, dependent: :destroy
+  has_many :workshop_email_broadcasts, dependent: :destroy
   has_rich_text :agenda_en
   has_rich_text :agenda_es
   has_rich_text :agenda_it

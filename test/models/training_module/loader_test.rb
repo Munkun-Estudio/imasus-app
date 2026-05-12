@@ -51,6 +51,13 @@ class TrainingModule::LoaderTest < ActiveSupport::TestCase
     assert section.body.present?
   end
 
+  test "design for recyclability training module includes first chapter" do
+    section = @loader.section("design-for-recyclability", "training-module", "en")
+    assert_not_nil section
+    assert_includes section.body, "# 1. Introduction to Design for Recyclability"
+    assert section.body.index("# 1. Introduction to Design for Recyclability") < section.body.index("# 2. Historical Context")
+  end
+
   test "section returns nil for missing locale" do
     assert_nil @loader.section("zero-waste-design", "training-module", "fr")
   end

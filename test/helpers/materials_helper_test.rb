@@ -1,6 +1,8 @@
 require "test_helper"
 
 class MaterialsHelperTest < ActionView::TestCase
+  include GlossaryHighlightHelper
+
   # --- materials_chip_toggle_url --------------------------------------------
 
   test "adds the slug to an empty facet" do
@@ -69,5 +71,56 @@ class MaterialsHelperTest < ActionView::TestCase
   test "chip is not active when the facet is absent from selection" do
     assert_not materials_chip_active?("origin_type", "plants",
                                        selected_by_facet: {})
+  end
+
+  # --- material_prose fallback ----------------------------------------------
+
+  test "material_prose falls back to English when the current-locale slot is missing" do
+    material = Material.new(description_translations: { "en" => "A natural fiber." })
+
+    rendered = I18n.with_locale(:es) { material_prose(material, :description) }
+
+    assert_not_nil rendered
+    assert_includes rendered.to_s, "A natural fiber."
+  end
+
+  test "material_prose falls back to English when the current-locale slot is an empty string" do
+    material = Material.new(
+      description_translations: { "en" => "A natural fiber.", "es" => "" }
+    )
+
+    rendered = I18n.with_locale(:es) { material_prose(material, :description) }
+
+    assert_not_nil rendered
+    assert_includes rendered.to_s, "A natural fiber."
+  end
+
+  test "material_prose falls back to English when the current-locale slot is whitespace only" do
+    material = Material.new(
+      description_translations: { "en" => "A natural fiber.", "es" => "   \n  " }
+    )
+
+    rendered = I18n.with_locale(:es) { material_prose(material, :description) }
+
+    assert_not_nil rendered
+    assert_includes rendered.to_s, "A natural fiber."
+  end
+
+  test "material_prose returns nil when the attribute is blank in every locale" do
+    material = Material.new(description_translations: { "en" => "", "es" => "" })
+
+    assert_nil I18n.with_locale(:es) { material_prose(material, :description) }
+  end
+
+  # --- material_meta_description fallback -----------------------------------
+
+  test "material_meta_description falls back to English when the current-locale slot is empty" do
+    material = Material.new(
+      description_translations: { "en" => "Soft heavy rib knit.", "es" => "" }
+    )
+
+    meta = I18n.with_locale(:es) { material_meta_description(material) }
+
+    assert_equal "Soft heavy rib knit.", meta
   end
 end

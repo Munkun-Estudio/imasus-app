@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get "privacy", to: "legal_pages#privacy", as: :privacy
+  get "terms", to: "legal_pages#terms", as: :terms
+
   resources :materials, only: [ :index, :show, :edit, :update ], param: :slug do
     member do
       get :preview
@@ -67,6 +70,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :facilitators, only: [ :index, :new, :create ]
+    resources :workshops, only: [], param: :slug do
+      resources :emails, only: [ :index, :new, :create ], controller: "workshop_emails" do
+        post :send_test, on: :collection
+      end
+    end
   end
 
   get   "facilitator_invitations/:token/edit", to: "facilitator_invitations#edit",   as: :edit_facilitator_invitation

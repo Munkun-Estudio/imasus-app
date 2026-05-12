@@ -48,7 +48,7 @@ Three roles: **admin**, **facilitator**, **participant**.
 - Participants register via **invitation-only**: facilitator enters participant emails → app sends invitation email with a token link → participant clicks, lands on registration form pre-associated with the workshop.
 - Registration collects: full name, email, password, institution, country, short bio/interests, links (LinkedIn, Instagram, Behance, etc. — open-ended).
 - Facilitators are created by admin and receive an email to set up their account.
-- Transactional emails only: registration, password recovery, invitation. No notifications.
+- Email is limited to registration, password recovery, invitations, and admin-only manual workshop broadcasts to a single workshop audience. No notifications, automations, or general newsletter system.
 
 ### Rich content and embeds
 
@@ -88,7 +88,7 @@ Four locales: **en** (base), **es**, **it**, **el** (Greek — ISO 639-1 code, n
 ### What is explicitly out of scope
 
 - Evaluation / grading / scoring of projects.
-- In-app messaging or notifications (beyond transactional emails).
+- In-app messaging or notifications. The only staff-authored outbound email in scope is admin-only manual workshop broadcasts for a single workshop audience.
 - Mobile-first design (desktop/laptop-first, with responsive mobile support).
 - Gamification.
 
@@ -201,6 +201,7 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
 | `request-a-spot` | May upgrade per-workshop `mailto:` CTAs to a real form with persistence and facilitator notification. | Pending |
 | `activity-feed` | Facilitator/admin recent-activity strip, synthesized from existing tables. | Pending |
 | `trix-resource-embeds` | Trix toolbar embeds for materials/training in `process_summary`. | Pending |
+| `admin-workshop-emails` | Lightweight admin-only workshop email composer for manual HTML follow-ups/news to participants, facilitators, or both within a single workshop; includes preview, send-test-to-self, send history, and no scheduling/templates/global audiences. | Implemented |
 
 ---
 

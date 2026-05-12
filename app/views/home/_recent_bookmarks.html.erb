@@ -1,11 +1,5 @@
 <%
   bookmarks = local_assigns.fetch(:bookmarks)
-  bookmark_dot_color = {
-    "TrainingModule" => "bg-imasus-navy",
-    "Material"       => "bg-imasus-light-blue",
-    "Challenge"      => "bg-imasus-mint",
-    "GlossaryTerm"   => "bg-imasus-light-pink"
-  }
 %>
 
 <% if bookmarks.any? %>
@@ -20,9 +14,19 @@
       </div>
       <ul class="mt-3 divide-y divide-imasus-dark-green/5">
         <% bookmarks.each do |bookmark| %>
+          <% preview_src = bookmark_preview_image_src(bookmark) %>
           <li class="flex items-center gap-3 py-2">
-            <span class="mt-px h-2 w-2 shrink-0 rounded-full <%= bookmark_dot_color.fetch(bookmark.bookmarkable_type, "bg-imasus-dark-green/20") %>"
+            <span class="mt-px h-2 w-2 shrink-0 rounded-full <%= bookmark_dot_color(bookmark) %>"
                   title="<%= bookmark.bookmarkable_type.underscore.humanize %>"></span>
+            <% if preview_src.present? %>
+              <%= link_to bookmark.url, class: "shrink-0", aria: { label: bookmark.label } do %>
+                <%= image_tag preview_src,
+                      alt: "",
+                      loading: "lazy",
+                      data: { bookmark_preview: "" },
+                      class: "h-10 w-14 rounded-md border border-imasus-dark-green/10 object-cover" %>
+              <% end %>
+            <% end %>
             <%= link_to bookmark.label, bookmark.url,
                   class: "min-w-0 flex-1 truncate text-sm font-medium text-imasus-dark-green hover:underline" %>
           </li>

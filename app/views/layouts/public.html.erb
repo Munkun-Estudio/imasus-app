@@ -9,6 +9,7 @@
     <%= render "layouts/social_meta" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= render "layouts/plausible_analytics" %>
 
     <%= yield :head %>
 
@@ -27,8 +28,9 @@
   <body class="min-h-screen bg-white">
     <header class="border-b border-imasus-dark-green/10 bg-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
-        <%= link_to "IMASUS", root_path,
-                    class: "text-lg font-bold text-imasus-dark-green" %>
+        <%= link_to root_path, class: "inline-flex items-center" do %>
+          <%= image_tag "logo.svg", alt: "IMASUS", class: "h-9 w-auto" %>
+        <% end %>
       </div>
     </header>
 

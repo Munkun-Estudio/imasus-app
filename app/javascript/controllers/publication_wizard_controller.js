@@ -96,15 +96,30 @@ export default class extends Controller {
     return `${bodyHTML}${this.mediaHTML(media)}${captionHTML}`
   }
 
+  // Emit the figure markup Trix recognizes natively. Trix's HTML parser does
+  // not understand bare `<action-text-attachment>` elements, so injecting them
+  // via `editor.loadHTML` silently strips them on serialization and the saved
+  // body ends up text-only. The `data-trix-attachment` attribute is the
+  // supported handoff: Trix picks up the JSON, registers the attachment, and
+  // round-trips it through ActionText storage.
   mediaHTML(media) {
     return media
       .map((item) => {
-        const sgid = this.escapeAttribute(item.sgid || "")
-        const filename = this.escapeAttribute(item.filename || "")
+        if (!item.sgid) return ""
 
-        if (!sgid) return ""
-
-        return `<action-text-attachment sgid="${sgid}" caption="${filename}"></action-text-attachment>`
+        const attrs = {
+          sgid:        item.sgid,
+          contentType: item.content_type,
+          filename:    item.filename,
+          filesize:    item.filesize,
+          width:       item.width,
+          height:      item.height,
+          url:         item.url,
+          previewable: item.previewable,
+        }
+        const json = this.escapeAttribute(JSON.stringify(attrs))
+        const contentType = this.escapeAttribute(item.content_type || "")
+        return `<figure data-trix-attachment="${json}" data-trix-content-type="${contentType}"></figure>`
       })
       .join("")
   }

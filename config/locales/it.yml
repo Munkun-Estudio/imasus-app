@@ -20,7 +20,11 @@ it:
     project_name: "IMASUS"
     eu_notice: "Finanziato dall'Unione Europea. I punti di vista e le opinioni espresse sono tuttavia esclusivamente quelli dell'autore o degli autori e non riflettono necessariamente quelli dell'Unione Europea o dell'Agenzia esecutiva europea per l'istruzione e la cultura (EACEA). Né l'Unione Europea né l'EACEA possono essere ritenute responsabili."
     copyright: "© 2024–2026 Progetto IMASUS."
+    copyright_prefix: "© 2024–2026 Progetto"
     developed_by: "Sviluppato da"
+    legal_label: "Link legali"
+    privacy: "Informativa sulla privacy"
+    terms: "Termini di utilizzo"
     partners_label: "Partner"
     partners:
       inma: "INMA (CSIC)"
@@ -40,6 +44,27 @@ it:
         lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
         see_workshops: "Apri i workshop"
         log_in: "Accedi"
+      # TODO: translate
+      loom:
+        eyebrow: "The method"
+        heading: "How an IMASUS workshop moves"
+        lead: "Materials, training and challenges weave through the imagineering steps into a shared vision and a set of concrete proposals."
+        diagram_alt: "The Imagineering Loom — a diagrammatic loom showing how an IMASUS workshop weaves together the platform's resources (Materials Database, Training Modules, Challenge Cards), the four imagineering steps (A Appreciating, B Breathing, C Creating, D Developing) and the workshop's outputs (pre-work submission, system map, Creative Tension Engine formulation, final proposal with material references, individual next steps). A caption below the loom names the Creative Tension Engine — held in the balance of tension and intention."
+      # TODO: translate
+      explainer:
+        eyebrow: "About IMASUS"
+        why:
+          eyebrow: "Why"
+          heading: "The textile industry we want"
+          lead: "Textiles are among the largest contributors to environmental degradation. IMASUS treats that as a generative starting point — not just a problem to fix."
+        how:
+          eyebrow: "How"
+          heading: "Imagineering as a method"
+          lead: "A creative-leadership approach by Diane Nijs that moves teams through three design spaces — Inspiration, Ideation, Implementation — to reframe complex challenges into shared visions."
+        what:
+          eyebrow: "What"
+          heading: "Open workshops, open knowledge"
+          lead: "Workshops for young textile professionals in Zaragoza, Prato and Athens, backed by an open platform of materials, training modules and industry challenges."
       workshops:
         heading: "Workshop in corso e passati"
         lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
@@ -112,6 +137,7 @@ it:
       cta:
         manage_facilitators: "Gestisci facilitatori"
         all_projects: "Tutti i progetti"
+        workshop_emails: "Emails"
   materials:
     actions:
       edit: "Modifica"
@@ -224,6 +250,7 @@ it:
       agenda_page: "Vedi agenda completa"
       invite_participants: "Invita partecipanti"
       edit_workshop: "Modifica workshop"
+      compose_email: "Compose email"
       participants: "Partecipanti"
       participant_count:
         zero: "Nessun partecipante"
@@ -350,6 +377,66 @@ it:
         submit: "Invia invito"
       create:
         notice: "Invito inviato a %{email}."
+    workshop_emails:
+      audiences:
+        participants: "Participants"
+        facilitators: "Facilitators"
+        both: "Participants and facilitators"
+      errors:
+        empty_audience: "This workshop does not have any recipients in the selected audience."
+        invalid_attachment: "The attached PDF could not be loaded. Please upload it again."
+        attachment_must_be_pdf: "Attach a PDF file."
+        attachment_too_large: "The PDF must be 10 MB or smaller."
+      index:
+        title: "Emails for %{workshop}"
+        back_to_workshop: "← Back to workshop"
+        eyebrow: "Workshop Emails"
+        lead: "Manual workshop communications sent by admins. Use this history to confirm what went out and when."
+        compose: "Compose email"
+        recipient_count: "%{count} recipients"
+        audience: "Audience"
+        sender: "Sender"
+        workshop: "Workshop"
+        attachment: "PDF attachment"
+        empty_title: "No workshop emails sent yet."
+        empty_body: "When an admin sends a workshop follow-up or news email, it will appear here."
+      new:
+        title: "Compose email for %{workshop}"
+        back_to_history: "← Back to email history"
+        eyebrow: "Workshop Emails"
+        lead: "Write a manual follow-up or news update for this workshop. Preview it first, send a test to yourself if needed, then confirm the real send."
+        errors_heading: "Fix %{count} issue(s) before continuing."
+        workshop: "Workshop"
+        audience: "Recipients"
+        select_audience: "Choose an audience"
+        subject: "Subject"
+        body: "Email body"
+        body_hint: "Use the editor for light formatting, links, and lists. The email will be sent as HTML with a plain-text fallback."
+        attachment: "PDF attachment"
+        attachment_hint: "Optional. PDF only, up to 10 MB."
+        attachment_drop_zone_hint: "One PDF attachment. 10 MB max."
+        attachment_upload: "Upload a PDF"
+        remove_attachment: "Remove this PDF"
+        preview: "Review recipients and preview"
+        send_test: "Send test to myself"
+        preview_heading: "Preview"
+        preview_explainer: "This step shows the final recipient count and the rendered email before you confirm the real send."
+        recipient_count: "%{count} recipients"
+        back_to_edit: "Back to edit"
+        confirm_send: "Confirm and send"
+        confirm_prompt: "Send this email to the selected workshop recipients?"
+        sending_rules: "Sending rules"
+        recent_history: "Recent sends"
+        view_all: "View all"
+        recent_meta: "%{audience} · %{count} recipients"
+        rules:
+          manual_only: "Manual only. No scheduling or drafts."
+          workshop_only: "This message goes only to recipients associated with this workshop."
+          test_first: "Use a test send before confirming the real broadcast."
+      create:
+        notice: "Sent \"%{subject}\" to %{count} %{audience} in %{workshop}."
+      send_test:
+        notice: "Sent a test email to %{email}."
   facilitator_invitations:
     edit:
       title: "Completa il tuo account facilitatore IMASUS"
@@ -715,3 +802,10 @@ it:
         links: "Link"
         password: "Password"
         password_confirmation: "Conferma password"
+  workshop_email_broadcast_mailer:
+    broadcast:
+      badge: "Workshop update"
+      footer: "Sent by %{sender} through IMASUS."
+    test_message:
+      badge: "Test email"
+      footer: "Sent by %{sender} through IMASUS."

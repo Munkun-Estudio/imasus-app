@@ -20,12 +20,18 @@
     <div class="mt-4 grid gap-3">
       <% log_entries.each do |entry| %>
         <% media = entry.media.map do |attachment|
+             blob = attachment.blob
+             metadata = blob.metadata || {}
              {
-               url: url_for(attachment),
-               sgid: attachment.blob.attachable_sgid,
-               content_type: attachment.content_type,
-               filename: attachment.filename.to_s,
-               video: attachment.video?
+               url:           url_for(attachment),
+               sgid:          blob.attachable_sgid,
+               content_type:  attachment.content_type,
+               filename:      attachment.filename.to_s,
+               filesize:      blob.byte_size,
+               width:         metadata["width"],
+               height:        metadata["height"],
+               previewable:   blob.representable?,
+               video:         attachment.video?
              }
            end %>
         <label class="block cursor-pointer rounded-lg border border-imasus-dark-green/10 bg-white p-4 transition-colors has-[:checked]:border-imasus-dark-green/40 has-[:checked]:bg-imasus-mint/20">

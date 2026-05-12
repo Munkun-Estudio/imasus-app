@@ -10,6 +10,98 @@ available_languages: ["en", "it", "es", "el"]
 available_volumes: ["training-module", "toolkit", "case-study"]
 ---
 
+# 1. Introducción al diseño para la reciclabilidad
+
+El diseño para la reciclabilidad aborda uno de los retos centrales de la moda contemporánea: cómo garantizar que las prendas puedan reincorporarse de forma significativa a los sistemas de producción al final de su fase de uso. A medida que los residuos textiles siguen aumentando y la extracción de recursos vírgenes sigue siendo dominante, la reciclabilidad se ha convertido en un pilar fundamental de las estrategias de transición circular. En esta sección se aclara el concepto de reciclabilidad, se distingue de prácticas relacionadas, como el suprarreciclaje, y se describen las implicaciones sistémicas, medioambientales y de diseño que lo convierten en una prioridad urgente dentro de la moda sostenible.
+
+## 1.1 Objetivos de aprendizaje
+
+Al finalizar este módulo, los alumnos deberán ser capaces de:
+
+- Definir el diseño para la reciclabilidad como un enfoque estratégico en el diseño de moda.
+
+- Distinguir entre sistemas de reciclaje mecánico, químico y biológico.
+
+- Identificar las opciones de materiales y construcción que facilitan o dificultan la reciclabilidad.
+
+- Analizar cómo las mezclas de fibras, los adornos, los recubrimientos y los acabados afectan a la recuperación al final de la vida útil
+
+- Evaluar las limitaciones y las ventajas e inconvenientes del reciclaje dentro de los sistemas circulares.
+
+- Aplicar los principios de reciclabilidad al desarrollar un concepto de prenda
+
+## 1.2 Definición y alcance
+
+El reciclaje de ropa consiste en descomponer las prendas usadas en materias primas que pueden reprocesarse para crear nuevos productos. Esto difiere del suprarreciclaje, que transforma las prendas existentes en nuevos artículos sin reducirlas a fibra (Recovo, s. f.).
+
+Es importante distinguir entre materiales *reciclados* y *reciclables*. Las prendas recicladas se fabrican a partir de materiales que ya han sido procesados para volver a su forma bruta y reutilizados para crear nuevos textiles o productos. La reciclabilidad, por el contrario, se refiere a la capacidad de un producto o material para ser recogido, desmontado y reintroducido en el ciclo de fabricación sin una pérdida significativa de calidad o funcionalidad (Redress, s. f.).
+
+La reciclabilidad se determina en gran medida en la fase de diseño. Las decisiones relativas a la composición de los materiales, los métodos de confección, los adornos y el etiquetado influyen en la posibilidad de recuperar eficazmente un producto. Barreras como las mezclas de fibras incompatibles, las confecciones complejas y el etiquetado inconsistente siguen limitando la recuperación de los textiles. Además, el hecho de ser reciclable no garantiza que se recicle; la recuperación real depende de la tecnología disponible, la infraestructura, la demanda del mercado y la participación de los consumidores.
+
+El reciclaje en la moda opera en varios niveles (Baloyi et al., 2023):
+
+**Reciclaje de fibras**: descomposición mecánica de los tejidos en fibras (por ejemplo, convertir los textiles de algodón usados en nueva fibra de algodón), que luego pueden hilarse y reprocesarse para obtener productos textiles.
+
+**Reciclaje de polímeros**: despolimerización química de fibras sintéticas como el PET o el nailon para convertirlas en monómeros, que luego pueden volver a hilarse para crear nuevos materiales.
+
+**Reciclaje de componentes**: reutilización de elementos de las prendas, como botones, cremalleras o ribetes, en nuevos productos.
+
+El reciclaje de ciclo cerrado mantiene los materiales dentro del sector textil, mientras que el reciclaje de ciclo abierto los redirige a otras industrias (Fundación Ellen MacArthur, 2017).
+
+Por lo tanto, diseñar para la reciclabilidad significa crear prendas desde el principio teniendo en cuenta su recuperación al final de su vida útil. Implica tomar decisiones deliberadas sobre los materiales, la confección, el etiquetado y la trazabilidad para garantizar que los productos puedan reincorporarse de forma significativa a los sistemas de producción.
+
+## 1.3 La urgencia de la reciclabilidad en la moda
+
+La industria de la moda consume muchos recursos y genera residuos y emisiones en todas las etapas, desde el cultivo de las materias primas hasta la eliminación al final de su vida útil. Cada año se producen aproximadamente 92 millones de toneladas de residuos textiles en todo el mundo, lo que equivale a un camión lleno de ropa que se deposita en vertederos o se incinera cada segundo (Fundación Ellen MacArthur, 2023). Más del 80 % de los textiles salen del sistema sin ningún tipo de recuperación.
+
+En la actualidad, menos del 1 % de los textiles se reciclan para fabricar ropa nueva, mientras que más del 97 % de las fibras utilizadas proceden de recursos vírgenes (Fundación Ellen MacArthur, 2017). Estas cifras ponen de relieve el desequilibrio estructural entre la producción y la recuperación y subrayan la necesidad de rediseñar los textiles teniendo en cuenta la recuperación.
+
+> <img src="/assets/training-modules/media/design-for-recyclability/es/training-module/media/image3.png" style="width:6.69306in;height:3.41806in" alt="Immagine che contiene testo, schermata, Carattere, logo Descrizione generata automaticamente" />
+>
+> **Figura 1.** Flujo global de materiales para la confección de ropa en 2015 (Fundación Ellen MacArthur, 2017) obtenido de: <https://content.ellenmacarthurfoundation.org/m/7f818b40f06e1afd/original/Summary-of-findings-A-New-Textiles-Economy.pdf>
+
+Los modelos de negocio circulares —reparación, reventa, alquiler y remanufacturación— podrían generar 700 000 millones de dólares estadounidenses para 2030, al tiempo que reducirían significativamente los residuos y las emisiones. Los marcos normativos están acelerando esta transición. La Estrategia de la UE para un sector textil sostenible y circular (2022) exige que los productos textiles vendidos en la UE sean duraderos, reparables y reciclables para 2030. Las políticas de responsabilidad ampliada del productor (EPR) exigen a los productores que financien y gestionen los sistemas de recogida y reciclaje al final de la vida útil.
+
+Aunque el reciclaje de textiles a textiles se considera una vía fundamental para reducir el impacto, aún se encuentra en una fase inicial. La mayoría de los textiles reciclados disponibles en la actualidad proceden de botellas de PET recicladas, en lugar de sistemas de fibra a fibra (Sandin, 2025). Por lo tanto, la ampliación del reciclaje de fibra a fibra se considera una prioridad dentro de la estrategia de la UE.
+
+Estos avances señalan un cambio sistémico, pasando de la producción lineal y la obsolescencia programada a la gestión responsable de los materiales y la responsabilidad circular.
+
+## 1.4 Los diseñadores como agentes del cambio
+
+Los diseñadores desempeñan un papel fundamental en la configuración de los sistemas circulares. La Comisión Europea (2020) estima que hasta el 80 % del impacto medioambiental de un producto se determina durante la fase de diseño, cuando se establecen las decisiones sobre los materiales, la construcción y las vías de fin de vida útil.
+
+El diseño para la circularidad requiere *pensar en el final de la vida útil*: anticipar cómo se recuperarán, reprocesarán y recircularán los materiales después de la fase de uso (Fundación Ellen MacArthur, 2023). Este enfoque se basa en:
+
+- **Pensamiento sistémico**: entender las prendas como parte de redes interconectadas de productores de fibras, fabricantes, recicladores, minoristas y usuarios.
+
+- **Conocimiento de los materiales**: reconocer cómo las propiedades de las fibras, las mezclas, los acabados y las técnicas de fabricación influyen en la reciclabilidad.
+
+- **La colaboración**: alinear las decisiones de diseño con las capacidades tecnológicas y la infraestructura posterior al uso.
+
+El diagrama de mariposa desarrollado por la Fundación Ellen MacArthur ilustra una jerarquía de estrategias circulares. Los bucles internos (mantenimiento, reparación y reutilización) conservan el mayor valor material, mientras que el reciclaje representa una etapa de recuperación posterior.
+
+<img src="/assets/training-modules/media/design-for-recyclability/es/training-module/media/image4.png" style="width:6.69306in;height:4.27292in" alt="Immagine che contiene testo, diagramma, cerchio, schermata Descrizione generata automaticamente" />
+
+**Figura 2.** El ciclo técnico del diagrama de la mariposa, del diagrama de sistemas de economía circular de la Fundación Ellen MacArthur (febrero de 2019), obtenido de: <https://www.ellenmacarthurfoundation.org/articles/the-technical-cycle-of-the-butterfly-diagram>
+
+> En el caso del diseño de moda, esto significa dar prioridad a la durabilidad y la reparabilidad, al tiempo que se garantiza la reciclabilidad desde el principio. En los sistemas de responsabilidad ampliada del productor (EPR), los productores —y, cada vez más, los consumidores— comparten la responsabilidad de devolver las prendas a la circulación. Una comunicación clara a través del etiquetado, la narración de historias y los pasaportes digitales de productos (DPP) ayuda a los usuarios a comprender cómo mantener los materiales dentro del sistema.
+>
+> En este contexto, el diseño se convierte en una práctica tanto técnica como ética, que guía la transición del consumo lineal hacia modelos regenerativos.
+
+## 1.5 Pensamiento basado en el ciclo de vida y diseño para el desmontaje
+
+El diseño para la reciclabilidad requiere un pensamiento basado en el ciclo de vida: considerar cómo las prendas pasan por las fases de uso, cuidado, reparación y eventual recuperación (Fundación Ellen MacArthur, 2017; Fundación Ellen MacArthur, 2023).
+
+Una estrategia clave es **el diseño para el desmontaje**, que garantiza que los materiales puedan separarse en flujos limpios para su reciclaje. Esto requiere simplificar las combinaciones de materiales y evitar construcciones que impidan la separación (Redress, s. f.; Mindful Fashion New Zealand, s. f.).
+
+Dos principios guían este proceso:
+
+- **Eficiencia de los materiales**: utilizar los recursos de forma eficaz, minimizar los residuos y reducir las mezclas de materiales incompatibles (Fundación Ellen MacArthur, 2023).
+
+- **El diseño como activismo**: incorporar la responsabilidad y la transparencia en las decisiones de diseño para desafiar el paradigma de «tomar, fabricar y desechar» (Fundación Ellen MacArthur, 2017).
+
+Al planificar la reutilización, la redistribución, la refabricación y la reparación, los diseñadores mantienen las prendas circulando dentro de ciclos de mayor valor. El reciclaje debe seguir siendo el último paso, que solo se activa cuando ya no es posible seguir utilizando el producto. El pensamiento basado en el ciclo de vida garantiza que los materiales no se pierdan en los vertederos, sino que sigan aportando valor dentro de los sistemas circulares.
+
 # 2. Contexto histórico: reutilización y reciclaje en la moda 
 
 El reciclaje textil se presenta a menudo como una innovación contemporánea, pero las prácticas de recuperación de materiales tienen profundas raíces históricas. Mucho antes de que la sostenibilidad se convirtiera en un concepto formalizado, la necesidad económica y la escasez de materiales impulsaron los sistemas de reparación, reutilización y regeneración de fibras.

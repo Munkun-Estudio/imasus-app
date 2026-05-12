@@ -30,7 +30,20 @@
     </div>
 
     <div class="flex flex-col gap-4 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
-      <p class="text-xs text-white/40"><%= t("footer.copyright") %></p>
+      <div class="flex flex-col gap-3 text-xs text-white/40 sm:flex-row sm:items-center sm:gap-5">
+        <p>
+          <%= t("footer.copyright_prefix") %>
+          <%= link_to t("footer.project_name"),
+                "https://imasus.eu",
+                target: "_blank",
+                rel: "noopener noreferrer",
+                class: "underline underline-offset-2 transition hover:text-white" %>.
+        </p>
+        <nav aria-label="<%= t("footer.legal_label") %>" class="flex gap-4">
+          <%= link_to t("footer.privacy"), privacy_path, class: "underline underline-offset-2 transition hover:text-white" %>
+          <%= link_to t("footer.terms"), terms_path, class: "underline underline-offset-2 transition hover:text-white" %>
+        </nav>
+      </div>
       <%= link_to "https://munkun.com",
             target: "_blank",
             rel: "noopener noreferrer",

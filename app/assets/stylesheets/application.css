@@ -58,6 +58,13 @@ details > summary::-webkit-details-marker { display: none; }
   text-decoration: underline;
 }
 
+/* Workshop email composer should feel like a real writing surface rather than
+   a one-line input. Keep this scoped so other Trix surfaces preserve their
+   existing sizing. */
+trix-editor.trix-content.trix-content--email-compose {
+  min-height: 16rem;
+}
+
 /* Action Text rendered output and the Trix editor's editable area —
    both share the .trix-content class. Tailwind's preflight resets
    list-style and heading margins, which strips the visual rhythm
@@ -115,3 +122,36 @@ details > summary::-webkit-details-marker { display: none; }
 
 .trix-content strong { font-weight: 700; }
 .trix-content em { font-style: italic; }
+
+/* Inline image and file attachments produced by Trix (`<figure class="attachment">`).
+   Tailwind's preflight resets figure margins; we restore vertical rhythm and
+   clamp the image to its container so wide uploads do not overflow the
+   article column on the published page. */
+.trix-content figure.attachment {
+  margin-block: 1.25rem;
+}
+.trix-content figure.attachment img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: 0.375rem;
+}
+.trix-content figure.attachment .attachment__caption {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: rgb(31 61 63 / 0.6);
+  text-align: center;
+}
+.trix-content figure.attachment .attachment__caption .attachment__size {
+  margin-left: 0.25rem;
+  color: rgb(31 61 63 / 0.45);
+}
+
+trix-toolbar .trix-button--text {
+  min-width: 2.6em;
+  height: 1.6em;
+  padding-inline: 0.55em;
+  text-indent: 0;
+}

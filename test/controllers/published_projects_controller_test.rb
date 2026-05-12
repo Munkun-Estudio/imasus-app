@@ -48,6 +48,14 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_select "nav[aria-label=?]", "Main navigation", count: 0
   end
 
+  test "show uses the IMASUS logo in the public header" do
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "header a[href=?] img[alt=?][src*=?]", root_path, "IMASUS", "logo"
+    assert_select "header a", text: "IMASUS", count: 0
+  end
+
   test "show returns 404 for unknown slug" do
     get published_project_url(slug: "nope-nope")
     assert_response :not_found
@@ -84,6 +92,84 @@ class PublishedProjectsControllerTest < ActionDispatch::IntegrationTest
     get published_project_url(slug: @published.slug)
     assert_response :success
     assert_select "a[href=?]", edit_project_publication_path(@published), count: 0
+  end
+
+  test "show renders inline image attachments embedded via Trix figure markup" do
+    # The publication wizard JS injects log-entry media into Trix using
+    # `<figure data-trix-attachment="{json}">`, which Trix's parser recognises
+    # and ActionText stores as a proper attachment. Once stored, the public
+    # page must render an actual <img> for each attachment — not just
+    # surrounding text.
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: Rails.root.join("test/fixtures/files/sample-image.png").open,
+      filename: "inline.png",
+      content_type: "image/png"
+    )
+    blob.analyze
+    attrs = {
+      sgid:        blob.attachable_sgid,
+      contentType: "image/png",
+      filename:    "inline.png",
+      filesize:    blob.byte_size,
+      width:       blob.metadata["width"],
+      height:      blob.metadata["height"],
+      previewable: blob.representable?
+    }
+    figure = %(<figure data-trix-attachment="#{ERB::Util.html_escape(attrs.to_json)}" data-trix-content-type="image/png"></figure>)
+    @published.update!(process_summary: "<blockquote>PROTOTIPO</blockquote>#{figure}<p><em>alejandro · 28/04/2026</em></p>")
+
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select ".trix-content figure.attachment img"
+  end
+
+  test "show wraps the process summary in trix-content without a redundant prose wrapper" do
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    # ActionText emits the body inside <div class="trix-content">. The published
+    # page should rely on .trix-content styling rather than wrap it again in
+    # `prose`, which has no rules for the <div>-as-paragraph markup that Trix
+    # produces and only adds noise.
+    assert_select ".trix-content"
+    assert_select ".prose .trix-content", count: 0
+  end
+
+  test "show renders the challenge as a full card linking to the challenges page" do
+    challenge = Challenge.create!(
+      code: "C6",
+      category: "material",
+      question_translations: { "en" => "How might we replace plastics?" },
+      description_translations: { "en" => "Framing description for C6." }
+    )
+    @published.update!(challenge: challenge)
+
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "article[data-challenge=?]", "C6" do
+      assert_select "h3 a[href=?]", challenges_path
+      assert_select "a[data-turbo-frame=preview]", count: 0
+    end
+  end
+
+  test "show hides the challenge bookmark toggle even when logged in" do
+    challenge = Challenge.create!(
+      code: "C7",
+      category: "design",
+      question_translations: { "en" => "How might we ..." },
+      description_translations: { "en" => "..." }
+    )
+    @published.update!(challenge: challenge)
+    sign_in(@member)
+
+    get published_project_url(slug: @published.slug)
+    assert_response :success
+
+    assert_select "article[data-challenge=?]", "C7" do
+      assert_select ".bookmark-toggle", count: 0
+    end
   end
 
   test "show returns 404 for a disabled published project" do

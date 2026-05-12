@@ -25,6 +25,12 @@ This repository keeps durable project context under `.munkit/`. Read those files
 - Record durable findings in `.munkit/MEMORY.md`, `.munkit/DECISIONS.md`, or the relevant spec `notes.md`, not only in chat.
 - When one worktree lands first, rebase or merge forward in the other worktree before continuing.
 
+## Merge Method
+
+- Use Squash and merge for normal feature/fix PRs so `main` keeps one commit per reviewed slice.
+- After a squash merge, local feature branch commits are not ancestors of `main`, so `git branch -d` may report "not fully merged" even when the PR content landed. Confirm the PR is merged, remove any worktree for the branch, then delete the local branch with `git branch -D <branch>`.
+- Use merge commits only for intentional long-running branches where preserving individual commits matters.
+
 ## Specs
 
 Each spec contains:

@@ -1,0 +1,7 @@
+IMASUS
+<%= @workshop.title %>
+<%= t(".badge", default: "Test email") %>
+
+<%= @body_text %>
+
+<%= t(".footer", default: "Sent by %{sender} through IMASUS.", sender: @sender.name) %>

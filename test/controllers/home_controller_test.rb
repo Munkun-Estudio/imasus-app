@@ -124,6 +124,26 @@ location: "Prato, Italy")
     assert_select "[data-resource-card][data-resource=challenges]"
   end
 
+  test "visitor home renders the why-how-what explainer band" do
+    get root_url
+    assert_select "[data-home-section=explainer]" do
+      assert_select "[data-explainer-card][data-pillar=why] *",
+                    text: I18n.t("home.visitor.explainer.why.heading")
+      assert_select "[data-explainer-card][data-pillar=how] *",
+                    text: I18n.t("home.visitor.explainer.how.heading")
+      assert_select "[data-explainer-card][data-pillar=what] *",
+                    text: I18n.t("home.visitor.explainer.what.heading")
+    end
+  end
+
+  test "visitor home renders the imagineering loom diagram" do
+    get root_url
+    assert_select "[data-home-section=imagineering-loom]" do
+      assert_select "img[alt=?]", I18n.t("home.visitor.loom.diagram_alt")
+    end
+    assert_match I18n.t("home.visitor.loom.heading"), response.body
+  end
+
   # ---------------------------------------------------------------------
   # Participant variant
   # ---------------------------------------------------------------------
@@ -193,6 +213,27 @@ location: "Prato, Italy")
     assert_select "[data-home-section=bookmarks]" do
       assert_select "a[href=?]", bookmarks_path, text: I18n.t("home.participant.bookmarks.see_all")
       assert_select "a[href=?]", "/materials/kapok", text: "Kapok"
+    end
+  end
+
+  test "participant home renders training image bookmarks with a preview thumbnail" do
+    user = make_participant
+    Bookmark.create!(
+      user: user,
+      bookmarkable_type: "TrainingModule",
+      resource_key: "design-for-modularity/training-module/en/p-20",
+      label: "image3.jpg",
+      url: "/training/design-for-modularity/training-module?locale=en#p-20"
+    )
+
+    sign_in(user)
+    get root_url
+
+    assert_select "[data-home-section=bookmarks]" do
+      assert_select "[data-bookmark-preview][src=?]",
+                    "/content/training-modules/media/design-for-modularity/en/training-module/media/image3.jpg"
+      assert_select "a[href=?]", "/training/design-for-modularity/training-module?locale=en#p-20",
+                    text: "image3.jpg"
     end
   end
 

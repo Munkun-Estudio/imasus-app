@@ -194,3 +194,7 @@ No draft / published workshop state. Facilitators fill the form once and submit;
 Production deploys to Fly.io app `imasus-app` in Paris (`cdg`) because Fly does not currently offer a Madrid/Spain region in this account. The app uses the Fly-managed Postgres `DATABASE_URL` as the default database endpoint for Rails, Solid Cache, Solid Queue, and Solid Cable. The Solid adapter configs keep override hooks (`CACHE_DATABASE_URL`, `QUEUE_DATABASE_URL`, `CABLE_DATABASE_URL`) so the services can be split later without changing code.
 
 Uploads use a private Tigris bucket through Active Storage proxy URLs. Tigris is Fly's S3-compatible object storage path, which avoids a separate AWS setup for the first production launch while keeping the repository public-safe: only secret names and config are committed, and the access key values live in Fly secrets. GitHub Actions deploys pushes to `main` with a Fly deploy token stored as `FLY_API_TOKEN`.
+
+## 2026-04-29: Allow admin-only manual workshop broadcast emails
+
+The app now supports a narrow non-transactional email slice: admin-only manual workshop communications to participants and facilitators within a single workshop. This preserves the no-CRM/no-automation boundary while making follow-ups and workshop news a first-class staff tool.
