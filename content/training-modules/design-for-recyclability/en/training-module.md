@@ -10,6 +10,98 @@ available_languages: ["en", "it", "es", "el"]
 available_volumes: ["training-module", "toolkit", "case-study"]
 ---
 
+# 1. Introduction to Design for Recyclability
+
+Design for recyclability addresses one of the central challenges of contemporary fashion: how to ensure that garments can meaningfully re-enter production systems at the end of their use phase. As textile waste continues to grow and virgin resource extraction remains dominant, recyclability has become a critical pillar of circular transition strategies. This section clarifies the concept of recyclability, distinguishes it from related practices such as upcycling, and outlines the systemic, environmental, and design implications that make it an urgent priority within sustainable fashion.
+
+## 1.1 Learning Objectives
+
+By the end of this module, learners should be able to:
+
+- Define design for recyclability as a strategic approach in fashion design
+
+- Distinguish between mechanical, chemical, and biological recycling systems
+
+- Identify material and construction choices that enable or hinder recyclability
+
+- Analyse how fibre blends, trims, coatings, and finishes impact end-of-life recovery
+
+- Evaluate the limitations and trade-offs of recycling within circular systems
+
+- Apply recyclability principles when developing a garment concept
+
+## 1.2 Definition and Scope
+
+Clothing recycling refers to breaking down used garments into raw materials that can be reprocessed into new products. This differs from upcycling, which transforms existing garments into new items without reducing them to fibre form (Recovo, n.d.).
+
+It is important to distinguish between *recycled* and *recyclable* materials. Recycled garments are made from materials that have already been processed back into raw form and reused to create new textiles or products. Recyclability, by contrast, refers to the capacity of a product or material to be collected, disassembled, and reintroduced into the manufacturing cycle without significant loss of quality or functionality (Redress, n.d.).
+
+Recyclability is largely determined at the design stage. Choices regarding material composition, construction methods, trims, and labeling influence whether a product can be effectively recovered. Barriers such as incompatible fibre blends, complex constructions, and inconsistent labeling continue to limit textile recovery. Moreover, being recyclable does not guarantee being recycled; actual recovery depends on available technology, infrastructure, market demand, and consumer participation.
+
+Recycling in fashion operates at several levels (Baloyi et al., 2023):
+
+**Fibre recycling** – mechanically breaking down fabrics into fibres (e.g., turning used cotton textiles into new cotton fibre), which can then be spun and reprocessed into textile products.
+
+**Polymer recycling** – chemically depolymerising synthetic fibres such as PET or nylon back into monomers, which can then be respun into new materials.
+
+**Component recycling** – reusing garment elements such as buttons, zippers, or trims in new products.
+
+Closed-loop recycling keeps materials within the textile sector, whereas open-loop recycling redirects them into other industries (Ellen MacArthur Foundation, 2017).
+
+Designing for recyclability therefore means creating garments from the outset with end-of-life recovery in mind. It involves deliberate decisions about materials, construction, labeling, and traceability to ensure that products can meaningfully re-enter production systems.
+
+## 1.3 The Urgency of Recyclability in Fashion
+
+The fashion industry is highly resource-intensive, generating waste and emissions at every stage—from raw material cultivation to end-of-life disposal. Each year, approximately 92 million tonnes of textile waste are produced globally, equivalent to a truckload of clothing landfilled or incinerated every second (Ellen MacArthur Foundation, 2023). Over 80% of textiles exit the system at disposal without any form of recovery.
+
+Currently, less than 1% of textiles are recycled into new clothing, while more than 97% of fibre inputs come from virgin resources (Ellen MacArthur Foundation, 2017). These figures highlight the structural imbalance between production and recovery and underscore the need to redesign textiles with recovery in mind.
+
+> <img src="/assets/training-modules/media/design-for-recyclability/en/training-module/media/image3.png" style="width:6.69306in;height:3.41806in" alt="Immagine che contiene testo, schermata, Carattere, logo Descrizione generata automaticamente" />
+>
+> **Figure 1.** Global Material Flow for Clothing in 2015 (Ellen MaCarthur Foundation, 2017) retrieved from: <https://content.ellenmacarthurfoundation.org/m/7f818b40f06e1afd/original/Summary-of-findings-A-New-Textiles-Economy.pdf>
+
+Circular business models—repair, resale, rental, and remaking—could generate USD 700 billion by 2030 while significantly reducing waste and emissions. Regulatory frameworks are accelerating this transition. The EU Strategy for Sustainable and Circular Textiles (2022) mandates that textile products sold in the EU must be durable, repairable, and recyclable by 2030. Extended Producer Responsibility (EPR) policies require producers to finance and manage end-of-life collection and recycling systems.
+
+Although textile-to-textile recycling is considered a critical pathway to impact reduction, it remains in its early stages. Most recycled textiles currently available are derived from recycled PET bottles rather than fibre-to-fibre systems (Sandin, 2025). Scaling fibre-to-fibre recycling is therefore identified as a priority within the EU strategy.
+
+These developments signal a systemic shift—from linear production and planned obsolescence toward material stewardship and circular responsibility.
+
+## 1.4 Designers as Change Agents
+
+Designers play a pivotal role in shaping circular systems. The European Commission (2020) estimates that up to 80% of a product’s environmental impact is determined during the design phase, when decisions about materials, construction, and end-of-life pathways are established.
+
+Designing for circularity requires *end-of-next-life thinking*: anticipating how materials will be recovered, reprocessed, and recirculated after the use phase (Ellen MacArthur Foundation, 2023). This approach is grounded in:
+
+- **Systems thinking** – understanding garments as part of interconnected networks of fibre producers, manufacturers, recyclers, retailers, and users.
+
+- **Material literacy** – recognising how fibre properties, blends, finishes, and construction techniques influence recyclability.
+
+- **Collaboration** – aligning design decisions with technological capabilities and post-use infrastructure.
+
+The Butterfly Diagram developed by the Ellen MacArthur Foundation illustrates a hierarchy of circular strategies. Inner loops—maintenance, repair, and reuse—retain the highest material value, while recycling represents a later recovery stage.
+
+<img src="/assets/training-modules/media/design-for-recyclability/en/training-module/media/image4.png" style="width:6.69306in;height:4.27292in" alt="Immagine che contiene testo, diagramma, cerchio, schermata Descrizione generata automaticamente" />
+
+**Figure 2.** The technical cycle of the butterfly diagram, from Ellen MacArthur Foundation Circular economy systems diagram (February 2019) retrieved from: <https://www.ellenmacarthurfoundation.org/articles/the-technical-cycle-of-the-butterfly-diagram>
+
+> For fashion design, this means prioritising durability and repairability while ensuring recyclability is embedded from the start. Under EPR systems, producers—and increasingly consumers—share responsibility for returning garments into circulation. Clear communication through labeling, storytelling, and Digital Product Passports (DPPs) helps users understand how to maintain materials within the system.
+>
+> In this context, design becomes both a technical and ethical practice, guiding the transition from linear consumption toward regenerative models.
+
+## 1.5 Lifecycle thinking and design for disassembly
+
+Designing for recyclability requires lifecycle thinking: considering how garments move through phases of use, care, repair, and eventual recovery (Ellen MacArthur Foundation, 2017; Ellen MacArthur Foundation, 2023).
+
+A key strategy is **design for disassembly**, which ensures that materials can be separated into clean streams for recycling. This requires simplifying material combinations and avoiding constructions that prevent separation (Redress, n.d.; Mindful Fashion New Zealand, n.d.).
+
+Two principles guide this process:
+
+- **Material efficiency** – using resources effectively, minimising waste, and reducing incompatible material mixes (Ellen MacArthur Foundation, 2023).
+
+- **Design as activism** – embedding responsibility and transparency into design decisions to challenge the take-make-waste paradigm (Ellen MacArthur Foundation, 2017).
+
+By planning for reuse, redistribution, remanufacturing, and repair, designers keep garments circulating within higher-value loops. Recycling should remain the final step, activated only when further use is no longer possible. Lifecycle thinking ensures materials are not lost to landfill but continue contributing value within circular systems.
+
 # 2. Historical Context: Reuse and Recycling in Fashion 
 
 Textile recycling is often presented as a contemporary innovation, yet practices of material recovery have deep historical roots. Long before sustainability became a formalised concept, economic necessity and material scarcity drove systems of repair, reuse, and fibre regeneration.

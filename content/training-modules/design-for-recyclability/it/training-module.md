@@ -10,6 +10,98 @@ available_languages: ["en", "it", "es", "el"]
 available_volumes: ["training-module", "toolkit", "case-study"]
 ---
 
+# 1. Introduzione alla progettazione per la riciclabilità
+
+La progettazione per la riciclabilità affronta una delle sfide centrali della moda contemporanea: come garantire che i capi di abbigliamento possano rientrare in modo significativo nei sistemi di produzione al termine della loro fase di utilizzo. Con il continuo aumento dei rifiuti tessili e il predominio dell'estrazione di risorse vergini, la riciclabilità è diventata un pilastro fondamentale delle strategie di transizione circolare. Questa sezione chiarisce il concetto di riciclabilità, lo distingue da pratiche correlate come l'upcycling e delinea le implicazioni sistemiche, ambientali e di progettazione che lo rendono una priorità urgente nell'ambito della moda sostenibile.
+
+## 1.1 Obiettivi di apprendimento
+
+Al termine di questo modulo, gli studenti dovrebbero essere in grado di:
+
+Definire il design per la riciclabilità come approccio strategico nel fashion design
+
+Distinguere tra sistemi di riciclaggio meccanico, chimico e biologico
+
+Identificare le scelte di materiali e costruzione che favoriscono o ostacolano la riciclabilità
+
+Analizzare l'impatto delle miscele di fibre, delle rifiniture, dei rivestimenti e delle finiture sul recupero a fine vita
+
+Valutare i limiti e i compromessi del riciclaggio all'interno dei sistemi circolari
+
+Applicare i principi di riciclabilità nello sviluppo di un concetto di capo di abbigliamento
+
+## 1.2 Definizione e ambito
+
+Il riciclaggio dell'abbigliamento consiste nel scomporre i capi usati in materie prime che possono essere rielaborate in nuovi prodotti. Ciò differisce dall'upcycling, che trasforma i capi esistenti in nuovi articoli senza ridurli in fibre (Recovo, n.d.).
+
+È importante distinguere tra materiali *riciclati* e *riciclabili*. Gli indumenti riciclati sono realizzati con materiali che sono già stati trasformati in forma grezza e riutilizzati per creare nuovi tessuti o prodotti. La riciclabilità, al contrario, si riferisce alla capacità di un prodotto o materiale di essere raccolto, smontato e reintrodotto nel ciclo di produzione senza una significativa perdita di qualità o funzionalità (Redress, n.d.).
+
+La riciclabilità è determinata in gran parte in fase di progettazione. Le scelte relative alla composizione dei materiali, ai metodi di costruzione, alle rifiniture e all'etichettatura influenzano la possibilità di recuperare efficacemente un prodotto. Ostacoli quali miscele di fibre incompatibili, costruzioni complesse ed etichettatura incoerente continuano a limitare il recupero dei tessuti. Inoltre, essere riciclabile non garantisce di essere riciclato; il recupero effettivo dipende dalla tecnologia disponibile, dalle infrastrutture, dalla domanda del mercato e dalla partecipazione dei consumatori.
+
+Il riciclaggio nella moda opera a diversi livelli (Baloyi et al., 2023):
+
+**Riciclaggio delle fibre**: scomposizione meccanica dei tessuti in fibre (ad esempio, trasformando i tessuti di cotone usati in nuove fibre di cotone), che possono poi essere filate e rielaborate in prodotti tessili.
+
+**Riciclaggio dei polimeri**: depolimerizzazione chimica delle fibre sintetiche come il PET o il nylon in monomeri, che possono poi essere filati nuovamente in nuovi materiali.
+
+**Riciclaggio dei componenti**: riutilizzo di elementi di abbigliamento come bottoni, cerniere o rifiniture in nuovi prodotti.
+
+Il riciclaggio a ciclo chiuso mantiene i materiali all'interno del settore tessile, mentre il riciclaggio a ciclo aperto li reindirizza verso altri settori industriali (Ellen MacArthur Foundation, 2017).
+
+Progettare per la riciclabilità significa quindi creare capi di abbigliamento fin dall'inizio tenendo conto del loro recupero a fine vita. Ciò comporta decisioni deliberate sui materiali, la costruzione, l'etichettatura e la tracciabilità per garantire che i prodotti possano rientrare in modo significativo nei sistemi di produzione.
+
+## 1.3 L'urgenza della riciclabilità nella moda
+
+L'industria della moda è altamente intensiva in termini di risorse e genera rifiuti ed emissioni in ogni fase, dalla coltivazione delle materie prime allo smaltimento a fine vita. Ogni anno, a livello globale vengono prodotti circa 92 milioni di tonnellate di rifiuti tessili, equivalenti a un camion di indumenti smaltiti in discarica o inceneriti ogni secondo (Ellen MacArthur Foundation, 2023). Oltre l'80% dei tessuti esce dal sistema allo smaltimento senza alcuna forma di recupero.
+
+Attualmente, meno dell'1% dei tessuti viene riciclato in nuovi capi di abbigliamento, mentre oltre il 97% delle fibre utilizzate proviene da risorse vergini (Ellen MacArthur Foundation, 2017). Queste cifre evidenziano lo squilibrio strutturale tra produzione e recupero e sottolineano la necessità di riprogettare i tessuti tenendo conto del recupero.
+
+> <img src="/assets/training-modules/media/design-for-recyclability/it/training-module/media/image3.png" style="width:6.43875in;height:3.28819in" alt="Immagine che contiene testo, schermata, Carattere, logo Descrizione generata automaticamente" />
+>
+> **Figura 1.** Flusso globale di materiali per l'abbigliamento nel 2015 (Ellen MaCarthur Foundation, 2017) tratto da: [<u>https://content.ellenmacarthurfoundation.org/m/7f818b40f06e1afd/original/Summary-of-findings-A-New-Textiles-Economy.pdf</u>](https://content.ellenmacarthurfoundation.org/m/7f818b40f06e1afd/original/Summary-of-findings-A-New-Textiles-Economy.pdf)
+
+I modelli di business circolari (riparazione, rivendita, noleggio e rifacimento) potrebbero generare 700 miliardi di dollari entro il 2030, riducendo significativamente i rifiuti e le emissioni. I quadri normativi stanno accelerando questa transizione. La Strategia dell'UE per il tessile sostenibile e circolare (2022) impone che i prodotti tessili venduti nell'UE siano durevoli, riparabili e riciclabili entro il 2030. Le politiche di responsabilità estesa del produttore (EPR) impongono ai produttori di finanziare e gestire i sistemi di raccolta e riciclaggio a fine vita.
+
+Sebbene il riciclaggio da tessuto a tessuto sia considerato un percorso fondamentale per ridurre l'impatto, esso rimane ancora in una fase iniziale. La maggior parte dei tessuti riciclati attualmente disponibili deriva da bottiglie in PET riciclate piuttosto che da sistemi fibra-fibra (Sandin, 2025). L'ampliamento del riciclaggio fibra-fibra è quindi identificato come una priorità nella strategia dell'UE.
+
+Questi sviluppi segnalano un cambiamento sistemico, passando dalla produzione lineare e dall'obsolescenza programmata alla gestione dei materiali e alla responsabilità circolare.
+
+## 1.4 I designer come agenti di cambiamento
+
+I designer svolgono un ruolo fondamentale nella definizione dei sistemi circolari. La Commissione Europea (2020) stima che fino all'80% dell'impatto ambientale di un prodotto sia determinato durante la fase di progettazione, quando vengono prese le decisioni relative ai materiali, alla costruzione e ai percorsi di fine vita.
+
+Progettare per la circolarità richiede *una riflessione sul fine vita*: anticipare come i materiali saranno recuperati, ritrattati e ricircolati dopo la fase di utilizzo (Ellen MacArthur Foundation, 2023). Questo approccio si basa su:
+
+**Pensiero sistemico**: considerare i capi di abbigliamento come parte di reti interconnesse di produttori di fibre, fabbricanti, riciclatori, rivenditori e utenti.
+
+**Conoscenza dei materiali**: riconoscere come le proprietà delle fibre, le miscele, le finiture e le tecniche di costruzione influenzano la riciclabilità.
+
+**Collaborazione**: allineare le decisioni di progettazione con le capacità tecnologiche e le infrastrutture post-utilizzo.
+
+Il diagramma a farfalla sviluppato dalla Ellen MacArthur Foundation illustra una gerarchia di strategie circolari. I cicli interni - manutenzione, riparazione e riutilizzo - mantengono il massimo valore dei materiali, mentre il riciclaggio rappresenta una fase di recupero successiva.
+
+<img src="/assets/training-modules/media/design-for-recyclability/it/training-module/media/image4.png" style="width:6.69306in;height:4.27292in" alt="Immagine che contiene testo, diagramma, cerchio, schermata Descrizione generata automaticamente" />
+
+**Figura 2.** Il ciclo tecnico del diagramma a farfalla, tratto dal diagramma dei sistemi di economia circolare della Ellen MacArthur Foundation (febbraio 2019) recuperato da: [<u>https://www.ellenmacarthurfoundation.org/articles/the-technical-cycle-of-the-butterfly-diagram</u>](https://www.ellenmacarthurfoundation.org/articles/the-technical-cycle-of-the-butterfly-diagram)
+
+> Per il design della moda, ciò significa dare priorità alla durata e alla riparabilità, garantendo al contempo che la riciclabilità sia integrata fin dall'inizio. Nell'ambito dei sistemi EPR, i produttori, e sempre più spesso anche i consumatori, condividono la responsabilità di reimmettere i capi di abbigliamento in circolazione. Una comunicazione chiara attraverso l'etichettatura, lo storytelling e i passaporti digitali dei prodotti (DPP) aiuta gli utenti a capire come mantenere i materiali all'interno del sistema.
+>
+> In questo contesto, il design diventa una pratica sia tecnica che etica, guidando la transizione dal consumo lineare verso modelli rigenerativi.
+
+## 1.5 Pensiero basato sul ciclo di vita e progettazione per lo smontaggio
+
+Progettare per la riciclabilità richiede un approccio basato sul ciclo di vita: considerare come i capi di abbigliamento passano attraverso le fasi di utilizzo, cura, riparazione e infine recupero (Ellen MacArthur Foundation, 2017; Ellen MacArthur Foundation, 2023).
+
+Una strategia chiave è **la progettazione per lo smontaggio**, che garantisce che i materiali possano essere separati in flussi puliti per il riciclaggio. Ciò richiede la semplificazione delle combinazioni di materiali e l'eliminazione delle costruzioni che impediscono la separazione (Redress, n.d.; Mindful Fashion New Zealand, n.d.).
+
+Due principi guidano questo processo:
+
+**Efficienza dei materiali**: utilizzare le risorse in modo efficace, ridurre al minimo gli sprechi e ridurre le miscele di materiali incompatibili (Ellen MacArthur Foundation, 2023).
+
+**Design come attivismo**: integrare la responsabilità e la trasparenza nelle decisioni di progettazione per sfidare il paradigma "prendi-produci-spreca" (Ellen MacArthur Foundation, 2017).
+
+Pianificando il riutilizzo, la ridistribuzione, la rifabbricazione e la riparazione, i designer mantengono i capi di abbigliamento in circolazione all'interno di cicli di valore più elevato. Il riciclaggio dovrebbe rimanere l'ultimo passo, attivato solo quando non è più possibile un ulteriore utilizzo. Il pensiero basato sul ciclo di vita garantisce che i materiali non vadano persi in discarica, ma continuino a contribuire al valore all'interno dei sistemi circolari.
+
 # 2. Contesto storico: riutilizzo e riciclaggio nella moda 
 
 Il riciclaggio dei tessuti è spesso presentato come un'innovazione contemporanea, ma le pratiche di recupero dei materiali hanno radici storiche profonde. Molto prima che la sostenibilità diventasse un concetto formalizzato, la necessità economica e la scarsità di materiali hanno portato allo sviluppo di sistemi di riparazione, riutilizzo e rigenerazione delle fibre.
