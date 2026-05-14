@@ -202,6 +202,7 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
 | `activity-feed` | Facilitator/admin recent-activity strip, synthesized from existing tables. | Pending |
 | `trix-resource-embeds` | Trix toolbar embeds for materials/training in `process_summary`. | Pending |
 | `admin-workshop-emails` | Lightweight admin-only workshop email composer for manual HTML follow-ups/news to participants, facilitators, or both within a single workshop; includes preview, send-test-to-self, send history, and no scheduling/templates/global audiences. | Implemented |
+| `media-performance` | Improve media-heavy page performance with benchmark evidence, scroll-triggered materials/log loading, poster-first video, and preprocessed image variants. | Spec drafted |
 
 ---
 
