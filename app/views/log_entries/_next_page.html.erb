@@ -1,0 +1,10 @@
+<%# locals: (next_page:) %>
+<% if next_page %>
+  <%= turbo_frame_tag "log_entries_page_#{next_page}",
+        src: project_log_entries_path(@project, request.query_parameters.merge(page: next_page)),
+        loading: "lazy",
+        data: { role: "log-entries-next-page" },
+        class: "contents" do %>
+    <span class="sr-only"><%= t("log_entries.index.loading_more") %></span>
+  <% end %>
+<% end %>

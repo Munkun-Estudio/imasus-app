@@ -143,6 +143,10 @@ en:
       search_placeholder: "Search by name or description"
       clear_all: "Clear all filters"
       empty_state: "No materials match the current filters."
+      loading_more: "Loading more materials"
+      loaded_batch:
+        one: "Loaded 1 more material"
+        other: "Loaded %{count} more materials"
       facets_label: "Material filters"
       facets:
         origin_type:
@@ -717,6 +721,10 @@ en:
       new_entry: "Add entry"
       empty_member: "No entries yet. Start documenting your process!"
       empty_observer: "No entries yet."
+      loading_more: "Loading more log entries"
+      loaded_batch:
+        one: "Loaded 1 more log entry"
+        other: "Loaded %{count} more log entries"
     new:
       title: "New log entry"
       heading: "New entry"
@@ -733,6 +741,7 @@ en:
     entry:
       time_ago: "%{time} ago"
       delete: "Delete"
+      play_video: "Play video"
     confirm_delete:
       title: "Delete this entry?"
       body: "This cannot be undone."

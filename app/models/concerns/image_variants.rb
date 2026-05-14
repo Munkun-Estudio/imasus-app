@@ -12,6 +12,12 @@ module ImageVariants
       width: 400,
       height: 300
     },
+    log_entry_thumbnail: {
+      resize_to_limit: [ 800, 600 ],
+      format: :jpeg,
+      width: 800,
+      height: 600
+    },
     detail: {
       resize_to_limit: [ 1200, 1200 ],
       width: 1200,
@@ -37,7 +43,7 @@ module ImageVariants
     def transformations(preset)
       definition = fetch(preset)
 
-      { resize_to_limit: definition.fetch(:resize_to_limit) }
+      definition.slice(:resize_to_limit, :format)
     end
 
     # @param preset [String, Symbol] preset name

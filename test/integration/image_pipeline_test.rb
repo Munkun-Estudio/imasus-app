@@ -28,4 +28,20 @@ class ImagePipelineTest < ActionDispatch::IntegrationTest
     assert_includes html, "height=\"300\""
     assert_match %r{/rails/active_storage/representations/}, html
   end
+
+  test "image variant tag supports eager loading and fetch priority for LCP images" do
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: file_fixture("sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+
+    html = ApplicationController.render(
+      inline: "<%= image_variant_tag(blob, preset: :card, alt: 'Sample image', loading: 'eager', fetchpriority: 'high') %>",
+      locals: { blob: blob }
+    )
+
+    assert_includes html, "loading=\"eager\""
+    assert_includes html, "fetchpriority=\"high\""
+  end
 end

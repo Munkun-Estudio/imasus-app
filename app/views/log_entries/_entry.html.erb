@@ -30,12 +30,25 @@
     <div class="mt-4 flex flex-wrap gap-3">
       <% entry.media.each do |attachment| %>
         <% if attachment.video? %>
-          <video controls class="max-h-48 rounded-lg">
-            <source src="<%= url_for(attachment) %>" type="<%= attachment.content_type %>">
-          </video>
+          <div data-controller="deferred-video"
+               data-deferred-video-url-value="<%= media_project_log_entry_path(@project, entry, attachment_id: attachment.id) %>">
+            <button type="button"
+                    data-role="log-entry-video"
+                    data-media-url="<%= media_project_log_entry_path(@project, entry, attachment_id: attachment.id) %>"
+                    data-action="deferred-video#load"
+                    class="flex h-36 w-48 items-center justify-center rounded-lg bg-imasus-dark-green text-white">
+              <span class="flex h-11 w-11 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/35">
+                <%= heroicon :play, class: "h-5 w-5 translate-x-0.5" %>
+              </span>
+              <span class="sr-only"><%= t("log_entries.entry.play_video") %></span>
+            </button>
+          </div>
         <% else %>
-          <%= image_tag attachment.variant(resize_to_limit: [800, 600], format: :jpeg),
-                        class: "max-h-48 rounded-lg object-cover" %>
+          <%= image_variant_tag attachment,
+                preset: :log_entry_thumbnail,
+                alt: attachment.filename.to_s,
+                data: { role: "log-entry-image" },
+                class: "max-h-48 rounded-lg object-cover" %>
         <% end %>
       <% end %>
     </div>

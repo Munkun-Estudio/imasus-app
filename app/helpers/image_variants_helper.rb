@@ -11,7 +11,7 @@ module ImageVariantsHelper
     dimensions = ImageVariants.dimensions(preset)
 
     image_tag(
-      ImageVariants.variant_for(attachable, preset).processed,
+      ImageVariants.variant_for(attachable, preset),
       {
         alt: alt,
         loading: "lazy",

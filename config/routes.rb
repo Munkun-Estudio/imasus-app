@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :materials, only: [ :index, :show, :edit, :update ], param: :slug do
     member do
+      get :media
       get :preview
     end
   end
@@ -50,7 +51,10 @@ Rails.application.routes.draw do
     end
     resources :memberships, only: [ :new, :create, :destroy ], controller: "project_memberships"
     resources :log_entries, only: [ :index, :new, :create, :destroy ] do
-      member { get :delete_confirmation }
+      member do
+        get :delete_confirmation
+        get :media
+      end
     end
     resource :publication, only: [ :new, :create, :edit, :update ],
                            controller: "project_publications"

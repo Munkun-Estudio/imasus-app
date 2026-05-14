@@ -145,6 +145,10 @@ es:
       search_placeholder: "Buscar por nombre o descripción"
       clear_all: "Borrar todos los filtros"
       empty_state: "Ningún material coincide con los filtros actuales."
+      loading_more: "Cargando más materiales"
+      loaded_batch:
+        one: "Se ha cargado 1 material más"
+        other: "Se han cargado %{count} materiales más"
       facets_label: "Filtros de materiales"
       facets:
         origin_type:
@@ -746,6 +750,10 @@ es:
       new_entry: "Añadir entrada"
       empty_member: "Todavía no hay entradas. ¡Empieza a documentar vuestro proceso!"
       empty_observer: "Todavía no hay entradas."
+      loading_more: "Cargando más entradas del registro"
+      loaded_batch:
+        one: "Se ha cargado 1 entrada más"
+        other: "Se han cargado %{count} entradas más"
     new:
       title: "Nueva entrada de proceso"
       heading: "Nueva entrada"
@@ -762,6 +770,7 @@ es:
     entry:
       time_ago: "hace %{time}"
       delete: "Eliminar"
+      play_video: "Reproducir vídeo"
     confirm_delete:
       title: "¿Eliminar esta entrada?"
       body: "Esta acción no se puede deshacer."
