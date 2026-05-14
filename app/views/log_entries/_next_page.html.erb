@@ -4,7 +4,7 @@
         src: project_log_entries_path(@project, request.query_parameters.merge(page: next_page)),
         loading: "lazy",
         data: { role: "log-entries-next-page" },
-        class: "contents" do %>
+        class: "block min-h-12" do %>
     <span class="sr-only"><%= t("log_entries.index.loading_more") %></span>
   <% end %>
 <% end %>

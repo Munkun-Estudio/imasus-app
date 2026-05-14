@@ -62,6 +62,19 @@ class MaterialsIndexTest < ApplicationSystemTestCase
                     minimum: 1
   end
 
+  test "scrolling to the lazy frame loads the next material batch" do
+    later_material = Material.order(:position).offset(MaterialsController::BATCH_SIZE).first
+    skip "not enough seeded materials to require a second batch" unless later_material
+
+    visit materials_url
+
+    assert_no_selector %([data-material="#{later_material.slug}"])
+    sentinel = find("turbo-frame[data-role='materials-next-page']")
+    execute_script("arguments[0].scrollIntoView({ block: 'center' })", sentinel.native)
+
+    assert_selector %([data-material="#{later_material.slug}"]), wait: 5
+  end
+
   test "eye icon opens the preview sidebar, Escape dismisses it" do
     visit materials_url
 
