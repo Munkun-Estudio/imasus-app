@@ -55,7 +55,17 @@ module MaterialsHelper
             material.public_send(:"#{attribute}_in", Material::BASE_LOCALE)
     return nil if value.to_s.strip.empty?
 
+    value = strip_embedded_data_uri_references(value)
     glossary_highlight(sanitize(simple_format(value), tags: %w[p br]))
+  end
+
+  # Source documents can carry pasted markdown image references with full
+  # base64 data URIs. They are not useful in prose fields, and Nokogiri's
+  # HTML5 parser can reject them before sanitization has a chance to clean up.
+  def strip_embedded_data_uri_references(value)
+    value.to_s.each_line.reject do |line|
+      line.match?(/\A\s*\[[^\]]+\]:\s*<data:image\/[^>]+>\s*\z/i)
+    end.join
   end
 
   # Builds the ordered list of media items that populates the detail-page

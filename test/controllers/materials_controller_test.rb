@@ -458,6 +458,24 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     assert_match(/data-glossary-popover-slug-value="zzz-unique-glossary-slug"/, response.body)
   end
 
+  test "GET /materials/:slug drops embedded data URI markdown references from prose" do
+    material = Material.create!(
+      trade_name: "Embedded Data Material",
+      slug: "embedded-data-material",
+      availability_status: :commercial,
+      description_translations: { "en" => "Plain description." },
+      what_problem_it_solves_translations: {
+        "en" => "This text should render.\n\n[image1]: <data:image/png;base64,#{'A' * 2000}>"
+      }
+    )
+
+    get material_url(material.slug)
+
+    assert_response :success
+    assert_includes response.body, "This text should render."
+    refute_includes response.body, "data:image/png"
+  end
+
   test "GET /materials/:slug hides the media gallery when no assets are attached" do
     material = Material.order(:position).first
     # Seed loader does not attach assets, so this material has none.
