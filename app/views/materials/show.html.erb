@@ -35,36 +35,15 @@
   </header>
 
   <% if gallery_items.any? %>
+    <% active_item = gallery_items.first %>
     <section data-role="material-gallery"
              data-controller="material-gallery"
              aria-label="<%= t("materials.show.gallery_label") %>"
              class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
-      <%# Main viewer — renders every media element, hides all but the first. %>
       <div data-role="gallery-viewer"
+           data-material-gallery-target="viewer"
            class="relative flex-1 overflow-hidden rounded-2xl bg-imasus-mint/20 aspect-[16/10]">
-        <% gallery_items.each_with_index do |item, index| %>
-          <% hidden_class = index.zero? ? "" : "hidden" %>
-          <% if item[:kind] == "video" %>
-            <video data-material-gallery-target="media"
-                   data-media-key="<%= item[:key] %>"
-                   class="h-full w-full object-cover <%= hidden_class %>"
-                   controls
-                   preload="metadata"
-                   playsinline>
-              <source src="<%= url_for(item[:asset].file) %>"
-                      type="<%= item[:asset].file.content_type %>">
-            </video>
-          <% else %>
-            <%= image_variant_tag item[:asset].file,
-                  preset: :hero,
-                  alt: item[:alt],
-                  data: {
-                    material_gallery_target: "media",
-                    media_key: item[:key]
-                  },
-                  class: "h-full w-full object-cover #{hidden_class}" %>
-          <% end %>
-        <% end %>
+        <%= render "gallery_media", item: active_item, material: @material, deferred: active_item[:kind] == "video" %>
       </div>
 
       <% if gallery_items.size > 1 %>
@@ -75,6 +54,7 @@
                       data-role="gallery-thumb"
                       data-kind="<%= item[:kind] %>"
                       data-media-key="<%= item[:key] %>"
+                      data-media-url="<%= media_material_path(@material, key: item[:key]) %>"
                       data-gallery-active="<%= index.zero? %>"
                       data-material-gallery-target="thumb"
                       data-action="material-gallery#select"

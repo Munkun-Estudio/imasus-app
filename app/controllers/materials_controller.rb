@@ -5,8 +5,10 @@
 # and a grid of material cards. Unknown facets and unknown chip slugs are
 # silently ignored so shareable URLs stay robust as the vocabulary evolves.
 class MaterialsController < ApplicationController
+  BATCH_SIZE = 12
+
   before_action :require_curator, only: [ :edit, :update ]
-  before_action :set_material, only: [ :show, :preview, :edit, :update ]
+  before_action :set_material, only: [ :show, :media, :preview, :edit, :update ]
 
   # GET /materials
   # GET /materials?origin_type=plants,fungi&application=clothing&q=cypress
@@ -21,10 +23,18 @@ class MaterialsController < ApplicationController
     scope = apply_facet_filters(scope, @selected_tag_ids_by_facet)
     scope = apply_search(scope, @query)
 
-    @materials = scope.to_a
+    @page = page_param
+    @total_materials = scope.count
+    @materials = scope.limit(BATCH_SIZE).offset((@page - 1) * BATCH_SIZE).to_a
     @tags_by_facet = Tag.all.group_by(&:facet)
-    @chip_counts = chip_counts_for(@materials)
+    @chip_counts = chip_counts_for(scope)
     @any_filters_active = @selected_tag_ids_by_facet.any? || @query.present?
+    @next_page = @page + 1 if @page * BATCH_SIZE < @total_materials
+
+    if turbo_frame_request? && @page > 1
+      render partial: "materials/batch",
+             locals: { materials: @materials, page: @page, next_page: @next_page }
+    end
   end
 
   # GET /materials/:slug
@@ -35,6 +45,21 @@ class MaterialsController < ApplicationController
   # Unknown slug raises `ActiveRecord::RecordNotFound` via `set_material`
   # and surfaces as a 404.
   def show
+  end
+
+  # GET /materials/:slug/media?key=macro
+  #
+  # Deferred gallery endpoint used by thumbnail selection and poster-first
+  # video playback. The initial detail page keeps full-size offscreen media
+  # and video blob URLs out of the DOM; this action returns one requested
+  # media item after user intent.
+  def media
+    item = helpers.material_gallery_items(@material).find { |candidate| candidate[:key] == params[:key].to_s }
+    raise ActiveRecord::RecordNotFound unless item
+
+    render partial: "materials/gallery_media",
+           locals: { item: item, material: @material, deferred: false },
+           layout: false
   end
 
   # GET /materials/:slug/preview
@@ -69,7 +94,13 @@ class MaterialsController < ApplicationController
 
   def set_material
     @material = Material
-                  .includes(assets: { file_attachment: :blob }, tags: {})
+                  .includes(
+                    assets: [
+                      { file_attachment: :blob },
+                      { poster_attachment: :blob }
+                    ],
+                    tags: {}
+                  )
                   .find_by!(slug: params[:slug])
   end
 
@@ -110,10 +141,15 @@ class MaterialsController < ApplicationController
     )
   end
 
-  def chip_counts_for(materials)
-    return {} if materials.empty?
+  def page_param
+    page = params[:page].to_i
+    page.positive? ? page : 1
+  end
 
-    MaterialTagging.where(material_id: materials.map(&:id)).group(:tag_id).count
+  def chip_counts_for(scope)
+    material_ids = scope.reselect(:id)
+
+    MaterialTagging.where(material_id: material_ids).group(:tag_id).count
   end
 
   def material_params

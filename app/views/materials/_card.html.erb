@@ -1,4 +1,4 @@
-<%# locals: (material:) %>
+<%# locals: (material:, priority: false) %>
 <article data-material="<%= material.slug %>"
          data-controller="card-media"
          class="group relative flex h-full flex-col overflow-hidden rounded-lg border border-imasus-dark-green/10 bg-white shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-imasus-dark-green/40">
@@ -8,6 +8,8 @@
       <%= image_variant_tag cover_asset.file,
             preset: :card,
             alt: material.trade_name,
+            loading: priority ? "eager" : "lazy",
+            fetchpriority: priority ? "high" : "auto",
             class: "h-full w-full object-cover" %>
     <% else %>
       <div class="flex h-full flex-col justify-between p-5 text-imasus-dark-green/70">

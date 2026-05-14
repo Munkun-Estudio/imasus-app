@@ -1,6 +1,8 @@
 require "test_helper"
 
 class MaterialsControllerTest < ActionDispatch::IntegrationTest
+  MATERIALS_BATCH_SIZE = 12
+
   setup do
     Tag.seed_from_yaml!
     Material.seed_from_yaml!
@@ -27,24 +29,44 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "GET /materials lists every seeded material" do
+  test "GET /materials renders only the first batch of seeded materials" do
     get materials_url
-    Material.find_each do |material|
+    first_batch = Material.order(:position).limit(MATERIALS_BATCH_SIZE)
+    later_batch = Material.order(:position).offset(MATERIALS_BATCH_SIZE)
+
+    first_batch.each do |material|
       assert_select card_selector(material)
     end
+    later_batch.each do |material|
+      assert_select card_selector(material), count: 0
+    end
+    assert_select "turbo-frame[data-role='materials-next-page'][src*='page=2']"
   end
 
   test "GET /materials renders materials ordered by position" do
     get materials_url
     slugs_in_render = css_select(card_selector).map { |node| node["data-material"] }
-    expected = Material.order(:position).pluck(:slug)
+    expected = Material.order(:position).limit(MATERIALS_BATCH_SIZE).pluck(:slug)
     assert_equal expected, slugs_in_render
   end
 
-  test "GET /materials renders the trade name for each material" do
+  test "GET /materials renders the trade name for each first-batch material" do
     get materials_url
-    Material.find_each do |material|
+    Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
       assert_includes response.body, material.trade_name
+    end
+  end
+
+  test "GET /materials?page=2 returns the next Turbo-frame batch" do
+    get materials_url(page: 2), headers: { "Turbo-Frame" => "materials_page_2" }
+
+    assert_response :success
+    assert_select "turbo-frame#materials_page_2"
+    Material.order(:position).offset(MATERIALS_BATCH_SIZE).limit(MATERIALS_BATCH_SIZE).each do |material|
+      assert_select card_selector(material)
+    end
+    Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
+      assert_select card_selector(material), count: 0
     end
   end
 
@@ -67,7 +89,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
   test "GET /materials?origin_type=plants narrows to materials tagged with plants" do
     get materials_url(origin_type: "plants")
     tag = Tag.find_by!(facet: "origin_type", slug: "plants")
-    tagged   = tag.materials.pluck(:slug).uniq
+    tagged = tag.materials.reorder(:position).limit(MATERIALS_BATCH_SIZE).pluck(:slug).uniq
     untagged = Material.where.not(id: tag.materials.select(:id)).pluck(:slug)
 
     tagged.each { |slug| assert_select %([data-material="#{slug}"]) }
@@ -79,9 +101,9 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     plants  = Tag.find_by!(facet: "origin_type", slug: "plants")
     seaweed = Tag.find_by!(facet: "origin_type", slug: "seaweed")
     union = (plants.materials.pluck(:id) | seaweed.materials.pluck(:id))
-    expected_slugs = Material.where(id: union).pluck(:slug)
-
-    expected_slugs.each { |slug| assert_select %([data-material="#{slug}"]) }
+    rendered_slugs = css_select(card_selector).map { |node| node["data-material"] }
+    assert rendered_slugs.any?, "expected the first filtered batch to render cards"
+    assert_empty rendered_slugs - Material.where(id: union).pluck(:slug)
     Material.where.not(id: union).pluck(:slug).each do |slug|
       assert_select %([data-material="#{slug}"]), count: 0
     end
@@ -96,7 +118,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
     get materials_url(origin_type: "plants", application: "clothing")
 
-    expected_slugs = Material.where(id: expected_ids).pluck(:slug)
+    expected_slugs = Material.where(id: expected_ids).order(:position).limit(MATERIALS_BATCH_SIZE).pluck(:slug)
     expected_slugs.each { |slug| assert_select %([data-material="#{slug}"]) }
     Material.where.not(id: expected_ids).pluck(:slug).each do |slug|
       assert_select %([data-material="#{slug}"]), count: 0
@@ -108,7 +130,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
   test "GET /materials with an unknown chip slug is ignored, no error" do
     get materials_url(origin_type: "spaceship")
     assert_response :success
-    Material.find_each do |material|
+    Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
       assert_select card_selector(material)
     end
   end
@@ -116,7 +138,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
   test "GET /materials with an unknown facet name is ignored, no error" do
     get materials_url(nonsense_facet: "anything")
     assert_response :success
-    Material.find_each do |material|
+    Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
       assert_select card_selector(material)
     end
   end
@@ -214,14 +236,14 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
   test "each rendered card has the card-media Stimulus controller wired" do
     get materials_url
-    assert_select "[data-controller~='card-media']", minimum: Material.count
+    assert_select "[data-controller~='card-media']", count: MATERIALS_BATCH_SIZE
   end
 
   # --- Cards expose an eye-icon affordance for the preview sidebar ---------
 
   test "each card renders an open-preview affordance targeting the preview frame" do
     get materials_url
-    Material.find_each do |material|
+    Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
       assert_select %([data-material="#{material.slug}"] [data-role="open-preview"][href=?][data-turbo-frame="preview"]),
                     preview_material_path(material.slug)
     end
@@ -231,7 +253,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
   test "each card's trade name links to the material detail page" do
     get materials_url
-    Material.find_each do |material|
+    Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
       assert_select %([data-material="#{material.slug}"] a[href=?]),
                     material_path(material.slug),
                     minimum: 1,
@@ -458,6 +480,24 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     assert_match(/data-glossary-popover-slug-value="zzz-unique-glossary-slug"/, response.body)
   end
 
+  test "GET /materials/:slug drops embedded data URI markdown references from prose" do
+    material = Material.create!(
+      trade_name: "Embedded Data Material",
+      slug: "embedded-data-material",
+      availability_status: :commercial,
+      description_translations: { "en" => "Plain description." },
+      what_problem_it_solves_translations: {
+        "en" => "This text should render.\n\n[image1]: <data:image/png;base64,#{'A' * 2000}>"
+      }
+    )
+
+    get material_url(material.slug)
+
+    assert_response :success
+    assert_includes response.body, "This text should render."
+    refute_includes response.body, "data:image/png"
+  end
+
   test "GET /materials/:slug hides the media gallery when no assets are attached" do
     material = Material.order(:position).first
     # Seed loader does not attach assets, so this material has none.
@@ -513,6 +553,53 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     assert_select %([data-role="gallery-thumb"][data-kind="macro"][data-gallery-active="true"])
   end
 
+  test "GET /materials/:slug does not render hidden full-size gallery images" do
+    material = Material.order(:position).first
+    attach_macro_to(material)
+    attach_microscopy_to(material)
+    attach_microscopy_to(material, position: 1)
+
+    get material_url(material.slug)
+
+    assert_select %([data-role="gallery-viewer"] img[data-role="gallery-media"]), count: 1
+    assert_select %([data-role="gallery-viewer"] img.hidden), count: 0
+  end
+
+  test "GET /materials/:slug renders video poster-first without exposing the video blob URL" do
+    material = Material.order(:position).first
+    attach_macro_to(material)
+    attach_video_to(material)
+
+    get material_url(material.slug)
+
+    assert_select %([data-role="deferred-video"][data-media-url=?]),
+                  media_material_path(material.slug, key: "video")
+    assert_select "video", count: 0
+    assert_select "source", count: 0
+    refute_includes response.body, "video.mp4"
+  end
+
+  test "GET /materials/:slug/media renders the requested full media item" do
+    material = Material.order(:position).first
+    attach_macro_to(material)
+
+    get media_material_url(material.slug, key: "macro")
+
+    assert_response :success
+    assert_select %([data-role="gallery-media"][data-media-key="macro"])
+  end
+
+  test "GET /materials/:slug/media renders a video player only after media is requested" do
+    material = Material.order(:position).first
+    attach_video_to(material)
+
+    get media_material_url(material.slug, key: "video")
+
+    assert_response :success
+    assert_select "video[preload='none'] source"
+    assert_includes response.body, "video.mp4"
+  end
+
   test "GET /materials/:slug renders the meta sidebar with labelled supplier/availability/origin rows" do
     material = Material.find_by(slug: "pyratex-musa-1") || Material.order(:position).first
     get material_url(material.slug)
@@ -550,7 +637,8 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     asset.file.attach(
       io: file_fixture("sample-image.png").open,
       filename: filename,
-      content_type: content_type
+      content_type: content_type,
+      identify: false
     )
     asset.save!
     material.reload

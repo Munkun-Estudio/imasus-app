@@ -148,6 +148,10 @@ it:
       search_placeholder: "Cerca per nome o descrizione"
       clear_all: "Rimuovi tutti i filtri"
       empty_state: "Nessun materiale corrisponde ai filtri attuali."
+      loading_more: "Caricamento di altri materiali"
+      loaded_batch:
+        one: "Caricato 1 altro materiale"
+        other: "Caricati altri %{count} materiali"
       facets_label: "Filtri materiali"
       facets:
         origin_type:
@@ -688,6 +692,10 @@ it:
       new_entry: "Aggiungi voce"
       empty_member: "Nessuna voce ancora. Inizia a documentare il vostro processo!"
       empty_observer: "Nessuna voce ancora."
+      loading_more: "Caricamento di altre voci del registro"
+      loaded_batch:
+        one: "Caricata 1 altra voce"
+        other: "Caricate altre %{count} voci"
     new:
       title: "Nuova voce di processo"
       heading: "Nuova voce"
@@ -704,6 +712,7 @@ it:
     entry:
       time_ago: "%{time} fa"
       delete: "Elimina"
+      play_video: "Riproduci video"
     confirm_delete:
       title: "Eliminare questa voce?"
       body: "Questa azione non può essere annullata."

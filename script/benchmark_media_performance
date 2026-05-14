@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../config/environment"
+require Rails.root.join("lib", "media_performance_benchmark")
+
+def detected_log_entry_path
+  entry = LogEntry.joins(media_attachments: :blob).first || LogEntry.first
+  return [ nil, "no log entries found" ] unless entry
+
+  [ Rails.application.routes.url_helpers.project_log_entries_path(entry.project_id), nil ]
+rescue StandardError => e
+  [ nil, "#{e.class}: #{e.message}" ]
+end
+
+base_url = ENV.fetch("BENCHMARK_BASE_URL", "http://localhost:3000")
+skipped = []
+
+paths = if ENV["BENCHMARK_PATHS"]
+  ENV.fetch("BENCHMARK_PATHS").split(",").map(&:strip).reject(&:empty?)
+else
+  detected_path, reason = detected_log_entry_path
+  skipped << "project log-entry timeline skipped: #{reason}" unless detected_path
+  MediaPerformanceBenchmark::DEFAULT_PATHS + Array(detected_path)
+end
+lighthouse = ENV.fetch("BENCHMARK_LIGHTHOUSE", "1") != "0"
+
+result = MediaPerformanceBenchmark.new(
+  base_url: base_url,
+  paths: paths,
+  lighthouse: lighthouse
+).run
+
+result[:skipped] = skipped if skipped.any?
+
+puts JSON.pretty_generate(result)

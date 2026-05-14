@@ -26,6 +26,7 @@ class MaterialAsset < ApplicationRecord
   belongs_to :material
 
   has_one_attached :file
+  has_one_attached :poster
 
   validates :kind,     presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }

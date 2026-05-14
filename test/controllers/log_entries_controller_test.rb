@@ -1,6 +1,8 @@
 require "test_helper"
 
 class LogEntriesControllerTest < ActionDispatch::IntegrationTest
+  LOG_ENTRY_BATCH_SIZE = 10
+
   def setup
     @password = "correct horse battery staple"
     @workshop = Workshop.create!(
@@ -51,6 +53,95 @@ class LogEntriesControllerTest < ActionDispatch::IntegrationTest
     sign_in(@admin)
     get project_log_entries_path(@project)
     assert_response :ok
+  end
+
+  test "index renders only the first batch of a long timeline" do
+    12.times do |index|
+      LogEntry.create!(
+        project: @project,
+        author: @member,
+        body: "Batch entry #{index}",
+        created_at: index.minutes.ago
+      )
+    end
+
+    sign_in(@member)
+    get project_log_entries_path(@project)
+
+    assert_response :ok
+    assert_select "[data-role='log-entry']", count: LOG_ENTRY_BATCH_SIZE
+    assert_select "turbo-frame[data-role='log-entries-next-page'][src*='page=2']"
+  end
+
+  test "index second page returns the next Turbo-frame batch" do
+    entries = 12.times.map do |index|
+      LogEntry.create!(
+        project: @project,
+        author: @member,
+        body: "Paged entry #{index}",
+        created_at: index.minutes.ago
+      )
+    end
+
+    sign_in(@member)
+    get project_log_entries_path(@project, page: 2),
+        headers: { "Turbo-Frame" => "log_entries_page_2" }
+
+    assert_response :ok
+    assert_select "turbo-frame#log_entries_page_2"
+    expected = @project.log_entries.offset(LOG_ENTRY_BATCH_SIZE).limit(LOG_ENTRY_BATCH_SIZE).pluck(:id)
+    expected.each do |entry_id|
+      assert_select %([data-role="log-entry"][data-entry-id="#{entry_id}"])
+    end
+  end
+
+  test "image attachments render as variants rather than original blob URLs" do
+    @entry.media.attach(
+      io: file_fixture("sample-image.png").open,
+      filename: "sample-image.png",
+      content_type: "image/png"
+    )
+
+    sign_in(@member)
+    get project_log_entries_path(@project)
+
+    assert_response :ok
+    assert_select "img[data-role='log-entry-image']"
+    assert_match %r{/rails/active_storage/representations/}, response.body
+  end
+
+  test "video attachments render poster-first without exposing source URLs" do
+    @entry.media.attach(
+      io: file_fixture("sample-image.png").open,
+      filename: "process-video.mp4",
+      content_type: "video/mp4",
+      identify: false
+    )
+
+    sign_in(@member)
+    get project_log_entries_path(@project)
+
+    assert_response :ok
+    assert_select %([data-role="log-entry-video"][data-media-url=?]),
+                  media_project_log_entry_path(@project, @entry, attachment_id: @entry.media.attachments.last.id)
+    assert_select "video", count: 0
+    refute_includes response.body, "process-video.mp4"
+  end
+
+  test "media endpoint renders a video player after user intent" do
+    @entry.media.attach(
+      io: file_fixture("sample-image.png").open,
+      filename: "process-video.mp4",
+      content_type: "video/mp4",
+      identify: false
+    )
+
+    sign_in(@member)
+    get media_project_log_entry_path(@project, @entry, attachment_id: @entry.media.attachments.last.id)
+
+    assert_response :ok
+    assert_select "video[preload='none'] source"
+    assert_includes response.body, "process-video.mp4"
   end
 
   test "non-member participant is redirected from log index" do

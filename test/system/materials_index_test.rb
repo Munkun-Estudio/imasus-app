@@ -19,8 +19,10 @@ class MaterialsIndexTest < ApplicationSystemTestCase
     end
     assert_current_path(/origin_type=plants/)
     plants_total = all("[data-material]").count
-    assert plants_total < total,
-           "expected fewer cards after selecting origin_type=plants"
+    plant_slugs = Tag.find_by!(facet: "origin_type", slug: "plants").materials.pluck(:slug)
+    all("[data-material]").each do |card|
+      assert_includes plant_slugs, card["data-material"]
+    end
 
     # Add an application chip: still narrower, AND semantics across facets.
     within("[data-facet='application']") do
@@ -31,6 +33,11 @@ class MaterialsIndexTest < ApplicationSystemTestCase
     and_total = all("[data-material]").count
     assert and_total <= plants_total,
            "expected AND-across-facets result to be no larger than the plants-only result"
+    clothing_slugs = Tag.find_by!(facet: "application", slug: "clothing").materials.pluck(:slug)
+    all("[data-material]").each do |card|
+      assert_includes plant_slugs, card["data-material"]
+      assert_includes clothing_slugs, card["data-material"]
+    end
 
     # Clear all → back to full grid.
     find("[data-role='clear-all']").click

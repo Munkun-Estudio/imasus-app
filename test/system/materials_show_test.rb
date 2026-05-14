@@ -33,6 +33,7 @@ class MaterialsShowTest < ApplicationSystemTestCase
 
   test "clicking a gallery thumbnail swaps the active media in the main viewer" do
     material = Material.order(:position).first
+    material.assets.destroy_all
     attach_asset(material, kind: :macro,      filename: "macro.png",  content_type: "image/png")
     attach_asset(material, kind: :microscopy, filename: "micro-0.png", content_type: "image/png", position: 0)
 
@@ -46,9 +47,10 @@ class MaterialsShowTest < ApplicationSystemTestCase
 
     assert_selector %([data-role="gallery-thumb"][data-kind="microscopy"][data-gallery-active="true"])
     assert_selector %([data-role="gallery-thumb"][data-kind="macro"][data-gallery-active="false"])
-    # The swapped-out macro image hides; the microscopy media is visible.
     assert_selector %([data-media-key="micro-0"]:not(.hidden))
-    assert_selector %([data-media-key="macro"].hidden), visible: :all
+    within("[data-role='gallery-viewer']") do
+      assert_no_selector %([data-media-key="macro"]), visible: :all
+    end
   end
 
   private
@@ -58,7 +60,8 @@ class MaterialsShowTest < ApplicationSystemTestCase
     asset.file.attach(
       io: file_fixture("sample-image.png").open,
       filename: filename,
-      content_type: content_type
+      content_type: content_type,
+      identify: false
     )
     asset.save!
   end

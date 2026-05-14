@@ -18,6 +18,7 @@
   <% if @log_entries.any? %>
     <div class="mt-10 max-w-3xl space-y-6">
       <%= render partial: "entry", collection: @log_entries, as: :entry %>
+      <%= render "next_page", next_page: @next_page %>
     </div>
   <% else %>
     <div class="mt-16 max-w-3xl text-center">

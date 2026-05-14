@@ -63,12 +63,15 @@
       <%= t(".empty_state") %>
     </p>
   <% else %>
-    <ul class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <% @materials.each do |material| %>
-        <li>
-          <%= render "card", material: material %>
-        </li>
+    <div id="materials-grid"
+         role="list"
+         class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% @materials.each_with_index do |material, index| %>
+        <div role="listitem">
+          <%= render "card", material: material, priority: index.zero? && @page == 1 %>
+        </div>
       <% end %>
-    </ul>
+      <%= render "next_page", next_page: @next_page %>
+    </div>
   <% end %>
 </div>

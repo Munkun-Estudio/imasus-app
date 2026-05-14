@@ -1,0 +1,4 @@
+<%# locals: (attachment:) %>
+<video controls autoplay preload="none" playsinline class="max-h-48 rounded-lg">
+  <source src="<%= url_for(attachment) %>" type="<%= attachment.content_type %>">
+</video>

@@ -1,0 +1,44 @@
+<%# locals: (item:, material:, deferred: false) %>
+<% if item[:kind] == "video" && deferred %>
+  <% poster_asset = item[:asset].poster.attached? ? item[:asset].poster : material.cover_asset&.file %>
+  <button type="button"
+          data-role="deferred-video"
+          data-media-key="<%= item[:key] %>"
+          data-media-url="<%= media_material_path(material, key: item[:key]) %>"
+          data-action="material-gallery#playVideo"
+          class="group relative flex h-full w-full items-center justify-center overflow-hidden bg-imasus-dark-green text-white">
+    <% if poster_asset&.attached? %>
+      <%= image_variant_tag poster_asset,
+            preset: :hero,
+            alt: item[:alt],
+            loading: "eager",
+            fetchpriority: "high",
+            class: "absolute inset-0 h-full w-full object-cover opacity-80 transition group-hover:scale-[1.02]" %>
+    <% end %>
+    <span class="relative z-10 flex h-16 w-16 items-center justify-center rounded-full bg-imasus-dark-green/85 shadow-lg ring-1 ring-white/40">
+      <%= heroicon :play, class: "h-7 w-7 translate-x-0.5" %>
+    </span>
+  </button>
+<% elsif item[:kind] == "video" %>
+  <video data-role="gallery-media"
+         data-media-key="<%= item[:key] %>"
+         class="h-full w-full object-cover"
+         controls
+         autoplay
+         preload="none"
+         playsinline>
+    <source src="<%= url_for(item[:asset].file) %>"
+            type="<%= item[:asset].file.content_type %>">
+  </video>
+<% else %>
+  <%= image_variant_tag item[:asset].file,
+        preset: :hero,
+        alt: item[:alt],
+        loading: "eager",
+        fetchpriority: "high",
+        data: {
+          role: "gallery-media",
+          media_key: item[:key]
+        },
+        class: "h-full w-full object-cover" %>
+<% end %>

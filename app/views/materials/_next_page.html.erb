@@ -1,0 +1,10 @@
+<%# locals: (next_page:) %>
+<% if next_page %>
+  <%= turbo_frame_tag "materials_page_#{next_page}",
+        src: materials_path(request.query_parameters.merge(page: next_page)),
+        loading: "lazy",
+        data: { role: "materials-next-page" },
+        class: "contents" do %>
+    <span class="sr-only"><%= t("materials.index.loading_more") %></span>
+  <% end %>
+<% end %>
