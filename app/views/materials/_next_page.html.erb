@@ -4,7 +4,7 @@
         src: materials_path(request.query_parameters.merge(page: next_page)),
         loading: "lazy",
         data: { role: "materials-next-page" },
-        class: "contents" do %>
+        class: "col-span-full block min-h-16" do %>
     <span class="sr-only"><%= t("materials.index.loading_more") %></span>
   <% end %>
 <% end %>
