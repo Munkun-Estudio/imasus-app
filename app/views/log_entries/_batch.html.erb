@@ -1,5 +1,5 @@
 <%# locals: (log_entries:, page:, next_page:) %>
-<%= turbo_frame_tag "log_entries_page_#{page}", class: "contents" do %>
+<%= turbo_frame_tag "log_entries_page_#{page}" do %>
   <%= render partial: "entry", collection: log_entries, as: :entry %>
 
   <p role="status" class="sr-only">

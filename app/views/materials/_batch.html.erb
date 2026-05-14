@@ -1,5 +1,5 @@
 <%# locals: (materials:, page:, next_page:) %>
-<%= turbo_frame_tag "materials_page_#{page}", class: "contents" do %>
+<%= turbo_frame_tag "materials_page_#{page}" do %>
   <% materials.each do |material| %>
     <div role="listitem">
       <%= render "card", material: material, priority: false %>
