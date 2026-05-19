@@ -6,9 +6,9 @@
 #
 #   * Microscopy images have a stable order (`position` = `m1` → 0, `m2` → 1,
 #     ...) that survives attachment reshuffling.
-#   * The DB can enforce "at most one macro and one video per material" via a
-#     partial unique index on `(material_id, kind)` where `kind` is a
-#     singleton kind (macro or video).
+#   * The DB can enforce "at most one video per material" via a partial unique
+#     index on `(material_id, kind)` while allowing ordered macro photos and
+#     microscopies.
 #   * Future per-asset metadata (captions, credits) has a home without
 #     reshaping.
 #
@@ -19,7 +19,7 @@
 class MaterialAsset < ApplicationRecord
   KINDS = %w[macro microscopy video].freeze
 
-  SINGLETON_KINDS = %w[macro video].freeze
+  SINGLETON_KINDS = %w[video].freeze
 
   enum :kind, KINDS.each_with_index.to_h
 

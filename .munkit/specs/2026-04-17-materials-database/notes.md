@@ -81,6 +81,62 @@ merged by 2026-04-21:
   preprocessor tests; keep using the naming contract tests as the guardrail
   before running bulk media ingestion.
 
+## Media library refresh follow-up (2026-05-18)
+
+- Partner review requested: add Squeeze the Orange media, expose all available
+  macro photos per material, replace a few videos/photos/micrographs, correct
+  Upcycled media, and remove catalogue entries with no picture.
+- `MaterialAsset` now allows multiple ordered `macro` assets per material while
+  keeping `video` singleton. `Material#macro_asset` remains the first ordered
+  macro for cards/previews; `Material#macro_assets` feeds the full detail
+  gallery.
+- The prepare/import pipeline now normalizes numbered and arbitrary macro
+  photos into stable positions. Examples: `squeeze-the-orange_1.jpeg` →
+  position 0 / `<Folder>.jpg`, `squeeze-the-orange_2.jpeg` → position 1 /
+  `<Folder>_2.jpg`, and camera names like `DSC_0039.JPG` / `DSC_0040.JPG`
+  become positions 0 / 1 by sorted order.
+- Folder matching is now `strip.downcase.parameterize`, with an audit alias map
+  for known source/database mismatches such as `PYRATEX-freshness-4` →
+  `pyratex-freshness-1`.
+- `material_assets:audit[path]` reports materials without import media, import
+  folders without matching `Material`, and folders with multiple macro photos.
+  `material_assets:prune_without_import_media[path,DELETE]` is the explicit
+  destructive follow-up after the import folder is complete.
+- Current DB-backed local audit against `storage/import` can be noisy when the
+  development database is stale. The seed-backed audit is the better source for
+  source-data discussion; production audit should run after the production text
+  export and confirmed-variant materialization dry run.
+- The refreshed partner folder downloaded on 2026-05-18 was mirrored from
+  `storage/import-new` into `storage/import` without preprocessing or upload.
+  Source-level changes include new Freshness 1 video + micrographs, new Fibras
+  micrographs, replacement Kapok/MuSkin videos, replacement Hiblatech and Banana
+  Skin macro photos, and Eeden filename typo changes (`Edeen-world-*`). The
+  seed YAML has Eeden/Jingyi/Rustic, but the local development DB may need
+  reseeding before DB-backed audit output stops listing those folders as
+  unmatched.
+- Added `materials:export[path]` to serialize current DB material text,
+  metadata, translations, and tag slugs before any production prune/import.
+  Production text is authoritative for existing rows; do not reseed materials
+  in production for this media refresh.
+- Partner clarification on 2026-05-19 confirmed the three numbered variants:
+  ECOALF Recycled Cotton 1/2 share text with different media, ECOALF Recycled
+  Polyester 1/2 share text with different media, and Pyratex Upcycled 2/5 share
+  text with different media. Seed reference entries now use canonical
+  `...-1`/`...-2` and `pyratex-upcycled-2`/`pyratex-upcycled-5` slugs; the
+  seed-based audit now reports zero unmatched folders.
+- Added `materials:materialize_confirmed_variants`, a dry-run-first production
+  data task. After exporting production text, run with `APPLY` to rename
+  existing `ecoalf-recycled-cotton-1-2` and
+  `ecoalf-recycled-polyester-1-2` rows to canonical `...-1` slugs, then clone
+  the confirmed `...-2`/`pyratex-upcycled-5` rows from production text and tags
+  before media import.
+- Final local media source after video cleanup has one video per material.
+  `material_assets:prepare[storage/import,tmp/material-assets-prepared-refresh]`
+  completed with 41 folders, 191 images, 24 videos, and 0 ignored files. The
+  prepared-tree seed audit reports 0 unmatched folders and 0 multi-video
+  folders; local DB import skips only Eeden/Jingyi/Rustic when the development
+  DB is stale.
+
 ## PR (b) plan — public index + chip-filter rail + URL + search
 
 On a fresh branch `feat/materials-index`, targeting `main` after PR #9 merged.

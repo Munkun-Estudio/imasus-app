@@ -63,11 +63,19 @@ class Material < ApplicationRecord
     tags.where(facet: facet.to_s).to_a
   end
 
-  # @return [MaterialAsset, nil] the single macro (hero) asset, if attached.
+  # @return [MaterialAsset, nil] the first macro (hero) asset, if attached.
   def macro_asset
-    return assets.find(&:macro?) if assets.loaded?
+    return macro_assets.first if assets.loaded?
 
-    assets.find_by(kind: :macro)
+    assets.where(kind: :macro).order(:position).first
+  end
+
+  # @return [ActiveRecord::Relation<MaterialAsset>, Array<MaterialAsset>] macro images ordered
+  #   by their stable source position.
+  def macro_assets
+    return assets.select(&:macro?).sort_by(&:position) if assets.loaded?
+
+    assets.where(kind: :macro).order(:position)
   end
 
   # @return [MaterialAsset, nil] the image used in compact cover contexts.
