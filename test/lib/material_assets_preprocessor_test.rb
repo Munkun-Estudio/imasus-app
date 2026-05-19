@@ -92,4 +92,46 @@ class MaterialAssetsPreprocessorTest < ActiveSupport::TestCase
     assert_equal [ 1800, 1080 ], dimensions_for(output_folder.join("Lifematerials-Kapok.jpg"))
     assert_equal [ 900, 600 ], dimensions_for(output_folder.join("Lifematerials-Kapok-m1.jpg"))
   end
+
+  test "normalises numbered macro photos to stable importer-ready names" do
+    folder = @tmp_input.join("Squeeze-the-orange")
+    folder.mkpath
+
+    create_image(folder.join("squeeze-the-orange_1.jpeg"), size: "1200x800")
+    create_image(folder.join("squeeze-the-orange_2.jpeg"), size: "1200x800")
+
+    MaterialAssetsPreprocessor.new(folder, output_path: @tmp_output).prepare!
+
+    output_folder = @tmp_output.join("Squeeze-the-orange")
+    assert output_folder.join("Squeeze-the-orange.jpg").exist?
+    assert output_folder.join("Squeeze-the-orange_2.jpg").exist?
+  end
+
+  test "normalises arbitrary macro filenames to stable importer-ready names" do
+    folder = @tmp_input.join("Regenerated-wool")
+    folder.mkpath
+
+    create_image(folder.join("DSC_0039.JPG"), size: "1200x800")
+    create_image(folder.join("DSC_0040.JPG"), size: "1200x800")
+
+    MaterialAssetsPreprocessor.new(folder, output_path: @tmp_output).prepare!
+
+    output_folder = @tmp_output.join("Regenerated-wool")
+    assert output_folder.join("Regenerated-wool.jpg").exist?
+    assert output_folder.join("Regenerated-wool_2.jpg").exist?
+  end
+
+  test "classifies dotted and unseparated microscopy suffixes" do
+    folder = @tmp_input.join("Lifematerials-MuSkin")
+    folder.mkpath
+
+    create_image(folder.join("Lifematerials-MuSkin.m1.tif"), size: "1200x800")
+    create_image(folder.join("Lifematerials-MuSkinm2.tif"), size: "1200x800")
+
+    MaterialAssetsPreprocessor.new(folder, output_path: @tmp_output).prepare!
+
+    output_folder = @tmp_output.join("Lifematerials-MuSkin")
+    assert output_folder.join("Lifematerials-MuSkin.m1.jpg").exist?
+    assert output_folder.join("Lifematerials-MuSkinm2.jpg").exist?
+  end
 end

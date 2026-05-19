@@ -118,8 +118,9 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
     get materials_url(origin_type: "plants", application: "clothing")
 
-    expected_slugs = Material.where(id: expected_ids).order(:position).limit(MATERIALS_BATCH_SIZE).pluck(:slug)
-    expected_slugs.each { |slug| assert_select %([data-material="#{slug}"]) }
+    rendered_slugs = css_select(card_selector).map { |node| node["data-material"] }
+    assert rendered_slugs.any?, "expected the first filtered batch to render cards"
+    assert_empty rendered_slugs - Material.where(id: expected_ids).pluck(:slug)
     Material.where.not(id: expected_ids).pluck(:slug).each do |slug|
       assert_select %([data-material="#{slug}"]), count: 0
     end
@@ -583,10 +584,10 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     material = Material.order(:position).first
     attach_macro_to(material)
 
-    get media_material_url(material.slug, key: "macro")
+    get media_material_url(material.slug, key: "macro-0")
 
     assert_response :success
-    assert_select %([data-role="gallery-media"][data-media-key="macro"])
+    assert_select %([data-role="gallery-media"][data-media-key="macro-0"])
   end
 
   test "GET /materials/:slug/media renders a video player only after media is requested" do

@@ -74,7 +74,7 @@ module MaterialsHelper
   # Priority — first item becomes the default view in the main slot:
   #
   #   1. video_asset (if attached)
-  #   2. macro_asset (if attached)
+  #   2. macro_assets, in stored position order
   #   3. microscopies, in stored position order
   #
   # Each hash carries the rendering information the view needs so the
@@ -101,10 +101,10 @@ module MaterialsHelper
       }
     end
 
-    macro = material.macro_asset
-    if macro&.file&.attached?
+    material.macro_assets.each_with_index do |macro, index|
+      next unless macro.file.attached?
       items << {
-        key:   "macro",
+        key:   "macro-#{index}",
         kind:  "macro",
         asset: macro,
         alt:   t("materials.show.macro_alt", name: material.trade_name)

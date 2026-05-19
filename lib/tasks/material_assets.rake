@@ -1,5 +1,6 @@
 require Rails.root.join("lib", "material_assets_importer")
 require Rails.root.join("lib", "material_assets_preprocessor")
+require Rails.root.join("lib", "material_assets_auditor")
 require "open3"
 require "tempfile"
 
@@ -116,5 +117,74 @@ namespace :material_assets do
     end
 
     puts "Generated #{generated} poster(s), skipped #{skipped} material video asset(s)."
+  end
+
+  desc "Audit a local material media folder against the catalogue"
+  task :audit, [ :path ] => :environment do |_, args|
+    path = args[:path] or abort("Usage: bin/rake 'material_assets:audit[/path/to/Materials DB Images]'")
+    result = MaterialAssetsAuditor.new(path).audit
+
+    print_audit_result(result)
+  end
+
+  desc "Audit a local material media folder against db/seeds/materials.yml"
+  task :audit_seed, [ :path ] => :environment do |_, args|
+    path = args[:path] or abort("Usage: bin/rake 'material_assets:audit_seed[/path/to/Materials DB Images]'")
+    expected = YAML.load_file(Material::SEED_PATH).map do |entry|
+      [ entry.fetch("slug"), entry.fetch("trade_name") ]
+    end
+    result = MaterialAssetsAuditor.new(path, expected_materials: expected).audit
+
+    print_audit_result(result)
+  end
+
+  def print_audit_result(result)
+    puts result.summary
+
+    unless result.materials_without_import_media.empty?
+      puts "\nMaterials without import media:"
+      result.materials_without_import_media.each { |slug, name| puts "  - #{slug} - #{name}" }
+    end
+
+    unless result.folders_without_material.empty?
+      puts "\nImport folders without matching Material:"
+      result.folders_without_material.each do |row|
+        puts "  - #{row[:folder]} -> #{row[:slug]}"
+      end
+    end
+
+    unless result.folders_with_multiple_macros.empty?
+      puts "\nImport folders with multiple macro photos:"
+      result.folders_with_multiple_macros.each do |row|
+        puts "  - #{row[:folder]} -> #{row[:slug]} (#{row[:macro_count]} macros)"
+      end
+    end
+
+    unless result.folders_with_multiple_videos.empty?
+      puts "\nImport folders with multiple videos:"
+      result.folders_with_multiple_videos.each do |row|
+        puts "  - #{row[:folder]} -> #{row[:slug]} (#{row[:video_count]} videos: #{row[:videos].join(', ')})"
+      end
+    end
+  end
+
+  desc "Delete catalogue materials that have no matching image folder in the import tree; pass DELETE to confirm"
+  task :prune_without_import_media, [ :path, :confirm ] => :environment do |_, args|
+    path = args[:path] or abort(
+      "Usage: bin/rake 'material_assets:prune_without_import_media[/path/to/Materials DB Images,DELETE]'"
+    )
+
+    result = MaterialAssetsAuditor.new(path).audit
+    slugs = result.materials_without_import_media.map(&:first)
+
+    puts "#{slugs.size} material(s) would be deleted:"
+    result.materials_without_import_media.each { |slug, name| puts "  - #{slug} - #{name}" }
+
+    unless args[:confirm] == "DELETE"
+      abort("\nDry run only. Re-run with DELETE as the second argument to prune these materials.")
+    end
+
+    Material.where(slug: slugs).find_each(&:destroy!)
+    puts "\nDeleted #{slugs.size} material(s)."
   end
 end

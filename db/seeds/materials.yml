@@ -633,7 +633,7 @@
   supplier_url: https://www.vegeacompany.com/contacts/
   supplier_name: "\\-"
   slug: vegea
-- trade_name: ECOALF-Recycled cotton 1(2)
+- trade_name: ECOALF-Recycled cotton 1
   material_of_origin: Recycled cotton
   availability_status: commercial
   description:
@@ -654,7 +654,29 @@
     - clothing
   supplier_url: https://ecoalf.com/pages/materiales
   supplier_name: Recycled cotton garments are currently available in shops such as Ecoalf.
-  slug: ecoalf-recycled-cotton-1-2
+  slug: ecoalf-recycled-cotton-1
+- trade_name: ECOALF-Recycled cotton 2
+  material_of_origin: Recycled cotton
+  availability_status: commercial
+  description:
+    en: Cotton is a fiber that comes from the seeds of the cotton plant, one of the most widely used fabrics thanks to its lightness, durability, and breathability. Its versatility and comfort make it a timeless material, inviting creativity while supporting sustainable choices and thoughtful design.
+  interesting_properties:
+    en: Recycled cotton avoids new cultivation, saving water and reducing CO2—turning waste into stylish, sustainable fabric.
+  structure: {}
+  what_problem_it_solves:
+    en: Recycled cotton helps the environment by using leftover fabric instead of growing new cotton. It saves water, reduces CO₂, and avoids chemicals, turning waste into a useful, eco-friendly material.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    textile_imitating:
+    - conventional_cotton
+    application:
+    - accessories
+    - clothing
+  supplier_url: https://ecoalf.com/pages/materiales
+  supplier_name: Recycled cotton garments are currently available in shops such as Ecoalf.
+  slug: ecoalf-recycled-cotton-2
 - trade_name: Pyratex recover 1
   material_of_origin: Recycled cotton
   availability_status: commercial
@@ -691,6 +713,27 @@
     - clothing
   supplier_url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
   slug: pyratex-upcycled-2
+- trade_name: Pyratex upcycled 5
+  material_of_origin: Recycled cotton
+  availability_status: commercial
+  description:
+    en: PYRATEX® upcycled is a fabric range made from organic cotton and recycled cotton sourced from post-industrial textile waste. Production leftovers are collected and mechanically recycled without chemicals, keeping the fiber as cotton. The process uses a high share of solar energy and avoids the water consumption of virgin cotton.
+  interesting_properties:
+    en: PYRATEX® upcycled fabrics are made from recycled cotton sourced from post-industrial textile waste collected globally.
+  structure: {}
+  what_problem_it_solves:
+    en: |-
+      It reduces textile waste by reusing production leftovers that are usually discarded.
+
+      .
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  supplier_url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+  slug: pyratex-upcycled-5
 - trade_name: Torné Grup R1615ABN
   material_of_origin: Recycled cotton
   availability_status: commercial
@@ -801,7 +844,7 @@
   supplier_url: https://www.nukak.es/
   supplier_name: It is available in Nukak
   slug: nukak
-- trade_name: ECOALF- Recycled polyester 1 (2)
+- trade_name: ECOALF-Recycled polyester 1
   material_of_origin: Recycled Polyester
   availability_status: in_development
   description:
@@ -821,7 +864,28 @@
     - clothing
   supplier_url: https://ecoalf.com/pages/materiales
   supplier_name: "\\-Ecoalf"
-  slug: ecoalf-recycled-polyester-1-2
+  slug: ecoalf-recycled-polyester-1
+- trade_name: ECOALF-Recycled polyester 2
+  material_of_origin: Recycled Polyester
+  availability_status: in_development
+  description:
+    en: Unlike conventional polyester, which is obtained from petroleum derivatives, recycled polyester can be obtained from plastic bottles. These are compacted and broken down into small fibres, which are then transformed into fabric. The chance to give new life to what used to be waste, creating thoughtful and sustainable fashion.
+  interesting_properties:
+    en: It helps to reduce plastic in landfills and generate less pollution.
+  structure: {}
+  what_problem_it_solves:
+    en: Recycled polyester helps reduce plastic waste, keeping bottles out of landfills and oceans. It lowers the need for petroleum-based materials, saving resources and cutting emissions. It transforms discarded plastics into usable fabric for fashion and other products.
+  sensorial_qualities: {}
+  tags:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - conventional_polyester
+    application:
+    - clothing
+  supplier_url: https://ecoalf.com/pages/materiales
+  supplier_name: "\\-Ecoalf"
+  slug: ecoalf-recycled-polyester-2
 - trade_name: Brewed Protein™
   material_of_origin: Protein
   availability_status: in_development

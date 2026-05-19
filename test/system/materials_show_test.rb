@@ -49,7 +49,7 @@ class MaterialsShowTest < ApplicationSystemTestCase
     assert_selector %([data-role="gallery-thumb"][data-kind="macro"][data-gallery-active="false"])
     assert_selector %([data-media-key="micro-0"]:not(.hidden))
     within("[data-role='gallery-viewer']") do
-      assert_no_selector %([data-media-key="macro"]), visible: :all
+      assert_no_selector %([data-media-key="macro-0"]), visible: :all
     end
   end
 

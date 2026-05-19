@@ -1,4 +1,5 @@
 require_relative "material_assets_naming"
+require_relative "material_assets_slug_resolver"
 
 # Walks a local directory that mirrors the SMEs' Drive folder layout and
 # upserts the corresponding {MaterialAsset} rows with Active Storage files
@@ -16,10 +17,12 @@ require_relative "material_assets_naming"
 #     Pyratex-Musa-1/
 #       ...
 #
-# The folder name lowercased is matched against `Material#slug`. Files whose
-# base name ends in `-m<N>` are classified as microscopies with position
-# `N - 1`. Other image files are classified as the macro; video files
-# (`.mp4`/`.mov`/`.webm`) as the video.
+# The stripped, parameterized folder name is matched against `Material#slug`.
+# Files whose base name ends in `-m<N>` are classified as microscopies with
+# position `N - 1`. Other image files are classified as ordered macro photos;
+# explicit suffixes such as `_2` are respected and arbitrary camera filenames
+# are placed in sorted order. Video files (`.mp4`/`.mov`/`.webm`) are the
+# singleton video.
 #
 # The importer is idempotent: re-running it re-attaches each file on the same
 # `(material, kind, position)` row rather than duplicating. Folders whose slug
@@ -63,7 +66,7 @@ class MaterialAssetsImporter
   private
 
   def import_folder(folder, result)
-    slug = folder.basename.to_s.downcase
+    slug = MaterialAssetsSlugResolver.call(folder.basename.to_s)
     material = Material.find_by(slug: slug)
 
     unless material
@@ -71,24 +74,27 @@ class MaterialAssetsImporter
       return
     end
 
+    used_macro_positions = []
+
     folder.children.select(&:file?).sort.each do |file|
-      import_file(file, material, result)
+      import_file(file, material, folder.basename.to_s, used_macro_positions, result)
     end
   end
 
-  def import_file(file, material, result)
-    kind, position = classify(file)
+  def import_file(file, material, material_stem, used_macro_positions, result)
+    kind, position = classify(file, material_stem: material_stem)
 
     if kind.nil?
       result.files_ignored << file.basename.to_s
       return
     end
 
+    position = next_available_position(position, used_macro_positions) if kind == :macro
     upsert(material, kind, position, file, result)
   end
 
-  def classify(file)
-    MaterialAssetsNaming.classify(file, image_extensions: IMAGE_EXTENSIONS)
+  def classify(file, material_stem:)
+    MaterialAssetsNaming.classify(file, image_extensions: IMAGE_EXTENSIONS, material_stem: material_stem)
   end
 
   def upsert(material, kind, position, file, result)
@@ -103,5 +109,12 @@ class MaterialAssetsImporter
     asset.save!
 
     was_new ? result.created += 1 : result.updated += 1
+  end
+
+  def next_available_position(preferred, used_positions)
+    position = preferred || 0
+    position += 1 while used_positions.include?(position)
+    used_positions << position
+    position
   end
 end

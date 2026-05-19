@@ -6,7 +6,8 @@ require_relative "material_assets_naming"
 # Normalises a local material-media folder tree into a browser-friendly,
 # importer-ready mirror:
 #
-#   * macro images -> JPG, long edge capped at 3600px by default
+#   * macro images -> JPG, long edge capped at 3600px by default, with stable
+#     ordered filenames (`<Folder>.jpg`, `<Folder>_2.jpg`, ...)
 #   * microscopy images -> JPG, long edge capped at 2400px by default
 #   * videos -> copied through unchanged
 #
@@ -95,12 +96,19 @@ class MaterialAssetsPreprocessor
     destination_folder.mkpath
     result.folders_processed += 1
 
+    used_macro_positions = []
+
     folder.children.select(&:file?).sort.each do |file|
-      kind, = MaterialAssetsNaming.classify(file, image_extensions: SOURCE_IMAGE_EXTENSIONS)
+      kind, position = MaterialAssetsNaming.classify(
+        file,
+        image_extensions: SOURCE_IMAGE_EXTENSIONS,
+        material_stem:    folder.basename.to_s
+      )
 
       case kind
       when :macro
-        prepare_image(file, destination_folder.join(jpg_filename_for(file)), @macro_long_edge)
+        position = next_available_position(position, used_macro_positions)
+        prepare_image(file, destination_folder.join(macro_filename_for(folder, position)), @macro_long_edge)
         result.images_written += 1
       when :microscopy
         prepare_image(file, destination_folder.join(jpg_filename_for(file)), @microscopy_long_edge)
@@ -139,6 +147,20 @@ class MaterialAssetsPreprocessor
 
   def jpg_filename_for(file)
     "#{file.basename(file.extname)}.jpg"
+  end
+
+  def macro_filename_for(folder, position)
+    stem = folder.basename.to_s
+    suffix = position.zero? ? "" : "_#{position + 1}"
+
+    "#{stem}#{suffix}.jpg"
+  end
+
+  def next_available_position(preferred, used_positions)
+    position = preferred || 0
+    position += 1 while used_positions.include?(position)
+    used_positions << position
+    position
   end
 
   def relative_path_for(file)

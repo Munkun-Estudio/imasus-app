@@ -63,11 +63,10 @@ class MaterialAssetTest < ActiveSupport::TestCase
 
   # --- Uniqueness ------------------------------------------------------------
 
-  test "allows only one macro per material" do
-    build_asset(kind: "macro").save!
-    dup = build_asset(kind: "macro")
-    assert_not dup.valid?
-    assert dup.errors[:kind].any?
+  test "allows multiple macros as long as positions differ" do
+    build_asset(kind: "macro", position: 0).save!
+    second = build_asset(kind: "macro", position: 1)
+    assert second.valid?, second.errors.full_messages.to_sentence
   end
 
   test "allows only one video per material" do
@@ -90,6 +89,13 @@ class MaterialAssetTest < ActiveSupport::TestCase
     assert dup.errors[:position].any?
   end
 
+  test "rejects two macros at the same position for the same material" do
+    build_asset(kind: "macro", position: 0).save!
+    dup = build_asset(kind: "macro", position: 0)
+    assert_not dup.valid?
+    assert dup.errors[:position].any?
+  end
+
   # --- Material accessors ----------------------------------------------------
 
   test "material.macro_asset returns the macro asset" do
@@ -97,6 +103,21 @@ class MaterialAssetTest < ActiveSupport::TestCase
     macro.save!
 
     assert_equal macro, material.reload.macro_asset
+  end
+
+  test "material.macro_asset returns the first ordered macro asset" do
+    second = build_asset(kind: "macro", position: 1); second.save!
+    first = build_asset(kind: "macro", position: 0); first.save!
+
+    assert_equal first, material.reload.macro_asset
+  end
+
+  test "material.macro_assets returns macros ordered by position" do
+    m2 = build_asset(kind: "macro", position: 1); m2.save!
+    m1 = build_asset(kind: "macro", position: 0); m1.save!
+    m3 = build_asset(kind: "macro", position: 2); m3.save!
+
+    assert_equal [ m1, m2, m3 ], material.reload.macro_assets.to_a
   end
 
   test "material.macro_asset uses preloaded assets when available" do
@@ -107,6 +128,17 @@ class MaterialAssetTest < ActiveSupport::TestCase
 
     assert_no_queries do
       assert_equal macro, preloaded_material.macro_asset
+    end
+  end
+
+  test "material.macro_assets uses preloaded assets when available" do
+    m2 = build_asset(kind: "macro", position: 1); m2.save!
+    m1 = build_asset(kind: "macro", position: 0); m1.save!
+
+    preloaded_material = Material.includes(:assets).find(material.id)
+
+    assert_no_queries do
+      assert_equal [ m1, m2 ], preloaded_material.macro_assets
     end
   end
 
