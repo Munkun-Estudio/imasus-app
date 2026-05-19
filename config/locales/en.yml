@@ -446,6 +446,7 @@ en:
         empty: "No facilitators yet. Invite your first one with the button above."
         active: "Active"
         pending: "Invitation pending"
+        revoke: "Revoke"
         workshops_count:
           one: "1 workshop"
           other: "%{count} workshops"
@@ -453,9 +454,41 @@ en:
         title: "Invite a new facilitator"
         name: "Full name"
         email: "Email"
+        workshops: "Assign to workshops (optional)"
+        workshops_help: "The facilitator will manage the selected workshops as soon as they accept the invitation. You can also assign workshops later."
         submit: "Send invitation"
       create:
         notice: "Invitation sent to %{email}."
+        invalid_workshop: "One of the selected workshops could not be found."
+      show:
+        eyebrow: "Facilitator"
+        assigned_workshops: "Assigned workshops"
+        no_workshops: "This facilitator is not yet assigned to any workshop."
+        assign_workshop: "Assign a workshop"
+        assign: "Assign"
+        unassign: "Unassign"
+        revoke_section_title: "Pending invitation"
+        revoke_section_lead: "If this invitation was sent in error, revoke it to remove the facilitator account."
+        revoke: "Revoke invitation"
+      revoke:
+        notice: "Invitation for %{name} has been revoked."
+        refused: "This facilitator has already accepted their invitation. Revoke is only available for pending invitations."
+      revoke_confirmation:
+        title: "Revoke invitation?"
+        body: "%{name}'s invitation will be removed. The original invitation link will no longer work."
+        cancel: "Cancel"
+        submit: "Revoke invitation"
+    facilitator_workshop_assignments:
+      create:
+        notice: "%{name} can now manage %{workshop}."
+        invalid_workshop: "That workshop could not be found."
+      destroy:
+        notice: "%{name} no longer manages %{workshop}."
+      delete_confirmation:
+        title: "Unassign workshop?"
+        body: "%{name} will lose edit access to %{workshop}. Their existing data stays."
+        cancel: "Cancel"
+        submit: "Unassign"
     workshop_emails:
       audiences:
         participants: "Participants"

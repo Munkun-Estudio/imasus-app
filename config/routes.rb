@@ -73,7 +73,18 @@ Rails.application.routes.draw do
   patch "password_resets/:token",      to: "password_resets#update", as: :password_reset
 
   namespace :admin do
-    resources :facilitators, only: [ :index, :new, :create ]
+    resources :facilitators, only: [ :index, :new, :create, :show, :destroy ] do
+      member do
+        get :revoke_confirmation
+      end
+      resources :workshop_assignments,
+                only: [ :create, :destroy ],
+                controller: "facilitator_workshop_assignments" do
+        member do
+          get :delete_confirmation
+        end
+      end
+    end
     resources :workshops, only: [], param: :slug do
       resources :emails, only: [ :index, :new, :create ], controller: "workshop_emails" do
         post :send_test, on: :collection

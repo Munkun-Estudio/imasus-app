@@ -366,6 +366,7 @@ es:
         empty: "Aún no hay personas facilitadoras. Invita a la primera con el botón de arriba."
         active: "Activa"
         pending: "Invitación pendiente"
+        revoke: "Revocar"
         workshops_count:
           one: "1 taller"
           other: "%{count} talleres"
@@ -373,9 +374,41 @@ es:
         title: "Invitar a una persona facilitadora"
         name: "Nombre completo"
         email: "Correo electrónico"
+        workshops: "Asignar a talleres (opcional)"
+        workshops_help: "La persona facilitadora gestionará los talleres seleccionados en cuanto acepte la invitación. También puedes asignarlos más adelante."
         submit: "Enviar invitación"
       create:
         notice: "Invitación enviada a %{email}."
+        invalid_workshop: "Uno de los talleres seleccionados no se ha encontrado."
+      show:
+        eyebrow: "Facilitación"
+        assigned_workshops: "Talleres asignados"
+        no_workshops: "Esta persona facilitadora aún no está asignada a ningún taller."
+        assign_workshop: "Asignar un taller"
+        assign: "Asignar"
+        unassign: "Desasignar"
+        revoke_section_title: "Invitación pendiente"
+        revoke_section_lead: "Si la invitación se envió por error, revócala para eliminar la cuenta de facilitación."
+        revoke: "Revocar invitación"
+      revoke:
+        notice: "La invitación de %{name} ha sido revocada."
+        refused: "Esta persona facilitadora ya ha aceptado su invitación. La revocación sólo está disponible para invitaciones pendientes."
+      revoke_confirmation:
+        title: "¿Revocar invitación?"
+        body: "Se eliminará la invitación de %{name}. El enlace de invitación original dejará de funcionar."
+        cancel: "Cancelar"
+        submit: "Revocar invitación"
+    facilitator_workshop_assignments:
+      create:
+        notice: "%{name} ahora puede gestionar %{workshop}."
+        invalid_workshop: "No se ha encontrado ese taller."
+      destroy:
+        notice: "%{name} ya no gestiona %{workshop}."
+      delete_confirmation:
+        title: "¿Desasignar taller?"
+        body: "%{name} perderá el acceso de edición a %{workshop}. Sus datos existentes se mantienen."
+        cancel: "Cancelar"
+        submit: "Desasignar"
     workshop_emails:
       audiences:
         participants: "Participants"

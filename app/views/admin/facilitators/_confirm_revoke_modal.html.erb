@@ -1,0 +1,38 @@
+<%= turbo_frame_tag "modal" do %>
+  <div data-controller="modal"
+       data-action="keydown.esc@window->modal#close click->modal#backdrop"
+       class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+    <div role="dialog"
+         aria-modal="true"
+         aria-labelledby="confirm-revoke-title"
+         tabindex="-1"
+         data-modal-target="dialog"
+         class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
+      <h2 id="confirm-revoke-title" class="text-lg font-semibold text-imasus-dark-green">
+        <%= t("admin.facilitators.revoke_confirmation.title",
+              default: "Revoke invitation?") %>
+      </h2>
+      <p class="mt-2 text-sm text-imasus-dark-green/80">
+        <%= t("admin.facilitators.revoke_confirmation.body",
+              default: "%{name}'s invitation will be removed. The original invitation link will no longer work.",
+              name: facilitator.name) %>
+      </p>
+
+      <div class="mt-6 flex items-center justify-end gap-2">
+        <button type="button"
+                data-action="modal#close"
+                data-role="cancel-revoke-facilitator"
+                class="rounded-md border border-imasus-dark-green/20 px-4 py-2 text-sm font-medium text-imasus-dark-green hover:bg-imasus-mint/20">
+          <%= t("admin.facilitators.revoke_confirmation.cancel", default: "Cancel") %>
+        </button>
+
+        <%= button_to t("admin.facilitators.revoke_confirmation.submit",
+                        default: "Revoke invitation"),
+              admin_facilitator_path(facilitator),
+              method: :delete,
+              data: { role: "confirm-revoke-facilitator" },
+              class: "rounded-md bg-imasus-red px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-red/90" %>
+      </div>
+    </div>
+  </div>
+<% end %>
