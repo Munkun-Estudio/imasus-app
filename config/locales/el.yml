@@ -371,6 +371,8 @@ el:
         empty: "Δεν υπάρχουν διευκολυντές ακόμα. Καλέστε τον πρώτο με το κουμπί παραπάνω."
         active: "Ενεργός/ή"
         pending: "Πρόσκληση σε εκκρεμότητα"
+        # TODO: translate (admin-facilitator-management)
+        revoke: "Revoke"
         workshops_count:
           one: "1 εργαστήριο"
           other: "%{count} εργαστήρια"
@@ -378,9 +380,66 @@ el:
         title: "Πρόσκληση συντονίστριας ή συντονιστή"
         name: "Ονοματεπώνυμο"
         email: "Email"
+        # TODO: translate (admin-facilitator-management)
+        workshops: "Assign to workshops (optional)"
+        # TODO: translate (admin-facilitator-management)
+        workshops_help: "The facilitator will manage the selected workshops as soon as they accept the invitation. You can also assign workshops later."
         submit: "Αποστολή πρόσκλησης"
       create:
         notice: "Η πρόσκληση στάλθηκε στο %{email}."
+        # TODO: translate (admin-facilitator-management)
+        invalid_workshop: "One of the selected workshops could not be found."
+      show:
+        # TODO: translate (admin-facilitator-management)
+        eyebrow: "Facilitator"
+        # TODO: translate (admin-facilitator-management)
+        assigned_workshops: "Assigned workshops"
+        # TODO: translate (admin-facilitator-management)
+        no_workshops: "This facilitator is not yet assigned to any workshop."
+        # TODO: translate (admin-facilitator-management)
+        assign_workshop: "Assign a workshop"
+        # TODO: translate (admin-facilitator-management)
+        assign: "Assign"
+        # TODO: translate (admin-facilitator-management)
+        unassign: "Unassign"
+        # TODO: translate (admin-facilitator-management)
+        revoke_section_title: "Pending invitation"
+        # TODO: translate (admin-facilitator-management)
+        revoke_section_lead: "If this invitation was sent in error, revoke it to remove the facilitator account."
+        # TODO: translate (admin-facilitator-management)
+        revoke: "Revoke invitation"
+      revoke:
+        # TODO: translate (admin-facilitator-management)
+        notice: "Invitation for %{name} has been revoked."
+        # TODO: translate (admin-facilitator-management)
+        refused: "This facilitator has already accepted their invitation. Revoke is only available for pending invitations."
+      revoke_confirmation:
+        # TODO: translate (admin-facilitator-management)
+        title: "Revoke invitation?"
+        # TODO: translate (admin-facilitator-management)
+        body: "%{name}'s invitation will be removed. The original invitation link will no longer work."
+        # TODO: translate (admin-facilitator-management)
+        cancel: "Cancel"
+        # TODO: translate (admin-facilitator-management)
+        submit: "Revoke invitation"
+    facilitator_workshop_assignments:
+      create:
+        # TODO: translate (admin-facilitator-management)
+        notice: "%{name} can now manage %{workshop}."
+        # TODO: translate (admin-facilitator-management)
+        invalid_workshop: "That workshop could not be found."
+      destroy:
+        # TODO: translate (admin-facilitator-management)
+        notice: "%{name} no longer manages %{workshop}."
+      delete_confirmation:
+        # TODO: translate (admin-facilitator-management)
+        title: "Unassign workshop?"
+        # TODO: translate (admin-facilitator-management)
+        body: "%{name} will lose edit access to %{workshop}. Their existing data stays."
+        # TODO: translate (admin-facilitator-management)
+        cancel: "Cancel"
+        # TODO: translate (admin-facilitator-management)
+        submit: "Unassign"
     workshop_emails:
       audiences:
         participants: "Participants"

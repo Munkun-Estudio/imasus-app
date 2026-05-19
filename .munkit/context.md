@@ -203,6 +203,7 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
 | `trix-resource-embeds` | Trix toolbar embeds for materials/training in `process_summary`. | Pending |
 | `admin-workshop-emails` | Lightweight admin-only workshop email composer for manual HTML follow-ups/news to participants, facilitators, or both within a single workshop; includes preview, send-test-to-self, send history, and no scheduling/templates/global audiences. | Implemented |
 | `media-performance` | Improve media-heavy page performance with benchmark evidence, scroll-triggered materials/log loading, poster-first video, and preprocessed image variants. | Spec drafted |
+| `admin-facilitator-management` | Admin surface to assign/unassign facilitators to workshops (via `WorkshopParticipation` create/destroy on `/admin/facilitators/:id`), optional invite + assign in one transaction, and pending-invitation revocation. Unblocks the spec-10 deferral on `Project#visible_to?` workshop-scoping. | Spec drafted |
 
 ---
 

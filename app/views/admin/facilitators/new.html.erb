@@ -19,6 +19,29 @@
         <%= f.label :email, t("admin.facilitators.new.email", default: "Email"), class: form_label_classes %>
         <%= f.email_field :email, required: true, class: form_input_classes %>
       </div>
+      <% workshops = Workshop.order(:starts_on) %>
+      <% if workshops.any? %>
+        <fieldset>
+          <legend class="<%= form_label_classes %>">
+            <%= t("admin.facilitators.new.workshops", default: "Assign to workshops (optional)") %>
+          </legend>
+          <p class="mt-1 text-xs text-imasus-dark-green/60">
+            <%= t("admin.facilitators.new.workshops_help",
+                  default: "The facilitator will manage the selected workshops as soon as they accept the invitation. You can also assign workshops later.") %>
+          </p>
+          <div class="mt-3 space-y-2">
+            <% workshops.each do |workshop| %>
+              <label class="flex items-start gap-3 rounded-lg border border-imasus-dark-green/10 bg-white px-3 py-2 text-sm text-imasus-dark-green">
+                <input type="checkbox" name="workshop_ids[]" value="<%= workshop.id %>" class="mt-1">
+                <span>
+                  <span class="font-semibold"><%= workshop.title %></span>
+                  <span class="block text-xs text-imasus-dark-green/60"><%= workshop.location %></span>
+                </span>
+              </label>
+            <% end %>
+          </div>
+        </fieldset>
+      <% end %>
       <%= f.submit t("admin.facilitators.new.submit", default: "Send invitation"), class: form_primary_button_classes %>
     <% end %>
   </div>
