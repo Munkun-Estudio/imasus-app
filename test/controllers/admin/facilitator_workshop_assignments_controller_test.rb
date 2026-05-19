@@ -143,6 +143,13 @@ class Admin::FacilitatorWorkshopAssignmentsControllerTest < ActionDispatch::Inte
     assert_select "turbo-frame#modal"
   end
 
+  test "delete_confirmation form breaks out of the modal frame on submit" do
+    participation = WorkshopParticipation.create!(user: @facilitator, workshop: @workshop)
+    sign_in(@admin)
+    get delete_confirmation_admin_facilitator_workshop_assignment_path(@facilitator, participation)
+    assert_select "turbo-frame#modal form[data-turbo-frame=?]", "_top"
+  end
+
   test "delete_confirmation denied for facilitator role" do
     participation = WorkshopParticipation.create!(user: @facilitator, workshop: @workshop)
     sign_in(@facilitator)

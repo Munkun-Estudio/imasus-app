@@ -32,6 +32,7 @@
                         default: "Unassign"),
               admin_facilitator_workshop_assignment_path(facilitator, participation),
               method: :delete,
+              form: { data: { turbo_frame: "_top" } },
               data: { role: "confirm-unassign-workshop" },
               class: "rounded-md bg-imasus-red px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-red/90" %>
       </div>

@@ -11,7 +11,11 @@ class Admin::FacilitatorWorkshopAssignmentsController < ApplicationController
   before_action :set_participation, only: [ :destroy, :delete_confirmation ]
 
   # Creates a {WorkshopParticipation} linking the facilitator to the
-  # given workshop. Idempotent via `find_or_create_by!`. Invalid
+  # given workshop. The Rails-level uniqueness validation on
+  # WorkshopParticipation makes `find_or_create_by!` idempotent for
+  # sequential submits; the rescue below handles the race where two
+  # concurrent POSTs both pass the SELECT and the DB unique index on
+  # `(user_id, workshop_id)` rejects one of the INSERTs. Invalid
   # `workshop_id` redirects back with an alert instead of raising.
   def create
     workshop = Workshop.find_by(id: params[:workshop_id])
@@ -22,7 +26,12 @@ class Admin::FacilitatorWorkshopAssignmentsController < ApplicationController
       return
     end
 
-    WorkshopParticipation.find_or_create_by!(user: @facilitator, workshop: workshop)
+    begin
+      WorkshopParticipation.find_or_create_by!(user: @facilitator, workshop: workshop)
+    rescue ActiveRecord::RecordNotUnique
+      # Concurrent submit beat us to the INSERT; the row exists either way.
+    end
+
     redirect_to admin_facilitator_path(@facilitator),
                 notice: t("admin.facilitator_workshop_assignments.create.notice",
                           default: "%{name} can now manage %{workshop}.",

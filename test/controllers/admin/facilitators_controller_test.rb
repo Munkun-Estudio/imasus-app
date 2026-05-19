@@ -236,6 +236,14 @@ class Admin::FacilitatorsControllerTest < ActionDispatch::IntegrationTest
     assert_select "turbo-frame#modal"
   end
 
+  test "revoke_confirmation form breaks out of the modal frame on submit" do
+    pending = User.create!(name: "Pending", email: "pending@example.com", password: @password, role: :facilitator,
+                           invitation_token: "tok", invitation_sent_at: Time.current)
+    sign_in(@admin)
+    get revoke_confirmation_admin_facilitator_path(pending)
+    assert_select "turbo-frame#modal form[data-turbo-frame=?]", "_top"
+  end
+
   test "revoke_confirmation denied for facilitator role" do
     pending = User.create!(name: "Pending", email: "pending@example.com", password: @password, role: :facilitator,
                            invitation_token: "tok", invitation_sent_at: Time.current)
