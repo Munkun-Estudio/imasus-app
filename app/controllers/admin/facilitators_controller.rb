@@ -16,8 +16,14 @@ class Admin::FacilitatorsController < ApplicationController
   # workshops the facilitator is not yet on, and (for pending
   # invitations) a Revoke invitation section.
   def show
-    @assigned_workshops = @facilitator.workshops.order(:starts_on)
-    @assignable_workshops = Workshop.where.not(id: @assigned_workshops.select(:id)).order(:starts_on)
+    @assigned_participations =
+      @facilitator.workshop_participations
+                  .includes(:workshop)
+                  .joins(:workshop)
+                  .order("workshops.starts_on")
+    @assignable_workshops =
+      Workshop.where.not(id: @assigned_participations.select(:workshop_id))
+              .order(:starts_on)
   end
 
   # Turbo-modal confirmation for revoking a pending invitation.

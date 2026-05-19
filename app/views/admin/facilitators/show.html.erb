@@ -43,10 +43,10 @@
         <%= t("admin.facilitators.show.assigned_workshops", default: "Assigned workshops") %>
       </h2>
 
-      <% if @assigned_workshops.any? %>
+      <% if @assigned_participations.any? %>
         <ul class="mt-4 divide-y divide-imasus-dark-green/10 rounded-2xl border border-imasus-dark-green/10 bg-white">
-          <% @assigned_workshops.each do |workshop| %>
-            <% participation = WorkshopParticipation.find_by(user: @facilitator, workshop: workshop) %>
+          <% @assigned_participations.each do |participation| %>
+            <% workshop = participation.workshop %>
             <li data-assigned-workshop data-workshop-id="<%= workshop.id %>"
                 class="flex flex-wrap items-center gap-4 px-5 py-4">
               <div class="min-w-0 flex-1">
