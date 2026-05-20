@@ -75,6 +75,25 @@ class MaterialsIndexTest < ApplicationSystemTestCase
     assert_selector %([data-material="#{later_material.slug}"]), wait: 5
   end
 
+  test "detail links from lazy-loaded cards navigate the full page" do
+    later_material = Material.order(:position).offset(MaterialsController::BATCH_SIZE).first
+    skip "not enough seeded materials to require a second batch" unless later_material
+
+    visit materials_url
+
+    sentinel = find("turbo-frame[data-role='materials-next-page']")
+    execute_script("arguments[0].scrollIntoView({ block: 'center' })", sentinel.native)
+    assert_selector %([data-material="#{later_material.slug}"]), wait: 5
+
+    within %([data-material="#{later_material.slug}"]) do
+      click_link later_material.trade_name
+    end
+
+    assert_current_path material_path(later_material.slug)
+    assert_selector "h1", text: later_material.trade_name
+    assert_no_text "Content missing"
+  end
+
   test "eye icon opens the preview sidebar, Escape dismisses it" do
     visit materials_url
 

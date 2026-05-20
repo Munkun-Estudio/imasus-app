@@ -255,10 +255,10 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
   test "each card's trade name links to the material detail page" do
     get materials_url
     Material.order(:position).limit(MATERIALS_BATCH_SIZE).each do |material|
-      assert_select %([data-material="#{material.slug}"] a[href=?]),
+      assert_select %([data-material="#{material.slug}"] a[href=?][data-turbo-frame="_top"]),
                     material_path(material.slug),
                     minimum: 1,
-                    message: "expected the card for #{material.slug} to contain a link to #{material_path(material.slug)}"
+                    message: "expected the card for #{material.slug} to contain a top-level link to #{material_path(material.slug)}"
     end
   end
 
