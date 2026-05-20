@@ -36,6 +36,7 @@
   <div class="flex flex-1 flex-col gap-3 p-4">
     <h3 class="text-base font-semibold text-imasus-dark-green">
       <%= link_to material.trade_name, material_path(material.slug),
+            data: { turbo_frame: "_top" },
             aria: { label: t("materials.show.view_detail", name: material.trade_name) },
             class: "before:absolute before:inset-0 before:z-0 before:content-[''] focus:outline-none" %>
     </h3>
