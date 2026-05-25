@@ -27,6 +27,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
   test "GET /materials returns 200" do
     get materials_url
     assert_response :success
+    assert_select "meta[name='robots']", count: 0
   end
 
   test "GET /materials renders only the first batch of seeded materials" do
@@ -77,7 +78,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
     Tag::FACETS.each do |facet|
       Tag.where(facet: facet).find_each do |tag|
         expected_count = tag.materials.count
-        assert_select %([data-facet="#{facet}"] a[href*="#{facet}=#{tag.slug}"]),
+        assert_select %([data-facet="#{facet}"] a[href*="#{facet}=#{tag.slug}"][rel="nofollow"]),
                       expected_count.positive? ? { minimum: 1 } : { count: 0 },
                       "expected chip visibility for facet=#{facet} slug=#{tag.slug} count=#{expected_count}"
       end
@@ -88,6 +89,7 @@ class MaterialsControllerTest < ActionDispatch::IntegrationTest
 
   test "GET /materials?origin_type=plants narrows to materials tagged with plants" do
     get materials_url(origin_type: "plants")
+    assert_select "meta[name='robots'][content='noindex,nofollow']"
     tag = Tag.find_by!(facet: "origin_type", slug: "plants")
     tagged = tag.materials.reorder(:position).limit(MATERIALS_BATCH_SIZE).pluck(:slug).uniq
     untagged = Material.where.not(id: tag.materials.select(:id)).pluck(:slug)
