@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Strip private git gems
         run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Strip private git gems
         run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
@@ -55,7 +55,7 @@ jobs:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Strip private git gems
         run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
@@ -104,7 +104,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y imagemagick libpq-dev
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Strip private git gems
         run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
@@ -148,7 +148,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y imagemagick libpq-dev
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Strip private git gems
         run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
