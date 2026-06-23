@@ -117,17 +117,18 @@ class StaticArchiveExporter
       figure.css("a[href]").each { |node| node["href"] = asset.fetch("url") }
     end
 
-    fragment.css("[src],[href]").each do |node|
-      attribute = node.key?("src") ? "src" : "href"
-      next unless node[attribute].include?("/rails/active_storage/")
+    fragment.css("*").each do |node|
+      node.attribute_nodes.each do |attribute|
+        next unless attribute.value.include?("/rails/active_storage/")
 
-      signed_id = URI.parse(node[attribute]).path.split("/")[4]
-      blob = ActiveStorage::Blob.find_signed(signed_id)
-      raise "Could not resolve Rails Active Storage URL in Action Text" unless blob
+        signed_id = URI.parse(attribute.value).path.split("/")[4]
+        blob = ActiveStorage::Blob.find_signed(signed_id)
+        raise "Could not resolve Rails Active Storage URL in Action Text" unless blob
 
-      asset_id = register_blob(blob, record_type, record_id, name)
-      node[attribute] = @assets.fetch(asset_id).fetch("url")
-      node["data-static-asset-id"] = asset_id
+        asset_id = register_blob(blob, record_type, record_id, name)
+        attribute.value = @assets.fetch(asset_id).fetch("url")
+        node["data-static-asset-id"] = asset_id
+      end
     end
 
     rewritten = fragment.to_html
