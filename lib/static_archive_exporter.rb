@@ -113,6 +113,7 @@ class StaticArchiveExporter
       asset = @assets.fetch(asset_id)
       figure["data-static-asset-id"] = asset_id
       figure.css("[src]").each { |node| node["src"] = asset.fetch("url") }
+      figure.css("[srcset]").each { |node| node["srcset"] = asset.fetch("url") }
       figure.css("a[href]").each { |node| node["href"] = asset.fetch("url") }
     end
 
