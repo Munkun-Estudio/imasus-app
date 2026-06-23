@@ -121,7 +121,7 @@ class StaticArchiveExporter
       node.attribute_nodes.each do |attribute|
         next unless attribute.value.include?("/rails/active_storage/")
 
-        signed_id = URI.parse(attribute.value).path.split("/")[4]
+        signed_id = URI.parse(attribute.value).path.split("/")[5]
         blob = ActiveStorage::Blob.find_signed(signed_id)
         raise "Could not resolve Rails Active Storage URL in Action Text" unless blob
 
