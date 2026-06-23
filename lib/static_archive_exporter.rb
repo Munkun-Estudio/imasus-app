@@ -98,13 +98,11 @@ class StaticArchiveExporter
       attachable = attachment.attachable
       register_blob(attachable, record_type, record_id, name) if attachable.is_a?(ActiveStorage::Blob)
     end
-    html = rewrite_rich_text_attachments(rich_text.body.to_rendered_html_with_layout, attachments, attachment_ids)
+    html = rewrite_rich_text_attachments(rich_text.body.to_rendered_html_with_layout, attachments, attachment_ids, record_type, record_id, name)
     { "html" => html, "asset_ids" => attachment_ids }
   end
 
-  def rewrite_rich_text_attachments(html, attachments, asset_ids)
-    return html if attachments.empty?
-
+  def rewrite_rich_text_attachments(html, attachments, asset_ids, record_type, record_id, name)
     fragment = Nokogiri::HTML::DocumentFragment.parse(html)
     figures = fragment.css("figure.attachment")
     raise "Could not map Action Text attachments to rendered figures" unless figures.size == attachments.size
@@ -116,6 +114,19 @@ class StaticArchiveExporter
       figure["data-static-asset-id"] = asset_id
       figure.css("[src]").each { |node| node["src"] = asset.fetch("url") }
       figure.css("a[href]").each { |node| node["href"] = asset.fetch("url") }
+    end
+
+    fragment.css("[src],[href]").each do |node|
+      attribute = node.key?("src") ? "src" : "href"
+      next unless node[attribute].include?("/rails/active_storage/")
+
+      signed_id = URI.parse(node[attribute]).path.split("/")[4]
+      blob = ActiveStorage::Blob.find_signed(signed_id)
+      raise "Could not resolve Rails Active Storage URL in Action Text" unless blob
+
+      asset_id = register_blob(blob, record_type, record_id, name)
+      node[attribute] = @assets.fetch(asset_id).fetch("url")
+      node["data-static-asset-id"] = asset_id
     end
 
     rewritten = fragment.to_html
