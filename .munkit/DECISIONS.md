@@ -206,3 +206,9 @@ Workshop-facilitator assignments are managed from the per-facilitator admin page
 ## 2026-05-19: admin-facilitator-management: revoke pending invitation = hard-delete; accepted-facilitator removal out of scope
 
 For facilitator users whose invitation has not been accepted (invitation_accepted_at is nil), the admin Revoke action hard-deletes the User row. The cascade on User#workshop_participations (dependent: :destroy) removes any pre-assigned WorkshopParticipation rows. This is safe because a pending facilitator has no authored content (projects, log entries, bookmarks) yet — they have never logged in. Removing an accepted facilitator is explicitly out of scope: no soft-delete or deactivation column exists on User and adding one is bigger than this spec. The path forward for an accepted facilitator who should no longer manage workshops is per-workshop unassignment (destroy their WorkshopParticipation rows); the user account stays. If a real "deactivate this account" use case appears, it gets its own spec with the schema and session-revocation plumbing it needs.
+
+## 2026-06-22: MIT for IMASUS application code
+
+The forthcoming static archive and the application code are to be released under the MIT License. This permits reuse, modification, redistribution, and commercial forks, including a future monetisable IMASUS-derived product.
+
+This decision applies to source code only. Workshop outputs, participant names, third-party media, partner marks, and other editorial content require their own rights review and are not implicitly licensed by the code licence.
