@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/site_config"
+
+root = Pathname(__dir__).join("..").expand_path
+
+begin
+  config = SiteConfig.load(root:)
+  puts "Site configuration is valid."
+  puts config.summary
+rescue SiteConfig::Error => error
+  warn "Site configuration is invalid."
+  warn error.message
+  exit 1
+end

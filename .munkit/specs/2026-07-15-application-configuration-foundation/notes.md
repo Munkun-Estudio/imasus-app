@@ -12,7 +12,33 @@
 
 ## Open questions
 
-- Choose the configuration serialization and validation mechanism during this
-  spec, then record the choice in `.munkit/DECISIONS.md` before implementation.
-- Decide whether profile selection is a file path, profile name, or both after
-  checking deployment and test ergonomics.
+- Resolved in `.munkit/DECISIONS.md` on 2026-07-16: strict versioned YAML files
+  under `config/profiles`, selected by `APP_PROFILE`, without ERB or nested
+  environment overrides.
+- The single application API is `Rails.configuration.site`, backed by immutable
+  `Data` values. The loader itself has no Rails dependency, so the standalone
+  diagnostic can validate a broken profile before application boot.
+
+## Implementation
+
+- `config/profiles/imasus.yml` explicitly captures the current identity, four
+  locales, enabled resource modules, content paths, public URLs, and analytics
+  script.
+- `SiteConfig` rejects unknown/missing keys, unsupported versions, unsafe profile
+  names, duplicate or incompatible locales, non-boolean module flags, unsafe or
+  missing content directories, invalid URLs, ERB, and secret-like keys.
+- `config/application.rb` now derives the existing I18n locale configuration from
+  the profile. Other consumers migrate in their focused sprint specs.
+- `bin/site-config` prints the effective non-secret configuration and exits 1 for
+  invalid profiles.
+- Contract, precedence, extension, adopter, and secret-handling guidance lives in
+  `docs/configuration.md`.
+
+## Validation
+
+- `bin/site-config`
+- Invalid-profile diagnostic exit status
+- `bin/rails zeitwerk:check`
+- Focused tests: 19 runs, 75 assertions
+- Full suite: 838 runs, 3,633 assertions, 0 failures, 0 errors
+- RuboCop: no offenses in changed Ruby files
