@@ -1,0 +1,35 @@
+version: 1
+
+identity:
+  name: IMASUS App
+  short_name: IMASUS
+  organization: IMASUS
+
+locales:
+  available:
+    - en
+    - es
+    - it
+    - el
+  default: en
+
+modules:
+  library: true
+  guides: true
+  prompts: true
+  glossary: true
+
+content:
+  root: content
+  guides: content/training-modules
+
+public_urls:
+  application: https://app.imasus.eu
+  fallback: https://imasus-app.fly.dev
+  project: https://imasus.eu
+  source: https://github.com/Munkun-Estudio/imasus-app
+
+operations:
+  analytics:
+    enabled: true
+    script_url: https://stats.munkun.com/js/pa-AEv3S9_hJMk___wHOsvRL.js

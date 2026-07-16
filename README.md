@@ -30,6 +30,18 @@ bin/dev
 
 The default Rails health endpoint is available at `/up`.
 
+## Installation Profile
+
+The application currently boots with the checked-in `imasus` profile. Validate
+the active profile with:
+
+```bash
+bin/site-config
+```
+
+See [Installation configuration](docs/configuration.md) for the versioned
+contract, profile selection, validation rules, and secret-handling policy.
+
 ## Development Workflow
 
 Before making non-trivial changes:

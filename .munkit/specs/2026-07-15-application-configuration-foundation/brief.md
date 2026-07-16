@@ -15,19 +15,19 @@ is required before those concerns can be extracted safely and incrementally.
 
 ## Acceptance Criteria
 
-- [ ] A documented, versioned configuration file defines installation identity,
+- [x] A documented, versioned configuration file defines installation identity,
   locales, modules, content locations, public URLs, and non-secret operational
   settings with explicit defaults.
-- [ ] Application code accesses configuration through one typed/read-only API;
+- [x] Application code accesses configuration through one typed/read-only API;
   validation reports actionable errors for missing, unknown, or incompatible
   values before serving requests.
-- [ ] Secret values remain in Rails credentials or environment variables and the
+- [x] Secret values remain in Rails credentials or environment variables and the
   configuration contract documents those references without storing secrets.
-- [ ] The default IMASUS profile reproduces all values currently hardcoded in the
+- [x] The default IMASUS profile reproduces all values currently hardcoded in the
   application, and existing tests pass without user-visible changes.
-- [ ] A diagnostic command prints the active profile, validates referenced files,
+- [x] A diagnostic command prints the active profile, validates referenced files,
   and exits non-zero for an invalid installation.
-- [ ] Configuration behaviour, precedence, and extension rules have focused tests
+- [x] Configuration behaviour, precedence, and extension rules have focused tests
   and adopter documentation.
 
 ## Out of Scope

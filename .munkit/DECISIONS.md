@@ -206,3 +206,7 @@ Workshop-facilitator assignments are managed from the per-facilitator admin page
 ## 2026-05-19: admin-facilitator-management: revoke pending invitation = hard-delete; accepted-facilitator removal out of scope
 
 For facilitator users whose invitation has not been accepted (invitation_accepted_at is nil), the admin Revoke action hard-deletes the User row. The cascade on User#workshop_participations (dependent: :destroy) removes any pre-assigned WorkshopParticipation rows. This is safe because a pending facilitator has no authored content (projects, log entries, bookmarks) yet — they have never logged in. Removing an accepted facilitator is explicitly out of scope: no soft-delete or deactivation column exists on User and adding one is bigger than this spec. The path forward for an accepted facilitator who should no longer manage workshops is per-workshop unassignment (destroy their WorkshopParticipation rows); the user account stays. If a real "deactivate this account" use case appears, it gets its own spec with the schema and session-revocation plumbing it needs.
+
+## 2026-07-16: Use strict YAML installation profiles selected by APP_PROFILE
+
+A checked-in, versioned YAML profile is reviewable, reproducible, and sufficient for installation-level settings. APP_PROFILE selects config/profiles/<name>.yml, while secrets remain in Rails credentials or environment variables. Disallowing ERB prevents secret interpolation and hidden executable configuration. Rails.configuration.site exposes one typed, read-only object to application consumers.

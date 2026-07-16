@@ -24,6 +24,8 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Materials Drive asset nomenclature: SMEs author material media in Drive with one folder per material (e.g. `Lifematerials-Kapok/`, `Pyratex-Musa-1/`). Folder names are stripped, parameterized, and matched to `Material#slug`. Inside: `<Folder>.png|jpg` and numbered/camera macro photos become ordered macro assets (`<Folder>.jpg`, `<Folder>_2.jpg`, ...); `<Folder>-m1`…`-mN.tif|jpg` are microscopies ordered from max-zoom (`m1`) to min; one `.mp4`/`.mov`/`.webm` is the video. Pre-processing before import: TIF/PNG → JPG, downscale macros to 3000–4000 px, microscopies to 2000–3000 px, then ImageOptim. The repo task `material_assets:prepare` writes an importer-ready mirror; `material_assets:import` attaches that processed tree; `material_assets:audit` reports no-media materials, unmatched folders, and multi-macro folders before pruning/upload. Originals stay on Drive.
 - Media-heavy pages use progressive Turbo Frame batches instead of numbered pagination, eager/fetch-prioritised first-viewport images, lazy offscreen variants, and poster-first video that withholds blob URLs until user intent. Common variants can be warmed with `bin/rake material_assets:warm_variants`; material video posters can be generated with `bin/rake material_assets:generate_video_posters` when `ffmpeg` is available.
 
+- Installation-level public settings live in strict versioned `config/profiles/*.yml` files selected by `APP_PROFILE` and are read through `Rails.configuration.site`. Profile files do not execute ERB or contain secrets; credentials and environment variables remain the secret boundary.
+
 ## Gotchas
 
 - `munkit` is a gem dependency in this repo, not just a globally installed CLI.

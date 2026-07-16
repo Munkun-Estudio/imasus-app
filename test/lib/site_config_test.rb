@@ -1,0 +1,284 @@
+require "test_helper"
+require "fileutils"
+require "open3"
+require "tmpdir"
+
+class SiteConfigTest < ActiveSupport::TestCase
+  setup do
+    @root = Pathname(Dir.mktmpdir("site-config-test"))
+    @root.join("config/profiles").mkpath
+    @root.join("content/guides").mkpath
+  end
+
+  teardown do
+    FileUtils.remove_entry(@root)
+  end
+
+  test "loads a selected profile into immutable typed values" do
+    write_profile("custom")
+
+    config = SiteConfig.load(root: @root, env: { "APP_PROFILE" => "custom" })
+
+    assert_equal "custom", config.profile
+    assert_equal 1, config.version
+    assert_equal "Example App", config.identity.name
+    assert_equal %w[en es], config.locales.available
+    assert_equal "en", config.locales.default
+    assert config.modules.library
+    assert_not config.modules.glossary
+    assert_equal %i[library guides prompts], config.modules.enabled
+    assert_equal @root.join("content").realpath, config.content.root
+    assert_equal @root.join("content/guides").realpath, config.content.guides
+    assert_equal "https://example.test", config.public_urls.application
+    assert config.operations.analytics.enabled
+    assert config.frozen?
+    assert config.identity.frozen?
+    assert config.locales.available.frozen?
+    assert_raises(FrozenError) { config.locales.available << "it" }
+  end
+
+  test "uses the imasus profile by default" do
+    write_profile("imasus")
+
+    config = SiteConfig.load(root: @root, env: {})
+
+    assert_equal "imasus", config.profile
+  end
+
+  test "rails exposes the default profile through one configuration API" do
+    config = Rails.configuration.site
+
+    assert_instance_of SiteConfig, config
+    assert_equal "imasus", config.profile
+    assert_equal %w[en es it el], config.locales.available
+    assert_equal config.locales.available.map(&:to_sym), I18n.available_locales
+    assert_equal config.locales.default.to_sym, I18n.default_locale
+  end
+
+  test "rejects unsafe profile names" do
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "../production" })
+    end
+
+    assert_includes error.message, "APP_PROFILE"
+  end
+
+  test "reports a missing profile path" do
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "missing" })
+    end
+
+    assert_includes error.message, "config/profiles/missing.yml"
+  end
+
+  test "rejects unsupported contract versions" do
+    write_profile("future", payload: valid_profile.merge("version" => 2))
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "future" })
+    end
+
+    assert_includes error.message, "Unsupported site profile version 2"
+  end
+
+  test "reports missing required keys" do
+    payload = valid_profile
+    payload["identity"].delete("organization")
+    write_profile("missing-key", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "missing-key" })
+    end
+
+    assert_includes error.message, "Missing required key identity.organization"
+  end
+
+  test "rejects unknown keys at every contract level" do
+    payload = valid_profile
+    payload["identity"]["tagline"] = "Unexpected"
+    write_profile("unknown", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "unknown" })
+    end
+
+    assert_includes error.message, "Unknown configuration.identity key: tagline"
+  end
+
+  test "rejects secret-like keys" do
+    payload = valid_profile
+    payload["operations"]["api_key"] = "do-not-store-this"
+    write_profile("secret", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "secret" })
+    end
+
+    assert_includes error.message, "Secret-like key configuration.operations.api_key"
+  end
+
+  test "requires the default locale to be available" do
+    payload = valid_profile
+    payload["locales"]["default"] = "it"
+    write_profile("bad-locale", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "bad-locale" })
+    end
+
+    assert_includes error.message, "must be present in locales.available"
+  end
+
+  test "requires explicit boolean module flags" do
+    payload = valid_profile
+    payload["modules"]["guides"] = "yes"
+    write_profile("bad-module", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "bad-module" })
+    end
+
+    assert_includes error.message, "modules.guides must be true or false"
+  end
+
+  test "rejects content paths outside the application root" do
+    payload = valid_profile
+    payload["content"]["root"] = "../content"
+    write_profile("unsafe-path", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "unsafe-path" })
+    end
+
+    assert_includes error.message, "must stay inside the application root"
+  end
+
+  test "reports missing content directories" do
+    payload = valid_profile
+    payload["content"]["guides"] = "content/missing"
+    write_profile("missing-content", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "missing-content" })
+    end
+
+    assert_includes error.message, "content.guides directory does not exist"
+  end
+
+  test "rejects content symlinks that resolve outside the application root" do
+    outside = Pathname(Dir.mktmpdir("site-config-outside"))
+    FileUtils.rm_rf(@root.join("content/guides"))
+    FileUtils.ln_s(outside, @root.join("content/guides"))
+    write_profile("symlink")
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "symlink" })
+    end
+
+    assert_includes error.message, "must not resolve outside the application root"
+  ensure
+    FileUtils.remove_entry(outside) if outside&.exist?
+  end
+
+  test "requires absolute HTTP or HTTPS public URLs" do
+    payload = valid_profile
+    payload["public_urls"]["application"] = "/relative"
+    write_profile("bad-url", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "bad-url" })
+    end
+
+    assert_includes error.message, "must be an absolute HTTP(S) URL"
+  end
+
+  test "allows analytics to be disabled without a script URL" do
+    payload = valid_profile
+    payload["operations"]["analytics"] = { "enabled" => false, "script_url" => nil }
+    write_profile("no-analytics", payload:)
+
+    config = SiteConfig.load(root: @root, env: { "APP_PROFILE" => "no-analytics" })
+
+    assert_not config.operations.analytics.enabled
+    assert_nil config.operations.analytics.script_url
+  end
+
+  test "rejects ERB instead of executing profile code" do
+    @root.join("config/profiles/erb.yml").write("version: <%= 1 %>\n")
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "erb" })
+    end
+
+    assert_includes error.message, "ERB is not supported"
+  end
+
+  test "standalone diagnostic succeeds for the default profile" do
+    stdout, stderr, status = Open3.capture3(
+      RbConfig.ruby,
+      Rails.root.join("bin/site-config").to_s,
+      chdir: Rails.root.to_s
+    )
+
+    assert status.success?, stderr
+    assert_includes stdout, "Site configuration is valid."
+    assert_includes stdout, "Profile: imasus"
+  end
+
+  test "standalone diagnostic exits non-zero for an invalid profile" do
+    stdout, stderr, status = Open3.capture3(
+      { "APP_PROFILE" => "missing" },
+      RbConfig.ruby,
+      Rails.root.join("bin/site-config").to_s,
+      chdir: Rails.root.to_s
+    )
+
+    assert_not status.success?
+    assert_empty stdout
+    assert_includes stderr, "Site configuration is invalid."
+    assert_includes stderr, "config/profiles/missing.yml"
+  end
+
+  private
+
+  def write_profile(name, payload: valid_profile)
+    @root.join("config/profiles/#{name}.yml").write(YAML.dump(payload))
+  end
+
+  def valid_profile
+    {
+      "version" => 1,
+      "identity" => {
+        "name" => "Example App",
+        "short_name" => "Example",
+        "organization" => "Example Organisation"
+      },
+      "locales" => {
+        "available" => %w[en es],
+        "default" => "en"
+      },
+      "modules" => {
+        "library" => true,
+        "guides" => true,
+        "prompts" => true,
+        "glossary" => false
+      },
+      "content" => {
+        "root" => "content",
+        "guides" => "content/guides"
+      },
+      "public_urls" => {
+        "application" => "https://example.test",
+        "fallback" => "https://fallback.example.test",
+        "project" => "https://project.example.test",
+        "source" => "https://github.com/example/project"
+      },
+      "operations" => {
+        "analytics" => {
+          "enabled" => true,
+          "script_url" => "https://stats.example.test/script.js"
+        }
+      }
+    }
+  end
+end
