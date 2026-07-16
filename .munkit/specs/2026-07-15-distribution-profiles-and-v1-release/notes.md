@@ -1,0 +1,21 @@
+# Notes: 2026-07-15-distribution-profiles-and-v1-release
+
+## Initial discovery
+
+- `fly.toml` fixes the current app name, region, storage volume, and runtime
+  choices; deployment templates need clearly marked installation values.
+- The existing application is the compatibility fixture and should remain the
+  deployed public site while the abstraction is developed and verified.
+- The proposed delivery model is a long-running `codex/v1.0.0` integration branch
+  with one child PR per sprint spec, squash-merged into it; the final integration
+  into `main` intentionally preserves the reviewed release boundary.
+- GitHub release/tag creation must precede Zenodo archival; EPALE communication
+  is dissemination work after the release exists and has a stable citation.
+
+## Open questions
+
+- Choose canonical repository topology (generic upstream plus IMASUS profile or
+  generic upstream plus a thin IMASUS downstream) after the release candidate
+  proves how much profile-specific code remains.
+- Confirm software/content licensing and partner attribution before generating
+  final citation and Zenodo metadata.

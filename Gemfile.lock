@@ -6,10 +6,10 @@ GIT
 
 GIT
   remote: https://github.com/Munkun-Estudio/munkit.git
-  revision: df1865649240deb4bd80e1dd7780deb1ca1d57c6
+  revision: d4a084a6884b4427d697d519884e78ce527ea3cb
   branch: main
   specs:
-    munkit (2.0.10)
+    munkit (2.5.0)
 
 GEM
   remote: https://rubygems.org/
