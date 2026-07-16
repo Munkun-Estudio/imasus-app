@@ -33,6 +33,9 @@ Every profile declares `version: 1` and all of the following sections:
 | `content` | Repository-relative content root and guides directory |
 | `public_urls` | Canonical application, fallback, project, and source URLs |
 | `operations.analytics` | Whether analytics is enabled and its public script URL |
+| `brand.assets` | Logo, compact mark, email/social images, favicons, and manifest |
+| `brand.theme` | Six validated semantic colour roles |
+| `brand.email` | Non-secret default sender identity |
 
 The contract is strict:
 
@@ -43,6 +46,9 @@ The contract is strict:
 - Public URLs must be absolute HTTP or HTTPS URLs.
 - Analytics requires a script URL when enabled; use `null` when disabled.
 - Unsupported profile versions are rejected instead of being guessed.
+- Brand assets must resolve to existing asset-pipeline or public files.
+- Theme values must be six-digit hexadecimal colours.
+- The default sender address must be a valid email address.
 
 Application code should read `Rails.configuration.site` and must not parse the
 YAML directly. Additions to the contract require a versioning and compatibility
@@ -76,6 +82,11 @@ missing or invalid.
 4. Run `APP_PROFILE=your_profile bin/site-config`.
 5. Run the test suite with that same `APP_PROFILE`.
 
-Later v1.0.0 sprint specs will make brand assets, labels, module behaviour, and
-content manifests consume this boundary. The first configuration spec only
-establishes and validates the contract while preserving current IMASUS behaviour.
+Later v1.0.0 sprint specs will make module behaviour and content manifests
+consume this boundary. Brand assets, identity, metadata, email defaults,
+analytics, and semantic theme roles already use it while preserving current
+IMASUS behaviour.
+
+See [Branding an installation](branding.md) for the asset convention, theme
+roles, localized identity placeholders, email defaults, and optional-service
+behaviour.

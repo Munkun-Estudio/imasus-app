@@ -1,7 +1,7 @@
 <nav aria-label="<%= t("nav.aria_label") %>" class="flex flex-col h-full">
   <div class="px-4 py-6 text-center">
     <a href="<%= root_path %>">
-      <%= image_tag "logo.svg", alt: "IMASUS", class: "h-10 inline-block" %>
+      <%= brand_logo_tag class: "h-10 inline-block font-bold text-brand-primary" %>
     </a>
   </div>
 
@@ -15,7 +15,7 @@
       <% next if items.empty? %>
       <% if group == :resources %>
         <div data-group="resources" class="space-y-2 pt-2">
-          <p data-role="resources-label" class="px-1 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/40">
+          <p data-role="resources-label" class="px-1 text-xs font-medium uppercase tracking-wide text-brand-primary/40">
             <%= t("nav.resources_group") %>
           </p>
           <% items.each do |item| %>

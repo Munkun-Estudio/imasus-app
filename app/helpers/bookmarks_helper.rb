@@ -1,13 +1,13 @@
 module BookmarksHelper
   BOOKMARK_DOT_COLORS = {
-    "TrainingModule" => "bg-imasus-navy",
-    "Material"       => "bg-imasus-light-blue",
-    "Challenge"      => "bg-imasus-mint",
-    "GlossaryTerm"   => "bg-imasus-light-pink"
+    "TrainingModule" => "bg-brand-secondary",
+    "Material"       => "bg-brand-info",
+    "Challenge"      => "bg-brand-success",
+    "GlossaryTerm"   => "bg-brand-soft"
   }.freeze
 
   def bookmark_dot_color(bookmark)
-    BOOKMARK_DOT_COLORS.fetch(bookmark.bookmarkable_type, "bg-imasus-dark-green/20")
+    BOOKMARK_DOT_COLORS.fetch(bookmark.bookmarkable_type, "bg-brand-primary/20")
   end
 
   def bookmark_preview_image_src(bookmark)

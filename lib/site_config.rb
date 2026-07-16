@@ -11,12 +11,19 @@ require "yaml"
 class SiteConfig
   class Error < StandardError; end
 
-  Identity = Data.define(:name, :short_name, :organization)
+  Identity = Data.define(:name, :short_name, :organization, :description)
   Locales = Data.define(:available, :default)
   Content = Data.define(:root, :guides)
-  PublicUrls = Data.define(:application, :fallback, :project, :source)
+  PublicUrls = Data.define(:application, :fallback, :project, :source, :support)
   Analytics = Data.define(:enabled, :script_url)
   Operations = Data.define(:analytics)
+  BrandAssets = Data.define(
+    :logo, :compact_mark, :email_logo, :og_image, :favicon_ico, :favicon_svg,
+    :favicon_png, :apple_touch_icon, :web_manifest
+  )
+  BrandTheme = Data.define(:primary, :secondary, :accent, :success, :info, :soft)
+  BrandEmail = Data.define(:from_name, :from_address)
+  Brand = Data.define(:assets, :theme, :email)
 
   Modules = Data.define(:library, :guides, :prompts, :glossary) do
     def enabled?(key)
@@ -34,7 +41,7 @@ class SiteConfig
   PROFILE_FORMAT = /\A[a-z0-9]+(?:[a-z0-9_-]*[a-z0-9])?\z/
 
   attr_reader :profile, :profile_path, :version, :identity, :locales, :modules,
-              :content, :public_urls, :operations
+              :content, :public_urls, :operations, :brand
 
   def self.load(root:, env: ENV)
     root = Pathname(root).expand_path
@@ -57,7 +64,7 @@ class SiteConfig
   end
 
   def initialize(profile:, profile_path:, version:, identity:, locales:, modules:,
-                 content:, public_urls:, operations:)
+                 content:, public_urls:, operations:, brand:)
     @profile = profile.freeze
     @profile_path = profile_path.freeze
     @version = version
@@ -67,6 +74,7 @@ class SiteConfig
     @content = content.freeze
     @public_urls = public_urls.freeze
     @operations = operations.freeze
+    @brand = brand.freeze
     freeze
   end
 
@@ -81,20 +89,30 @@ class SiteConfig
       "Content root: #{content.root}",
       "Guides: #{content.guides}",
       "Public URL: #{public_urls.application}",
+      "Logo: #{brand.assets.logo || 'text fallback'}",
       "Analytics: #{operations.analytics.enabled ? 'enabled' : 'disabled'}"
     ]
   end
 
   class Builder
-    TOP_LEVEL_KEYS = %w[version identity locales modules content public_urls operations].freeze
-    IDENTITY_KEYS = %w[name short_name organization].freeze
+    TOP_LEVEL_KEYS = %w[version identity locales modules content public_urls operations brand].freeze
+    IDENTITY_KEYS = %w[name short_name organization description].freeze
     LOCALE_KEYS = %w[available default].freeze
     MODULE_KEYS = %w[library guides prompts glossary].freeze
     CONTENT_KEYS = %w[root guides].freeze
-    PUBLIC_URL_KEYS = %w[application fallback project source].freeze
+    PUBLIC_URL_KEYS = %w[application fallback project source support].freeze
     OPERATIONS_KEYS = %w[analytics].freeze
     ANALYTICS_KEYS = %w[enabled script_url].freeze
+    BRAND_KEYS = %w[assets theme email].freeze
+    BRAND_ASSET_KEYS = %w[
+      logo compact_mark email_logo og_image favicon_ico favicon_svg favicon_png
+      apple_touch_icon web_manifest
+    ].freeze
+    BRAND_THEME_KEYS = %w[primary secondary accent success info soft].freeze
+    BRAND_EMAIL_KEYS = %w[from_name from_address].freeze
     SECRET_KEY_PATTERN = /\A(?:api_?key|password|secret|token|private_?key|access_?key)\z/i
+    HEX_COLOR_FORMAT = /\A#[0-9a-f]{6}\z/i
+    EMAIL_FORMAT = /\A[^@\s]+@[^@\s]+\z/
 
     def initialize(root:, profile:, profile_path:, payload:)
       @root = root
@@ -119,6 +137,7 @@ class SiteConfig
       content = build_content(config)
       public_urls = build_public_urls(config)
       operations = build_operations(config)
+      brand = build_brand(config)
 
       SiteConfig.new(
         profile: @profile,
@@ -129,7 +148,8 @@ class SiteConfig
         modules:,
         content:,
         public_urls:,
-        operations:
+        operations:,
+        brand:
       )
     end
 
@@ -140,7 +160,8 @@ class SiteConfig
       Identity.new(
         name: string!(values, "name", "identity"),
         short_name: string!(values, "short_name", "identity"),
-        organization: string!(values, "organization", "identity")
+        organization: string!(values, "organization", "identity"),
+        description: string!(values, "description", "identity")
       )
     end
 
@@ -184,7 +205,8 @@ class SiteConfig
         application: url!(values, "application", "public_urls"),
         fallback: url!(values, "fallback", "public_urls"),
         project: url!(values, "project", "public_urls"),
-        source: url!(values, "source", "public_urls")
+        source: url!(values, "source", "public_urls"),
+        support: optional_external_url!(values, "support", "public_urls")
       )
     end
 
@@ -199,6 +221,37 @@ class SiteConfig
       end
 
       Operations.new(analytics: Analytics.new(enabled:, script_url:).freeze)
+    end
+
+    def build_brand(config)
+      values = section!(config, "brand", BRAND_KEYS)
+      asset_values = section!(values, "assets", BRAND_ASSET_KEYS, path: "brand")
+      theme_values = section!(values, "theme", BRAND_THEME_KEYS, path: "brand")
+      email_values = section!(values, "email", BRAND_EMAIL_KEYS, path: "brand")
+
+      assets = BrandAssets.new(
+        **BRAND_ASSET_KEYS.to_h do |key|
+          [ key.to_sym, optional_asset!(asset_values, key, "brand.assets") ]
+        end
+      ).freeze
+
+      theme = BrandTheme.new(
+        **BRAND_THEME_KEYS.to_h do |key|
+          [ key.to_sym, color!(theme_values, key, "brand.theme") ]
+        end
+      ).freeze
+
+      from_address = string!(email_values, "from_address", "brand.email")
+      unless EMAIL_FORMAT.match?(from_address)
+        raise Error, "brand.email.from_address must be a valid email address"
+      end
+
+      email = BrandEmail.new(
+        from_name: string!(email_values, "from_name", "brand.email"),
+        from_address: from_address.freeze
+      ).freeze
+
+      Brand.new(assets:, theme:, email:)
     end
 
     def section!(source, key, allowed_keys, path: "configuration")
@@ -292,6 +345,52 @@ class SiteConfig
       return nil if value.nil?
 
       url!(source, key, path)
+    end
+
+    def optional_external_url!(source, key, path)
+      value = fetch!(source, key, path)
+      return nil if value.nil?
+
+      value = nonempty_string!(value, "#{path}.#{key}")
+      uri = URI.parse(value)
+      valid = (%w[http https].include?(uri.scheme) && uri.host && !uri.host.empty?) ||
+              (uri.scheme == "mailto" && !uri.opaque.to_s.empty?)
+      raise Error, "#{path}.#{key} must be an absolute HTTP(S) or mailto URL" unless valid
+
+      value.freeze
+    rescue URI::InvalidURIError
+      raise Error, "#{path}.#{key} must be an absolute HTTP(S) or mailto URL"
+    end
+
+    def optional_asset!(source, key, path)
+      value = fetch!(source, key, path)
+      return nil if value.nil?
+
+      value = nonempty_string!(value, "#{path}.#{key}")
+      public_asset = value.start_with?("/")
+      relative = Pathname(public_asset ? value.delete_prefix("/") : value)
+      if relative.absolute? || relative.each_filename.any? { |part| part == ".." }
+        raise Error, "#{path}.#{key} must be a safe asset path"
+      end
+
+      base = public_asset ? @root.join("public") : @root.join("app/assets/images")
+      resolved = base.join(relative).cleanpath
+      unless inside?(resolved, base) && resolved.file?
+        raise Error, "#{path}.#{key} asset does not exist: #{resolved}"
+      end
+
+      unless inside?(resolved.realpath, base.realpath)
+        raise Error, "#{path}.#{key} must not resolve outside its asset directory"
+      end
+
+      value.freeze
+    end
+
+    def color!(source, key, path)
+      value = string!(source, key, path)
+      raise Error, "#{path}.#{key} must be a six-digit hexadecimal color" unless HEX_COLOR_FORMAT.match?(value)
+
+      value.upcase.freeze
     end
 
     def directory!(value, path)

@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "IMASUS App" %></title>
+    <title><%= content_for(:title) || site_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="IMASUS App">
+    <meta name="application-name" content="<%= site_name %>">
     <meta name="mobile-web-app-capable" content="yes">
     <%= render "layouts/social_meta" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "layouts/plausible_analytics" %>
+    <%= render "layouts/brand_theme" %>
 
     <%= yield :head %>
 
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <%= render "layouts/brand_icons" %>
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -27,9 +24,9 @@
 
   <body class="min-h-screen bg-stone-100" data-controller="mobile-menu">
     <%# Mobile header — visible below lg breakpoint %>
-    <header class="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-imasus-dark-green/10 bg-white px-4 py-3 lg:hidden">
+    <header class="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-brand-primary/10 bg-white px-4 py-3 lg:hidden">
       <a href="<%= root_path %>" class="inline-flex items-center">
-        <%= image_tag "logo.svg", alt: "IMASUS", class: "h-8 w-auto" %>
+        <%= brand_logo_tag class: "h-8 w-auto font-bold text-brand-primary" %>
       </a>
       <div class="flex items-center gap-2">
         <div data-locale-switcher-position="mobile-header">
@@ -38,7 +35,7 @@
         <button type="button"
                 data-mobile-menu-target="toggle"
                 data-action="mobile-menu#toggle"
-                class="rounded-lg p-2 text-imasus-dark-green/70 hover:bg-imasus-mint/10"
+                class="rounded-lg p-2 text-brand-primary/70 hover:bg-brand-success/10"
                 aria-label="<%= t("nav.toggle_menu") %>">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
@@ -54,7 +51,7 @@
 
     <%# Sidebar %>
     <aside data-mobile-menu-target="sidebar"
-           class="fixed inset-y-0 left-0 z-50 w-64 border-r border-imasus-dark-green/10 bg-white
+           class="fixed inset-y-0 left-0 z-50 w-64 border-r border-brand-primary/10 bg-white
                   -translate-x-full transition-transform duration-200 ease-in-out
                   lg:translate-x-0 lg:z-auto">
       <%= render "shared/sidebar" %>

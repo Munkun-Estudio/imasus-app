@@ -1,4 +1,4 @@
-# A shared vocabulary entry used across IMASUS workshop content.
+# A shared vocabulary entry used across workshop content.
 #
 # Each term carries translations for `term`, `definition`, and `examples` via
 # the {Translatable} concern, plus a `category` (one of {CATEGORIES}) and a

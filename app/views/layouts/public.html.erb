@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "IMASUS App" %></title>
+    <title><%= content_for(:title) || site_name %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="IMASUS App">
+    <meta name="application-name" content="<%= site_name %>">
     <meta name="mobile-web-app-capable" content="yes">
     <%= render "layouts/social_meta" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= render "layouts/plausible_analytics" %>
+    <%= render "layouts/brand_theme" %>
 
     <%= yield :head %>
 
-    <link rel="icon" href="/favicon.ico" sizes="48x48">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <%= render "layouts/brand_icons" %>
 
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -26,10 +23,10 @@
   </head>
 
   <body class="min-h-screen bg-white">
-    <header class="border-b border-imasus-dark-green/10 bg-white">
+    <header class="border-b border-brand-primary/10 bg-white">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
         <%= link_to root_path, class: "inline-flex items-center" do %>
-          <%= image_tag "logo.svg", alt: "IMASUS", class: "h-9 w-auto" %>
+          <%= brand_logo_tag class: "h-9 w-auto font-bold text-brand-primary" %>
         <% end %>
       </div>
     </header>

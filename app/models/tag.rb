@@ -1,4 +1,4 @@
-# A multi-facet, multi-select tag used to filter the IMASUS materials
+# A multi-facet, multi-select tag used to filter library materials.
 # catalogue.
 #
 # Tags are grouped by {FACETS} — `origin_type`, `textile_imitating`, and

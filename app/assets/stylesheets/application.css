@@ -21,7 +21,7 @@ details > summary::-webkit-details-marker { display: none; }
 }
 
 .glossary-term:focus-visible {
-  outline: 2px solid var(--color-imasus-dark-green, #1F3D3F);
+  outline: 2px solid var(--color-brand-primary, #1F3D3F);
   outline-offset: 2px;
   border-radius: 2px;
 }
@@ -32,9 +32,9 @@ details > summary::-webkit-details-marker { display: none; }
   padding: 1rem;
   border-radius: 0.5rem;
   background: #ffffff;
-  color: #1F3D3F;
+  color: var(--brand-primary, #1F3D3F);
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  border: 1px solid rgb(31 61 63 / 0.1);
+  border: 1px solid color-mix(in srgb, var(--brand-primary, #1F3D3F) 10%, transparent);
 }
 
 .glossary-popover__term {
@@ -47,14 +47,14 @@ details > summary::-webkit-details-marker { display: none; }
   margin: 0.5rem 0 0.75rem;
   font-size: 0.875rem;
   line-height: 1.5;
-  color: rgb(31 61 63 / 0.85);
+  color: color-mix(in srgb, var(--brand-primary, #1F3D3F) 85%, transparent);
 }
 
 .glossary-popover__link {
   display: inline-block;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: #1F3D3F;
+  color: var(--brand-primary, #1F3D3F);
   text-decoration: underline;
 }
 
@@ -72,7 +72,7 @@ trix-editor.trix-content.trix-content--email-compose {
    headings flush against paragraphs). These rules restore typographic
    defaults inside .trix-content without affecting the rest of the app. */
 .trix-content {
-  color: var(--color-imasus-dark-green, #1F3D3F);
+  color: var(--color-brand-primary, #1F3D3F);
   line-height: 1.65;
 }
 .trix-content > * + * { margin-top: 1rem; }
@@ -109,14 +109,14 @@ trix-editor.trix-content.trix-content--email-compose {
 .trix-content li > ol { margin-top: 0.25rem; }
 
 .trix-content blockquote {
-  border-left: 3px solid rgb(31 61 63 / 0.2);
+  border-left: 3px solid color-mix(in srgb, var(--brand-primary, #1F3D3F) 20%, transparent);
   padding-left: 1rem;
   font-style: italic;
-  color: rgb(31 61 63 / 0.75);
+  color: color-mix(in srgb, var(--brand-primary, #1F3D3F) 75%, transparent);
 }
 
 .trix-content a {
-  color: var(--color-imasus-red, #FA3449);
+  color: var(--color-brand-accent, #FA3449);
   text-decoration: underline;
 }
 
@@ -141,12 +141,12 @@ trix-editor.trix-content.trix-content--email-compose {
   display: block;
   margin-top: 0.5rem;
   font-size: 0.875rem;
-  color: rgb(31 61 63 / 0.6);
+  color: color-mix(in srgb, var(--brand-primary, #1F3D3F) 60%, transparent);
   text-align: center;
 }
 .trix-content figure.attachment .attachment__caption .attachment__size {
   margin-left: 0.25rem;
-  color: rgb(31 61 63 / 0.45);
+  color: color-mix(in srgb, var(--brand-primary, #1F3D3F) 45%, transparent);
 }
 
 trix-toolbar .trix-button--text {

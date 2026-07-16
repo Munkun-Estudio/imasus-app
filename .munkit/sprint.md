@@ -15,7 +15,7 @@ installation and is visually and functionally unchanged.
 ## In Scope (Specs)
 
 - [x] [Application configuration foundation](specs/2026-07-15-application-configuration-foundation/brief.md)
-- [ ] [Configurable brand and installation metadata](specs/2026-07-15-configurable-brand-and-installation-metadata/brief.md)
+- [x] [Configurable brand and installation metadata](specs/2026-07-15-configurable-brand-and-installation-metadata/brief.md)
 - [ ] [Configurable locales and localized rich text](specs/2026-07-15-configurable-locales-and-localized-rich-text/brief.md)
 - [ ] [Optional module registry](specs/2026-07-15-optional-module-registry/brief.md)
 - [ ] [Manifest-driven guides](specs/2026-07-15-manifest-driven-guides/brief.md)

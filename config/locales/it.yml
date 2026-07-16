@@ -17,14 +17,15 @@ it:
   locale_switcher:
     label: "Lingua"
   footer:
-    project_name: "IMASUS"
+    project_name: "%{short_name}"
     eu_notice: "Finanziato dall'Unione Europea. I punti di vista e le opinioni espresse sono tuttavia esclusivamente quelli dell'autore o degli autori e non riflettono necessariamente quelli dell'Unione Europea o dell'Agenzia esecutiva europea per l'istruzione e la cultura (EACEA). Né l'Unione Europea né l'EACEA possono essere ritenute responsabili."
-    copyright: "© 2024–2026 Progetto IMASUS."
+    copyright: "© 2024–2026 Progetto %{short_name}."
     copyright_prefix: "© 2024–2026 Progetto"
     developed_by: "Sviluppato da"
     legal_label: "Link legali"
     privacy: "Informativa sulla privacy"
     terms: "Termini di utilizzo"
+    support: "Supporto"
     partners_label: "Partner"
     partners:
       inma: "INMA (CSIC)"
@@ -32,31 +33,31 @@ it:
       echn: "ECHN"
       munkun: "Munkun"
   # TODO: translate spec-7 home/settings/user_menu/roles strings to it.
-  # English placeholders are kept here so the structure ships; the IMASUS
+  # English placeholders are kept here so the structure ships; the %{short_name}
   # Italian team will refine the copy.
   home:
     index:
       title: "Home"
     visitor:
       hero:
-        eyebrow: "IMASUS Workshops"
+        eyebrow: "%{short_name} Workshops"
         heading: "Imagineering tools for collaborative challenges."
-        lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
+        lead: "%{app_name} is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
         see_workshops: "Apri i workshop"
         log_in: "Accedi"
       # TODO: translate
       loom:
         eyebrow: "The method"
-        heading: "How an IMASUS workshop moves"
+        heading: "How an %{short_name} workshop moves"
         lead: "Materials, training and challenges weave through the imagineering steps into a shared vision and a set of concrete proposals."
-        diagram_alt: "The Imagineering Loom — a diagrammatic loom showing how an IMASUS workshop weaves together the platform's resources (Materials Database, Training Modules, Challenge Cards), the four imagineering steps (A Appreciating, B Breathing, C Creating, D Developing) and the workshop's outputs (pre-work submission, system map, Creative Tension Engine formulation, final proposal with material references, individual next steps). A caption below the loom names the Creative Tension Engine — held in the balance of tension and intention."
+        diagram_alt: "The Imagineering Loom — a diagrammatic loom showing how an %{short_name} workshop weaves together the platform's resources (Materials Database, Training Modules, Challenge Cards), the four imagineering steps (A Appreciating, B Breathing, C Creating, D Developing) and the workshop's outputs (pre-work submission, system map, Creative Tension Engine formulation, final proposal with material references, individual next steps). A caption below the loom names the Creative Tension Engine — held in the balance of tension and intention."
       # TODO: translate
       explainer:
-        eyebrow: "About IMASUS"
+        eyebrow: "About %{short_name}"
         why:
           eyebrow: "Why"
           heading: "The textile industry we want"
-          lead: "Textiles are among the largest contributors to environmental degradation. IMASUS treats that as a generative starting point — not just a problem to fix."
+          lead: "Textiles are among the largest contributors to environmental degradation. %{short_name} treats that as a generative starting point — not just a problem to fix."
         how:
           eyebrow: "How"
           heading: "Imagineering as a method"
@@ -67,12 +68,12 @@ it:
           lead: "Workshops for young textile professionals in Zaragoza, Prato and Athens, backed by an open platform of materials, training modules and industry challenges."
       workshops:
         heading: "Workshop in corso e passati"
-        lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
+        lead: "Each %{short_name} workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
         see_workshop: "Apri workshop"
         request_spot: "Richiedi un posto"
       featured_projects:
         heading: "Progetti in evidenza"
-        lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
+        lead: "A glance at recent participant work — published case studies from teams across the %{short_name} workshops."
         empty: "Workshop projects appear here when participants publish their work."
       resources:
         heading: "Esplora le risorse"
@@ -81,13 +82,13 @@ it:
           lead: "A database of sustainable textiles, fibres, and finishes with photos and microscopy."
         training:
           title: "Formazione"
-          lead: "Modules on imagineering, system thinking, and the IMASUS lenses."
+          lead: "Modules on imagineering, system thinking, and the %{short_name} lenses."
         challenges:
           title: "Sfide"
           lead: "Ten industry challenges (C1–C10) used to focus team work."
         glossary:
           title: "Glossario"
-          lead: "Key terms used across the IMASUS materials, training, and methodology."
+          lead: "Key terms used across the %{short_name} materials, training, and methodology."
     participant:
       greeting: "Bentornato/a, %{name}."
       projects:
@@ -143,7 +144,7 @@ it:
       edit: "Modifica"
     index:
       title: "Materiali"
-      lead: "Esplora i materiali sostenibili raccolti per i workshop IMASUS. Filtra per origine, per il tessuto che imitano o per l'applicazione che hai in mente."
+      lead: "Esplora i materiali sostenibili raccolti per i workshop %{short_name}. Filtra per origine, per il tessuto che imitano o per l'applicazione che hai in mente."
       search_label: "Cerca materiali"
       search_placeholder: "Cerca per nome o descrizione"
       clear_all: "Rimuovi tutti i filtri"
@@ -230,7 +231,7 @@ it:
     index:
       title: "Workshop"
       eyebrow: "Orientamento workshop"
-      lead: "Consulta i workshop IMASUS disponibili e apri quello che inquadra meglio il tuo contesto locale."
+      lead: "Consulta i workshop %{short_name} disponibili e apri quello che inquadra meglio il tuo contesto locale."
       attending: "Partecipa"
       location: "Luogo"
       dates: "Date"
@@ -306,7 +307,7 @@ it:
     new:
       title: "Nuovo workshop"
       heading: "Crea un workshop"
-      lead: "Create a new IMASUS workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
+      lead: "Create a new %{short_name} workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
       back_to_index: "← Torna ai workshop"
       submit: "Crea workshop"
       cancel: "Annulla"
@@ -335,8 +336,8 @@ it:
   sessions:
     new:
       title: "Accedi"
-      eyebrow: "Accesso IMASUS"
-      lead: "Usa il tuo account IMASUS per continuare verso workshop, inviti e lavoro collaborativo."
+      eyebrow: "Accesso %{short_name}"
+      lead: "Usa il tuo account %{short_name} per continuare verso workshop, inviti e lavoro collaborativo."
       email: "Email"
       password: "Password"
       submit: "Accedi"
@@ -366,7 +367,7 @@ it:
       index:
         title: "Facilitatori"
         eyebrow: "Admin"
-        lead: "People invited as facilitators of IMASUS workshops. Each can manage the workshops they participate in."
+        lead: "People invited as facilitators of %{short_name} workshops. Each can manage the workshops they participate in."
         new: "Invita facilitatore"
         empty: "Nessun facilitatore ancora. Invita il primo con il pulsante in alto."
         active: "Attivo/a"
@@ -491,18 +492,18 @@ it:
         notice: "Sent a test email to %{email}."
   facilitator_invitations:
     edit:
-      title: "Completa il tuo account facilitatore IMASUS"
+      title: "Completa il tuo account facilitatore %{short_name}"
       email: "Email"
       name: "Nome completo"
       password: "Password"
       password_confirmation: "Conferma password"
       submit: "Completa registrazione"
     update:
-      notice: "Benvenuta o benvenuto in IMASUS. Il tuo account facilitatore è pronto."
-    token_invalid: "Quel link di invito non è valido o è scaduto. Contatta l'amministrazione IMASUS."
+      notice: "Benvenuta o benvenuto in %{short_name}. Il tuo account facilitatore è pronto."
+    token_invalid: "Quel link di invito non è valido o è scaduto. Contatta l'amministrazione %{short_name}."
   participant_invitations:
     edit:
-      title: "Completa la tua registrazione IMASUS"
+      title: "Completa la tua registrazione %{short_name}"
       email: "Email"
       profile_heading: "Profilo"
       profile_lead: "Alla fine del workshop, il team pubblicherà il proprio lavoro insieme a brevi profili delle persone partecipanti."
@@ -521,14 +522,14 @@ it:
         italy: "Italia"
         greece: "Grecia"
     update:
-      notice: "Benvenuta o benvenuto in IMASUS. Ora puoi iniziare a esplorare il workshop."
+      notice: "Benvenuta o benvenuto in %{short_name}. Ora puoi iniziare a esplorare il workshop."
     token_invalid: "Quel link di invito non è valido o è scaduto. Contatta la tua facilitazione."
   workshop_invitations:
     new:
       eyebrow: "Inviti al workshop"
       back_to_workshop: "← Torna al workshop"
       title: "Invita partecipanti a %{workshop}"
-      hint: "Incolla una email per riga. Gli utenti già presenti in IMASUS verranno collegati a questo workshop senza ricevere un nuovo invito."
+      hint: "Incolla una email per riga. Gli utenti già presenti in %{short_name} verranno collegati a questo workshop senza ricevere un nuovo invito."
       emails: "Email dei partecipanti"
       submit: "Invia inviti"
     create:
@@ -607,15 +608,15 @@ it:
       edit_link: "Modifica pagina pubblicata"
   participant_invitation_mailer:
     invite:
-      subject: "Sei stata o sei stato invitato al workshop IMASUS %{workshop}"
+      subject: "Sei stata o sei stato invitato al workshop %{short_name} %{workshop}"
       greeting: "Ciao,"
-      body: "Sei stata o sei stato invitato a partecipare al workshop IMASUS %{workshop}. Apri il link qui sotto entro 14 giorni per completare la tua registrazione:"
+      body: "Sei stata o sei stato invitato a partecipare al workshop %{short_name} %{workshop}. Apri il link qui sotto entro 14 giorni per completare la tua registrazione:"
       help: "Se non ti aspettavi questo invito, contatta la tua facilitazione."
   challenges:
     index:
       title: "Sfide"
-      lead: "Dieci domande guida — raggruppate per ambito — che le partecipanti IMASUS scelgono quando definiscono il proprio progetto."
-      meta_description: "Le dieci sfide industriali IMASUS, raggruppate per materiale, design, sistema e impresa."
+      lead: "Dieci domande guida — raggruppate per ambito — che le partecipanti %{short_name} scelgono quando definiscono il proprio progetto."
+      meta_description: "Le dieci sfide industriali %{short_name}, raggruppate per materiale, design, sistema e impresa."
     preview:
       close: "Chiudi anteprima"
     categories:
@@ -645,7 +646,7 @@ it:
   glossary_terms:
     index:
       title: "Glossario"
-      lead: "Vocabolario condiviso per i contenuti dei workshop IMASUS. Filtra per categoria o salta per lettera."
+      lead: "Vocabolario condiviso per i contenuti dei workshop %{short_name}. Filtra per categoria o salta per lettera."
       all_categories: "Tutte"
       category_filter_label: "Filtra per categoria"
       letters_label: "Salta alla lettera"
@@ -655,7 +656,7 @@ it:
       back_to_index: "← Torna al glossario"
       category_label: "Categoria"
       examples_label: "Esempi"
-      meta_description: "Definizione del glossario per %{term} nel vocabolario del workshop IMASUS."
+      meta_description: "Definizione del glossario per %{term} nel vocabolario del workshop %{short_name}."
     categories:
       methodology: "Metodologia"
       application: "Applicazione"
@@ -862,7 +863,7 @@ it:
   workshop_email_broadcast_mailer:
     broadcast:
       badge: "Workshop update"
-      footer: "Sent by %{sender} through IMASUS."
+      footer: "Sent by %{sender} through %{short_name}."
     test_message:
       badge: "Test email"
-      footer: "Sent by %{sender} through IMASUS."
+      footer: "Sent by %{sender} through %{short_name}."

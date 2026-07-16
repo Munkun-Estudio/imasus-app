@@ -26,14 +26,14 @@
   src: url("/general-sans-bold.woff2") format("woff2");
 }
 
-/* IMASUS brand palette tokens and font */
+/* Installation theme roles. Values are supplied by the active site profile. */
 @theme {
-  --color-imasus-dark-green: #1F3D3F;
-  --color-imasus-navy: #252645;
-  --color-imasus-red: #FA3449;
-  --color-imasus-mint: #AFE0C7;
-  --color-imasus-light-blue: #AFCEDE;
-  --color-imasus-light-pink: #FFC2D7;
+  --color-brand-primary: var(--brand-primary, #1F3D3F);
+  --color-brand-secondary: var(--brand-secondary, #252645);
+  --color-brand-accent: var(--brand-accent, #FA3449);
+  --color-brand-success: var(--brand-success, #AFE0C7);
+  --color-brand-info: var(--brand-info, #AFCEDE);
+  --color-brand-soft: var(--brand-soft, #FFC2D7);
 
   --font-sans: "General Sans", Arial, sans-serif;
 }

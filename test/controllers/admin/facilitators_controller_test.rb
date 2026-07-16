@@ -59,7 +59,7 @@ class Admin::FacilitatorsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h1", text: I18n.t("admin.facilitators.new.title")
     assert_select "input[type=text][class*=?]", "border"
     assert_select "input[type=email][class*=?]", "border"
-    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
+    assert_select "input[type=submit][class*=?]", "bg-brand-primary"
   end
 
   test "admin creates a facilitator, sends invitation email, and redirects" do

@@ -3,10 +3,10 @@
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <%# Header — matches the show page so navigation reads as one shell. %>
   <div class="mb-8">
-    <p class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+    <p class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
       <%= t("training.index.title") %>
     </p>
-    <h1 class="mt-2 text-3xl font-bold text-imasus-dark-green">
+    <h1 class="mt-2 text-3xl font-bold text-brand-primary">
       <%= @about&.title || t("training.about.heading") %>
     </h1>
   </div>
@@ -20,7 +20,7 @@
             attributes: %w[href src alt loading class id target rel] %>
     </article>
   <% else %>
-    <p class="max-w-3xl text-sm leading-relaxed text-imasus-dark-green/60">
+    <p class="max-w-3xl text-sm leading-relaxed text-brand-primary/60">
       <%= t("training.about.empty") %>
     </p>
   <% end %>

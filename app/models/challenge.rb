@@ -1,5 +1,5 @@
 # One of the ten framing challenges (C1–C10) that a participant picks when
-# scoping project work during an IMASUS workshop.
+# scoping project work during a workshop.
 #
 # Each challenge carries translations for `question` and `description` via the
 # {Translatable} concern, plus a stable `code` (e.g. "C1") and a `category`

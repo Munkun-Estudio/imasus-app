@@ -8,7 +8,8 @@ class FacilitatorInvitationMailer < ApplicationMailer
     mail(
       to:      @user.email,
       subject: t("facilitator_invitation_mailer.invite.subject",
-                 default: "You have been invited to IMASUS as a facilitator")
+                 default: "You have been invited to %{short_name} as a facilitator",
+                 **site_translation_options)
     )
   end
 end

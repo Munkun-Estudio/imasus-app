@@ -40,7 +40,9 @@ bin/site-config
 ```
 
 See [Installation configuration](docs/configuration.md) for the versioned
-contract, profile selection, validation rules, and secret-handling policy.
+contract, profile selection, validation rules, and secret-handling policy. See
+[Branding an installation](docs/branding.md) for logos, favicons, metadata,
+localized identity placeholders, email defaults, and semantic theme roles.
 
 ## Development Workflow
 

@@ -2,16 +2,16 @@
 
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <%= link_to t("log_entries.index.back_to_project"), project_path(@project),
-              class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+              class: "inline-flex items-center text-sm font-semibold text-brand-primary/70 hover:text-brand-primary" %>
 
   <header class="mt-6 max-w-3xl flex items-end justify-between gap-4">
     <div>
-      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/50"><%= @project.title %></p>
-      <h1 class="mt-1 text-4xl font-bold text-imasus-dark-green"><%= t("log_entries.index.heading") %></h1>
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/50"><%= @project.title %></p>
+      <h1 class="mt-1 text-4xl font-bold text-brand-primary"><%= t("log_entries.index.heading") %></h1>
     </div>
     <% if @project.editable_by?(current_user) %>
       <%= link_to t("log_entries.index.new_entry"), new_project_log_entry_path(@project),
-                  class: "shrink-0 rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+                  class: "shrink-0 rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white" %>
     <% end %>
   </header>
 

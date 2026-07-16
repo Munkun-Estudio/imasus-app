@@ -84,8 +84,8 @@ export default class extends Controller {
       saved || this.alwaysShowButtons() ? "" : this.hiddenUntilHoverClasses(),
       "rounded-full p-1 transition",
       saved
-        ? "text-imasus-dark-green"
-        : "text-imasus-dark-green/30 hover:text-imasus-dark-green",
+        ? "text-brand-primary"
+        : "text-brand-primary/30 hover:text-brand-primary",
     ].join(" ").trim()
 
     btn.dataset.resourceKey  = resourceKey
@@ -114,7 +114,7 @@ export default class extends Controller {
         btn.dataset.bookmarkId = ""
         btn.title     = this.t("save")
         btn.className = btn.className
-          .replace("text-imasus-dark-green", `${this.alwaysShowButtons() ? "" : this.hiddenUntilHoverClasses()} text-imasus-dark-green/30 hover:text-imasus-dark-green`)
+          .replace("text-brand-primary", `${this.alwaysShowButtons() ? "" : this.hiddenUntilHoverClasses()} text-brand-primary/30 hover:text-brand-primary`)
           .trim()
         btn.innerHTML = this.outlineIcon()
       }
@@ -142,7 +142,7 @@ export default class extends Controller {
         btn.title     = this.t("unsave")
         btn.className = btn.className
           .replace(this.hiddenUntilHoverClasses(), "")
-          .replace("text-imasus-dark-green/30 hover:text-imasus-dark-green", "text-imasus-dark-green")
+          .replace("text-brand-primary/30 hover:text-brand-primary", "text-brand-primary")
           .trim()
         btn.innerHTML = this.filledIcon()
       }

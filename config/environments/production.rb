@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  fallback_host = URI.parse(config.site.public_urls.fallback).host
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -61,7 +62,7 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "imasus-app.fly.dev"),
+    host: ENV.fetch("APP_HOST", fallback_host),
     protocol: "https"
   }
 
@@ -70,7 +71,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       address: ENV.fetch("SMTP_ADDRESS"),
       port: ENV.fetch("SMTP_PORT", 587).to_i,
-      domain: ENV.fetch("SMTP_DOMAIN", ENV.fetch("APP_HOST", "imasus-app.fly.dev")),
+      domain: ENV.fetch("SMTP_DOMAIN", ENV.fetch("APP_HOST", fallback_host)),
       user_name: ENV.fetch("SMTP_USERNAME"),
       password: ENV.fetch("SMTP_PASSWORD"),
       authentication: ENV.fetch("SMTP_AUTHENTICATION", "plain").to_sym,
@@ -91,7 +92,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts << "imasus-app.fly.dev"
+  config.hosts << fallback_host
   config.hosts << ENV["APP_HOST"] if ENV["APP_HOST"].present?
   #
   # Skip DNS rebinding protection for the default health check endpoint.

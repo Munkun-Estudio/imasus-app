@@ -14,7 +14,7 @@ class ParticipantInvitationsController < ApplicationController
       sign_in_as(@user)
       redirect_to target_workshop_path,
                   notice: t("participant_invitations.update.notice",
-                            default: "Welcome to IMASUS. You can start exploring the workshop now.")
+                            default: "Welcome to %{short_name}. You can start exploring the workshop now.")
     else
       render :edit, status: :unprocessable_content
     end

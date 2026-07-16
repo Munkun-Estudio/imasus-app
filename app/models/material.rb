@@ -1,4 +1,4 @@
-# A sustainable material featured in the IMASUS catalogue.
+# A sustainable material featured in the installation catalogue.
 #
 # Materials are editorial content: participants browse them for inspiration
 # before and during workshops. The model carries a mix of plain-string metadata
