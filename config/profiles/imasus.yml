@@ -25,6 +25,27 @@ modules:
   guides: true
   prompts: true
   glossary: true
+  labels:
+    library:
+      en: Materials
+      es: Materiales
+      it: Materiali
+      el: Υλικά
+    guides:
+      en: Training
+      es: Formación
+      it: Formazione
+      el: Εκπαίδευση
+    prompts:
+      en: Challenges
+      es: Retos
+      it: Sfide
+      el: Προκλήσεις
+    glossary:
+      en: Glossary
+      es: Glosario
+      it: Glossario
+      el: Γλωσσάρι
 
 content:
   root: content

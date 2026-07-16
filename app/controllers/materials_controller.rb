@@ -5,6 +5,8 @@
 # and a grid of material cards. Unknown facets and unknown chip slugs are
 # silently ignored so shareable URLs stay robust as the vocabulary evolves.
 class MaterialsController < ApplicationController
+  requires_resource_module :library
+
   BATCH_SIZE = 12
 
   before_action :require_curator, only: [ :edit, :update ]

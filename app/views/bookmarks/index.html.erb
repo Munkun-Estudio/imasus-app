@@ -6,10 +6,10 @@
   </header>
 
   <div class="mt-10 max-w-4xl space-y-10">
-    <% @grouped.each do |type, bookmarks| %>
+    <% @grouped.each do |resource_module, bookmarks| %>
       <section>
         <h2 class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
-          <%= t(".groups.#{type.underscore}") %>
+          <%= resource_module_label(resource_module) %>
         </h2>
 
         <% if bookmarks.any? %>
@@ -21,7 +21,7 @@
                     class="flex items-center justify-between gap-4 py-3">
                   <div class="flex min-w-0 flex-1 items-center gap-3">
                     <span class="h-2 w-2 shrink-0 rounded-full <%= bookmark_dot_color(bookmark) %>"
-                          title="<%= bookmark.bookmarkable_type.underscore.humanize %>"></span>
+                          title="<%= bookmark_module_label(bookmark) %>"></span>
                     <% if preview_src.present? %>
                       <%= link_to bookmark.url, class: "shrink-0", aria: { label: bookmark.label } do %>
                         <%= image_tag preview_src,
@@ -55,7 +55,7 @@
         <% else %>
           <div class="mt-4 rounded-2xl border border-dashed border-brand-primary/10 bg-white px-5 py-4">
             <p class="text-sm text-brand-primary/50">
-              <%= t(".empty.#{type.underscore}",
+              <%= t(".empty.#{resource_module.bookmark_type.underscore}",
                     default: t(".empty.default"),
                     link_start: "",
                     link_end: "") %>

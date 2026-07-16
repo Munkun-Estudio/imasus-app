@@ -6,6 +6,8 @@
 # and available to admins and facilitators only. The challenge set is fixed
 # at ten items — there is no `new`, `create`, or `destroy`.
 class ChallengesController < ApplicationController
+  requires_resource_module :prompts
+
   before_action :require_curator, only: [ :edit, :update ]
   before_action :set_challenge,   only: [ :preview, :edit, :update ]
 

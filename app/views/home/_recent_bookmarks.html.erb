@@ -17,7 +17,7 @@
           <% preview_src = bookmark_preview_image_src(bookmark) %>
           <li class="flex items-center gap-3 py-2">
             <span class="mt-px h-2 w-2 shrink-0 rounded-full <%= bookmark_dot_color(bookmark) %>"
-                  title="<%= bookmark.bookmarkable_type.underscore.humanize %>"></span>
+                  title="<%= bookmark_module_label(bookmark) %>"></span>
             <% if preview_src.present? %>
               <%= link_to bookmark.url, class: "shrink-0", aria: { label: bookmark.label } do %>
                 <%= image_tag preview_src,

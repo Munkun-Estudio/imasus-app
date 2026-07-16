@@ -29,7 +29,7 @@ Every profile declares `version: 1` and all of the following sections:
 | --- | --- |
 | `identity` | Public application, short, and organisation names |
 | `locales` | Ordered locales, display labels, and default/fallback locales |
-| `modules` | Availability of Library, Guides, Prompts, and Glossary |
+| `modules` | Availability and localized labels for resource modules |
 | `content` | Repository-relative content root and guides directory |
 | `public_urls` | Canonical application, fallback, project, and source URLs |
 | `operations.analytics` | Whether analytics is enabled and its public script URL |
@@ -42,6 +42,7 @@ The contract is strict:
 - Unknown or missing keys stop application boot with an actionable error.
 - Locale values must be unique; the default and fallback must be enabled.
 - Every enabled locale must have one non-empty display label.
+- Every supported resource module must have one label per enabled locale.
 - Module flags must be explicit booleans.
 - Content paths must be relative, stay inside the repository, and exist.
 - Public URLs must be absolute HTTP or HTTPS URLs.
@@ -94,3 +95,6 @@ IMASUS behaviour.
 See [Branding an installation](branding.md) for the asset convention, theme
 roles, localized identity placeholders, email defaults, and optional-service
 behaviour.
+
+See [Resource modules](modules.md) for module keys, route compatibility,
+disabled-module behaviour, bookmark integration, and the minimal profile.

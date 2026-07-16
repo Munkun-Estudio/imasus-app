@@ -30,6 +30,8 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 
 - Installation locales are defined by ordered `locales.available`, `default`, `fallback`, and `labels` in the selected profile. Source-locale validations use `fallback`; selectors use configured order. Localized Action Text belongs in polymorphic `LocalizedRichText` records keyed by parent, field name, and locale rather than locale-suffixed associations.
 
+- Optional resource modules use stable keys (`library`, `guides`, `prompts`, `glossary`) through `ResourceModuleRegistry`. Profiles configure enabled state and localized labels; the registry owns route, content-source, bookmark, dependency, navigation, and legacy-name metadata. Keep supported routes stable and return 404 from disabled module controllers.
+
 ## Gotchas
 
 - `munkit` is a gem dependency in this repo, not just a globally installed CLI.

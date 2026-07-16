@@ -16,7 +16,7 @@
 
     <h1 class="mt-4 text-4xl font-bold text-brand-primary"><%= @project.title %></h1>
 
-    <% if @project.challenge.present? %>
+    <% if resource_module_enabled?(:prompts) && @project.challenge.present? %>
       <div class="mt-6">
         <%= render "challenges/card", challenge: @project.challenge, mode: :public %>
       </div>

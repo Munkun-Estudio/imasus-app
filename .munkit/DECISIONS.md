@@ -226,3 +226,11 @@ Validations and source-content fallbacks must not assume English. Use locales.fa
 ## 2026-07-16: Use an expand-first migration for localized rich text
 
 Supersedes the reparenting detail in the earlier localized-rich-text decision. Fly runs db:prepare before replacing the old application, so the migration must leave legacy Workshop agenda rows readable during deployment. Copy bodies and attachment references into LocalizedRichText, retain legacy rows as a compatibility shadow, and have rollback sync the latest localized content back before removing the new storage.
+
+## 2026-07-16: Keep stable resource routes and gate disabled modules with 404
+
+Keep the supported resource routes and their legacy helpers defined for every installation, but gate each resource controller through the module registry and return 404 when disabled. This preserves IMASUS URLs and helper compatibility, gives disabled modules uniform direct-endpoint semantics, and avoids route-set differences that complicate tests and shared code.
+
+## 2026-07-16: Use stable internal keys with configurable module labels
+
+Use library, guides, prompts, and glossary as stable installation-independent module keys. Profiles configure localized display labels and enabled state, while the registry retains existing IMASUS route helpers, controller names, bookmark types, content sources, and visual metadata. This separates reusable configuration vocabulary from legacy public URLs without renaming working endpoints.

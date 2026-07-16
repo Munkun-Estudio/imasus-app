@@ -23,7 +23,7 @@
     </span>
   </div>
 
-  <% if project.challenge %>
+  <% if resource_module_enabled?(:prompts) && project.challenge %>
     <p class="mt-2 text-xs text-brand-primary/60">
       <%= project.challenge.code %>
     </p>

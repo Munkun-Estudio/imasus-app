@@ -1,4 +1,6 @@
 class TrainingController < ApplicationController
+  requires_resource_module :guides
+
   def index
     @loader = TrainingModule::Loader.new
     @modules = @loader.all

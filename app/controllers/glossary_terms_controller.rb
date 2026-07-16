@@ -9,6 +9,8 @@
 # exposes known values, so unknown filters degrade to the full list rather
 # than returning an error.
 class GlossaryTermsController < ApplicationController
+  requires_resource_module :glossary
+
   before_action :require_curator, only: [ :new, :create, :edit, :update, :destroy, :delete_confirmation ]
   before_action :set_glossary_term, only: [ :show, :edit, :update, :destroy, :delete_confirmation, :popover ]
 
