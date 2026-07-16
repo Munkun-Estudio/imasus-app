@@ -17,14 +17,15 @@ el:
   locale_switcher:
     label: "Γλώσσα"
   footer:
-    project_name: "IMASUS"
+    project_name: "%{short_name}"
     eu_notice: "Χρηματοδοτείται από την Ευρωπαϊκή Ένωση. Οι απόψεις και οι γνώμες που εκφράζονται είναι αποκλειστικά του/των συγγραφέα/ων και δεν αντικατοπτρίζουν κατ' ανάγκη τις απόψεις της Ευρωπαϊκής Ένωσης ή του Ευρωπαϊκού Εκτελεστικού Οργανισμού Εκπαίδευσης και Πολιτισμού (EACEA). Ούτε η Ευρωπαϊκή Ένωση ούτε ο EACEA μπορούν να θεωρηθούν υπεύθυνοι γι' αυτές."
-    copyright: "© 2024–2026 Έργο IMASUS."
+    copyright: "© 2024–2026 Έργο %{short_name}."
     copyright_prefix: "© 2024–2026 Έργο"
     developed_by: "Αναπτύχθηκε από"
     legal_label: "Νομικοί σύνδεσμοι"
     privacy: "Πολιτική απορρήτου"
     terms: "Όροι χρήσης"
+    support: "Υποστήριξη"
     partners_label: "Εταίροι"
     partners:
       inma: "INMA (CSIC)"
@@ -32,31 +33,31 @@ el:
       echn: "ECHN"
       munkun: "Munkun"
   # TODO: translate spec-7 home/settings/user_menu/roles strings to el.
-  # English placeholders are kept here so the structure ships; the IMASUS
+  # English placeholders are kept here so the structure ships; the %{short_name}
   # Greek team will refine the copy.
   home:
     index:
       title: "Αρχική"
     visitor:
       hero:
-        eyebrow: "IMASUS Workshops"
+        eyebrow: "%{short_name} Workshops"
         heading: "Imagineering tools for collaborative challenges."
-        lead: "IMASUS App is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
+        lead: "%{app_name} is the workshop platform for participants and facilitators developing new responses to large textile-industry challenges through the imagineering approach inspired by Diane Nijs."
         see_workshops: "Δείτε τα εργαστήρια"
         log_in: "Σύνδεση"
       # TODO: translate
       loom:
         eyebrow: "The method"
-        heading: "How an IMASUS workshop moves"
+        heading: "How an %{short_name} workshop moves"
         lead: "Materials, training and challenges weave through the imagineering steps into a shared vision and a set of concrete proposals."
-        diagram_alt: "The Imagineering Loom — a diagrammatic loom showing how an IMASUS workshop weaves together the platform's resources (Materials Database, Training Modules, Challenge Cards), the four imagineering steps (A Appreciating, B Breathing, C Creating, D Developing) and the workshop's outputs (pre-work submission, system map, Creative Tension Engine formulation, final proposal with material references, individual next steps). A caption below the loom names the Creative Tension Engine — held in the balance of tension and intention."
+        diagram_alt: "The Imagineering Loom — a diagrammatic loom showing how an %{short_name} workshop weaves together the platform's resources (Materials Database, Training Modules, Challenge Cards), the four imagineering steps (A Appreciating, B Breathing, C Creating, D Developing) and the workshop's outputs (pre-work submission, system map, Creative Tension Engine formulation, final proposal with material references, individual next steps). A caption below the loom names the Creative Tension Engine — held in the balance of tension and intention."
       # TODO: translate
       explainer:
-        eyebrow: "About IMASUS"
+        eyebrow: "About %{short_name}"
         why:
           eyebrow: "Why"
           heading: "The textile industry we want"
-          lead: "Textiles are among the largest contributors to environmental degradation. IMASUS treats that as a generative starting point — not just a problem to fix."
+          lead: "Textiles are among the largest contributors to environmental degradation. %{short_name} treats that as a generative starting point — not just a problem to fix."
         how:
           eyebrow: "How"
           heading: "Imagineering as a method"
@@ -67,12 +68,12 @@ el:
           lead: "Workshops for young textile professionals in Zaragoza, Prato and Athens, backed by an open platform of materials, training modules and industry challenges."
       workshops:
         heading: "Επερχόμενα και προηγούμενα εργαστήρια"
-        lead: "Each IMASUS workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
+        lead: "Each %{short_name} workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
         see_workshop: "Άνοιγμα εργαστηρίου"
         request_spot: "Αίτημα συμμετοχής"
       featured_projects:
         heading: "Προβεβλημένα έργα"
-        lead: "A glance at recent participant work — published case studies from teams across the IMASUS workshops."
+        lead: "A glance at recent participant work — published case studies from teams across the %{short_name} workshops."
         empty: "Workshop projects appear here when participants publish their work."
       resources:
         heading: "Εξερευνήστε τους πόρους"
@@ -81,13 +82,13 @@ el:
           lead: "A database of sustainable textiles, fibres, and finishes with photos and microscopy."
         training:
           title: "Εκπαίδευση"
-          lead: "Modules on imagineering, system thinking, and the IMASUS lenses."
+          lead: "Modules on imagineering, system thinking, and the %{short_name} lenses."
         challenges:
           title: "Προκλήσεις"
           lead: "Ten industry challenges (C1–C10) used to focus team work."
         glossary:
           title: "Γλωσσάρι"
-          lead: "Key terms used across the IMASUS materials, training, and methodology."
+          lead: "Key terms used across the %{short_name} materials, training, and methodology."
     participant:
       greeting: "Καλώς ήρθες ξανά, %{name}."
       projects:
@@ -143,7 +144,7 @@ el:
       edit: "Επεξεργασία"
     index:
       title: "Υλικά"
-      lead: "Εξερευνήστε βιώσιμα υλικά που συγκεντρώθηκαν για τα εργαστήρια IMASUS. Φιλτράρετε κατά προέλευση, κατά το ύφασμα που μιμούνται ή κατά την εφαρμογή που έχετε στο μυαλό σας."
+      lead: "Εξερευνήστε βιώσιμα υλικά που συγκεντρώθηκαν για τα εργαστήρια %{short_name}. Φιλτράρετε κατά προέλευση, κατά το ύφασμα που μιμούνται ή κατά την εφαρμογή που έχετε στο μυαλό σας."
       search_label: "Αναζήτηση υλικών"
       search_placeholder: "Αναζήτηση με όνομα ή περιγραφή"
       clear_all: "Εκκαθάριση όλων των φίλτρων"
@@ -230,7 +231,7 @@ el:
     index:
       title: "Εργαστήρια"
       eyebrow: "Προσανατολισμός εργαστηρίου"
-      lead: "Δείτε τα διαθέσιμα εργαστήρια IMASUS και ανοίξτε αυτό που πλαισιώνει καλύτερα το τοπικό σας πλαίσιο."
+      lead: "Δείτε τα διαθέσιμα εργαστήρια %{short_name} και ανοίξτε αυτό που πλαισιώνει καλύτερα το τοπικό σας πλαίσιο."
       attending: "Συμμετέχετε"
       location: "Τοποθεσία"
       dates: "Ημερομηνίες"
@@ -306,7 +307,7 @@ el:
     new:
       title: "Νέο εργαστήριο"
       heading: "Δημιουργία εργαστηρίου"
-      lead: "Create a new IMASUS workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
+      lead: "Create a new %{short_name} workshop. You'll be associated with it as its facilitator and can edit, invite participants, and moderate from the moment it's saved."
       back_to_index: "← Επιστροφή στα εργαστήρια"
       submit: "Δημιουργία εργαστηρίου"
       cancel: "Ακύρωση"
@@ -335,8 +336,8 @@ el:
   sessions:
     new:
       title: "Σύνδεση"
-      eyebrow: "Πρόσβαση IMASUS"
-      lead: "Χρησιμοποιήστε τον λογαριασμό σας IMASUS για να συνεχίσετε σε εργαστήρια, προσκλήσεις και συνεργατική εργασία."
+      eyebrow: "Πρόσβαση %{short_name}"
+      lead: "Χρησιμοποιήστε τον λογαριασμό σας %{short_name} για να συνεχίσετε σε εργαστήρια, προσκλήσεις και συνεργατική εργασία."
       email: "Email"
       password: "Κωδικός πρόσβασης"
       submit: "Σύνδεση"
@@ -366,7 +367,7 @@ el:
       index:
         title: "Διευκολυντές"
         eyebrow: "Διαχείριση"
-        lead: "People invited as facilitators of IMASUS workshops. Each can manage the workshops they participate in."
+        lead: "People invited as facilitators of %{short_name} workshops. Each can manage the workshops they participate in."
         new: "Πρόσκληση διευκολυντή"
         empty: "Δεν υπάρχουν διευκολυντές ακόμα. Καλέστε τον πρώτο με το κουμπί παραπάνω."
         active: "Ενεργός/ή"
@@ -502,18 +503,18 @@ el:
         notice: "Sent a test email to %{email}."
   facilitator_invitations:
     edit:
-      title: "Ολοκληρώστε τον λογαριασμό συντονισμού IMASUS"
+      title: "Ολοκληρώστε τον λογαριασμό συντονισμού %{short_name}"
       email: "Email"
       name: "Ονοματεπώνυμο"
       password: "Κωδικός πρόσβασης"
       password_confirmation: "Επιβεβαίωση κωδικού"
       submit: "Ολοκλήρωση εγγραφής"
     update:
-      notice: "Καλώς ήρθατε στο IMASUS. Ο λογαριασμός συντονισμού σας είναι έτοιμος."
-    token_invalid: "Αυτός ο σύνδεσμος πρόσκλησης δεν είναι έγκυρος ή έχει λήξει. Επικοινωνήστε με τη διαχείριση του IMASUS."
+      notice: "Καλώς ήρθατε στο %{short_name}. Ο λογαριασμός συντονισμού σας είναι έτοιμος."
+    token_invalid: "Αυτός ο σύνδεσμος πρόσκλησης δεν είναι έγκυρος ή έχει λήξει. Επικοινωνήστε με τη διαχείριση του %{short_name}."
   participant_invitations:
     edit:
-      title: "Ολοκληρώστε την εγγραφή σας στο IMASUS"
+      title: "Ολοκληρώστε την εγγραφή σας στο %{short_name}"
       email: "Email"
       profile_heading: "Προφίλ"
       profile_lead: "Στο τέλος του εργαστηρίου, η ομάδα θα δημοσιεύσει τη δουλειά της μαζί με σύντομα προφίλ των συμμετεχόντων."
@@ -532,14 +533,14 @@ el:
         italy: "Ιταλία"
         greece: "Ελλάδα"
     update:
-      notice: "Καλώς ήρθατε στο IMASUS. Μπορείτε τώρα να εξερευνήσετε το εργαστήριο."
+      notice: "Καλώς ήρθατε στο %{short_name}. Μπορείτε τώρα να εξερευνήσετε το εργαστήριο."
     token_invalid: "Αυτός ο σύνδεσμος πρόσκλησης δεν είναι έγκυρος ή έχει λήξει. Επικοινωνήστε με τη διευκόλυνσή σας."
   workshop_invitations:
     new:
       eyebrow: "Προσκλήσεις εργαστηρίου"
       back_to_workshop: "← Επιστροφή στο εργαστήριο"
       title: "Πρόσκληση συμμετεχόντων στο %{workshop}"
-      hint: "Επικολλήστε ένα email ανά γραμμή. Οι χρήστες που υπάρχουν ήδη στο IMASUS θα συνδεθούν με αυτό το εργαστήριο χωρίς νέα πρόσκληση."
+      hint: "Επικολλήστε ένα email ανά γραμμή. Οι χρήστες που υπάρχουν ήδη στο %{short_name} θα συνδεθούν με αυτό το εργαστήριο χωρίς νέα πρόσκληση."
       emails: "Emails συμμετεχόντων"
       submit: "Αποστολή προσκλήσεων"
     create:
@@ -618,15 +619,15 @@ el:
       edit_link: "Επεξεργασία δημοσιευμένης σελίδας"
   participant_invitation_mailer:
     invite:
-      subject: "Σας έχουν προσκαλέσει στο εργαστήριο IMASUS %{workshop}"
+      subject: "Σας έχουν προσκαλέσει στο εργαστήριο %{short_name} %{workshop}"
       greeting: "Γεια σας,"
-      body: "Σας έχουν προσκαλέσει να συμμετάσχετε στο εργαστήριο IMASUS %{workshop}. Ανοίξτε τον παρακάτω σύνδεσμο μέσα στις επόμενες 14 ημέρες για να ολοκληρώσετε την εγγραφή σας:"
+      body: "Σας έχουν προσκαλέσει να συμμετάσχετε στο εργαστήριο %{short_name} %{workshop}. Ανοίξτε τον παρακάτω σύνδεσμο μέσα στις επόμενες 14 ημέρες για να ολοκληρώσετε την εγγραφή σας:"
       help: "Αν δεν περιμένατε αυτήν την πρόσκληση, επικοινωνήστε με τη διευκόλυνσή σας."
   challenges:
     index:
       title: "Προκλήσεις"
-      lead: "Δέκα ερωτήσεις-πλαίσιο — ομαδοποιημένες ανά εστίαση — από τις οποίες οι συμμετέχουσες του IMASUS επιλέγουν όταν ορίζουν το έργο τους."
-      meta_description: "Οι δέκα βιομηχανικές προκλήσεις IMASUS, ομαδοποιημένες ανά υλικό, σχεδιασμό, σύστημα και επιχείρηση."
+      lead: "Δέκα ερωτήσεις-πλαίσιο — ομαδοποιημένες ανά εστίαση — από τις οποίες οι συμμετέχουσες του %{short_name} επιλέγουν όταν ορίζουν το έργο τους."
+      meta_description: "Οι δέκα βιομηχανικές προκλήσεις %{short_name}, ομαδοποιημένες ανά υλικό, σχεδιασμό, σύστημα και επιχείρηση."
     preview:
       close: "Κλείσιμο προεπισκόπησης"
     categories:
@@ -656,7 +657,7 @@ el:
   glossary_terms:
     index:
       title: "Γλωσσάρι"
-      lead: "Κοινό λεξιλόγιο για το περιεχόμενο των εργαστηρίων IMASUS. Φιλτράρετε ανά κατηγορία ή μεταβείτε σε γράμμα."
+      lead: "Κοινό λεξιλόγιο για το περιεχόμενο των εργαστηρίων %{short_name}. Φιλτράρετε ανά κατηγορία ή μεταβείτε σε γράμμα."
       all_categories: "Όλες"
       category_filter_label: "Φιλτράρισμα ανά κατηγορία"
       letters_label: "Μετάβαση σε γράμμα"
@@ -666,7 +667,7 @@ el:
       back_to_index: "← Επιστροφή στο γλωσσάρι"
       category_label: "Κατηγορία"
       examples_label: "Παραδείγματα"
-      meta_description: "Ορισμός γλωσσαρίου για %{term} στο λεξιλόγιο του εργαστηρίου IMASUS."
+      meta_description: "Ορισμός γλωσσαρίου για %{term} στο λεξιλόγιο του εργαστηρίου %{short_name}."
     categories:
       methodology: "Μεθοδολογία"
       application: "Εφαρμογή"
@@ -873,7 +874,7 @@ el:
   workshop_email_broadcast_mailer:
     broadcast:
       badge: "Workshop update"
-      footer: "Sent by %{sender} through IMASUS."
+      footer: "Sent by %{sender} through %{short_name}."
     test_message:
       badge: "Test email"
-      footer: "Sent by %{sender} through IMASUS."
+      footer: "Sent by %{sender} through %{short_name}."

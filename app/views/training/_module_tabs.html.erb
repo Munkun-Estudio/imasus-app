@@ -6,11 +6,11 @@
   <% about_active = current == "about" %>
   <%= link_to t("training.about.tab"),
         training_index_path,
-        class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{about_active ? 'bg-imasus-dark-green text-white' : 'border border-imasus-dark-green/15 text-imasus-dark-green/60 hover:border-imasus-dark-green/30'}" %>
+        class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{about_active ? 'bg-brand-primary text-white' : 'border border-brand-primary/15 text-brand-primary/60 hover:border-brand-primary/30'}" %>
   <% module_slugs.each do |slug| %>
     <% active = slug == current %>
     <%= link_to slug.titleize,
           training_show_path(slug: slug, section: "training-module"),
-          class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{active ? 'bg-imasus-dark-green text-white' : 'border border-imasus-dark-green/15 text-imasus-dark-green/60 hover:border-imasus-dark-green/30'}" %>
+          class: "rounded-full px-4 py-1.5 text-sm font-bold transition #{active ? 'bg-brand-primary text-white' : 'border border-brand-primary/15 text-brand-primary/60 hover:border-brand-primary/30'}" %>
   <% end %>
 </nav>

@@ -1,9 +1,9 @@
 <%# locals: (material:, priority: false) %>
 <article data-material="<%= material.slug %>"
          data-controller="card-media"
-         class="group relative flex h-full flex-col overflow-hidden rounded-lg border border-imasus-dark-green/10 bg-white shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-imasus-dark-green/40">
+         class="group relative flex h-full flex-col overflow-hidden rounded-lg border border-brand-primary/10 bg-white shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-brand-primary/40">
   <% cover_asset = material.cover_asset %>
-  <div class="relative aspect-[4/3] overflow-hidden bg-imasus-mint/20">
+  <div class="relative aspect-[4/3] overflow-hidden bg-brand-success/20">
     <% if cover_asset&.file&.attached? %>
       <%= image_variant_tag cover_asset.file,
             preset: :card,
@@ -12,11 +12,11 @@
             fetchpriority: priority ? "high" : "auto",
             class: "h-full w-full object-cover" %>
     <% else %>
-      <div class="flex h-full flex-col justify-between p-5 text-imasus-dark-green/70">
-        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45">
+      <div class="flex h-full flex-col justify-between p-5 text-brand-primary/70">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/45">
           <%= t("materials.card.media_pending") %>
         </p>
-        <p class="max-w-[12rem] text-sm font-semibold leading-5 text-imasus-dark-green">
+        <p class="max-w-[12rem] text-sm font-semibold leading-5 text-brand-primary">
           <%= material.material_of_origin.presence || t("materials.card.material_preview") %>
         </p>
       </div>
@@ -25,7 +25,7 @@
     <%= link_to preview_material_path(material.slug),
           data: { role: "open-preview", turbo_frame: "preview" },
           aria: { label: t("materials.preview.open_label", name: material.trade_name) },
-          class: "absolute right-2 top-2 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-imasus-dark-green shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-imasus-dark-green/40" do %>
+          class: "absolute right-2 top-2 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-brand-primary shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-primary/40" do %>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
         <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
         <circle cx="12" cy="12" r="3" />
@@ -34,7 +34,7 @@
   </div>
 
   <div class="flex flex-1 flex-col gap-3 p-4">
-    <h3 class="text-base font-semibold text-imasus-dark-green">
+    <h3 class="text-base font-semibold text-brand-primary">
       <%= link_to material.trade_name, material_path(material.slug),
             data: { turbo_frame: "_top" },
             aria: { label: t("materials.show.view_detail", name: material.trade_name) },
@@ -42,7 +42,7 @@
     </h3>
 
     <% if material.supplier_name.present? %>
-      <p class="relative z-10 text-sm text-imasus-dark-green/70">
+      <p class="relative z-10 text-sm text-brand-primary/70">
         <% if material.supplier_url.present? %>
           <%= link_to material.supplier_name, material.supplier_url,
                 target: "_blank", rel: "noopener noreferrer",
@@ -55,11 +55,11 @@
 
     <div class="relative z-10 mt-auto flex flex-wrap items-center gap-2 text-xs">
       <span data-role="availability"
-            class="inline-flex items-center rounded-full bg-imasus-mint/30 px-2.5 py-0.5 font-medium text-imasus-dark-green">
+            class="inline-flex items-center rounded-full bg-brand-success/30 px-2.5 py-0.5 font-medium text-brand-primary">
         <%= t("materials.index.availability.#{material.availability_status}") %>
       </span>
       <% if material.material_of_origin.present? %>
-        <span class="text-imasus-dark-green/60">
+        <span class="text-brand-primary/60">
           <%= material.material_of_origin %>
         </span>
       <% end %>

@@ -1,4 +1,4 @@
-# Public, multilingual glossary of IMASUS workshop vocabulary.
+# Public, multilingual glossary of workshop vocabulary.
 #
 # Read actions (`index`, `show`) are open to any visitor. Write actions
 # (`new`, `create`, `edit`, `update`, `destroy`) are guarded by

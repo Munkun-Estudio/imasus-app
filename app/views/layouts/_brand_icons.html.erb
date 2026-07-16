@@ -1,0 +1,6 @@
+<% assets = site_config.brand.assets %>
+<%= tag.link rel: "icon", href: assets.favicon_ico, sizes: "48x48" if assets.favicon_ico %>
+<%= tag.link rel: "icon", href: assets.favicon_svg, type: "image/svg+xml" if assets.favicon_svg %>
+<%= tag.link rel: "icon", href: assets.favicon_png, type: "image/png", sizes: "96x96" if assets.favicon_png %>
+<%= tag.link rel: "apple-touch-icon", href: assets.apple_touch_icon if assets.apple_touch_icon %>
+<%= tag.link rel: "manifest", href: assets.web_manifest if assets.web_manifest %>

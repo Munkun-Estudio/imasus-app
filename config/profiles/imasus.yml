@@ -4,6 +4,7 @@ identity:
   name: IMASUS App
   short_name: IMASUS
   organization: IMASUS
+  description: Imagineering workshops for sustainable material futures.
 
 locales:
   available:
@@ -28,8 +29,31 @@ public_urls:
   fallback: https://imasus-app.fly.dev
   project: https://imasus.eu
   source: https://github.com/Munkun-Estudio/imasus-app
+  support: mailto:webmasterINMA@unizar.es
 
 operations:
   analytics:
     enabled: true
     script_url: https://stats.munkun.com/js/pa-AEv3S9_hJMk___wHOsvRL.js
+
+brand:
+  assets:
+    logo: logo.svg
+    compact_mark: /icon.svg
+    email_logo: /icon.png
+    og_image: og-image.png
+    favicon_ico: /favicon.ico
+    favicon_svg: /favicon.svg
+    favicon_png: /favicon-96x96.png
+    apple_touch_icon: /apple-touch-icon.png
+    web_manifest: /site.webmanifest
+  theme:
+    primary: "#1F3D3F"
+    secondary: "#252645"
+    accent: "#FA3449"
+    success: "#AFE0C7"
+    info: "#AFCEDE"
+    soft: "#FFC2D7"
+  email:
+    from_name: IMASUS
+    from_address: no-reply@imasus-app.fly.dev

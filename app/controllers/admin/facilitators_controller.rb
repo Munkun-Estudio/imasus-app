@@ -100,6 +100,7 @@ class Admin::FacilitatorsController < ApplicationController
       FacilitatorInvitationMailer.invite(@user, @user.invitation_token).deliver_later
       redirect_to admin_facilitators_path,
                   notice: t("admin.facilitators.create.notice",
+                            email: @user.email,
                             default: "Facilitator invited. They will receive an email with a link to set their password.")
     else
       @user.errors.add(:base, t("admin.facilitators.create.invalid_workshop", default: "One of the selected workshops could not be found.")) if workshop_ids.any? && @user.errors.empty?

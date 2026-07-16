@@ -14,14 +14,14 @@
 
   <div>
     <%= f.label :body, t("log_entries.form.body"),
-                class: "block text-sm font-semibold text-imasus-dark-green mb-2" %>
+                class: "block text-sm font-semibold text-brand-primary mb-2" %>
     <%= f.rich_text_area :body,
-                         class: "block w-full rounded-md border border-imasus-dark-green/20 min-h-[8rem]" %>
+                         class: "block w-full rounded-md border border-brand-primary/20 min-h-[8rem]" %>
   </div>
 
   <div>
     <%= f.label :media, t("log_entries.form.media"),
-                class: "block text-sm font-semibold text-imasus-dark-green mb-2" %>
+                class: "block text-sm font-semibold text-brand-primary mb-2" %>
     <%= render "shared/file_drop_zone",
                form: f,
                attribute: :media,
@@ -32,8 +32,8 @@
 
   <div class="flex gap-4">
     <%= f.submit t("log_entries.form.submit"),
-                 class: "rounded-full bg-imasus-dark-green px-6 py-2.5 text-sm font-semibold text-white" %>
+                 class: "rounded-full bg-brand-primary px-6 py-2.5 text-sm font-semibold text-white" %>
     <%= link_to t("log_entries.form.cancel"), project_log_entries_path(@project),
-                class: "rounded-full border border-imasus-dark-green/20 px-6 py-2.5 text-sm font-semibold text-imasus-dark-green" %>
+                class: "rounded-full border border-brand-primary/20 px-6 py-2.5 text-sm font-semibold text-brand-primary" %>
   </div>
 <% end %>

@@ -12,8 +12,9 @@ class ParticipantInvitationMailer < ApplicationMailer
       mail(
         to:      @user.email,
         subject: t("participant_invitation_mailer.invite.subject",
-                   default: "You have been invited to the %{workshop} IMASUS workshop",
-                   workshop: workshop.title)
+                   default: "You have been invited to the %{workshop} %{short_name} workshop",
+                   workshop: workshop.title,
+                   **site_translation_options)
       )
     end
   end

@@ -5,7 +5,7 @@
 <div data-workshop-strip class="mt-4 grid gap-4 sm:grid-cols-2">
   <% workshops.each do |workshop| %>
     <%= link_to workshop_path(workshop),
-                class: "group flex flex-col rounded-2xl bg-imasus-dark-green p-5 transition hover:bg-imasus-navy" do %>
+                class: "group flex flex-col rounded-2xl bg-brand-primary p-5 transition hover:bg-brand-secondary" do %>
       <span class="text-xs font-bold uppercase tracking-widest text-white/40">
         <%= workshop.starts_on.strftime("%-d %b") %>
         <% if workshop.ends_on != workshop.starts_on %>

@@ -3,15 +3,15 @@
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <header class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
     <div class="max-w-3xl">
-      <h1 class="text-3xl font-bold text-imasus-dark-green"><%= t(".title") %></h1>
-      <p class="mt-3 text-base text-imasus-dark-green/70"><%= t(".lead") %></p>
+      <h1 class="text-3xl font-bold text-brand-primary"><%= t(".title") %></h1>
+      <p class="mt-3 text-base text-brand-primary/70"><%= t(".lead") %></p>
     </div>
 
     <% if curator? %>
       <%= link_to t("glossary_terms.actions.add"),
             new_glossary_term_path,
             data: { role: "add-glossary-term" },
-            class: "inline-flex shrink-0 items-center rounded-full bg-imasus-dark-green px-5 py-2.5 text-sm font-semibold text-white" %>
+            class: "inline-flex shrink-0 items-center rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white" %>
     <% end %>
   </header>
 
@@ -20,13 +20,13 @@
       <li>
         <%= link_to t(".all_categories"),
               glossary_terms_path,
-              class: "inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium #{@active_category.nil? ? "bg-imasus-dark-green text-white" : "bg-white text-imasus-dark-green border border-imasus-dark-green/20 hover:bg-imasus-mint/20"}" %>
+              class: "inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium #{@active_category.nil? ? "bg-brand-primary text-white" : "bg-white text-brand-primary border border-brand-primary/20 hover:bg-brand-success/20"}" %>
       </li>
       <% @available_categories.each do |category| %>
         <li>
           <%= link_to t("glossary_terms.categories.#{category}"),
                 glossary_terms_path(category: category),
-                class: "inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium #{@active_category == category ? "bg-imasus-dark-green text-white" : "bg-white text-imasus-dark-green border border-imasus-dark-green/20 hover:bg-imasus-mint/20"}" %>
+                class: "inline-flex items-center rounded-full px-4 py-1.5 text-sm font-medium #{@active_category == category ? "bg-brand-primary text-white" : "bg-white text-brand-primary border border-brand-primary/20 hover:bg-brand-success/20"}" %>
         </li>
       <% end %>
     </ul>
@@ -41,13 +41,13 @@
           <% if active %>
             <a href="#letter-<%= letter %>"
                data-glossary-letter="<%= letter %>"
-               class="inline-flex h-7 w-7 items-center justify-center rounded text-imasus-dark-green hover:bg-imasus-mint/30">
+               class="inline-flex h-7 w-7 items-center justify-center rounded text-brand-primary hover:bg-brand-success/30">
               <%= letter %>
             </a>
           <% else %>
             <span data-glossary-letter="<%= letter %>"
                   aria-disabled="true"
-                  class="inline-flex h-7 w-7 items-center justify-center rounded text-imasus-dark-green/25">
+                  class="inline-flex h-7 w-7 items-center justify-center rounded text-brand-primary/25">
               <%= letter %>
             </span>
           <% end %>
@@ -57,13 +57,13 @@
   </nav>
 
   <% if @terms.empty? %>
-    <p class="mt-12 text-imasus-dark-green/60"><%= t(".empty") %></p>
+    <p class="mt-12 text-brand-primary/60"><%= t(".empty") %></p>
   <% else %>
     <div class="mt-8 space-y-10">
       <% @terms_by_letter.sort.each do |letter, letter_terms| %>
         <section id="letter-<%= letter %>" class="scroll-mt-24">
-          <h2 class="text-xl font-bold text-imasus-dark-green"><%= letter %></h2>
-          <ul class="mt-4 divide-y divide-imasus-dark-green/10 border-t border-imasus-dark-green/10">
+          <h2 class="text-xl font-bold text-brand-primary"><%= letter %></h2>
+          <ul class="mt-4 divide-y divide-brand-primary/10 border-t border-brand-primary/10">
             <% letter_terms.each do |term| %>
               <li>
                 <%= render "term_row", term: term %>

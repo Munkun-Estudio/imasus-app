@@ -9,7 +9,9 @@ class PasswordResetMailer < ApplicationMailer
 
     mail(
       to:      @user.email,
-      subject: t("password_reset_mailer.reset.subject", default: "Reset your IMASUS password")
+      subject: t("password_reset_mailer.reset.subject",
+                 default: "Reset your %{short_name} password",
+                 **site_translation_options)
     )
   end
 end

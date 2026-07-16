@@ -1,6 +1,8 @@
 <p><%= t("password_reset_mailer.reset.greeting", default: "Hi %{name},", name: @user.name) %></p>
 
-<p><%= t("password_reset_mailer.reset.body", default: "To reset your IMASUS password, open the following link within 2 hours:") %></p>
+<p><%= t("password_reset_mailer.reset.body",
+          default: "To reset your %{short_name} password, open the following link within 2 hours:",
+          **site_translation_options) %></p>
 
 <p><%= link_to @url, @url %></p>
 

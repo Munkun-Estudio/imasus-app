@@ -16,17 +16,17 @@ credibly rebranded without editing code and finding hidden references.
 ## Acceptance Criteria
 
 
-- [ ] Layouts, navigation, footer, authentication, mailers, metadata, and legal
+- [x] Layouts, navigation, footer, authentication, mailers, metadata, and legal
   surfaces use configured installation identity and assets.
-- [ ] A documented asset convention supports a logo, compact mark, favicon, and
+- [x] A documented asset convention supports a logo, compact mark, favicon, and
   email-safe variant, including accessible text fallbacks.
-- [ ] User-facing colours are expressed through a bounded set of semantic theme
+- [x] User-facing colours are expressed through a bounded set of semantic theme
   tokens; the IMASUS profile renders the current palette.
-- [ ] Analytics and other optional external identifiers are disabled when absent
+- [x] Analytics and other optional external identifiers are disabled when absent
   and do not emit invalid markup or requests.
-- [ ] A repository search and automated checks show no unintended IMASUS product
+- [x] A repository search and automated checks show no unintended IMASUS product
   copy or domains remain in reusable application code.
-- [ ] Branding configuration has request/view coverage for configured and missing
+- [x] Branding configuration has request/view coverage for configured and missing
   optional values.
 
 ## Out of Scope

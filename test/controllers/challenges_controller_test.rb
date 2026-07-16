@@ -54,7 +54,7 @@ class ChallengesControllerTest < ActionDispatch::IntegrationTest
     body = response.body
 
     material_codes = Challenge.where(category: "material").by_code.pluck(:code)
-    positions = material_codes.map { |code| body.index(code) }
+    positions = material_codes.map { |code| body.index(%(data-challenge="#{code}")) }
     assert_equal positions, positions.sort,
                  "material challenges should render in numeric code order; got positions #{positions.inspect} for codes #{material_codes.inspect}"
   end

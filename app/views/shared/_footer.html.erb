@@ -1,7 +1,7 @@
 <%
   sidebar_offset = local_assigns.fetch(:sidebar_offset, false)
   footer_classes = [
-    "border-t border-imasus-dark-green/10 bg-gradient-to-b from-imasus-dark-green to-imasus-navy px-6 py-12 text-white/90 sm:px-10 lg:px-16",
+    "border-t border-brand-primary/10 bg-gradient-to-b from-brand-primary to-brand-secondary px-6 py-12 text-white/90 sm:px-10 lg:px-16",
     ("lg:ml-64" if sidebar_offset)
   ].compact.join(" ")
 %>
@@ -33,8 +33,8 @@
       <div class="flex flex-col gap-3 text-xs text-white/40 sm:flex-row sm:items-center sm:gap-5">
         <p>
           <%= t("footer.copyright_prefix") %>
-          <%= link_to t("footer.project_name"),
-                "https://imasus.eu",
+          <%= link_to site_short_name,
+                site_config.public_urls.project,
                 target: "_blank",
                 rel: "noopener noreferrer",
                 class: "underline underline-offset-2 transition hover:text-white" %>.
@@ -42,6 +42,10 @@
         <nav aria-label="<%= t("footer.legal_label") %>" class="flex gap-4">
           <%= link_to t("footer.privacy"), privacy_path, class: "underline underline-offset-2 transition hover:text-white" %>
           <%= link_to t("footer.terms"), terms_path, class: "underline underline-offset-2 transition hover:text-white" %>
+          <% if site_config.public_urls.support %>
+            <%= link_to t("footer.support"), site_config.public_urls.support,
+                  class: "underline underline-offset-2 transition hover:text-white" %>
+          <% end %>
         </nav>
       </div>
       <%= link_to "https://munkun.com",

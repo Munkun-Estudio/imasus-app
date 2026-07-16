@@ -2,14 +2,14 @@
 
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <%= link_to workshop_path(@workshop),
-              class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" do %>
+              class: "inline-flex items-center text-sm font-semibold text-brand-primary/70 hover:text-brand-primary" do %>
     <%= t(".back_to_workshop", default: "← Back to workshop") %>
   <% end %>
 
   <header class="mt-6 flex flex-wrap items-end justify-between gap-4">
     <div class="max-w-3xl">
-      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/45"><%= t(".eyebrow", default: "Workshop Emails") %></p>
-      <h1 class="mt-3 text-4xl font-bold text-imasus-dark-green"><%= t(".title", workshop: @workshop.title, default: "Emails for %{workshop}") %></h1>
+      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-primary/45"><%= t(".eyebrow", default: "Workshop Emails") %></p>
+      <h1 class="mt-3 text-4xl font-bold text-brand-primary"><%= t(".title", workshop: @workshop.title, default: "Emails for %{workshop}") %></h1>
       <p class="mt-4 text-base leading-7 text-stone-700"><%= t(".lead", default: "Manual workshop communications sent by admins. Use this history to confirm what went out and when.") %></p>
     </div>
 
@@ -21,41 +21,41 @@
   <% if @broadcasts.any? %>
     <section class="mt-10 space-y-4">
       <% @broadcasts.each do |broadcast| %>
-        <article class="rounded-3xl border border-imasus-dark-green/10 bg-white p-6 shadow-sm">
+        <article class="rounded-3xl border border-brand-primary/10 bg-white p-6 shadow-sm">
           <div class="flex flex-wrap items-start justify-between gap-3">
             <div>
-              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/45">
                 <%= l(broadcast.sent_at, format: :long) %>
               </p>
-              <h2 class="mt-2 text-xl font-bold text-imasus-dark-green"><%= broadcast.subject %></h2>
+              <h2 class="mt-2 text-xl font-bold text-brand-primary"><%= broadcast.subject %></h2>
             </div>
-            <span class="rounded-full bg-imasus-light-blue/35 px-3 py-1 text-xs font-semibold text-imasus-dark-green">
+            <span class="rounded-full bg-brand-info/35 px-3 py-1 text-xs font-semibold text-brand-primary">
               <%= t(".recipient_count", count: broadcast.recipient_count, default: "%{count} recipients") %>
             </span>
           </div>
 
           <dl class="mt-4 grid gap-4 sm:grid-cols-3">
             <div>
-              <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".audience", default: "Audience") %></dt>
+              <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/45"><%= t(".audience", default: "Audience") %></dt>
               <dd class="mt-1 text-sm text-stone-700"><%= broadcast.audience_label %></dd>
             </div>
             <div>
-              <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".sender", default: "Sender") %></dt>
+              <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/45"><%= t(".sender", default: "Sender") %></dt>
               <dd class="mt-1 text-sm text-stone-700"><%= broadcast.sender.name %></dd>
             </div>
             <div>
-              <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".workshop", default: "Workshop") %></dt>
+              <dt class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/45"><%= t(".workshop", default: "Workshop") %></dt>
               <dd class="mt-1 text-sm text-stone-700"><%= @workshop.title %></dd>
             </div>
           </dl>
 
           <% if broadcast.pdf_attachment.attached? %>
-            <div class="mt-5 rounded-2xl border border-imasus-dark-green/10 bg-imasus-light-blue/15 px-4 py-3 text-sm text-stone-700">
-              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-imasus-dark-green/45"><%= t(".attachment", default: "PDF attachment") %></p>
+            <div class="mt-5 rounded-2xl border border-brand-primary/10 bg-brand-info/15 px-4 py-3 text-sm text-stone-700">
+              <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary/45"><%= t(".attachment", default: "PDF attachment") %></p>
               <p class="mt-1">
                 <%= link_to broadcast.pdf_attachment.filename.to_s,
                             url_for(broadcast.pdf_attachment),
-                            class: "font-medium text-imasus-dark-green underline-offset-2 hover:underline" %>
+                            class: "font-medium text-brand-primary underline-offset-2 hover:underline" %>
               </p>
             </div>
           <% end %>
@@ -69,8 +69,8 @@
       <% end %>
     </section>
   <% else %>
-    <section class="mt-10 rounded-3xl border border-dashed border-imasus-dark-green/20 bg-white/60 p-8 text-center">
-      <p class="text-lg font-semibold text-imasus-dark-green"><%= t(".empty_title", default: "No workshop emails sent yet.") %></p>
+    <section class="mt-10 rounded-3xl border border-dashed border-brand-primary/20 bg-white/60 p-8 text-center">
+      <p class="text-lg font-semibold text-brand-primary"><%= t(".empty_title", default: "No workshop emails sent yet.") %></p>
       <p class="mt-2 text-sm leading-7 text-stone-700"><%= t(".empty_body", default: "When an admin sends a workshop follow-up or news email, it will appear here.") %></p>
     </section>
   <% end %>

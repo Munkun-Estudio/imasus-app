@@ -1,4 +1,4 @@
-# Public index of the IMASUS sustainable materials catalogue.
+# Public index of the installation's materials catalogue.
 #
 # Presents a chip-filter rail (OR within a facet, AND across facets), a
 # free-text search over the trade name and the current-locale description,

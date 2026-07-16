@@ -1,12 +1,12 @@
 <div data-home-variant="participant" class="px-6 py-12 sm:px-10 lg:px-16">
-  <h1 class="text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
+  <h1 class="text-3xl font-bold tracking-tight text-brand-primary sm:text-4xl">
     <%= t(".greeting", name: current_user.name) %>
   </h1>
 
   <% if @projects.any? %>
     <%# Project cards (journey-state) %>
     <section class="mt-10">
-      <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+      <h2 class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
         <%= t(".projects.heading") %>
       </h2>
 
@@ -19,7 +19,7 @@
 
     <% if @workshops.any? %>
       <section class="mt-12">
-        <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+        <h2 class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
           <%= t(".workshops.heading") %>
         </h2>
         <%= render "home/workshop_strip", workshops: @workshops %>
@@ -28,18 +28,18 @@
   <% elsif @workshops.any? %>
     <%# Empty state — has workshops, no projects: foreground workshops %>
     <section data-empty-state="no-projects" class="mt-10">
-      <h2 class="text-xl font-bold tracking-tight text-imasus-dark-green sm:text-2xl">
+      <h2 class="text-xl font-bold tracking-tight text-brand-primary sm:text-2xl">
         <%= t(".empty_no_projects.heading") %>
       </h2>
-      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-imasus-dark-green/60">
+      <p class="mt-2 max-w-2xl text-sm leading-relaxed text-brand-primary/60">
         <%= t(".empty_no_projects.lead") %>
       </p>
       <%= render "home/workshop_strip", workshops: @workshops %>
     </section>
   <% else %>
     <%# Empty state — no workshops at all (rare) %>
-    <section data-empty-state="no-workshops" class="mt-10 rounded-2xl border border-dashed border-imasus-dark-green/15 bg-white px-6 py-10">
-      <p class="text-sm leading-relaxed text-imasus-dark-green/60">
+    <section data-empty-state="no-workshops" class="mt-10 rounded-2xl border border-dashed border-brand-primary/15 bg-white px-6 py-10">
+      <p class="text-sm leading-relaxed text-brand-primary/60">
         <%= t(".empty_no_workshops") %>
       </p>
     </section>
@@ -49,7 +49,7 @@
 
   <%# Public resources teaser — same styled grid as the visitor home %>
   <section class="mt-16">
-    <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
       <%= t(".resources.heading") %>
     </h2>
     <div class="mt-4">

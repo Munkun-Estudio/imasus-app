@@ -210,3 +210,7 @@ For facilitator users whose invitation has not been accepted (invitation_accepte
 ## 2026-07-16: Use strict YAML installation profiles selected by APP_PROFILE
 
 A checked-in, versioned YAML profile is reviewable, reproducible, and sufficient for installation-level settings. APP_PROFILE selects config/profiles/<name>.yml, while secrets remain in Rails credentials or environment variables. Disallowing ERB prevents secret interpolation and hidden executable configuration. Rails.configuration.site exposes one typed, read-only object to application consumers.
+
+## 2026-07-16: Use validated CSS variables behind semantic brand tokens
+
+Profiles provide six validated hexadecimal color roles (primary, secondary, accent, success, info, and soft). Rails emits them as CSS custom properties and Tailwind exposes semantic brand utilities backed by those variables. Shared templates use only the semantic utilities; profiles cannot inject arbitrary CSS. This preserves the exact IMASUS palette while allowing a safe bounded theme per installation.

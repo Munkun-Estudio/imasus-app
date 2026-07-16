@@ -8,11 +8,11 @@
          tabindex="-1"
          data-modal-target="dialog"
          class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-      <h2 id="confirm-unassign-title" class="text-lg font-semibold text-imasus-dark-green">
+      <h2 id="confirm-unassign-title" class="text-lg font-semibold text-brand-primary">
         <%= t("admin.facilitator_workshop_assignments.delete_confirmation.title",
               default: "Unassign workshop?") %>
       </h2>
-      <p class="mt-2 text-sm text-imasus-dark-green/80">
+      <p class="mt-2 text-sm text-brand-primary/80">
         <%= t("admin.facilitator_workshop_assignments.delete_confirmation.body",
               default: "%{name} will lose edit access to %{workshop}. Their existing data stays.",
               name: facilitator.name,
@@ -23,7 +23,7 @@
         <button type="button"
                 data-action="modal#close"
                 data-role="cancel-unassign-workshop"
-                class="rounded-md border border-imasus-dark-green/20 px-4 py-2 text-sm font-medium text-imasus-dark-green hover:bg-imasus-mint/20">
+                class="rounded-md border border-brand-primary/20 px-4 py-2 text-sm font-medium text-brand-primary hover:bg-brand-success/20">
           <%= t("admin.facilitator_workshop_assignments.delete_confirmation.cancel",
                 default: "Cancel") %>
         </button>
@@ -34,7 +34,7 @@
               method: :delete,
               form: { data: { turbo_frame: "_top" } },
               data: { role: "confirm-unassign-workshop" },
-              class: "rounded-md bg-imasus-red px-4 py-2 text-sm font-semibold text-white hover:bg-imasus-red/90" %>
+              class: "rounded-md bg-brand-accent px-4 py-2 text-sm font-semibold text-white hover:bg-brand-accent/90" %>
       </div>
     </div>
   </div>

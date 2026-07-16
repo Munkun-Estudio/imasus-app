@@ -7,16 +7,23 @@
             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
               <tr>
                 <td valign="top">
+                  <% if site_config.brand.assets.email_logo %>
+                    <%= image_tag image_url(site_config.brand.assets.email_logo),
+                          alt: site_short_name,
+                          width: 36,
+                          height: 36,
+                          style: "display:block;width:36px;height:36px;margin:0 0 8px;" %>
+                  <% end %>
                   <p style="margin:0 0 6px;font-size:11px;line-height:1.4;letter-spacing:0.16em;text-transform:uppercase;color:#6a7d7f;font-family:Arial,sans-serif;">
-                    IMASUS
+                    <%= site_short_name %>
                   </p>
-                  <p style="margin:0;font-size:20px;line-height:1.3;font-weight:700;color:#1f3d3f;font-family:Arial,sans-serif;">
+                  <p style="margin:0;font-size:20px;line-height:1.3;font-weight:700;color:<%= site_config.brand.theme.primary %>;font-family:Arial,sans-serif;">
                     <%= @workshop.title %>
                   </p>
                 </td>
                 <% if local_assigns[:badge].present? %>
                   <td align="right" valign="top">
-                    <span style="display:inline-block;padding:6px 10px;border-radius:999px;background:#afe0c7;color:#1f3d3f;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-family:Arial,sans-serif;">
+                    <span style="display:inline-block;padding:6px 10px;border-radius:999px;background:<%= site_config.brand.theme.success %>;color:<%= site_config.brand.theme.primary %>;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;font-family:Arial,sans-serif;">
                       <%= badge %>
                     </span>
                   </td>
@@ -28,7 +35,7 @@
 
         <tr>
           <td style="padding:28px 24px 12px;">
-            <div style="font-family:Arial,sans-serif;color:#1f3d3f;font-size:16px;line-height:1.7;">
+            <div style="font-family:Arial,sans-serif;color:<%= site_config.brand.theme.primary %>;font-size:16px;line-height:1.7;">
               <%= yield %>
             </div>
           </td>

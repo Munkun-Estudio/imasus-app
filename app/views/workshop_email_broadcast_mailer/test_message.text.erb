@@ -1,7 +1,10 @@
-IMASUS
+<%= site_short_name %>
 <%= @workshop.title %>
 <%= t(".badge", default: "Test email") %>
 
 <%= @body_text %>
 
-<%= t(".footer", default: "Sent by %{sender} through IMASUS.", sender: @sender.name) %>
+<%= t(".footer",
+      default: "Sent by %{sender} through %{short_name}.",
+      sender: @sender.name,
+      **site_translation_options) %>
