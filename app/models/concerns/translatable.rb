@@ -32,6 +32,10 @@ module Translatable
   end
 
   class_methods do
+    def base_locale
+      Rails.configuration.site.locales.fallback
+    end
+
     # Declares one or more translatable attributes backed by `<attr>_translations`
     # JSONB columns.
     #

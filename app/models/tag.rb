@@ -14,8 +14,6 @@ class Tag < ApplicationRecord
 
   FACETS = %w[origin_type textile_imitating application].freeze
 
-  BASE_LOCALE = "en"
-
   SEED_PATH = Rails.root.join("db", "seeds", "material_tags.yml")
 
   enum :facet, FACETS.each_with_index.to_h
@@ -59,7 +57,7 @@ class Tag < ApplicationRecord
   private
 
   def base_locale_name_present
-    return if name_in(BASE_LOCALE).to_s.strip.present?
+    return if name_in(self.class.base_locale).to_s.strip.present?
 
     errors.add(:name_translations, :blank)
   end

@@ -26,6 +26,10 @@ module ApplicationHelper
     }
   end
 
+  def locale_label(locale)
+    site_config.locales.label(locale)
+  end
+
   def brand_logo_tag(variant: :logo, **options)
     assets = site_config.brand.assets
     asset = assets.public_send(variant)

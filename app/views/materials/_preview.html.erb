@@ -56,7 +56,7 @@
           <% end %>
         </div>
 
-        <% description = material.description_in(I18n.locale) || material.description_in(Material::BASE_LOCALE) %>
+        <% description = material.description_in(I18n.locale) || material.description_in(Material.base_locale) %>
         <% if description.present? %>
           <p class="text-sm leading-relaxed text-brand-primary/80">
             <%= description %>
@@ -70,7 +70,7 @@
             <% tags.each do |tag| %>
               <li>
                 <span class="inline-flex items-center rounded-full border border-brand-primary/15 bg-white px-2.5 py-0.5 text-xs text-brand-primary/80">
-                  <%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %>
+                  <%= tag.name_in(I18n.locale) || tag.name_in(Tag.base_locale) %>
                 </span>
               </li>
             <% end %>

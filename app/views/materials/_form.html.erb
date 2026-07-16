@@ -74,7 +74,7 @@
                 data-action="click->locale-tabs#select keydown->locale-tabs#key"
                 class="px-4 py-2 text-sm font-medium border-b-2 -mb-px
                        <%= i == 0 ? 'border-brand-primary text-brand-primary' : 'border-transparent text-brand-primary/50 hover:text-brand-primary' %>">
-          <%= locale.upcase %>
+          <%= locale_label(locale) %>
         </button>
       <% end %>
     </div>
@@ -91,7 +91,7 @@
           <div>
             <label for="material_<%= attribute %>_translations_<%= locale %>"
                    class="block text-sm font-medium text-brand-primary">
-              <%= t("materials.show.sections.#{attribute}") %> — <%= locale.upcase %>
+              <%= t("materials.show.sections.#{attribute}") %> — <%= locale_label(locale) %>
             </label>
             <%= text_area_tag "material[#{attribute}_translations][#{locale}]",
                   material.public_send(:"#{attribute}_in", locale),
@@ -111,7 +111,7 @@
     <%= hidden_field_tag "material[tag_ids][]", "" %>
     <div class="mt-3 grid gap-5 sm:grid-cols-3">
       <% Tag::FACETS.each do |facet| %>
-        <% tags = (tags_by_facet[facet] || []).sort_by { |tag| tag.name_in(Tag::BASE_LOCALE).to_s.downcase } %>
+        <% tags = (tags_by_facet[facet] || []).sort_by { |tag| tag.name_in(Tag.base_locale).to_s.downcase } %>
         <div>
           <p class="text-xs font-semibold uppercase tracking-wider text-brand-primary/60">
             <%= t("materials.index.facets.#{facet}.title") %>
@@ -124,7 +124,7 @@
                       selected_tag_ids.include?(tag.id),
                       id: "material_tag_ids_#{tag.id}",
                       class: "mt-0.5 rounded border-brand-primary/25 text-brand-primary focus:ring-brand-success" %>
-                <span><%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %></span>
+                <span><%= tag.name_in(I18n.locale) || tag.name_in(Tag.base_locale) %></span>
               </label>
             <% end %>
           </div>

@@ -69,7 +69,7 @@
     <div class="flex flex-wrap gap-1">
       <% @section.available_locales.each do |loc| %>
         <% active = loc == I18n.locale.to_s %>
-        <%= link_to loc.upcase,
+        <%= link_to locale_label(loc),
               training_show_path(slug: @section.module_slug, section: @section.volume, locale: loc),
               class: "rounded px-2 py-1 text-xs font-bold transition #{active ? 'bg-brand-primary text-white' : 'text-brand-primary/50 hover:bg-brand-primary/5'}" %>
       <% end %>

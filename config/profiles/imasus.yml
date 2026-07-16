@@ -13,6 +13,12 @@ locales:
     - it
     - el
   default: en
+  fallback: en
+  labels:
+    en: English
+    es: Español
+    it: Italiano
+    el: Ελληνικά
 
 modules:
   library: true

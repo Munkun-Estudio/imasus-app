@@ -38,7 +38,7 @@
 
   <section class="mt-6 space-y-6" aria-label="<%= t(".facets_label") %>">
     <% Tag::FACETS.each do |facet| %>
-      <% tags = (@tags_by_facet[facet] || []).sort_by { |t| t.name_in(Tag::BASE_LOCALE).to_s.downcase } %>
+      <% tags = (@tags_by_facet[facet] || []).sort_by { |tag| tag.name_in(Tag.base_locale).to_s.downcase } %>
       <% next if tags.empty? %>
       <div data-facet="<%= facet %>">
         <h2 class="text-xs font-semibold uppercase tracking-wider text-brand-primary/60">
@@ -54,7 +54,7 @@
                     data: { "chip-slug" => tag.slug },
                     rel: "nofollow",
                     class: "inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium #{active ? "bg-brand-primary text-white" : "bg-white text-brand-primary border border-brand-primary/20 hover:bg-brand-success/20"}" do %>
-                <span><%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %></span>
+                <span><%= tag.name_in(I18n.locale) || tag.name_in(Tag.base_locale) %></span>
                 <span data-role="chip-count" class="text-xs <%= active ? "text-white/80" : "text-brand-primary/60" %>"><%= count %></span>
               <% end %>
             </li>

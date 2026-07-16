@@ -214,3 +214,15 @@ A checked-in, versioned YAML profile is reviewable, reproducible, and sufficient
 ## 2026-07-16: Use validated CSS variables behind semantic brand tokens
 
 Profiles provide six validated hexadecimal color roles (primary, secondary, accent, success, info, and soft). Rails emits them as CSS custom properties and Tailwind exposes semantic brand utilities backed by those variables. Shared templates use only the semantic utilities; profiles cannot inject arbitrary CSS. This preserves the exact IMASUS palette while allowing a safe bounded theme per installation.
+
+## 2026-07-16: Store localized rich text in polymorphic records
+
+Locale-suffixed Action Text association names require schema and model changes for every new language. Store localized rich text in polymorphic LocalizedRichText records keyed by record, field name, and locale. Existing agenda ActionText rows will be reassigned to these wrappers so their bodies and embedded attachment SGIDs remain unchanged; rollback restores the legacy record/name association.
+
+## 2026-07-16: Use the configured fallback locale as the source locale
+
+Validations and source-content fallbacks must not assume English. Use locales.fallback from the selected installation profile as the source locale, while locale selectors and slug discovery follow locales.available order. Existing IMASUS behaviour is preserved because its profile keeps en as fallback and first available locale.
+
+## 2026-07-16: Use an expand-first migration for localized rich text
+
+Supersedes the reparenting detail in the earlier localized-rich-text decision. Fly runs db:prepare before replacing the old application, so the migration must leave legacy Workshop agenda rows readable during deployment. Copy bodies and attachment references into LocalizedRichText, retain legacy rows as a compatibility shadow, and have rollback sync the latest localized content back before removing the new storage.

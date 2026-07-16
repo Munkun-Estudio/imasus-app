@@ -15,10 +15,6 @@ class GlossaryTerm < ApplicationRecord
   # one-line change to this constant, no migration needed.
   CATEGORIES = %w[methodology application industry science].freeze
 
-  # The source-of-truth locale for slug generation, presence validation, and
-  # case-insensitive uniqueness.
-  BASE_LOCALE = "en"
-
   # Default seed file path. Override via the `path:` argument to {.seed_from_yaml!}.
   SEED_PATH = Rails.root.join("db", "seeds", "glossary_terms.yml")
 
@@ -52,7 +48,7 @@ class GlossaryTerm < ApplicationRecord
     entries = YAML.load_file(path)
 
     entries.each do |entry|
-      slug = entry.dig("term", "en").to_s.parameterize
+      slug = entry.dig("term", base_locale).to_s.parameterize
 
       term = find_or_initialize_by(slug: slug)
       term.term_translations = SeedPolicy.translations(
@@ -101,13 +97,17 @@ class GlossaryTerm < ApplicationRecord
     value = base_locale_value(term_translations)
     return if value.blank?
 
-    scope = GlossaryTerm.where("LOWER(term_translations->>'en') = ?", value.downcase)
+    scope = GlossaryTerm.where(
+      "LOWER(term_translations ->> ?) = ?",
+      self.class.base_locale,
+      value.downcase
+    )
     scope = scope.where.not(id: id) if persisted?
 
     errors.add(:term_translations, :taken) if scope.exists?
   end
 
   def base_locale_value(translations)
-    (translations || {})[BASE_LOCALE].to_s.strip
+    (translations || {})[self.class.base_locale].to_s.strip
   end
 end

@@ -7,7 +7,7 @@
 # @!attribute [rw] description
 #   @return [String, nil]
 # @!attribute [rw] language
-#   @return [String] one of %w[en es it el]
+#   @return [String] one of the installation's configured locales
 # @!attribute [rw] status
 #   @return [String] "draft" or "published"
 # @!attribute [rw] slug
@@ -15,7 +15,6 @@
 # @!attribute [rw] publication_updated_at
 #   @return [ActiveSupport::TimeWithZone, nil] timestamp of last publish/republish
 class Project < ApplicationRecord
-  ALLOWED_LANGUAGES = %w[en es it el].freeze
   ALLOWED_STATUSES  = %w[draft published].freeze
   HERO_IMAGE_CONTENT_TYPES = %w[image/png image/jpeg].freeze
   HERO_IMAGE_MAX_SIZE = 20.megabytes
@@ -46,10 +45,16 @@ class Project < ApplicationRecord
   before_validation :assign_slug, if: -> { status == "published" && slug.blank? }
 
   validates :title,    presence: true
-  validates :language, presence: true, inclusion: { in: ALLOWED_LANGUAGES }
+  validates :language,
+            presence: true,
+            inclusion: { in: ->(_project) { allowed_languages } }
   validates :status,   presence: true, inclusion: { in: ALLOWED_STATUSES }
 
   validate :publication_requirements, if: -> { status == "published" }
+
+  def self.allowed_languages
+    Rails.configuration.site.locales.available
+  end
 
   # @return [Boolean] true when +user+ may read this project
   def visible_to?(user)

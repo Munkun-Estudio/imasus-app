@@ -16,16 +16,16 @@ languages without changing schema or application code.
 ## Acceptance Criteria
 
 
-- [ ] Enabled locales, their display labels, ordering, and the default/fallback
+- [x] Enabled locales, their display labels, ordering, and the default/fallback
   locale come from validated installation configuration.
-- [ ] Locale selectors, validations, routes, forms, mailers, and content loaders
+- [x] Locale selectors, validations, routes, forms, mailers, and content loaders
   contain no fixed four-locale assumption.
-- [ ] A reusable localized rich text abstraction supports configured locales and
+- [x] A reusable localized rich text abstraction supports configured locales and
   has deterministic fallback and missing-content behaviour.
-- [ ] Existing `agenda_en`, `agenda_es`, `agenda_it`, and `agenda_el` content and
+- [x] Existing `agenda_en`, `agenda_es`, `agenda_it`, and `agenda_el` content and
   attachments migrate safely, with a verified rollback path.
-- [ ] Existing IMASUS locale URLs and behaviour remain compatible after migration.
-- [ ] Tests cover one locale, the current four locales, an additional locale, and
+- [x] Existing IMASUS locale URLs and behaviour remain compatible after migration.
+- [x] Tests cover one locale, the current four locales, an additional locale, and
   fallback/missing translation cases.
 
 ## Out of Scope

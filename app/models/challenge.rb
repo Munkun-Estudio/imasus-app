@@ -19,9 +19,6 @@ class Challenge < ApplicationRecord
   # Canonical code format: "C" followed by 1–10.
   CODE_FORMAT = /\AC([1-9]|10)\z/
 
-  # Source-of-truth locale for presence validation.
-  BASE_LOCALE = "en"
-
   # Default seed file path. Override via the `path:` argument to {.seed_from_yaml!}.
   SEED_PATH = Rails.root.join("db", "seeds", "challenges.yml")
 
@@ -106,6 +103,6 @@ class Challenge < ApplicationRecord
   end
 
   def base_locale_value(translations)
-    (translations || {})[BASE_LOCALE].to_s.strip
+    (translations || {})[self.class.base_locale].to_s.strip
   end
 end
