@@ -19,8 +19,6 @@ class Material < ApplicationRecord
 
   AVAILABILITY_STATUSES = %w[commercial in_development research_only].freeze
 
-  BASE_LOCALE = "en"
-
   # Translatable narrative fields rendered as prose sections on the detail
   # page. Ordered for reading: description → sensorial_qualities →
   # what_problem_it_solves → interesting_properties → structure.
@@ -202,7 +200,7 @@ class Material < ApplicationRecord
   end
 
   def base_locale_description_present
-    return if description_in(BASE_LOCALE).to_s.strip.present?
+    return if description_in(self.class.base_locale).to_s.strip.present?
 
     errors.add(:description_translations, :blank)
   end

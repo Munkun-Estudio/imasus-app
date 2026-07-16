@@ -22,7 +22,7 @@ class GlossaryTermsController < ApplicationController
       scope = scope.where(category: @active_category)
     end
 
-    @terms = scope.to_a.sort_by { |term| (term.term_in(GlossaryTerm::BASE_LOCALE) || "").downcase }
+    @terms = scope.to_a.sort_by { |term| (term.term_in(GlossaryTerm.base_locale) || "").downcase }
     @terms_by_letter = @terms.group_by { |term| first_letter(term) }
     @available_letters = @terms_by_letter.keys.to_set
     @available_categories = GlossaryTerm.distinct.pluck(:category) & GlossaryTerm::CATEGORIES
@@ -141,7 +141,7 @@ class GlossaryTermsController < ApplicationController
   end
 
   def first_letter(term)
-    value = term.term_in(GlossaryTerm::BASE_LOCALE).to_s
+    value = term.term_in(GlossaryTerm.base_locale).to_s
     letter = value[0, 1].upcase
     ("A".."Z").cover?(letter) ? letter : "#"
   end

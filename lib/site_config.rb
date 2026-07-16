@@ -12,7 +12,24 @@ class SiteConfig
   class Error < StandardError; end
 
   Identity = Data.define(:name, :short_name, :organization, :description)
-  Locales = Data.define(:available, :default)
+  Locales = Data.define(:available, :default, :fallback, :labels) do
+    def label(locale)
+      labels.fetch(locale.to_s)
+    end
+
+    def fallback_chain(locale)
+      requested = locale.to_s
+      i18n_fallbacks = if I18n.respond_to?(:fallbacks)
+        Array(I18n.fallbacks[requested]).map(&:to_s)
+      else
+        []
+      end
+
+      ([ requested ] + i18n_fallbacks + [ fallback, default ] + available)
+        .select { |candidate| available.include?(candidate) }
+        .uniq
+    end
+  end
   Content = Data.define(:root, :guides)
   PublicUrls = Data.define(:application, :fallback, :project, :source, :support)
   Analytics = Data.define(:enabled, :script_url)
@@ -84,7 +101,7 @@ class SiteConfig
       "Configuration: #{profile_path}",
       "Version: #{version}",
       "Application: #{identity.name}",
-      "Locales: #{locales.available.join(', ')} (default: #{locales.default})",
+      "Locales: #{locales.available.join(', ')} (default: #{locales.default}; fallback: #{locales.fallback})",
       "Modules: #{modules.enabled.join(', ')}",
       "Content root: #{content.root}",
       "Guides: #{content.guides}",
@@ -97,7 +114,7 @@ class SiteConfig
   class Builder
     TOP_LEVEL_KEYS = %w[version identity locales modules content public_urls operations brand].freeze
     IDENTITY_KEYS = %w[name short_name organization description].freeze
-    LOCALE_KEYS = %w[available default].freeze
+    LOCALE_KEYS = %w[available default fallback labels].freeze
     MODULE_KEYS = %w[library guides prompts glossary].freeze
     CONTENT_KEYS = %w[root guides].freeze
     PUBLIC_URL_KEYS = %w[application fallback project source support].freeze
@@ -179,7 +196,28 @@ class SiteConfig
         raise Error, "locales.default #{default.inspect} must be present in locales.available"
       end
 
-      Locales.new(available: available.freeze, default: default.freeze)
+      fallback = string!(values, "fallback", "locales")
+      unless available.include?(fallback)
+        raise Error, "locales.fallback #{fallback.inspect} must be present in locales.available"
+      end
+
+      label_values = hash!(fetch!(values, "labels", "locales"), "locales.labels")
+      label_keys = label_values.keys.map(&:to_s)
+      missing_labels = available - label_keys
+      extra_labels = label_keys - available
+      raise Error, "Missing locales.labels entries: #{missing_labels.join(', ')}" if missing_labels.any?
+      raise Error, "Unknown locales.labels entries: #{extra_labels.join(', ')}" if extra_labels.any?
+
+      labels = available.to_h do |locale|
+        [ locale.freeze, string!(label_values, locale, "locales.labels").freeze ]
+      end.freeze
+
+      Locales.new(
+        available: available.freeze,
+        default: default.freeze,
+        fallback: fallback.freeze,
+        labels:
+      )
     end
 
     def build_modules(config)

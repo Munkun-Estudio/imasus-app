@@ -185,7 +185,7 @@
                     <% tags.each do |tag| %>
                       <li>
                         <span class="inline-flex items-center rounded-full border border-brand-primary/15 bg-white px-2.5 py-0.5 text-xs text-brand-primary/80">
-                          <%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %>
+                          <%= tag.name_in(I18n.locale) || tag.name_in(Tag.base_locale) %>
                         </span>
                       </li>
                     <% end %>

@@ -41,9 +41,9 @@
 
   <div>
     <%= f.label :language, t("projects.form.language"), class: "block text-sm font-semibold text-brand-primary" %>
-    <% default_lang = project.language.presence || (Project::ALLOWED_LANGUAGES.include?(I18n.locale.to_s) ? I18n.locale.to_s : "en") %>
+    <% default_lang = project.language.presence || (Project.allowed_languages.include?(I18n.locale.to_s) ? I18n.locale.to_s : site_config.locales.default) %>
     <%= f.select :language,
-                 Project::ALLOWED_LANGUAGES.map { |l| [t("projects.languages.#{l}"), l] },
+                 Project.allowed_languages.map { |locale| [locale_label(locale), locale] },
                  { selected: default_lang },
                  class: "mt-1 block w-full rounded-md border border-brand-primary/20 px-3 py-2 text-sm shadow-sm focus:border-brand-primary focus:outline-none" %>
   </div>

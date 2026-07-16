@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_18_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_16_190000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,9 +83,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_18_120000) do
     t.string "slug", null: false
     t.jsonb "term_translations", default: {}, null: false
     t.datetime "updated_at", null: false
-    t.index "lower((term_translations ->> 'en'::text))", name: "index_glossary_terms_on_lower_en_term", unique: true
     t.index ["category"], name: "index_glossary_terms_on_category"
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
+  end
+
+  create_table "localized_rich_texts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "locale", null: false
+    t.string "name", null: false
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "name", "locale"], name: "index_localized_rich_texts_on_record_field_and_locale", unique: true
+    t.index ["record_type", "record_id"], name: "index_localized_rich_texts_on_record"
   end
 
   create_table "log_entries", force: :cascade do |t|

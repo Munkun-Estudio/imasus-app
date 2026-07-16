@@ -1,10 +1,8 @@
 class Workshop < ApplicationRecord
   include Translatable
+  include HasLocalizedRichText
 
   SEED_PATH = Rails.root.join("db", "seeds", "workshops.yml")
-  AGENDA_LOCALES = %w[en es it el].freeze
-  COMMUNICATION_LOCALES = %w[es it el en].freeze
-  SLUG_FALLBACK_LOCALES = %w[en es it el].freeze
   SLUG_MAX_LENGTH = 100
 
   translates :title, :description
@@ -14,10 +12,6 @@ class Workshop < ApplicationRecord
 
   has_many :projects, dependent: :destroy
   has_many :workshop_email_broadcasts, dependent: :destroy
-  has_rich_text :agenda_en
-  has_rich_text :agenda_es
-  has_rich_text :agenda_it
-  has_rich_text :agenda_el
 
   validates :slug,     presence: true, uniqueness: { case_sensitive: false }
   validates :location, presence: true
@@ -90,17 +84,17 @@ class Workshop < ApplicationRecord
   # @param locale [String, Symbol] requested locale
   # @return [ActionText::RichText, nil]
   def agenda_for(locale = I18n.locale)
-    agenda_locale_chain(locale).each do |candidate|
-      rich_text = public_send(:"agenda_#{candidate}")
-      return rich_text if rich_text.body&.to_plain_text.to_s.strip.present?
-    end
+    localized_rich_text_for(:agenda, locale)
+  end
 
-    AGENDA_LOCALES.each do |candidate|
-      rich_text = public_send(:"agenda_#{candidate}")
-      return rich_text if rich_text.body&.to_plain_text.to_s.strip.present?
-    end
+  def agenda_in(locale)
+    localized_rich_text_in(:agenda, locale)
+  end
 
-    nil
+  def agenda_translations=(translations)
+    translations.to_h.each do |locale, content|
+      assign_localized_rich_text(:agenda, locale, content)
+    end
   end
 
   # Returns the best-fit locale for workshop-facing communication such as
@@ -109,7 +103,10 @@ class Workshop < ApplicationRecord
   #
   # @return [String]
   def communication_locale
-    COMMUNICATION_LOCALES.find { |locale| content_present_for_locale?(locale) } || I18n.default_locale.to_s
+    locales = Rails.configuration.site.locales
+    preferred = locales.available - [ locales.default ]
+    (preferred + [ locales.default ]).find { |locale| content_present_for_locale?(locale) } ||
+      locales.default
   end
 
   # Idempotently loads workshops from {SEED_PATH}. By default this is
@@ -142,12 +139,12 @@ class Workshop < ApplicationRecord
       workshop.contact_email = SeedPolicy.value(workshop.contact_email, entry["contact_email"], overwrite: overwrite)
       workshop.save!
 
-      AGENDA_LOCALES.each do |locale|
+      Rails.configuration.site.locales.available.each do |locale|
         html = entry.fetch("agenda_translations", {})[locale]
         next if html.blank?
-        next if !overwrite && workshop.public_send(:"agenda_#{locale}").body&.to_plain_text.to_s.strip.present?
+        next if !overwrite && workshop.localized_rich_text_present?(:agenda, locale)
 
-        workshop.public_send(:"agenda_#{locale}=", html)
+        workshop.assign_localized_rich_text(:agenda, locale, html)
       end
       workshop.save!
     end
@@ -162,21 +159,13 @@ class Workshop < ApplicationRecord
 
   private
 
-  def agenda_locale_chain(locale)
-    locales = [ locale.to_s ]
-    if I18n.respond_to?(:fallbacks)
-      locales.concat(Array(I18n.fallbacks[locale]).map(&:to_s))
-    end
-    locales << I18n.default_locale.to_s
-    locales.select { |candidate| AGENDA_LOCALES.include?(candidate) }.uniq
-  end
-
-  # Auto-generates the slug from the first non-blank title in the
-  # `en → es → it → el` fallback order. `parameterize` + max-100-char
-  # cap, with `-2`/`-3` collision suffix. Called via
+  # Auto-generates the slug from the first non-blank title in configured locale
+  # order. `parameterize` + max-100-char cap, with `-2`/`-3` collision suffix. Called via
   # `before_validation` only when slug is blank.
   def assign_slug
-    base_title = SLUG_FALLBACK_LOCALES.lazy.map { |loc| title_translations[loc].presence }.find(&:itself)
+    base_title = Rails.configuration.site.locales.available.lazy
+                      .map { |locale| title_translations[locale].presence }
+                      .find(&:itself)
     return if base_title.blank?
 
     base = base_title.parameterize.first(SLUG_MAX_LENGTH)
@@ -230,6 +219,6 @@ class Workshop < ApplicationRecord
   def content_present_for_locale?(locale)
     title_translations[locale].present? ||
       description_translations[locale].present? ||
-      public_send(:"agenda_#{locale}").body&.to_plain_text.to_s.strip.present?
+      localized_rich_text_present?(:agenda, locale)
   end
 end

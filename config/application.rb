@@ -28,6 +28,9 @@ module ImasusApp
     config.site = SiteConfig.load(root: Pathname(__dir__).join(".."))
     config.i18n.available_locales = config.site.locales.available.map(&:to_sym)
     config.i18n.default_locale = config.site.locales.default.to_sym
+    config.i18n.fallbacks = config.site.locales.available.to_h do |locale|
+      [ locale.to_sym, [ config.site.locales.fallback.to_sym ] ]
+    end
 
     # Direct public URLs — Tigris serves files from its CDN, no Rails proxy needed.
     config.active_storage.resolve_model_to_route = :rails_storage_redirect

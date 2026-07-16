@@ -58,14 +58,16 @@ class TrainingModule::Loader
   private
 
   def build_module_info(slug)
-    # Read metadata from the English training-module file as the canonical source
-    section = section(slug, "training-module", "en")
+    locales = Rails.configuration.site.locales
+    section = locales.fallback_chain(locales.default)
+                     .filter_map { |locale| self.section(slug, "training-module", locale) }
+                     .first
     return nil unless section
 
     TrainingModule::ModuleInfo.new(
       slug: slug,
       title: section.module_title || section.title,
-      available_locales: section.available_locales,
+      available_locales: locales.available.select { |locale| section.available_locales.include?(locale) },
       available_sections: section.available_sections
     )
   end

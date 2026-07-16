@@ -32,6 +32,9 @@ class SiteConfigTest < ActiveSupport::TestCase
     assert_equal "Example workshops.", config.identity.description
     assert_equal %w[en es], config.locales.available
     assert_equal "en", config.locales.default
+    assert_equal "en", config.locales.fallback
+    assert_equal "Español", config.locales.label(:es)
+    assert_equal %w[es en], config.locales.fallback_chain(:es).first(2)
     assert config.modules.library
     assert_not config.modules.glossary
     assert_equal %i[library guides prompts], config.modules.enabled
@@ -66,6 +69,8 @@ class SiteConfigTest < ActiveSupport::TestCase
     assert_equal %w[en es it el], config.locales.available
     assert_equal config.locales.available.map(&:to_sym), I18n.available_locales
     assert_equal config.locales.default.to_sym, I18n.default_locale
+    assert_equal "en", config.locales.fallback
+    assert_equal "Ελληνικά", config.locales.label(:el)
   end
 
   test "rejects unsafe profile names" do
@@ -140,6 +145,68 @@ class SiteConfigTest < ActiveSupport::TestCase
     end
 
     assert_includes error.message, "must be present in locales.available"
+  end
+
+  test "requires the fallback locale to be available" do
+    payload = valid_profile
+    payload["locales"]["fallback"] = "it"
+    write_profile("bad-fallback", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "bad-fallback" })
+    end
+
+    assert_includes error.message, "locales.fallback"
+    assert_includes error.message, "must be present in locales.available"
+  end
+
+  test "requires one display label for every configured locale" do
+    payload = valid_profile
+    payload["locales"]["labels"].delete("es")
+    write_profile("missing-label", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "missing-label" })
+    end
+
+    assert_includes error.message, "Missing locales.labels entries: es"
+  end
+
+  test "supports a single-locale installation" do
+    payload = valid_profile
+    payload["locales"] = {
+      "available" => [ "es" ],
+      "default" => "es",
+      "fallback" => "es",
+      "labels" => { "es" => "Español" }
+    }
+    write_profile("single-locale", payload:)
+
+    config = SiteConfig.load(root: @root, env: { "APP_PROFILE" => "single-locale" })
+
+    assert_equal [ "es" ], config.locales.available
+    assert_equal [ "es" ], config.locales.fallback_chain(:es)
+  end
+
+  test "preserves configured ordering when an additional locale is added" do
+    payload = valid_profile
+    payload["locales"] = {
+      "available" => %w[fr en es],
+      "default" => "fr",
+      "fallback" => "en",
+      "labels" => {
+        "fr" => "Français",
+        "en" => "English",
+        "es" => "Español"
+      }
+    }
+    write_profile("additional-locale", payload:)
+
+    config = SiteConfig.load(root: @root, env: { "APP_PROFILE" => "additional-locale" })
+
+    assert_equal %w[fr en es], config.locales.available
+    assert_equal "Français", config.locales.label(:fr)
+    assert_equal %w[fr en es], config.locales.fallback_chain(:fr)
   end
 
   test "requires explicit boolean module flags" do
@@ -334,7 +401,12 @@ class SiteConfigTest < ActiveSupport::TestCase
       },
       "locales" => {
         "available" => %w[en es],
-        "default" => "en"
+        "default" => "en",
+        "fallback" => "en",
+        "labels" => {
+          "en" => "English",
+          "es" => "Español"
+        }
       },
       "modules" => {
         "library" => true,

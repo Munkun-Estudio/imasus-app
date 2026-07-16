@@ -28,7 +28,7 @@ Every profile declares `version: 1` and all of the following sections:
 | Section | Purpose |
 | --- | --- |
 | `identity` | Public application, short, and organisation names |
-| `locales` | Ordered available locales and the default locale |
+| `locales` | Ordered locales, display labels, and default/fallback locales |
 | `modules` | Availability of Library, Guides, Prompts, and Glossary |
 | `content` | Repository-relative content root and guides directory |
 | `public_urls` | Canonical application, fallback, project, and source URLs |
@@ -40,7 +40,8 @@ Every profile declares `version: 1` and all of the following sections:
 The contract is strict:
 
 - Unknown or missing keys stop application boot with an actionable error.
-- Locale values must be unique and the default must be enabled.
+- Locale values must be unique; the default and fallback must be enabled.
+- Every enabled locale must have one non-empty display label.
 - Module flags must be explicit booleans.
 - Content paths must be relative, stay inside the repository, and exist.
 - Public URLs must be absolute HTTP or HTTPS URLs.
@@ -77,10 +78,13 @@ missing or invalid.
 ## Creating another profile
 
 1. Copy `config/profiles/imasus.yml` to a lowercase profile name.
-2. Replace every public value explicitly.
-3. Add the referenced content directories.
-4. Run `APP_PROFILE=your_profile bin/site-config`.
-5. Run the test suite with that same `APP_PROFILE`.
+2. Set `locales.available` in the order used by selectors and editors.
+3. Add one `locales.labels` entry per locale, then choose enabled `default`
+   and `fallback` locales.
+4. Replace every other public value explicitly.
+5. Add the referenced content directories.
+6. Run `APP_PROFILE=your_profile bin/site-config`.
+7. Run the test suite with that same `APP_PROFILE`.
 
 Later v1.0.0 sprint specs will make module behaviour and content manifests
 consume this boundary. Brand assets, identity, metadata, email defaults,
