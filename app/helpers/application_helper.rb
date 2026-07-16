@@ -30,6 +30,22 @@ module ApplicationHelper
     site_config.locales.label(locale)
   end
 
+  def resource_module_label(resource_module, locale: I18n.locale)
+    resource_module.label(locale:, locales: site_config.locales)
+  end
+
+  def resource_module_path(resource_module)
+    public_send(resource_module.route_helper)
+  end
+
+  def enabled_resource_module_labels
+    resource_module_registry.enabled.map { |resource_module| resource_module_label(resource_module) }
+  end
+
+  def resource_modules_enabled?(*keys)
+    keys.all? { |key| resource_module_registry.enabled?(key) }
+  end
+
   def brand_logo_tag(variant: :logo, **options)
     assets = site_config.brand.assets
     asset = assets.public_send(variant)
@@ -50,14 +66,23 @@ module ApplicationHelper
   #
   # @return [Array<Hash>] nav items with :key, :path, :number, :color, :group keys
   def nav_items
-    [
+    core_items = [
       { key: "home",       path: root_path,           number: "00", color: "bg-white border border-brand-primary/20", group: :hub },
-      { key: "workshops",  path: workshops_path,      number: "01", color: "bg-brand-primary",                        group: :community },
-      { key: "materials",  path: materials_path,      number: "02", color: "bg-brand-info",                           group: :resources },
-      { key: "training",   path: training_index_path, number: "03", color: "bg-brand-secondary",                      group: :resources },
-      { key: "challenges", path: challenges_path,     number: "04", color: "bg-brand-success",                        group: :resources },
-      { key: "glossary",   path: glossary_terms_path, number: "05", color: "bg-brand-soft",                           group: :resources }
+      { key: "workshops", path: workshops_path, number: "01", color: "bg-brand-primary", group: :community }
     ]
+
+    resource_items = resource_module_registry.enabled.map do |resource_module|
+      {
+        key: resource_module.legacy_key,
+        label: resource_module_label(resource_module),
+        path: resource_module_path(resource_module),
+        number: resource_module.number,
+        color: resource_module.color,
+        group: :resources
+      }
+    end
+
+    core_items + resource_items
   end
 
   # Returns CSS classes for a swatch-style navigation card.
@@ -111,6 +136,7 @@ module ApplicationHelper
   # type name and +resource_key+ as the stable identifier (record id or code).
   def bookmark_toggle(bookmarkable_type:, resource_key:, label:, url:)
     return unless logged_in?
+    return unless resource_module_registry.for_bookmark_type(bookmarkable_type)&.enabled?
 
     bookmark = current_bookmark(bookmarkable_type: bookmarkable_type, resource_key: resource_key)
     dom_id   = "bookmark-toggle-#{bookmarkable_type.underscore}-#{resource_key.to_s.parameterize}"

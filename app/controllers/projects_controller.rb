@@ -88,7 +88,9 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:title, :description, :challenge_id, :language, :workshop_id)
+    attributes = %i[title description language workshop_id]
+    attributes << :challenge_id if resource_module_enabled?(:prompts)
+    params.require(:project).permit(*attributes)
   end
 
   def find_accessible_workshop

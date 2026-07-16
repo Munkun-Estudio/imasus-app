@@ -38,6 +38,7 @@ class SiteConfigTest < ActiveSupport::TestCase
     assert config.modules.library
     assert_not config.modules.glossary
     assert_equal %i[library guides prompts], config.modules.enabled
+    assert_equal "Materiales", config.modules.labels.fetch(:library).fetch("es")
     assert_equal @root.join("content").realpath, config.content.root
     assert_equal @root.join("content/guides").realpath, config.content.guides
     assert_equal "https://example.test", config.public_urls.application
@@ -180,6 +181,9 @@ class SiteConfigTest < ActiveSupport::TestCase
       "fallback" => "es",
       "labels" => { "es" => "Español" }
     }
+    payload["modules"]["labels"].each_value do |labels|
+      labels.replace("es" => labels.fetch("es"))
+    end
     write_profile("single-locale", payload:)
 
     config = SiteConfig.load(root: @root, env: { "APP_PROFILE" => "single-locale" })
@@ -200,6 +204,14 @@ class SiteConfigTest < ActiveSupport::TestCase
         "es" => "Español"
       }
     }
+    payload["modules"]["labels"].each_value do |labels|
+      labels["fr"] = "Français"
+      labels.replace(
+        "fr" => labels.fetch("fr"),
+        "en" => labels.fetch("en"),
+        "es" => labels.fetch("es")
+      )
+    end
     write_profile("additional-locale", payload:)
 
     config = SiteConfig.load(root: @root, env: { "APP_PROFILE" => "additional-locale" })
@@ -219,6 +231,18 @@ class SiteConfigTest < ActiveSupport::TestCase
     end
 
     assert_includes error.message, "modules.guides must be true or false"
+  end
+
+  test "requires localized labels for every supported module" do
+    payload = valid_profile
+    payload["modules"]["labels"]["library"].delete("es")
+    write_profile("missing-module-label", payload:)
+
+    error = assert_raises(SiteConfig::Error) do
+      SiteConfig.load(root: @root, env: { "APP_PROFILE" => "missing-module-label" })
+    end
+
+    assert_includes error.message, "Missing modules.labels.library entries: es"
   end
 
   test "rejects content paths outside the application root" do
@@ -412,7 +436,13 @@ class SiteConfigTest < ActiveSupport::TestCase
         "library" => true,
         "guides" => true,
         "prompts" => true,
-        "glossary" => false
+        "glossary" => false,
+        "labels" => {
+          "library" => { "en" => "Materials", "es" => "Materiales" },
+          "guides" => { "en" => "Training", "es" => "Formación" },
+          "prompts" => { "en" => "Challenges", "es" => "Retos" },
+          "glossary" => { "en" => "Glossary", "es" => "Glosario" }
+        }
       },
       "content" => {
         "root" => "content",

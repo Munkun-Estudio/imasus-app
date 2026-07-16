@@ -4,6 +4,6 @@
     <%= item[:number] %>
   </span>
   <span class="block text-sm font-bold mt-1 <%= swatch_dark_bg?(item[:color]) ? 'text-white' : 'text-brand-primary' %>">
-    <%= t("nav.#{item[:key]}") %>
+    <%= item[:label] || t("nav.#{item[:key]}") %>
   </span>
 <% end %>

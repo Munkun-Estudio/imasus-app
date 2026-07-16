@@ -41,15 +41,16 @@ class SiteConfig
   BrandTheme = Data.define(:primary, :secondary, :accent, :success, :info, :soft)
   BrandEmail = Data.define(:from_name, :from_address)
   Brand = Data.define(:assets, :theme, :email)
+  RESOURCE_MODULE_KEYS = %i[library guides prompts glossary].freeze
 
-  Modules = Data.define(:library, :guides, :prompts, :glossary) do
+  Modules = Data.define(:library, :guides, :prompts, :glossary, :labels) do
     def enabled?(key)
       key = key.to_sym
-      members.include?(key) && public_send(key)
+      RESOURCE_MODULE_KEYS.include?(key) && public_send(key)
     end
 
     def enabled
-      members.select { |key| public_send(key) }
+      RESOURCE_MODULE_KEYS.select { |key| public_send(key) }
     end
   end
 
@@ -115,7 +116,7 @@ class SiteConfig
     TOP_LEVEL_KEYS = %w[version identity locales modules content public_urls operations brand].freeze
     IDENTITY_KEYS = %w[name short_name organization description].freeze
     LOCALE_KEYS = %w[available default fallback labels].freeze
-    MODULE_KEYS = %w[library guides prompts glossary].freeze
+    MODULE_KEYS = %w[library guides prompts glossary labels].freeze
     CONTENT_KEYS = %w[root guides].freeze
     PUBLIC_URL_KEYS = %w[application fallback project source support].freeze
     OPERATIONS_KEYS = %w[analytics].freeze
@@ -150,7 +151,7 @@ class SiteConfig
 
       identity = build_identity(config)
       locales = build_locales(config)
-      modules = build_modules(config)
+      modules = build_modules(config, locales:)
       content = build_content(config)
       public_urls = build_public_urls(config)
       operations = build_operations(config)
@@ -220,9 +221,30 @@ class SiteConfig
       )
     end
 
-    def build_modules(config)
+    def build_modules(config, locales:)
       values = section!(config, "modules", MODULE_KEYS)
-      Modules.new(**MODULE_KEYS.to_h { |key| [ key.to_sym, boolean!(values, key, "modules") ] })
+      labels = hash!(fetch!(values, "labels", "modules"), "modules.labels")
+      module_keys = RESOURCE_MODULE_KEYS.map(&:to_s)
+      keys!(labels, module_keys, "modules.labels")
+
+      localized_labels = module_keys.to_h do |key|
+        translations = hash!(fetch!(labels, key, "modules.labels"), "modules.labels.#{key}")
+        keys!(translations, locales.available, "modules.labels.#{key}")
+        missing = locales.available - translations.keys.map(&:to_s)
+        if missing.any?
+          raise Error, "Missing modules.labels.#{key} entries: #{missing.join(', ')}"
+        end
+
+        values_by_locale = locales.available.to_h do |locale|
+          [ locale.freeze, string!(translations, locale, "modules.labels.#{key}").freeze ]
+        end.freeze
+        [ key.to_sym, values_by_locale ]
+      end.freeze
+
+      flags = module_keys.to_h do |key|
+        [ key.to_sym, boolean!(values, key, "modules") ]
+      end
+      Modules.new(**flags, labels: localized_labels)
     end
 
     def build_content(config)

@@ -66,6 +66,7 @@ it:
           eyebrow: "What"
           heading: "Open workshops, open knowledge"
           lead: "Workshops for young textile professionals in Zaragoza, Prato and Athens, backed by an open platform of materials, training modules and industry challenges."
+          configured_lead: "Workshop aperti supportati dalle risorse abilitate in questa installazione: %{resources}."
       workshops:
         heading: "Workshop in corso e passati"
         lead: "Each %{short_name} workshop brings interdisciplinary teams together to work on real sustainability challenges. Workshops are open to participants beyond the host school."
