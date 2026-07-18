@@ -28,8 +28,8 @@
             class: "inline-flex items-center rounded-full border border-brand-primary/20 px-3 py-1.5 text-sm font-semibold text-brand-primary hover:bg-brand-success/20" %>
     <% end %>
     <%= bookmark_toggle(
-          bookmarkable_type: "Material",
-          resource_key:      @material.id.to_s,
+          bookmarkable_type: "LibraryItem",
+          resource_key:      @material.slug,
           label:             @material.trade_name,
           url:               material_path(@material)) %>
   </header>

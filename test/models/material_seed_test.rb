@@ -63,19 +63,13 @@ class MaterialSeedTest < ActiveSupport::TestCase
   end
 
   test "seed_from_yaml! raises a clear error when a material references an unknown tag slug" do
-    entries = [
-      {
-        "trade_name"           => "Mystery material",
-        "availability_status"  => "commercial",
-        "description"          => { "en" => "A test material" },
-        "tags"                 => { "origin_type" => [ "no-such-origin" ] }
-      }
-    ]
+    manifest = YAML.safe_load_file(Material::SEED_PATH, aliases: false)
+    manifest.fetch("items").first.fetch("taxonomies")["origin_type"] = [ "no-such-origin" ]
 
     path = Rails.root.join("tmp", "test-materials-#{SecureRandom.hex(4)}.yml")
-    File.write(path, entries.to_yaml)
+    File.write(path, manifest.to_yaml)
 
-    error = assert_raises(ArgumentError) { Material.seed_from_yaml!(path: path) }
+    error = assert_raises(LibraryCatalog::Manifest::Error) { Material.seed_from_yaml!(path: path) }
     assert_match(/no-such-origin/, error.message)
   ensure
     File.delete(path) if path && File.exist?(path)

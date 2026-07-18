@@ -1,0 +1,49 @@
+version: 1
+resource: library
+
+item_types:
+  - id: worksheet
+    labels:
+      en: Worksheet
+    fields:
+      - id: audience
+        kind: string
+        localized: false
+        required: false
+        cardinality: one
+        labels:
+          en: Audience
+      - id: instructions
+        kind: text
+        localized: true
+        required: false
+        cardinality: one
+        labels:
+          en: Instructions
+
+taxonomies:
+  - id: topic
+    cardinality: many
+    labels:
+      en: Topic
+    terms:
+      - id: reflection
+        labels:
+          en: Reflection
+
+items:
+  - id: first-reflection
+    item_type: worksheet
+    published: true
+    translations:
+      en:
+        title: First reflection
+        summary: A short worksheet for interpreting a workshop experience.
+    fields:
+      audience: Participants
+      instructions:
+        en: Note one decision and explain what you would carry forward.
+    taxonomies:
+      topic:
+        - reflection
+    links: []

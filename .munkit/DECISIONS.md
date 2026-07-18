@@ -255,3 +255,31 @@ references remain resolvable. Stable IDs are explicit and never derived from a
 translated term or question. The existing IMASUS C1–C10 identifiers, class names,
 and routes remain compatibility boundaries while reusable code treats them as
 generic Prompts.
+
+## 2026-07-18: Bound the reusable Library with manifest schemas and normalized taxonomy
+
+Library manifests declare stable item IDs, item types, localized title and
+summary, publication, order, links, taxonomies, and structured custom fields.
+Custom fields support only `string`, `text`, `url`, `number`, `boolean`, and
+`select`, with explicit localization, requirement, and one/many cardinality.
+Identity, type, publication, order, and taxonomy stay in indexed relational
+columns; installation-specific fields use validated JSONB. This permits new
+catalogue shapes without migrations but deliberately does not become an
+arbitrary CMS or executable schema.
+
+## 2026-07-18: Migrate Materials to Library storage expand-first
+
+Rename the physical Materials tables to generic Library tables while retaining
+legacy columns temporarily. Preserve primary keys, foreign keys, slugs, and blob
+IDs; add Active Storage attachment aliases rather than copying files. Keep
+`Material`, `Tag`, `MaterialTagging`, and `MaterialAsset` as Ruby adapters and
+create PostgreSQL compatibility views for the old table names during rolling
+deploys. Material bookmarks become `LibraryItem` bookmarks keyed by slug, with
+the legacy type accepted while versions may overlap.
+
+Rollback synchronizes generic edits back to legacy columns and attachment and
+bookmark identities. It is allowed only while every item is a Material and every
+taxonomy fits the three legacy facets; otherwise it refuses rather than discard
+generic data. Legacy storage cannot be retired until
+`library:verify_migration` reports matching fields, relationships, attachments,
+manifest identities, and bookmark resolution.

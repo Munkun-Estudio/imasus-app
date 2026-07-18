@@ -49,6 +49,7 @@ modules:
 
 content:
   root: content
+  library: content/library.yml
   guides: content/training-modules
   prompts: content/prompts.yml
   glossary: content/glossary.yml

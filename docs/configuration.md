@@ -30,7 +30,7 @@ Every profile declares `version: 1` and all of the following sections:
 | `identity` | Public application, short, and organisation names |
 | `locales` | Ordered locales, display labels, and default/fallback locales |
 | `modules` | Availability and localized labels for resource modules |
-| `content` | Repository-relative content root and Guides, Prompts, and Glossary manifests |
+| `content` | Repository-relative content root and Library, Guides, Prompts, and Glossary manifests |
 | `public_urls` | Canonical application, fallback, project, and source URLs |
 | `operations.analytics` | Whether analytics is enabled and its public script URL |
 | `brand.assets` | Logo, compact mark, email/social images, favicons, and manifest |
@@ -100,6 +100,9 @@ disabled-module behaviour, bookmark integration, and the minimal profile.
 
 See [Guide content](guides.md) for the validated content manifest, locale
 fallback behaviour, and the content-only add/remove workflow.
+
+See [Library content](library.md) for reusable item types, structured fields,
+taxonomies, links, publication, and the Materials compatibility migration.
 
 See [Prompt and glossary catalogues](catalogs.md) for their manifest schema,
 stable-ID rules, synchronization, publication, and retirement behaviour.

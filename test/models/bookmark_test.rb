@@ -10,8 +10,8 @@ class BookmarkTest < ActiveSupport::TestCase
   def valid_attrs(overrides = {})
     {
       user:              @user,
-      bookmarkable_type: "Material",
-      resource_key:      "42",
+      bookmarkable_type: "LibraryItem",
+      resource_key:      "kapok",
       label:             "Kapok Fiber",
       url:               "/materials/kapok"
     }.merge(overrides)

@@ -6,10 +6,10 @@ class BookmarksController < ApplicationController
   def index
     modules = resource_module_registry.enabled.select(&:bookmarkable?)
     all = current_user.bookmarks
-                      .where(bookmarkable_type: modules.map(&:bookmark_type))
+                      .where(bookmarkable_type: modules.flat_map(&:bookmark_types))
                       .recent
     @grouped = modules.index_with do |resource_module|
-      all.select { |bookmark| bookmark.bookmarkable_type == resource_module.bookmark_type }
+      all.select { |bookmark| resource_module.bookmark_types.include?(bookmark.bookmarkable_type) }
     end
   end
 
