@@ -35,7 +35,7 @@
       <%= f.label :category, t("glossary_terms.form.category_label"),
             class: "block text-sm font-medium text-brand-primary" %>
       <%= f.select :category,
-            GlossaryTerm::CATEGORIES.map { |c| [ t("glossary_terms.categories.#{c}"), c ] },
+            @catalog.categories.map { |category| [ category.label(locale: I18n.locale, locales: site_config.locales), category.id ] },
             { include_blank: true },
             class: "mt-1 w-full rounded-md border border-brand-primary/20 px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary" %>
     </div>

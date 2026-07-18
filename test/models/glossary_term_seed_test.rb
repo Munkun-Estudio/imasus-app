@@ -3,7 +3,7 @@ require "test_helper"
 class GlossaryTermSeedTest < ActiveSupport::TestCase
   test "seed_from_yaml! loads every entry from the default seed file" do
     GlossaryTerm.seed_from_yaml!
-    entries = YAML.load_file(Rails.root.join("db", "seeds", "glossary_terms.yml"))
+    entries = YAML.load_file(Rails.configuration.site.content.glossary).fetch("entries")
 
     assert_equal entries.size, GlossaryTerm.count
   end
@@ -14,6 +14,22 @@ class GlossaryTermSeedTest < ActiveSupport::TestCase
     GlossaryTerm.seed_from_yaml!
 
     assert_equal initial_count, GlossaryTerm.count
+  end
+
+  test "seed marks manifest entries and retires removed entries without deleting references" do
+    GlossaryTerm.seed_from_yaml!
+    retired = GlossaryTerm.create!(
+      slug: "legacy-term",
+      category: GlossaryTerm.catalog.category_ids.first,
+      term_translations: { "en" => "Legacy term" },
+      definition_translations: { "en" => "A retained historical definition." },
+      managed_by_manifest: true
+    )
+
+    GlossaryTerm.seed_from_yaml!
+
+    assert_not retired.reload.published?
+    assert GlossaryTerm.exists?(retired.id)
   end
 
   test "seed_from_yaml! applies translations to known terms" do

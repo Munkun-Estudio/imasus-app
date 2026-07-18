@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_16_190000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_18_114000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -65,25 +65,37 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_190000) do
   end
 
   create_table "challenges", force: :cascade do |t|
+    t.string "asset_path"
     t.string "category", null: false
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.jsonb "description_translations", default: {}, null: false
+    t.boolean "managed_by_manifest", default: false, null: false
+    t.integer "position", null: false
+    t.boolean "published", default: true, null: false
     t.jsonb "question_translations", default: {}, null: false
+    t.jsonb "tags", default: [], null: false
     t.datetime "updated_at", null: false
     t.index "upper((code)::text)", name: "index_challenges_on_upper_code", unique: true
     t.index ["category"], name: "index_challenges_on_category"
+    t.index ["published", "position"], name: "index_challenges_on_published_and_position"
   end
 
   create_table "glossary_terms", force: :cascade do |t|
+    t.string "asset_path"
     t.string "category", null: false
     t.datetime "created_at", null: false
     t.jsonb "definition_translations", default: {}, null: false
     t.jsonb "examples_translations", default: {}, null: false
+    t.boolean "managed_by_manifest", default: false, null: false
+    t.integer "position", null: false
+    t.boolean "published", default: true, null: false
     t.string "slug", null: false
+    t.jsonb "tags", default: [], null: false
     t.jsonb "term_translations", default: {}, null: false
     t.datetime "updated_at", null: false
     t.index ["category"], name: "index_glossary_terms_on_category"
+    t.index ["published", "position"], name: "index_glossary_terms_on_published_and_position"
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 

@@ -30,7 +30,7 @@ Every profile declares `version: 1` and all of the following sections:
 | `identity` | Public application, short, and organisation names |
 | `locales` | Ordered locales, display labels, and default/fallback locales |
 | `modules` | Availability and localized labels for resource modules |
-| `content` | Repository-relative content root and guides directory |
+| `content` | Repository-relative content root and Guides, Prompts, and Glossary manifests |
 | `public_urls` | Canonical application, fallback, project, and source URLs |
 | `operations.analytics` | Whether analytics is enabled and its public script URL |
 | `brand.assets` | Logo, compact mark, email/social images, favicons, and manifest |
@@ -83,14 +83,13 @@ missing or invalid.
 3. Add one `locales.labels` entry per locale, then choose enabled `default`
    and `fallback` locales.
 4. Replace every other public value explicitly.
-5. Add the referenced content directories.
+5. Add the referenced content directories and manifests.
 6. Run `APP_PROFILE=your_profile bin/site-config`.
 7. Run the test suite with that same `APP_PROFILE`.
 
-Later v1.0.0 sprint specs will make module behaviour and content manifests
-consume this boundary. Brand assets, identity, metadata, email defaults,
-analytics, and semantic theme roles already use it while preserving current
-IMASUS behaviour.
+Module behaviour and the Guides, Prompts, and Glossary manifests consume this
+boundary. Brand assets, identity, metadata, email defaults, analytics, and
+semantic theme roles also use it while preserving current IMASUS behaviour.
 
 See [Branding an installation](branding.md) for the asset convention, theme
 roles, localized identity placeholders, email defaults, and optional-service
@@ -101,3 +100,6 @@ disabled-module behaviour, bookmark integration, and the minimal profile.
 
 See [Guide content](guides.md) for the validated content manifest, locale
 fallback behaviour, and the content-only add/remove workflow.
+
+See [Prompt and glossary catalogues](catalogs.md) for their manifest schema,
+stable-ID rules, synchronization, publication, and retirement behaviour.

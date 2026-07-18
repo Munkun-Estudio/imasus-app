@@ -1,0 +1,17 @@
+version: 1
+resource: prompts
+categories:
+  - id: reflection
+    labels:
+      en: Reflection
+entries:
+  - id: first-question
+    category: reflection
+    tags:
+      - workshop
+    published: true
+    asset:
+    translations:
+      en:
+        question: What would meaningful progress look like?
+        description: Use this prompt to frame a concrete workshop conversation.

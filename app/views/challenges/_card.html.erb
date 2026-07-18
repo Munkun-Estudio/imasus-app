@@ -1,19 +1,14 @@
 <%# locals: (challenge:, mode: :preview) %>
 <%
-  accent_class = case challenge.category
-                 when "material" then "border-l-brand-primary"
-                 when "design"   then "border-l-brand-secondary"
-                 when "system"   then "border-l-brand-info"
-                 when "business" then "border-l-brand-soft"
-                 else                 "border-l-brand-primary/20"
-                 end
-  pill_class = case challenge.category
-               when "material" then "bg-brand-primary/10 text-brand-primary"
-               when "design"   then "bg-brand-secondary/10 text-brand-secondary"
-               when "system"   then "bg-brand-info/30 text-brand-primary"
-               when "business" then "bg-brand-soft/40 text-brand-primary"
-               else                 "bg-brand-primary/10 text-brand-primary"
-               end
+  category_position = Challenge.catalog.category(challenge.category)&.position.to_i
+  accent_class = %w[border-l-brand-primary border-l-brand-secondary border-l-brand-info border-l-brand-soft]
+                   .fetch((category_position - 1) % 4)
+  pill_class = [
+    "bg-brand-primary/10 text-brand-primary",
+    "bg-brand-secondary/10 text-brand-secondary",
+    "bg-brand-info/30 text-brand-primary",
+    "bg-brand-soft/40 text-brand-primary"
+  ].fetch((category_position - 1) % 4)
 
   public_mode = mode == :public
   link_target = public_mode ? challenges_path : preview_challenge_path(challenge.to_param)
@@ -37,7 +32,7 @@
         <%= challenge.code %>
       </span>
       <span class="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium <%= pill_class %>">
-        <%= t("challenges.categories.#{challenge.category}") %>
+        <%= challenge.category_label %>
       </span>
     </div>
 

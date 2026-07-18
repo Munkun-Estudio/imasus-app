@@ -7,7 +7,7 @@
             <%= term.term %>
           </span>
           <span class="ml-2 inline-flex items-center rounded-full bg-brand-soft/60 px-2 py-0.5 text-xs font-medium text-brand-primary">
-            <%= t("glossary_terms.categories.#{term.category}") %>
+            <%= term.category_label %>
           </span>
           <% if term.definition.present? %>
             <p class="mt-1 line-clamp-2 text-sm text-brand-primary/70">

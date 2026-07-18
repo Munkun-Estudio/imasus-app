@@ -33,7 +33,7 @@
       <%= f.label :category, t("challenges.form.category_label"),
             class: "block text-sm font-medium text-brand-primary" %>
       <%= f.select :category,
-            Challenge::CATEGORIES.map { |c| [ t("challenges.categories.#{c}"), c ] },
+            @catalog.categories.map { |category| [ category.label(locale: I18n.locale, locales: site_config.locales), category.id ] },
             {},
             class: "mt-1 w-full rounded-md border border-brand-primary/20 px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary" %>
     </div>

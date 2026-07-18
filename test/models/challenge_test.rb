@@ -41,15 +41,15 @@ class ChallengeTest < ActiveSupport::TestCase
     assert record.errors[:code].any?
   end
 
-  test "accepts C1 through C10 as canonical codes" do
-    (1..10).each do |n|
-      record = Challenge.new(valid_attributes(code: "C#{n}"))
-      assert record.valid?, "expected 'C#{n}' to validate: #{record.errors.full_messages.to_sentence}"
+  test "accepts installation-defined stable ids" do
+    %w[C1 C27 circular-futures].each do |id|
+      record = Challenge.new(valid_attributes(code: id))
+      assert record.valid?, "expected '#{id}' to validate: #{record.errors.full_messages.to_sentence}"
     end
   end
 
-  test "rejects codes outside the C1–C10 range or malformed shape" do
-    %w[C0 C11 C99 X1 CC1 1C].each do |bad|
+  test "rejects ids that are not URL safe" do
+    [ "has spaces", "under_score", "-leading", "trailing-" ].each do |bad|
       record = Challenge.new(valid_attributes(code: bad))
       assert_not record.valid?, "expected '#{bad}' to be rejected"
       assert record.errors[:code].any?
@@ -102,12 +102,12 @@ class ChallengeTest < ActiveSupport::TestCase
 
   # --- Ordering --------------------------------------------------------------
 
-  test "by_code scope orders C2 before C10 (numeric, not lexicographic)" do
-    [ "C10", "C2", "C1" ].each do |code|
-      Challenge.create!(valid_attributes(code: code))
+  test "ordered scope follows persisted manifest position" do
+    { "C10" => 3, "C2" => 2, "C1" => 1 }.each do |code, position|
+      Challenge.create!(valid_attributes(code:, position:))
     end
 
-    assert_equal [ "C1", "C2", "C10" ], Challenge.by_code.pluck(:code)
+    assert_equal [ "C1", "C2", "C10" ], Challenge.ordered.pluck(:code)
   end
 
   # --- URL parameter ---------------------------------------------------------

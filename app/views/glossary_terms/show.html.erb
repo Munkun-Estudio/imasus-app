@@ -1,4 +1,4 @@
-<% content_for :title, "#{@glossary_term.term} — #{t("glossary_terms.index.title")}" %>
+<% content_for :title, "#{@glossary_term.term} — #{resource_module_label(@glossary_module)}" %>
 <% content_for :head do %>
   <meta name="description" content="<%= t("glossary_terms.show.meta_description", term: @glossary_term.term) %>">
 <% end %>
@@ -13,7 +13,7 @@
         <h1 class="text-4xl font-bold text-brand-primary"><%= @glossary_term.term %></h1>
         <%= bookmark_toggle(
               bookmarkable_type: "GlossaryTerm",
-              resource_key:      @glossary_term.id.to_s,
+              resource_key:      @glossary_term.slug,
               label:             @glossary_term.term,
               url:               glossary_term_path(@glossary_term)) %>
       </div>
@@ -21,7 +21,7 @@
           <span class="sr-only"><%= t("glossary_terms.show.category_label") %>:</span>
           <span data-glossary-category
                 class="inline-flex items-center rounded-full bg-brand-soft/60 px-3 py-1 text-xs font-medium text-brand-primary">
-            <%= t("glossary_terms.categories.#{@glossary_term.category}") %>
+            <%= @glossary_term.category_label %>
           </span>
         </p>
       </div>

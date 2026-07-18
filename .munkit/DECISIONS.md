@@ -238,3 +238,20 @@ Use library, guides, prompts, and glossary as stable installation-independent mo
 ## 2026-07-18: Use one declarative manifest per Guides collection
 
 A single versioned `manifest.yml` under `content.guides` declares public guide and section order, publication state, cover assets, localized metadata, and Markdown paths. This keeps cross-guide ordering and duplicate validation reviewable while the documents remain independently editable. The loader rejects unsafe or inconsistent content instead of inferring structure from directories or repeated front matter. Existing `/training` URLs and `TrainingModule` bookmark records remain compatibility boundaries for IMASUS.
+
+## 2026-07-18: Synchronize Prompt and Glossary manifests into retained records
+
+Prompt and Glossary taxonomy and localized copy belong to strict,
+profile-selected YAML manifests, but their runtime content remains persisted in
+the existing `challenges` and `glossary_terms` tables. Projects, logs, bookmarks,
+curator edits, and stable public URLs already depend on those records; reading
+only from disk would either discard those behaviours or require parallel
+reference models.
+
+Manifest synchronization updates stable IDs, category, file order, tags, assets,
+and publication state while conservatively filling translated copy. An entry
+removed from a manifest is marked unpublished rather than deleted, so historical
+references remain resolvable. Stable IDs are explicit and never derived from a
+translated term or question. The existing IMASUS C1–C10 identifiers, class names,
+and routes remain compatibility boundaries while reusable code treats them as
+generic Prompts.

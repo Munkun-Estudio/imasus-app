@@ -45,6 +45,8 @@ contract, profile selection, validation rules, and secret-handling policy. See
 localized identity placeholders, email defaults, and semantic theme roles.
 See [Guide content](docs/guides.md) for the manifest and folder convention used
 to add localized Guides without changing application code.
+See [Prompt and glossary catalogues](docs/catalogs.md) for stable IDs,
+localized categories, publication and the database synchronization workflow.
 
 ## Development Workflow
 

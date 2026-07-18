@@ -32,10 +32,12 @@
   </div>
 
   <% if resource_module_enabled?(:prompts) %>
+    <% prompt_options = Challenge.published.ordered.to_a %>
+    <% prompt_options << project.challenge if project.challenge && !prompt_options.include?(project.challenge) %>
     <div>
       <%= f.label :challenge_id, t("projects.form.challenge"), class: "block text-sm font-semibold text-brand-primary" %>
       <%= f.select :challenge_id,
-                   Challenge.by_code.map { |c| ["#{c.code} — #{c.question}", c.id] },
+                   prompt_options.map { |prompt| ["#{prompt.code} — #{prompt.question}", prompt.id] },
                    { include_blank: t("projects.form.challenge_blank") },
                    class: "mt-1 block w-full rounded-md border border-brand-primary/20 px-3 py-2 text-sm shadow-sm focus:border-brand-primary focus:outline-none" %>
     </div>

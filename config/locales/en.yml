@@ -81,7 +81,7 @@ en:
           lead: "Modules on imagineering, system thinking, and the %{short_name} lenses."
         challenges:
           title: "Challenges"
-          lead: "Ten industry challenges (C1–C10) used to focus team work."
+          lead: "Framing prompts used to focus team work."
         glossary:
           title: "Glossary"
           lead: "Key terms used across the %{short_name} materials, training, and methodology."
@@ -390,7 +390,7 @@ en:
       notice: "Glossary term deleted."
     form:
       slug_label: "Slug"
-      slug_hint: "Leave blank to derive from the English term."
+      slug_hint: "Stable ID using lowercase letters, numbers, and hyphens."
       category_label: "Category"
       term_label: "Term"
       definition_label: "Definition"

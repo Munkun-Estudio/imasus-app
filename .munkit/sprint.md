@@ -19,7 +19,7 @@ installation and is visually and functionally unchanged.
 - [x] [Configurable locales and localized rich text](specs/2026-07-15-configurable-locales-and-localized-rich-text/brief.md)
 - [x] [Optional module registry](specs/2026-07-15-optional-module-registry/brief.md)
 - [x] [Manifest-driven guides](specs/2026-07-15-manifest-driven-guides/brief.md)
-- [ ] [Configurable prompts and glossary](specs/2026-07-15-configurable-prompts-and-glossary/brief.md)
+- [x] [Configurable prompts and glossary](specs/2026-07-15-configurable-prompts-and-glossary/brief.md)
 - [ ] [Generic library schema](specs/2026-07-15-generic-library-schema/brief.md)
 - [ ] [Generic library presentation and media](specs/2026-07-15-generic-library-presentation-and-media/brief.md)
 - [ ] [Distribution profiles and v1 release](specs/2026-07-15-distribution-profiles-and-v1-release/brief.md)

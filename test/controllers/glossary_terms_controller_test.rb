@@ -98,6 +98,13 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", glossary_terms_path
   end
 
+  test "signed-in glossary bookmarks use the manifest stable ID" do
+    sign_in(@admin)
+    get glossary_term_url("framework")
+
+    assert_select "input[name='bookmark[resource_key]'][value='framework']"
+  end
+
   test "GET /glossary/:slug returns 404 for unknown slug" do
     get glossary_term_url("does-not-exist")
     assert_response :not_found
@@ -260,13 +267,15 @@ class GlossaryTermsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
   end
 
-  test "admin can destroy a term" do
+  test "admin retires a term without deleting its stable historical record" do
     sign_in(@admin)
-    assert_difference -> { GlossaryTerm.count }, -1 do
+    assert_no_difference -> { GlossaryTerm.count } do
       delete glossary_term_url("framework")
     end
     assert_redirected_to glossary_terms_path
     assert_not_nil flash[:notice]
-    assert_nil GlossaryTerm.find_by(slug: "framework")
+    assert_not GlossaryTerm.find_by!(slug: "framework").published?
+    get glossary_term_url("framework")
+    assert_response :success
   end
 end
