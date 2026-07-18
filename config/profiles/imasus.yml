@@ -50,6 +50,8 @@ modules:
 content:
   root: content
   guides: content/training-modules
+  prompts: content/prompts.yml
+  glossary: content/glossary.yml
 
 public_urls:
   application: https://app.imasus.eu

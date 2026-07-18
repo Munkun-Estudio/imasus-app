@@ -86,7 +86,7 @@ it:
           lead: "Modules on imagineering, system thinking, and the %{short_name} lenses."
         challenges:
           title: "Sfide"
-          lead: "Ten industry challenges (C1–C10) used to focus team work."
+          lead: "Domande guida per orientare il lavoro del gruppo."
         glossary:
           title: "Glossario"
           lead: "Key terms used across the %{short_name} materials, training, and methodology."
@@ -676,7 +676,7 @@ it:
       notice: "Termine del glossario eliminato."
     form:
       slug_label: "Slug"
-      slug_hint: "Lascia vuoto per derivarlo dal termine in inglese."
+      slug_hint: "ID stabile con lettere minuscole, numeri e trattini."
       category_label: "Categoria"
       term_label: "Termine"
       definition_label: "Definizione"

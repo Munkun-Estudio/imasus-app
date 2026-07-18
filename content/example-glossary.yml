@@ -1,0 +1,19 @@
+version: 1
+resource: glossary
+categories:
+  - id: shared-language
+    labels:
+      en: Shared language
+entries:
+  - id: reflection
+    category: shared-language
+    tags:
+      - practice
+    published: true
+    asset:
+    translations:
+      en:
+        term: Reflection
+        definition: A deliberate pause to interpret an experience and decide what to carry forward.
+        examples:
+          - Reflect on one decision from the workshop.

@@ -34,6 +34,8 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 
 - Guides use one strict `manifest.yml` below the configured `content.guides` directory. The manifest owns published guide order, localized titles/summaries/documents, cover URLs, and section order/labels. Keep `/training` routes and the `TrainingModule` bookmark type as compatibility boundaries; new content does not need the legacy collection arrays in Markdown front matter.
 
+- Prompts and Glossary use strict profile-selected YAML manifests and synchronize into their existing database tables so curator edits and historical references survive. Stable entry IDs are independent of translated copy; manifest removal unpublishes instead of deleting. Keep `/challenges`, `Challenge`, and existing IMASUS C1–C10 IDs as compatibility boundaries, not generic taxonomy assumptions.
+
 ## Gotchas
 
 - `munkit` is a gem dependency in this repo, not just a globally installed CLI.
@@ -44,7 +46,9 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 ## Terminology
 
 - Imagineering: the Diane Nijs-inspired approach used in IMASUS workshops to connect imagination, experience design, and challenge-led innovation.
-- Challenge: one of 10 industry challenges (C1–C10) used to focus team work during workshops.
+- Prompt: an installation-defined framing question used to focus team work. The
+  legacy IMASUS UI/model calls these Challenges and retains its C1–C10 content
+  and routes for compatibility.
 - Participant: a workshop attendee — a student or young professional. The `:participant` role covers both groups. Do not use "student" as a role name in code or UI.
 - Facilitator: the teacher, mentor, or organizer guiding participants through the workshop process.
 - Workshop: a physical event (Greece, Italy, or Spain) with pre/during/after digital activity in the app.

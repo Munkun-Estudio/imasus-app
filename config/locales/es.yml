@@ -83,7 +83,7 @@ es:
           lead: "Módulos sobre imagineering, pensamiento sistémico y las lentes %{short_name}."
         challenges:
           title: "Retos"
-          lead: "Diez retos de la industria (C1–C10) para enfocar el trabajo de los equipos."
+          lead: "Preguntas de encuadre para enfocar el trabajo de los equipos."
         glossary:
           title: "Glosario"
           lead: "Términos clave que se usan en los materiales, la formación y la metodología %{short_name}."
@@ -656,7 +656,7 @@ es:
       notice: "Término del glosario eliminado."
     form:
       slug_label: "Slug"
-      slug_hint: "Déjalo en blanco para derivarlo del término en inglés."
+      slug_hint: "Identificador estable con letras minúsculas, números y guiones."
       category_label: "Categoría"
       term_label: "Término"
       definition_label: "Definición"

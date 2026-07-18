@@ -1,12 +1,12 @@
 <%# locals: (challenge:) %>
 <%
-  pill_class = case challenge.category
-               when "material" then "bg-brand-primary/10 text-brand-primary"
-               when "design"   then "bg-brand-secondary/10 text-brand-secondary"
-               when "system"   then "bg-brand-info/30 text-brand-primary"
-               when "business" then "bg-brand-soft/40 text-brand-primary"
-               else                 "bg-brand-primary/10 text-brand-primary"
-               end
+  category_position = Challenge.catalog.category(challenge.category)&.position.to_i
+  pill_class = [
+    "bg-brand-primary/10 text-brand-primary",
+    "bg-brand-secondary/10 text-brand-secondary",
+    "bg-brand-info/30 text-brand-primary",
+    "bg-brand-soft/40 text-brand-primary"
+  ].fetch((category_position - 1) % 4)
 %>
 <%= turbo_frame_tag "preview" do %>
   <div data-controller="preview-sidebar"
@@ -25,7 +25,7 @@
               <%= challenge.code %>
             </span>
             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium <%= pill_class %>">
-              <%= t("challenges.categories.#{challenge.category}") %>
+              <%= challenge.category_label %>
             </span>
           </div>
           <h2 id="preview-heading-<%= challenge.code %>"

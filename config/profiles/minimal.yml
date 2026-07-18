@@ -32,6 +32,8 @@ modules:
 content:
   root: content
   guides: content/example-guides
+  prompts: content/example-prompts.yml
+  glossary: content/example-glossary.yml
 
 public_urls:
   application: https://workshops.example.org

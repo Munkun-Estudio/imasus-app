@@ -82,7 +82,7 @@ class GlossaryHighlighter
 
   def build_lookup
     @terms.each_with_object({}) do |term, acc|
-      text = term.term_in(@locale).presence || term.term_in(GlossaryTerm.base_locale)
+      text = term.term_in(@locale).presence || term.term
       next if text.blank?
 
       acc[text.downcase] ||= term.slug

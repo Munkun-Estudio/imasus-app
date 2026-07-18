@@ -27,6 +27,6 @@ module GlossaryHighlightHelper
   private
 
   def glossary_highlight_terms
-    @glossary_highlight_terms ||= GlossaryTerm.all.to_a
+    @glossary_highlight_terms ||= GlossaryTerm.published.to_a
   end
 end

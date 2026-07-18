@@ -86,7 +86,7 @@ el:
           lead: "Modules on imagineering, system thinking, and the %{short_name} lenses."
         challenges:
           title: "Προκλήσεις"
-          lead: "Ten industry challenges (C1–C10) used to focus team work."
+          lead: "Ερωτήσεις πλαισίωσης που εστιάζουν την εργασία της ομάδας."
         glossary:
           title: "Γλωσσάρι"
           lead: "Key terms used across the %{short_name} materials, training, and methodology."
@@ -687,7 +687,7 @@ el:
       notice: "Ο όρος του γλωσσαρίου διαγράφηκε."
     form:
       slug_label: "Slug"
-      slug_hint: "Αφήστε το κενό για να προκύψει από τον όρο στα αγγλικά."
+      slug_hint: "Σταθερό αναγνωριστικό με πεζά γράμματα, αριθμούς και παύλες."
       category_label: "Κατηγορία"
       term_label: "Όρος"
       definition_label: "Ορισμός"

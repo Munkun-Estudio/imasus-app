@@ -15,18 +15,18 @@ their taxonomy and copy must belong to an installation.
 ## Acceptance Criteria
 
 
-- [ ] Prompt and glossary manifests define stable IDs, ordering, localized labels
+- [x] Prompt and glossary manifests define stable IDs, ordering, localized labels
   and bodies, categories/tags, assets, and publication state.
-- [ ] The current C1–C10 assumptions and fixed category lists are removed from
+- [x] The current C1–C10 assumptions and fixed category lists are removed from
   reusable models, helpers, views, loaders, and validations.
-- [ ] Listings, details, filters, project/log references, and bookmarks resolve
+- [x] Listings, details, filters, project/log references, and bookmarks resolve
   content by stable IDs and handle retired content without breaking historical
   records.
-- [ ] Glossary links embedded in other modules resolve when Glossary is enabled
+- [x] Glossary links embedded in other modules resolve when Glossary is enabled
   and degrade to readable text when it is disabled or a term is absent.
-- [ ] Existing IMASUS prompt and glossary URLs/content remain compatible, with
+- [x] Existing IMASUS prompt and glossary URLs/content remain compatible, with
   redirects where a generic public name changes a route.
-- [ ] Validation and regression tests cover localized content, invalid references,
+- [x] Validation and regression tests cover localized content, invalid references,
   disabled modules, and the current IMASUS dataset.
 
 ## Out of Scope

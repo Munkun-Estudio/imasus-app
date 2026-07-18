@@ -8,6 +8,8 @@ class SiteConfigTest < ActiveSupport::TestCase
     @root = Pathname(Dir.mktmpdir("site-config-test"))
     @root.join("config/profiles").mkpath
     @root.join("content/guides").mkpath
+    @root.join("content/prompts.yml").write("version: 1\n")
+    @root.join("content/glossary.yml").write("version: 1\n")
     @root.join("app/assets/images").mkpath
     @root.join("public").mkpath
     %w[logo.svg og-image.png].each { |name| @root.join("app/assets/images", name).write("asset") }
@@ -41,6 +43,8 @@ class SiteConfigTest < ActiveSupport::TestCase
     assert_equal "Materiales", config.modules.labels.fetch(:library).fetch("es")
     assert_equal @root.join("content").realpath, config.content.root
     assert_equal @root.join("content/guides").realpath, config.content.guides
+    assert_equal @root.join("content/prompts.yml").realpath, config.content.prompts
+    assert_equal @root.join("content/glossary.yml").realpath, config.content.glossary
     assert_equal "https://example.test", config.public_urls.application
     assert_equal "mailto:help@example.test", config.public_urls.support
     assert_equal "logo.svg", config.brand.assets.logo
@@ -446,7 +450,9 @@ class SiteConfigTest < ActiveSupport::TestCase
       },
       "content" => {
         "root" => "content",
-        "guides" => "content/guides"
+        "guides" => "content/guides",
+        "prompts" => "content/prompts.yml",
+        "glossary" => "content/glossary.yml"
       },
       "public_urls" => {
         "application" => "https://example.test",

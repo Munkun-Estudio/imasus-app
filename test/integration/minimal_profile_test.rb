@@ -25,6 +25,11 @@ class MinimalProfileTest < ActiveSupport::TestCase
       abort "#{path}: expected #{expected}, got #{session.response.status}" unless session.response.status == expected
     end
 
+    session.get("/training/getting-started/guide")
+    abort "example guide failed: #{session.response.status}" unless session.response.status == 200
+    abort "disabled glossary created an embedded link" if session.response.body.include?('class="glossary-term')
+    abort "glossary text disappeared" unless session.response.body.include?("Reflection")
+
     begin
       email = "minimal-profile-smoke@example.test"
       User.where(email:).delete_all

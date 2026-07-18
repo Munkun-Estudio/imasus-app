@@ -1,109 +1,105 @@
-# A shared vocabulary entry used across workshop content.
-#
-# Each term carries translations for `term`, `definition`, and `examples` via
-# the {Translatable} concern, plus a `category` (one of {CATEGORIES}) and a
-# URL-safe `slug` derived from the English term on create. The slug is stable
-# for the life of the record so published URLs keep working even if curators
-# later rename the term.
-#
-# Base-locale presence validations ensure every term has at least an English
-# source; other locales are optional stubs that can be filled in over time.
+# Persisted glossary entry synchronized from the active installation manifest.
 class GlossaryTerm < ApplicationRecord
   include Translatable
 
-  # Fixed list of category values. Kept intentionally small — a fifth value is a
-  # one-line change to this constant, no migration needed.
-  CATEGORIES = %w[methodology application industry science].freeze
-
-  # Default seed file path. Override via the `path:` argument to {.seed_from_yaml!}.
-  SEED_PATH = Rails.root.join("db", "seeds", "glossary_terms.yml")
+  ID_FORMAT = /\A[a-z0-9]+(?:[a-z0-9-]*[a-z0-9])?\z/
 
   translates :term, :definition, :examples
 
-  before_validation :generate_slug, on: :create
+  before_validation :assign_position, on: :create
 
-  validates :slug,     presence: true, uniqueness: true
-  validates :category, presence: true, inclusion: { in: CATEGORIES }
+  validates :slug, presence: true, uniqueness: true, format: { with: ID_FORMAT }
+  validates :category, presence: true, inclusion: { in: ->(_record) { catalog.category_ids } }
+  validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   validate :base_locale_term_present
   validate :base_locale_definition_present
   validate :base_locale_term_unique
 
-  # @return [String] the slug, so helpers like `glossary_term_path(term)` use it
+  scope :published, -> { where(published: true) }
+  scope :ordered, -> { order(:position, :id) }
+
+  def self.catalog
+    @catalog ||= ResourceCatalog.glossary
+  end
+
+  def self.reset_catalog!
+    @catalog = nil
+  end
+
+  def self.seed_from_yaml!(path: Rails.configuration.site.content.glossary,
+                           overwrite: SeedPolicy.overwrite?(:glossary_terms))
+    manifest = path == Rails.configuration.site.content.glossary ? catalog : ResourceCatalog::Manifest.load(
+      path:, resource: "glossary",
+      fields: { "term" => :string, "definition" => :string, "examples" => :array },
+      optional_fields: %w[examples]
+    )
+    imported_ids = []
+
+    transaction do
+      manifest.entries.each do |entry|
+        term = find_or_initialize_by(slug: entry.id)
+        term.category = entry.category
+        term.tags = entry.tags
+        term.position = entry.position
+        term.published = entry.published
+        term.asset_path = entry.asset
+        term.managed_by_manifest = true
+        %w[term definition examples].each do |field|
+          column = "#{field}_translations"
+          term.public_send(
+            "#{column}=",
+            SeedPolicy.translations(term.public_send(column), translations_for(entry, field), overwrite:)
+          )
+        end
+        term.save!
+        imported_ids << term.id
+      end
+
+      where(managed_by_manifest: true).where.not(id: imported_ids).update_all(published: false, updated_at: Time.current)
+    end
+    count
+  end
+
+  def self.translations_for(entry, field)
+    entry.translations.filter_map do |locale, values|
+      [ locale, values[field] ] if values.key?(field)
+    end.to_h
+  end
+  private_class_method :translations_for
+
   def to_param
     slug
   end
 
-  # Idempotent loader that upserts every entry in the seed YAML. Each entry is
-  # matched by a slug derived from its English `term`, so re-running the loader
-  # never duplicates rows. Existing rows keep edited content by default; pass
-  # `overwrite: true` or set `SEED_OVERWRITE_CONTENT=1` /
-  # `SEED_GLOSSARY_TERMS=overwrite` to intentionally refresh content from YAML.
-  #
-  # @param path [Pathname, String] seed file path (tests override this)
-  # @param overwrite [Boolean] whether existing content should be replaced
-  # @return [Integer] the number of glossary terms after loading
-  # @raise [ActiveRecord::RecordInvalid] if any entry fails validation
-  def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:glossary_terms))
-    entries = YAML.load_file(path)
+  def category_label(locale: I18n.locale)
+    self.class.catalog.category(category)&.label(locale:, locales: Rails.configuration.site.locales) || category.humanize
+  end
 
-    entries.each do |entry|
-      slug = entry.dig("term", base_locale).to_s.parameterize
-
-      term = find_or_initialize_by(slug: slug)
-      term.term_translations = SeedPolicy.translations(
-        term.term_translations,
-        entry.fetch("term"),
-        overwrite: overwrite
-      )
-      term.definition_translations = SeedPolicy.translations(
-        term.definition_translations,
-        entry.fetch("definition"),
-        overwrite: overwrite
-      )
-      term.examples_translations = SeedPolicy.translations(
-        term.examples_translations,
-        entry.fetch("examples", {}),
-        overwrite: overwrite
-      )
-      term.category = SeedPolicy.value(term.category, entry.fetch("category"), overwrite: overwrite)
-      term.save!
-    end
-
-    count
+  def retire!
+    update!(published: false)
   end
 
   private
 
-  def generate_slug
-    return if slug.present?
-
-    self.slug = base_locale_value(term_translations).parameterize.presence
+  def assign_position
+    self.position ||= self.class.maximum(:position).to_i + 1
   end
 
   def base_locale_term_present
-    return if base_locale_value(term_translations).present?
-
-    errors.add(:term_translations, :blank)
+    errors.add(:term_translations, :blank) unless base_locale_value(term_translations).present?
   end
 
   def base_locale_definition_present
-    return if base_locale_value(definition_translations).present?
-
-    errors.add(:definition_translations, :blank)
+    errors.add(:definition_translations, :blank) unless base_locale_value(definition_translations).present?
   end
 
   def base_locale_term_unique
     value = base_locale_value(term_translations)
     return if value.blank?
 
-    scope = GlossaryTerm.where(
-      "LOWER(term_translations ->> ?) = ?",
-      self.class.base_locale,
-      value.downcase
-    )
-    scope = scope.where.not(id: id) if persisted?
-
+    scope = GlossaryTerm.where("LOWER(term_translations ->> ?) = ?", self.class.base_locale, value.downcase)
+    scope = scope.where.not(id:) if persisted?
     errors.add(:term_translations, :taken) if scope.exists?
   end
 
