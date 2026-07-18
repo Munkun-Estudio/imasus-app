@@ -44,11 +44,9 @@ puts "Seeded #{GlossaryTerm.count} glossary terms."
 Challenge.seed_from_yaml!
 puts "Seeded #{Challenge.count} challenges."
 
-Tag.seed_from_yaml!
-puts "Seeded #{Tag.count} material tags."
-
-Material.seed_from_yaml!
-puts "Seeded #{Material.count} materials."
+LibraryItem.seed_from_manifest!
+puts "Seeded #{LibraryTaxonomyTerm.count} library terms."
+puts "Seeded #{LibraryItem.published.count} library items."
 
 # Use `bin/rails db:seed:refresh_content` or one of these flags when the
 # repository YAML is intentionally the source of truth for existing rows:

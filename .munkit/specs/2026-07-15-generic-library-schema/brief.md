@@ -16,18 +16,18 @@ flexible cards without turning the application into an unbounded CMS.
 ## Acceptance Criteria
 
 
-- [ ] The v1 Library Item contract documents stable identity, item type, localized
+- [x] The v1 Library Item contract documents stable identity, item type, localized
   core fields, taxonomy, links, structured custom fields, publication state, and
   audit timestamps.
-- [ ] Item-type schemas use a documented finite set of field kinds and validate
+- [x] Item-type schemas use a documented finite set of field kinds and validate
   required values, cardinality, localization, and safe rendering constraints.
-- [ ] Frequently queried identity, publication, ordering, and taxonomy data remain
+- [x] Frequently queried identity, publication, ordering, and taxonomy data remain
   indexable; custom data does not require a database migration per installation.
-- [ ] Every current Material, translation, category, project/log reference,
+- [x] Every current Material, translation, category, project/log reference,
   bookmark, import identity, and attachment migrates without data loss.
-- [ ] Compatibility adapters or redirects keep current IMASUS workflows and public
+- [x] Compatibility adapters or redirects keep current IMASUS workflows and public
   URLs working during the transition, with a documented rollback path.
-- [ ] Migration verification compares record counts, stable IDs, relationships,
+- [x] Migration verification compares record counts, stable IDs, relationships,
   localized values, and attachments before old storage can be retired.
 
 ## Out of Scope

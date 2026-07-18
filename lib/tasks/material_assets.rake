@@ -127,11 +127,12 @@ namespace :material_assets do
     print_audit_result(result)
   end
 
-  desc "Audit a local material media folder against db/seeds/materials.yml"
+  desc "Audit a local material media folder against the configured Library manifest"
   task :audit_seed, [ :path ] => :environment do |_, args|
     path = args[:path] or abort("Usage: bin/rake 'material_assets:audit_seed[/path/to/Materials DB Images]'")
-    expected = YAML.load_file(Material::SEED_PATH).map do |entry|
-      [ entry.fetch("slug"), entry.fetch("trade_name") ]
+    fallback = Rails.configuration.site.locales.fallback
+    expected = LibraryCatalog.current.items.select { |item| item.item_type == "material" }.map do |item|
+      [ item.id, item.translations.fetch(fallback).fetch("title") ]
     end
     result = MaterialAssetsAuditor.new(path, expected_materials: expected).audit
 

@@ -30,7 +30,7 @@ class SiteConfig
         .uniq
     end
   end
-  Content = Data.define(:root, :guides, :prompts, :glossary)
+  Content = Data.define(:root, :library, :guides, :prompts, :glossary)
   PublicUrls = Data.define(:application, :fallback, :project, :source, :support)
   Analytics = Data.define(:enabled, :script_url)
   Operations = Data.define(:analytics)
@@ -105,6 +105,7 @@ class SiteConfig
       "Locales: #{locales.available.join(', ')} (default: #{locales.default}; fallback: #{locales.fallback})",
       "Modules: #{modules.enabled.join(', ')}",
       "Content root: #{content.root}",
+      "Library: #{content.library}",
       "Guides: #{content.guides}",
       "Prompts: #{content.prompts}",
       "Glossary: #{content.glossary}",
@@ -119,7 +120,7 @@ class SiteConfig
     IDENTITY_KEYS = %w[name short_name organization description].freeze
     LOCALE_KEYS = %w[available default fallback labels].freeze
     MODULE_KEYS = %w[library guides prompts glossary labels].freeze
-    CONTENT_KEYS = %w[root guides prompts glossary].freeze
+    CONTENT_KEYS = %w[root library guides prompts glossary].freeze
     PUBLIC_URL_KEYS = %w[application fallback project source support].freeze
     OPERATIONS_KEYS = %w[analytics].freeze
     ANALYTICS_KEYS = %w[enabled script_url].freeze
@@ -252,17 +253,18 @@ class SiteConfig
     def build_content(config)
       values = section!(config, "content", CONTENT_KEYS)
       content_root = directory!(string!(values, "root", "content"), "content.root")
+      library = file!(string!(values, "library", "content"), "content.library")
       guides = directory!(string!(values, "guides", "content"), "content.guides")
       prompts = file!(string!(values, "prompts", "content"), "content.prompts")
       glossary = file!(string!(values, "glossary", "content"), "content.glossary")
 
-      { "guides" => guides, "prompts" => prompts, "glossary" => glossary }.each do |key, path|
+      { "library" => library, "guides" => guides, "prompts" => prompts, "glossary" => glossary }.each do |key, path|
         unless inside?(path, content_root)
           raise Error, "content.#{key} must be inside content.root"
         end
       end
 
-      Content.new(root: content_root.freeze, guides: guides.freeze,
+      Content.new(root: content_root.freeze, library: library.freeze, guides: guides.freeze,
                   prompts: prompts.freeze, glossary: glossary.freeze)
     end
 

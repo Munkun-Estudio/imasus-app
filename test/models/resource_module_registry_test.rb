@@ -5,8 +5,9 @@ class ResourceModuleRegistryTest < ActiveSupport::TestCase
     registry = ResourceModuleRegistry.current
 
     assert_equal %i[library guides prompts glossary], registry.all.map(&:key)
-    assert_equal %w[Material TrainingModule Challenge GlossaryTerm],
+    assert_equal %w[LibraryItem TrainingModule Challenge GlossaryTerm],
                  registry.all.map(&:bookmark_type)
+    assert_equal %w[LibraryItem Material], registry.fetch(:library).bookmark_types
     assert_equal :materials_path, registry.fetch(:library).route_helper
     assert_equal({ type: :filesystem, identifier: "content.guides" },
                  registry.fetch(:guides).content_source)

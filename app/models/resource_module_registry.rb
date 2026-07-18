@@ -1,7 +1,7 @@
 class ResourceModuleRegistry
   ResourceModule = Data.define(
     :key, :legacy_key, :enabled, :labels, :route_helper, :controllers,
-    :content_source, :bookmark_type, :bookmark_preview, :number, :color,
+    :content_source, :bookmark_type, :legacy_bookmark_types, :bookmark_preview, :number, :color,
     :card_classes, :lead_i18n_key, :dependencies
   ) do
     def enabled?
@@ -10,6 +10,10 @@ class ResourceModuleRegistry
 
     def bookmarkable?
       bookmark_type.present?
+    end
+
+    def bookmark_types
+      [ bookmark_type, *legacy_bookmark_types ].compact
     end
 
     def label(locale: I18n.locale, locales:)
@@ -27,8 +31,9 @@ class ResourceModuleRegistry
       legacy_key: "materials",
       route_helper: :materials_path,
       controllers: %w[materials],
-      content_source: { type: :database, identifier: "materials" },
-      bookmark_type: "Material",
+      content_source: { type: :database, identifier: "library_items" },
+      bookmark_type: "LibraryItem",
+      legacy_bookmark_types: %w[Material],
       bookmark_preview: nil,
       number: "02",
       color: "bg-brand-info",
@@ -42,6 +47,7 @@ class ResourceModuleRegistry
       controllers: %w[training],
       content_source: { type: :filesystem, identifier: "content.guides" },
       bookmark_type: "TrainingModule",
+      legacy_bookmark_types: [],
       bookmark_preview: :training_image,
       number: "03",
       color: "bg-brand-secondary",
@@ -55,6 +61,7 @@ class ResourceModuleRegistry
       controllers: %w[challenges],
       content_source: { type: :database, identifier: "challenges" },
       bookmark_type: "Challenge",
+      legacy_bookmark_types: [],
       bookmark_preview: nil,
       number: "04",
       color: "bg-brand-success",
@@ -68,6 +75,7 @@ class ResourceModuleRegistry
       controllers: %w[glossary_terms],
       content_source: { type: :database, identifier: "glossary_terms" },
       bookmark_type: "GlossaryTerm",
+      legacy_bookmark_types: [],
       bookmark_preview: nil,
       number: "05",
       color: "bg-brand-soft",
@@ -112,11 +120,11 @@ class ResourceModuleRegistry
   end
 
   def for_bookmark_type(type)
-    all.find { |resource_module| resource_module.bookmark_type == type.to_s }
+    all.find { |resource_module| resource_module.bookmark_types.include?(type.to_s) }
   end
 
   def enabled_bookmark_types
-    enabled.filter_map(&:bookmark_type)
+    enabled.flat_map(&:bookmark_types)
   end
 
   private

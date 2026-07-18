@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_18_114000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_18_140000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -99,6 +99,70 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_18_114000) do
     t.index ["slug"], name: "index_glossary_terms_on_slug", unique: true
   end
 
+  create_table "library_item_assets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "kind", null: false
+    t.bigint "library_item_id", null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_item_id", "kind", "position"], name: "idx_on_library_item_id_kind_position_f4ea666b5e", unique: true
+    t.index ["library_item_id", "kind"], name: "index_material_assets_unique_video_kind", unique: true, where: "(kind = 2)"
+    t.index ["library_item_id"], name: "index_library_item_assets_on_library_item_id"
+  end
+
+  create_table "library_item_taggings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "library_item_id", null: false
+    t.bigint "library_taxonomy_term_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["library_item_id", "library_taxonomy_term_id"], name: "idx_on_library_item_id_library_taxonomy_term_id_7644b478af", unique: true
+    t.index ["library_item_id"], name: "index_library_item_taggings_on_library_item_id"
+    t.index ["library_taxonomy_term_id"], name: "index_library_item_taggings_on_library_taxonomy_term_id"
+  end
+
+  create_table "library_items", force: :cascade do |t|
+    t.integer "availability_status"
+    t.datetime "created_at", null: false
+    t.jsonb "custom_fields", default: {}, null: false
+    t.jsonb "description_translations", default: {}, null: false
+    t.jsonb "interesting_properties_translations", default: {}, null: false
+    t.string "item_type", default: "material", null: false
+    t.jsonb "links", default: [], null: false
+    t.boolean "managed_by_manifest", default: false, null: false
+    t.string "material_of_origin"
+    t.integer "position", default: 0, null: false
+    t.boolean "published", default: true, null: false
+    t.jsonb "sensorial_qualities_translations", default: {}, null: false
+    t.string "slug", null: false
+    t.jsonb "structure_translations", default: {}, null: false
+    t.jsonb "summary_translations", default: {}, null: false
+    t.string "supplier_name"
+    t.string "supplier_url"
+    t.jsonb "title_translations", default: {}, null: false
+    t.string "trade_name"
+    t.datetime "updated_at", null: false
+    t.jsonb "what_problem_it_solves_translations", default: {}, null: false
+    t.index "lower((slug)::text)", name: "index_materials_on_lower_slug", unique: true
+    t.index ["availability_status"], name: "index_library_items_on_availability_status"
+    t.index ["item_type", "published", "position"], name: "index_library_items_for_catalogue"
+    t.index ["position"], name: "index_library_items_on_position"
+  end
+
+  create_table "library_taxonomy_terms", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "facet"
+    t.boolean "managed_by_manifest", default: false, null: false
+    t.jsonb "name_translations", default: {}, null: false
+    t.integer "position", default: 0, null: false
+    t.boolean "published", default: true, null: false
+    t.string "slug", null: false
+    t.string "taxonomy_key", null: false
+    t.datetime "updated_at", null: false
+    t.index ["facet", "slug"], name: "index_library_taxonomy_terms_on_facet_and_slug", unique: true
+    t.index ["taxonomy_key", "position"], name: "index_library_terms_for_taxonomy"
+    t.index ["taxonomy_key", "slug"], name: "index_library_terms_on_taxonomy_and_slug", unique: true
+  end
+
   create_table "localized_rich_texts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "locale", null: false
@@ -117,47 +181,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_18_114000) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_log_entries_on_author_id"
     t.index ["project_id"], name: "index_log_entries_on_project_id"
-  end
-
-  create_table "material_assets", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "kind", null: false
-    t.bigint "material_id", null: false
-    t.integer "position", default: 0, null: false
-    t.datetime "updated_at", null: false
-    t.index ["material_id", "kind", "position"], name: "index_material_assets_on_material_id_and_kind_and_position", unique: true
-    t.index ["material_id", "kind"], name: "index_material_assets_unique_video_kind", unique: true, where: "(kind = 2)"
-    t.index ["material_id"], name: "index_material_assets_on_material_id"
-  end
-
-  create_table "material_taggings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "material_id", null: false
-    t.bigint "tag_id", null: false
-    t.datetime "updated_at", null: false
-    t.index ["material_id", "tag_id"], name: "index_material_taggings_on_material_id_and_tag_id", unique: true
-    t.index ["material_id"], name: "index_material_taggings_on_material_id"
-    t.index ["tag_id"], name: "index_material_taggings_on_tag_id"
-  end
-
-  create_table "materials", force: :cascade do |t|
-    t.integer "availability_status", null: false
-    t.datetime "created_at", null: false
-    t.jsonb "description_translations", default: {}, null: false
-    t.jsonb "interesting_properties_translations", default: {}, null: false
-    t.string "material_of_origin"
-    t.integer "position", default: 0, null: false
-    t.jsonb "sensorial_qualities_translations", default: {}, null: false
-    t.string "slug", null: false
-    t.jsonb "structure_translations", default: {}, null: false
-    t.string "supplier_name"
-    t.string "supplier_url"
-    t.string "trade_name", null: false
-    t.datetime "updated_at", null: false
-    t.jsonb "what_problem_it_solves_translations", default: {}, null: false
-    t.index "lower((slug)::text)", name: "index_materials_on_lower_slug", unique: true
-    t.index ["availability_status"], name: "index_materials_on_availability_status"
-    t.index ["position"], name: "index_materials_on_position"
   end
 
   create_table "project_memberships", force: :cascade do |t|
@@ -187,15 +210,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_18_114000) do
     t.index ["disabled_by_id"], name: "index_projects_on_disabled_by_id"
     t.index ["slug"], name: "index_projects_on_slug", unique: true, where: "(slug IS NOT NULL)"
     t.index ["workshop_id"], name: "index_projects_on_workshop_id"
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "facet", null: false
-    t.jsonb "name_translations", default: {}, null: false
-    t.string "slug", null: false
-    t.datetime "updated_at", null: false
-    t.index ["facet", "slug"], name: "index_tags_on_facet_and_slug", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -262,11 +276,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_18_114000) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookmarks", "users"
+  add_foreign_key "library_item_assets", "library_items"
+  add_foreign_key "library_item_taggings", "library_items"
+  add_foreign_key "library_item_taggings", "library_taxonomy_terms"
   add_foreign_key "log_entries", "projects"
   add_foreign_key "log_entries", "users", column: "author_id"
-  add_foreign_key "material_assets", "materials"
-  add_foreign_key "material_taggings", "materials"
-  add_foreign_key "material_taggings", "tags"
   add_foreign_key "project_memberships", "projects"
   add_foreign_key "project_memberships", "users"
   add_foreign_key "projects", "challenges"

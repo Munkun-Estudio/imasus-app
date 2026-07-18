@@ -13,6 +13,6 @@ class Bookmark < ApplicationRecord
   scope :recent,  -> { order(created_at: :desc) }
 
   def self.supported_bookmarkable_types
-    ResourceModuleRegistry.current.all.filter_map(&:bookmark_type)
+    ResourceModuleRegistry.current.all.flat_map(&:bookmark_types)
   end
 end

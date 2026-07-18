@@ -31,6 +31,7 @@ modules:
 
 content:
   root: content
+  library: content/example-library.yml
   guides: content/example-guides
   prompts: content/example-prompts.yml
   glossary: content/example-glossary.yml
