@@ -211,6 +211,7 @@ el:
       submit_update: "Αποθήκευση υλικού"
       cancel: "Ακύρωση"
   training:
+    fallback_notice: "Η γλώσσα %{requested} δεν είναι διαθέσιμη για αυτόν τον οδηγό. Εμφανίζεται η %{actual}."
     index:
       title: "Εκπαίδευση"
     about:
@@ -218,7 +219,7 @@ el:
       heading: "Εισαγωγή"
       empty: "Το εισαγωγικό περιεχόμενο ετοιμάζεται. Επιλέξτε μια ενότητα από τις καρτέλες παραπάνω για να ξεκινήσετε."
     show:
-      module_nav_label: "Πλοήγηση ενοτήτων"
+      module_nav_label: "Πλοήγηση %{module}"
       section_nav_label: "Πλοήγηση τμημάτων"
       previous: "Προηγούμενο"
       next: "Επόμενο"

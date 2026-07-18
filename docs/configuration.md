@@ -98,3 +98,6 @@ behaviour.
 
 See [Resource modules](modules.md) for module keys, route compatibility,
 disabled-module behaviour, bookmark integration, and the minimal profile.
+
+See [Guide content](guides.md) for the validated content manifest, locale
+fallback behaviour, and the content-only add/remove workflow.

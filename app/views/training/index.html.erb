@@ -1,17 +1,24 @@
-<% content_for :title, t("training.index.title") %>
+<% module_label = resource_module_label(@guides_module) %>
+<% content_for :title, module_label %>
 
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <%# Header — matches the show page so navigation reads as one shell. %>
   <div class="mb-8">
     <p class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
-      <%= t("training.index.title") %>
+      <%= module_label %>
     </p>
     <h1 class="mt-2 text-3xl font-bold text-brand-primary">
       <%= @about&.title || t("training.about.heading") %>
     </h1>
   </div>
 
-  <%= render "module_tabs", current: "about", module_slugs: @modules.map(&:slug) %>
+  <%= render "module_tabs", current: "about", modules: @modules %>
+
+  <% if @about&.fallback? %>
+    <p class="mb-6 max-w-3xl rounded-lg bg-brand-info/25 px-4 py-3 text-sm text-brand-primary/70">
+      <%= t("training.fallback_notice", requested: locale_label(@about.requested_locale), actual: locale_label(@about.locale)) %>
+    </p>
+  <% end %>
 
   <% if @about %>
     <article class="prose prose-stone max-w-3xl">
@@ -24,4 +31,20 @@
       <%= t("training.about.empty") %>
     </p>
   <% end %>
+
+  <div class="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4" data-guide-list>
+    <% @modules.each do |guide| %>
+      <article class="overflow-hidden rounded-xl border border-brand-primary/10 bg-white">
+        <%= image_tag guide.cover, alt: "", class: "h-32 w-full object-cover", loading: "lazy" %>
+        <div class="p-4">
+          <h2 class="font-bold text-brand-primary">
+            <%= link_to guide.title,
+                  training_show_path(slug: guide.slug, section: guide.available_sections.first),
+                  class: "hover:underline" %>
+          </h2>
+          <p class="mt-2 text-sm leading-relaxed text-brand-primary/60"><%= guide.summary %></p>
+        </div>
+      </article>
+    <% end %>
+  </div>
 </div>

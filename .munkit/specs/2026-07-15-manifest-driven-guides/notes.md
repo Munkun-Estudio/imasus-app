@@ -13,7 +13,32 @@
 
 ## Open questions
 
-- Decide whether the collection uses one top-level manifest or per-guide
-  manifests after testing contributor ergonomics and validation messages.
-- Preserve current URLs first; generic `/guides` naming can be an alias rather
-  than a mandatory breaking route change.
+- Resolved: use one top-level `manifest.yml`. It makes public order, section
+  order, localized section labels, and duplicate IDs visible and reviewable in
+  one place. Per-guide Markdown remains independently editable.
+- Resolved: preserve `/training` and `/training/:slug/:section` as compatibility
+  routes. The configured Guides label is presentation-facing; a generic route
+  alias can be added later without forcing redirects now.
+
+## Implementation
+
+- `TrainingModule::Manifest` validates a strict, non-executable version 1 YAML
+  contract. It rejects unknown keys, duplicate IDs, unsafe/missing document
+  paths, missing public cover assets, unsupported locales, incomplete section
+  maps, and malformed or contradictory front matter.
+- The manifest owns guide and section order, publication state, covers,
+  localized titles/summaries, document paths, and localized section labels.
+  Legacy front-matter collection arrays are no longer consumed.
+- `TrainingModule::Loader` remains the compatibility namespace for bookmark and
+  route stability, but reads only the configured `content.guides` directory.
+- Loader results retain requested and actual locales. Views show a fallback
+  notice, locale selectors expose real translations, and passage bookmarks use
+  the actual content locale.
+- The Guides landing now renders manifest titles, summaries, and covers. Tabs,
+  detail navigation, previous/next links, and bookmark previews use the same
+  manifest-backed objects.
+- `content/example-guides` plus the minimal profile proves an installation can
+  add, order, hide, and remove guides with content files only.
+- Validation: 35 focused tests (116 assertions), 875 Rails tests, 22 system
+  tests, 211 RuboCop files, a valid minimal-profile diagnostic, clean gem and
+  importmap audits, and Brakeman with zero security warnings.

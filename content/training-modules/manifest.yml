@@ -1,0 +1,160 @@
+version: 1
+
+about:
+  en: en/about.md
+  es: es/about.md
+  it: it/about.md
+  el: el/about.md
+
+sections:
+  - id: training-module
+    labels:
+      en: Training Module
+      es: Módulo de formación
+      it: Modulo di formazione
+      el: Εκπαιδευτική ενότητα
+  - id: toolkit
+    labels:
+      en: Toolkit
+      es: Kit de herramientas
+      it: Kit di strumenti
+      el: Εργαλειοθήκη
+  - id: case-study
+    labels:
+      en: Case Study
+      es: Caso de estudio
+      it: Caso di studio
+      el: Μελέτη περίπτωσης
+
+guides:
+  - id: design-for-longevity
+    published: true
+    cover: /content/training-modules/media/design-for-longevity/en/training-module/media/image1.png
+    translations:
+      en:
+        title: Design For Longevity
+        summary: Design garments that remain useful, desirable, and adaptable over time.
+        documents:
+          training-module: design-for-longevity/en/training-module.md
+          toolkit: design-for-longevity/en/toolkit.md
+          case-study: design-for-longevity/en/case-study.md
+      es:
+        title: Diseño para la longevidad
+        summary: Diseña prendas que sigan siendo útiles, deseables y adaptables con el tiempo.
+        documents:
+          training-module: design-for-longevity/es/training-module.md
+          toolkit: design-for-longevity/es/toolkit.md
+          case-study: design-for-longevity/es/case-study.md
+      it:
+        title: Design per la longevità
+        summary: Progetta capi che rimangano utili, desiderabili e adattabili nel tempo.
+        documents:
+          training-module: design-for-longevity/it/training-module.md
+          toolkit: design-for-longevity/it/toolkit.md
+          case-study: design-for-longevity/it/case-study.md
+      el:
+        title: Σχεδιασμός για μακροζωία
+        summary: Σχεδιάστε ενδύματα που παραμένουν χρήσιμα, επιθυμητά και προσαρμόσιμα στον χρόνο.
+        documents:
+          training-module: design-for-longevity/el/training-module.md
+          toolkit: design-for-longevity/el/toolkit.md
+          case-study: design-for-longevity/el/case-study.md
+
+  - id: design-for-modularity
+    published: true
+    cover: /content/training-modules/media/design-for-modularity/en/training-module/media/image1.png
+    translations:
+      en:
+        title: Design For Modularity
+        summary: Explore modular systems that make garments adaptable, repairable, and reusable.
+        documents:
+          training-module: design-for-modularity/en/training-module.md
+          toolkit: design-for-modularity/en/toolkit.md
+          case-study: design-for-modularity/en/case-study.md
+      es:
+        title: Diseño para la modularidad
+        summary: Explora sistemas modulares que hacen las prendas adaptables, reparables y reutilizables.
+        documents:
+          training-module: design-for-modularity/es/training-module.md
+          toolkit: design-for-modularity/es/toolkit.md
+          case-study: design-for-modularity/es/case-study.md
+      it:
+        title: Design per la modularità
+        summary: Esplora sistemi modulari che rendono i capi adattabili, riparabili e riutilizzabili.
+        documents:
+          training-module: design-for-modularity/it/training-module.md
+          toolkit: design-for-modularity/it/toolkit.md
+          case-study: design-for-modularity/it/case-study.md
+      el:
+        title: Σχεδιασμός για αρθρωτότητα
+        summary: Εξερευνήστε αρθρωτά συστήματα που κάνουν τα ενδύματα προσαρμόσιμα, επισκευάσιμα και επαναχρησιμοποιήσιμα.
+        documents:
+          training-module: design-for-modularity/el/training-module.md
+          toolkit: design-for-modularity/el/toolkit.md
+          case-study: design-for-modularity/el/case-study.md
+
+  - id: design-for-recyclability
+    published: true
+    cover: /content/training-modules/media/design-for-recyclability/en/training-module/media/image1.png
+    translations:
+      en:
+        title: Design For Recyclability
+        summary: Make material and construction choices that support effective recycling.
+        documents:
+          training-module: design-for-recyclability/en/training-module.md
+          toolkit: design-for-recyclability/en/toolkit.md
+          case-study: design-for-recyclability/en/case-study.md
+      es:
+        title: Diseño para la reciclabilidad
+        summary: Elige materiales y técnicas de construcción que faciliten un reciclaje eficaz.
+        documents:
+          training-module: design-for-recyclability/es/training-module.md
+          toolkit: design-for-recyclability/es/toolkit.md
+          case-study: design-for-recyclability/es/case-study.md
+      it:
+        title: Design per la riciclabilità
+        summary: Scegli materiali e tecniche costruttive che favoriscano un riciclo efficace.
+        documents:
+          training-module: design-for-recyclability/it/training-module.md
+          toolkit: design-for-recyclability/it/toolkit.md
+          case-study: design-for-recyclability/it/case-study.md
+      el:
+        title: Σχεδιασμός για ανακυκλωσιμότητα
+        summary: Επιλέξτε υλικά και τεχνικές κατασκευής που υποστηρίζουν αποτελεσματική ανακύκλωση.
+        documents:
+          training-module: design-for-recyclability/el/training-module.md
+          toolkit: design-for-recyclability/el/toolkit.md
+          case-study: design-for-recyclability/el/case-study.md
+
+  - id: zero-waste-design
+    published: true
+    cover: /content/training-modules/media/zero-waste-design/en/training-module/media/image1.png
+    translations:
+      en:
+        title: Zero Waste Design
+        summary: Apply pattern-cutting and production strategies that eliminate textile waste.
+        documents:
+          training-module: zero-waste-design/en/training-module.md
+          toolkit: zero-waste-design/en/toolkit.md
+          case-study: zero-waste-design/en/case-study.md
+      es:
+        title: Diseño de residuo cero
+        summary: Aplica estrategias de patronaje y producción que eliminan los residuos textiles.
+        documents:
+          training-module: zero-waste-design/es/training-module.md
+          toolkit: zero-waste-design/es/toolkit.md
+          case-study: zero-waste-design/es/case-study.md
+      it:
+        title: Design a rifiuti zero
+        summary: Applica strategie di modellistica e produzione che eliminano gli scarti tessili.
+        documents:
+          training-module: zero-waste-design/it/training-module.md
+          toolkit: zero-waste-design/it/toolkit.md
+          case-study: zero-waste-design/it/case-study.md
+      el:
+        title: Σχεδιασμός μηδενικών αποβλήτων
+        summary: Εφαρμόστε στρατηγικές πατρόν και παραγωγής που εξαλείφουν τα κλωστοϋφαντουργικά απόβλητα.
+        documents:
+          training-module: zero-waste-design/el/training-module.md
+          toolkit: zero-waste-design/el/toolkit.md
+          case-study: zero-waste-design/el/case-study.md

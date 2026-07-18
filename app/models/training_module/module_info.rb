@@ -1,23 +1,22 @@
-# Lightweight value object representing a training module's metadata
-# (slug, title, available locales/sections) without loading full content.
-#
-# Returned by {TrainingModule::Loader#all} and {TrainingModule::Loader#find}.
-#
-# @attr_reader slug [String] URL-friendly module identifier
-# @attr_reader title [String] display title
-# @attr_reader available_locales [Array<String>] ISO 639-1 locale codes
-# @attr_reader available_sections [Array<String>] section types
+# Lightweight metadata for a Guide declared in the content manifest.
 class TrainingModule::ModuleInfo
-  attr_reader :slug, :title, :available_locales, :available_sections
+  attr_reader :slug, :title, :summary, :cover, :locale, :requested_locale,
+              :available_locales, :available_sections, :section_labels
 
-  # @param slug [String]
-  # @param title [String]
-  # @param available_locales [Array<String>]
-  # @param available_sections [Array<String>]
-  def initialize(slug:, title:, available_locales:, available_sections:)
+  def initialize(slug:, title:, summary:, cover:, locale:, requested_locale:,
+                 available_locales:, available_sections:, section_labels:)
     @slug = slug
     @title = title
+    @summary = summary
+    @cover = cover
+    @locale = locale
+    @requested_locale = requested_locale
     @available_locales = available_locales
     @available_sections = available_sections
+    @section_labels = section_labels
+  end
+
+  def fallback?
+    locale != requested_locale
   end
 end

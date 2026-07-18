@@ -31,7 +31,7 @@ modules:
 
 content:
   root: content
-  guides: content/training-modules
+  guides: content/example-guides
 
 public_urls:
   application: https://workshops.example.org
