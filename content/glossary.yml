@@ -31,7 +31,8 @@ entries:
   category: methodology
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Imagineering
       definition: 'A complexity-informed design discipline — a portmanteau of Imagination and Engineering, developed by Diane Nijs at Breda University of Applied Sciences — that moves beyond conventional problem-solving toward the co-design of new realities through shared vision and emergent action.
@@ -50,7 +51,8 @@ entries:
   category: methodology
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Framework
       definition: 'A shared structure of concepts, principles, or tools that guides how a challenge is approached. In IMASUS, frameworks include the Imagineering ABCD steps and the four design lenses (zero waste, recyclability, modularity, longevity).
@@ -69,7 +71,8 @@ entries:
   category: methodology
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Creative Tension Engine
       definition: 'A shared generative vision formulated as three elements — Name, Promise, and Principle — used in Imagineering Step C to reframe a challenge and guide decentralised action by everyone who engages with it.
@@ -86,7 +89,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Workshop
       definition: 'The IMASUS design workshop, spanning before, during, and after a physical session. Participants register via invitation, browse materials and training, create a project, log their process, and publish a public page.
@@ -105,7 +109,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Project
       definition: 'The central collaborative object of an IMASUS workshop. A project is created by a participant, optionally linked to a challenge, accumulates log entries, and can be published as a public case-study page. It has one or more members.
@@ -124,7 +129,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Team
       definition: 'The set of participants who are members of a project. Teams are typically formed during the in-person workshop around shared challenges. Membership is open to any registered participant the project owner invites.
@@ -143,7 +149,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Log entry
       definition: 'A dated item in a project''s process log — rich text with optional photos, videos, and material references — visible to all project members and to the workshop facilitator. Not published unless the team selects it for the public page.
@@ -160,7 +167,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Challenge
       definition: 'One of the industry-framed prompts (C1–C10) derived from the IMASUS Industry Needs Report. A project may optionally pick a challenge as its starting point; teams often form around shared challenges.
@@ -179,7 +187,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Facilitator
       definition: 'The workshop role responsible for managing a workshop, inviting participants, and coaching projects. Facilitators do not evaluate or grade; they circulate as mentors and can moderate in case of conflict.
@@ -198,7 +207,8 @@ entries:
   category: application
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Participant
       definition: 'The primary workshop role — a student or young professional who joins via invitation from a facilitator, creates projects, and documents their process through log entries. Participants may join multiple workshops.
@@ -217,7 +227,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Zero Waste Design
       definition: 'A design strategy that minimises material waste during patternmaking, cutting, and construction. Roughly 15–30% of fabric is wasted before a garment reaches anyone; zero waste patternmaking drives this toward zero.
@@ -234,7 +245,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Design for Recyclability
       definition: 'A design strategy anchored in end-of-life thinking: choosing fibres, constructions, and components so the finished product can be disassembled and its materials recovered. Less than 1% of textiles are currently recycled into new clothing.
@@ -251,7 +263,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Biomaterial
       definition: 'A material derived from biological sources — plant-based fibres, fungal and mycelium networks, bacterial cellulose, protein fibres, seaweed — used as a sustainable alternative to petrochemical feedstocks.
@@ -270,7 +283,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Micrograph
       definition: 'A photograph captured through a microscope, typically a Scanning Electron Microscope (SEM). In the IMASUS Materials Database, micrographs produced at CSIC reveal each material''s structure at microscopic level, making its properties tangible.
@@ -289,7 +303,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Amino acids
       definition: 'Organic compounds that combine to form proteins; essential for biological functions and often involved in bio-based material synthesis.
@@ -314,7 +329,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Antibacterial
       definition: 'A substance or property that prevents bacterial growth or kills bacteria, often used in medical or hygienic materials.
@@ -339,7 +355,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Antiseptic
       definition: 'A substance that inhibits the growth and development of microorganisms on living tissues, used for sterilization and wound care.
@@ -364,7 +381,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Bio-based
       definition: 'Derived from biological sources, such as plants or microbes, rather than fossil fuels; often used in sustainable materials.
@@ -389,7 +407,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Biomass
       definition: 'Organic matter from plants or animals used as a renewable energy source or raw material for bioproducts.
@@ -414,7 +433,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Biosynthetic value chain
       definition: 'A production chain based on biosynthesis, where biological processes are used to manufacture materials or chemicals.
@@ -439,7 +459,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Biosynthesis
       definition: 'The natural process by which living organisms produce complex molecules from simpler ones using enzymes.
@@ -464,7 +485,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: By-products
       definition: 'Secondary products generated during the manufacture or breakdown of another product, sometimes useful or recyclable.
@@ -489,7 +511,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Chitin
       definition: 'A natural polymer found in the exoskeletons of crustaceans and insects; used in biodegradable materials and medical applications.
@@ -514,7 +537,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Cow gut tissue
       definition: 'Biological material derived from cow intestines, historically used for surgical sutures or strings, such as tennis or musical instrument strings.
@@ -539,7 +563,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Deacetylation
       definition: 'A chemical process that removes acetyl groups from a molecule, often used in modifying biopolymers like chitin into chitosan.
@@ -564,7 +589,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Extrude
       definition: 'To force a material through a shaped die to form a continuous shape; a process used in plastic and fibre manufacturing.
@@ -589,7 +615,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Fermentation
       definition: 'A metabolic process converting sugars to acids, gases, or alcohol, often used in food, biofuels, and bio-based material production.
@@ -614,7 +641,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Genetically engineered micro-organisms
       definition: 'Microbes that have been genetically modified to produce useful substances like enzymes, fibres, or chemicals.
@@ -639,7 +667,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Industrial granules
       definition: 'Small, often pelletized, particles used as raw material in industrial processes such as molding or extrusion.
@@ -664,7 +693,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Material lamination
       definition: 'The process of bonding layers of materials together to improve strength, durability, or functionality.
@@ -689,7 +719,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Microbial fermentation
       definition: 'The use of microbes to carry out fermentation, often for creating bio-based chemicals, fuels, or fibres.
@@ -714,7 +745,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Mycelium
       definition: 'The root-like structure of fungi, used in biofabrication to create sustainable materials such as packaging, leather alternatives, and insulation.
@@ -739,7 +771,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Myco-fibers
       definition: 'Fibres derived from fungi, often biodegradable and used in sustainable textiles or composites.
@@ -764,7 +797,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Pesticides
       definition: 'Chemical or biological agents used to kill or control pests, often associated with agriculture and environmental concerns.
@@ -789,7 +823,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Petrochemicals
       definition: 'Chemical products derived from petroleum or natural gas, used to manufacture plastics, fibres, and synthetic materials.
@@ -814,7 +849,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Polyamides
       definition: 'Polymers with recurring amide groups, including both natural forms such as proteins and synthetic forms such as nylon.
@@ -839,7 +875,8 @@ entries:
   category: science
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Polluting polysaccharides
       definition: 'Polysaccharide-based substances or waste streams that can become pollutants when released or discarded without recovery.
@@ -864,7 +901,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Post-consumer waste
       definition: 'Materials discarded by end-users after use, often collected for recycling or waste-to-energy processes.
@@ -889,7 +927,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Spandex
       definition: 'A synthetic fibre known for exceptional elasticity and used in clothing, especially activewear. Also known as elastane, it is made from long-chain synthetic polymers called polyurethanes.
@@ -914,7 +953,8 @@ entries:
   category: industry
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       term: Spinneret
       definition: 'A device with tiny holes through which polymer solutions are extruded to form fibres in synthetic fibre production.

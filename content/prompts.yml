@@ -31,7 +31,8 @@ entries:
   category: material
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we reduce virgin-material use in textile production?
       description: 'Framing question for projects focused on substituting, reducing, or rethinking the primary material inputs of textile production — from fibre cultivation to yarn and fabric formation.
@@ -56,7 +57,8 @@ entries:
   category: material
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we recover value from post-industrial textile waste?
       description: 'Off-cuts, selvedges, yarn waste, and rejected lots produced during manufacturing — how can their material value be captured before it becomes post-consumer waste?
@@ -81,7 +83,8 @@ entries:
   category: design
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we design garments for longer use phases?
       description: 'Durability is both physical and emotional — projects here investigate construction, repairability, and attachment as design levers for extending the life a garment spends in active use.
@@ -106,7 +109,8 @@ entries:
   category: design
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we design for modular repair and adaptation?
       description: 'Component thinking applied to textile products — separable parts, standard interfaces, and adaptation paths that let a garment evolve with its wearer rather than being discarded.
@@ -131,7 +135,8 @@ entries:
   category: design
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we design for end-of-life disassembly and recyclability?
       description: 'What does a garment designed for its next life look like? Projects here address material selection, joining techniques, and labelling that enable mono-material streams at end-of-life.
@@ -154,7 +159,8 @@ entries:
   category: system
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we close textile material loops at a regional scale?
       description: 'Collection, sorting, reprocessing — the infrastructure of circularity. Projects investigate what a working regional loop requires in terms of actors, flows, and coordination.
@@ -179,7 +185,8 @@ entries:
   category: system
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we improve traceability across textile supply chains?
       description: 'From fibre to garment, supply chains are long, opaque, and fragmented. What interventions — technical, procedural, or regulatory — would make material and social conditions visible to downstream actors?
@@ -204,7 +211,8 @@ entries:
   category: business
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we build business models around garment longevity instead of volume?
       description: 'Services, subscriptions, repair offerings, second-hand integration — projects explore value capture that does not depend on producing and selling ever-more new units.
@@ -229,7 +237,8 @@ entries:
   category: business
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we make sustainable textile options accessible across price points?
       description: 'Sustainability is not only for premium segments — projects address cost structures, distribution, and consumer access that make lower- impact choices the default rather than the luxury.
@@ -254,7 +263,8 @@ entries:
   category: business
   tags: []
   published: true
-  asset:  translations:
+  asset:
+  translations:
     en:
       question: How might we align textile business practice with upcoming EU sustainability regulation?
       description: 'ESPR, Digital Product Passport, the Waste Framework Directive — what does compliant, competitive textile business practice look like under the emerging EU regulatory frame?
