@@ -15,18 +15,18 @@ documented folder convention without changing loaders or controllers.
 ## Acceptance Criteria
 
 
-- [ ] A documented manifest and directory convention defines guide identity,
+- [x] A documented manifest and directory convention defines guide identity,
   order, localized title/summary/body, assets, and publication state.
-- [ ] The loader validates duplicate IDs, missing required files, unsafe paths,
+- [x] The loader validates duplicate IDs, missing required files, unsafe paths,
   unsupported locales, and malformed front matter with actionable messages.
-- [ ] Guide listing, detail, navigation, and bookmarks are driven by manifest
+- [x] Guide listing, detail, navigation, and bookmarks are driven by manifest
   data and the module registry, with configured labels rather than Training-only
   copy.
-- [ ] Locale fallback follows the shared locale contract and clearly distinguishes
+- [x] Locale fallback follows the shared locale contract and clearly distinguishes
   unavailable content from fallback content.
-- [ ] The existing four IMASUS guides, URLs, assets, and ordering are preserved or
+- [x] The existing four IMASUS guides, URLs, assets, and ordering are preserved or
   covered by explicit redirects and regression tests.
-- [ ] An example profile demonstrates adding and removing a guide using content
+- [x] An example profile demonstrates adding and removing a guide using content
   files only.
 
 ## Out of Scope

@@ -211,6 +211,7 @@ it:
       submit_update: "Salva materiale"
       cancel: "Annulla"
   training:
+    fallback_notice: "%{requested} non è disponibile per questa guida. Viene mostrato %{actual}."
     index:
       title: "Formazione"
     about:
@@ -218,7 +219,7 @@ it:
       heading: "Introduzione"
       empty: "Il contenuto introduttivo è in preparazione. Scegli un modulo dalle schede in alto per iniziare a leggere."
     show:
-      module_nav_label: "Navigazione moduli"
+      module_nav_label: "Navigazione di %{module}"
       section_nav_label: "Navigazione sezioni"
       previous: "Precedente"
       next: "Successivo"

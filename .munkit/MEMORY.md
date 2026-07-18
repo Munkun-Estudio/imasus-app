@@ -32,6 +32,8 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 
 - Optional resource modules use stable keys (`library`, `guides`, `prompts`, `glossary`) through `ResourceModuleRegistry`. Profiles configure enabled state and localized labels; the registry owns route, content-source, bookmark, dependency, navigation, and legacy-name metadata. Keep supported routes stable and return 404 from disabled module controllers.
 
+- Guides use one strict `manifest.yml` below the configured `content.guides` directory. The manifest owns published guide order, localized titles/summaries/documents, cover URLs, and section order/labels. Keep `/training` routes and the `TrainingModule` bookmark type as compatibility boundaries; new content does not need the legacy collection arrays in Markdown front matter.
+
 ## Gotchas
 
 - `munkit` is a gem dependency in this repo, not just a globally installed CLI.

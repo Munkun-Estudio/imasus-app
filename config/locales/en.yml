@@ -206,6 +206,7 @@ en:
       submit_update: "Save material"
       cancel: "Cancel"
   training:
+    fallback_notice: "%{requested} is not available for this guide. Showing %{actual} instead."
     index:
       title: "Training"
     about:
@@ -213,7 +214,7 @@ en:
       heading: "About"
       empty: "Introduction content is being prepared. Pick a module from the tabs above to start reading."
     show:
-      module_nav_label: "Module navigation"
+      module_nav_label: "%{module} navigation"
       section_nav_label: "Section navigation"
       previous: "Previous"
       next: "Next"

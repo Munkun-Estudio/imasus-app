@@ -18,7 +18,7 @@ installation and is visually and functionally unchanged.
 - [x] [Configurable brand and installation metadata](specs/2026-07-15-configurable-brand-and-installation-metadata/brief.md)
 - [x] [Configurable locales and localized rich text](specs/2026-07-15-configurable-locales-and-localized-rich-text/brief.md)
 - [x] [Optional module registry](specs/2026-07-15-optional-module-registry/brief.md)
-- [ ] [Manifest-driven guides](specs/2026-07-15-manifest-driven-guides/brief.md)
+- [x] [Manifest-driven guides](specs/2026-07-15-manifest-driven-guides/brief.md)
 - [ ] [Configurable prompts and glossary](specs/2026-07-15-configurable-prompts-and-glossary/brief.md)
 - [ ] [Generic library schema](specs/2026-07-15-generic-library-schema/brief.md)
 - [ ] [Generic library presentation and media](specs/2026-07-15-generic-library-presentation-and-media/brief.md)

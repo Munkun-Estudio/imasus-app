@@ -1,0 +1,29 @@
+version: 1
+
+about:
+  en: en/about.md
+
+sections:
+  - id: guide
+    labels:
+      en: Guide
+
+guides:
+  - id: getting-started
+    published: true
+    cover: /icon.svg
+    translations:
+      en:
+        title: Getting Started
+        summary: A short example guide supplied entirely through content files.
+        documents:
+          guide: getting-started/en/guide.md
+  - id: next-steps
+    published: true
+    cover: /icon.svg
+    translations:
+      en:
+        title: Next Steps
+        summary: A second guide that demonstrates manifest ordering and removal.
+        documents:
+          guide: next-steps/en/guide.md

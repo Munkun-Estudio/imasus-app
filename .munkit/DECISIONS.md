@@ -234,3 +234,7 @@ Keep the supported resource routes and their legacy helpers defined for every in
 ## 2026-07-16: Use stable internal keys with configurable module labels
 
 Use library, guides, prompts, and glossary as stable installation-independent module keys. Profiles configure localized display labels and enabled state, while the registry retains existing IMASUS route helpers, controller names, bookmark types, content sources, and visual metadata. This separates reusable configuration vocabulary from legacy public URLs without renaming working endpoints.
+
+## 2026-07-18: Use one declarative manifest per Guides collection
+
+A single versioned `manifest.yml` under `content.guides` declares public guide and section order, publication state, cover assets, localized metadata, and Markdown paths. This keeps cross-guide ordering and duplicate validation reviewable while the documents remain independently editable. The loader rejects unsafe or inconsistent content instead of inferring structure from directories or repeated front matter. Existing `/training` URLs and `TrainingModule` bookmark records remain compatibility boundaries for IMASUS.
