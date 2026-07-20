@@ -27,12 +27,14 @@ An installation downstream owns:
 IMASUS is currently both the originating installation and the production
 compatibility fixture. Its long-term public presence will instead be the static
 archive in the separate `imasus-app-static` repository, deployed to Netlify at
-`app.imasus.eu`. Split and retire the live Rails runtime without losing the
-ability to run future workshops:
+`app.imasus.eu`. Its private Rails downstream is
+[`Munkun-Estudio/imasus-workshop-app`](https://github.com/Munkun-Estudio/imasus-workshop-app).
+Split and retire the live Rails runtime without losing the ability to run future
+workshops:
 
 1. Finish and tag the generic v1 release candidate while Fly remains active.
-2. Create a separate IMASUS Rails repository from that reviewed release and
-   configure this repository as its `upstream` remote.
+2. Populate the existing private `imasus-workshop-app` repository from that
+   reviewed release and configure this repository as its `upstream` remote.
 3. Move the `imasus` profile, content, assets, legal text, deployment templates,
    and revival runbook to that downstream. Keep CI automatic but deployment
    manual so repository updates cannot create billable infrastructure.
@@ -76,6 +78,7 @@ and rollback checklist. A release update must not trigger deployment while the
 runtime is dormant. Installation-only patches should be proposed upstream
 when generally useful; otherwise they remain small and isolated downstream.
 
-Exact repository names and any rename of the current GitHub repository must be
-chosen before creating the Zenodo record, because repository and citation URLs
-become part of the permanent release metadata.
+Any rename of the current generic GitHub repository must be chosen before
+creating the Zenodo record, because repository and citation URLs become part of
+the permanent release metadata. The IMASUS downstream name is fixed as
+`Munkun-Estudio/imasus-workshop-app`.

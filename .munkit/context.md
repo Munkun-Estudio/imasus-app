@@ -216,8 +216,9 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
   Object Storage, Private Network, Transactional Email, and one-off Serverless
   Jobs for migrations, all selected in one European region.
 - Repository topology: this repository is the generic upstream; IMASUS becomes
-  a separate deployment-ready but dormant Rails downstream owning its profile,
-  content, legal copy, assets, infrastructure templates, and recovery runbook.
+  the private `Munkun-Estudio/imasus-workshop-app` deployment-ready but dormant
+  Rails downstream owning its profile, content, legal copy, assets,
+  infrastructure templates, and recovery runbook.
 - Public transition: deploy `/Users/pablo/projects/imasus-app-static` to Netlify
   at `app.imasus.eu`, then stop and eventually retire the Fly Rails
   compute/database after a verified export, DNS cutover, and rollback window.

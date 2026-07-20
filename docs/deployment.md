@@ -217,8 +217,9 @@ Rails compute/database for a rollback window. Delete each Fly resource only
 after that window; retain or migrate Tigris separately because the static
 archive currently references its public object URLs.
 
-The separate IMASUS Rails downstream remains deployment-ready but dormant for
-future workshops. Its CI tests every change, while provisioning and deployment
-require an explicit manual action. Future runtimes should normally use a
-workshop-specific hostname so `app.imasus.eu` continues to identify the static
-archive.
+The private
+[`Munkun-Estudio/imasus-workshop-app`](https://github.com/Munkun-Estudio/imasus-workshop-app)
+Rails downstream remains deployment-ready but dormant for future workshops. Its
+CI tests every change, while provisioning and deployment require an explicit
+manual action. Future runtimes should normally use a workshop-specific hostname
+so `app.imasus.eu` continues to identify the static archive.

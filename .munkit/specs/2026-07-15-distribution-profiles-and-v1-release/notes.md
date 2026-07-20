@@ -33,8 +33,10 @@
   Storage, Private Network, Transactional Email, and Serverless Jobs for
   migrations. Fly remains only as the transitional IMASUS deployment.
 - Repository topology is resolved as generic upstream plus a separate IMASUS
-  downstream. Repository names and the production cutover remain later explicit
-  decisions/actions because they affect stable citation URLs and live service.
+  downstream. The private `Munkun-Estudio/imasus-workshop-app` repository now
+  exists for that downstream. Any generic-upstream rename and the production
+  cutover remain later explicit decisions/actions because they affect stable
+  citation URLs and live service.
 - `app.imasus.eu` will move to the `imasus-app-static` Netlify archive. After a
   verified export, preview, DNS cutover, and rollback window, Fly compute and
   PostgreSQL can be retired. Tigris must remain until its public archive assets
