@@ -287,3 +287,11 @@ manifest identities, and bookmark resolution.
 ## 2026-07-20: Use bounded presentation hints and a compatibility facade for the Library
 
 Generic item types need reusable cards, details, filters, media, and rich-text references without allowing executable templates. Finite field display hints, taxonomy filter flags, and validated media roles keep the v1 contract safe and predictable. A generic /library facade can use that contract while /materials and the Material adapters preserve all existing IMASUS URLs, editing, imports, and deployment compatibility.
+
+## 2026-07-20: License original software under MIT with Munkun as copyright holder
+
+The reusable application should be straightforward to adopt and must not impose copyleft obligations on future proprietary or commercially operated derivatives. Original software in the repository is therefore licensed under MIT, Copyright (c) 2026 Munkun. This grant does not automatically cover installation content, media, project names, logos, trademarks, or third-party works; those retain their separately stated rights and attribution.
+
+## 2026-07-20: Select initial workshops through the installation profile
+
+A reusable profile must not import IMASUS workshop records or demo identities. Selecting the workshop manifest through content.workshops keeps initial data reviewable beside the other profile-owned content, while an empty manifest lets adopters create workshops through the UI. The existing IMASUS manifest remains unchanged at its new profile-selected path.

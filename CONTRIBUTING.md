@@ -40,4 +40,4 @@ This repository is public. Avoid introducing dependencies or workflows that requ
 
 ## License
 
-The project license is still pending. Do not add or change licensing files without maintainer approval.
+By contributing original software to this repository, you agree that it may be distributed under the project's [MIT License](LICENSE). Do not add third-party code, content, media, logos, or trademarks unless their licence and attribution are compatible and recorded in `NOTICE` where required.

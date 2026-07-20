@@ -40,12 +40,13 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 
 - IMASUS Materials are compatibility adapters over generic `library_*` tables. Preserve `/materials` slugs, views, edit/import paths, and the Material media vocabulary; generic installations use the schema-driven `/library` presentation. The expand-first migration retains legacy columns and SQL views, aliases Active Storage attachment rows to existing blobs, and converts bookmarks to `LibraryItem` plus stable slug. Run `bin/rails library:verify_migration` before retiring any compatibility storage.
 - Generic Library presentation is bounded manifest data, not arbitrary templates: fields declare body/metadata/hidden and card placement, taxonomies opt into filters, and item types declare validated media roles. `library:sync` previews changes by default and `APPLY=1` applies them; removal unpublishes items/terms or retires managed assets without deleting stable references or blobs.
+- Initial workshops come from the profile-selected `content.workshops` manifest. Neutral installations may use `workshops: []` and create workshops through the UI; never seed IMASUS workshop or demo-user data into another profile.
 
 ## Gotchas
 
 - `munkit` is a gem dependency in this repo, not just a globally installed CLI.
 - This repository is intended to be public, so Munkit tooling is sourced from public git repositories instead of private package feeds.
-- The project license is intentionally undecided for now; do not invent one.
+- Original software is MIT-licensed, Copyright (c) 2026 Munkun. Installation content, media, names, logos, and trademarks are outside that grant unless separately licensed; keep third-party attribution in `NOTICE`.
 - Greek locale code is `el` (ISO 639-1), not `gr`.
 
 ## Terminology
@@ -84,7 +85,7 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 ## Boundaries
 
 - Do not add uncommon dependencies without a clear need and explicit justification.
-- Do not choose a license or product direction details that the team has not confirmed yet.
+- Do not extend the MIT software grant to installation content, media, names, logos, or trademarks without an explicit owner decision.
 - Do not treat placeholder workshop copy or landing page content as final product content.
 - Evaluation/grading of projects is explicitly out of scope.
 - No in-app notifications. Email is limited to transactional flows (registration, password recovery, invitations) plus admin-only manual workshop broadcasts for follow-ups/news, with at most one optional PDF attachment; no broader CRM, automation, or newsletter system.

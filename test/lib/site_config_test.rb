@@ -8,6 +8,7 @@ class SiteConfigTest < ActiveSupport::TestCase
     @root = Pathname(Dir.mktmpdir("site-config-test"))
     @root.join("config/profiles").mkpath
     @root.join("content/guides").mkpath
+    @root.join("content/workshops.yml").write("workshops: []\n")
     @root.join("content/library.yml").write("version: 1\n")
     @root.join("content/prompts.yml").write("version: 1\n")
     @root.join("content/glossary.yml").write("version: 1\n")
@@ -43,6 +44,7 @@ class SiteConfigTest < ActiveSupport::TestCase
     assert_equal %i[library guides prompts], config.modules.enabled
     assert_equal "Materiales", config.modules.labels.fetch(:library).fetch("es")
     assert_equal @root.join("content").realpath, config.content.root
+    assert_equal @root.join("content/workshops.yml").realpath, config.content.workshops
     assert_equal @root.join("content/library.yml").realpath, config.content.library
     assert_equal @root.join("content/guides").realpath, config.content.guides
     assert_equal @root.join("content/prompts.yml").realpath, config.content.prompts
@@ -452,6 +454,7 @@ class SiteConfigTest < ActiveSupport::TestCase
       },
       "content" => {
         "root" => "content",
+        "workshops" => "content/workshops.yml",
         "library" => "content/library.yml",
         "guides" => "content/guides",
         "prompts" => "content/prompts.yml",

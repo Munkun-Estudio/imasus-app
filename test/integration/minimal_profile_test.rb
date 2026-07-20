@@ -7,6 +7,9 @@ class MinimalProfileTest < ActiveSupport::TestCase
 
     session.get("/")
     abort "root failed: #{session.response.status}" unless session.response.status == 200
+    abort "minimal identity missing" unless session.response.body.include?("Workshop Commons")
+    abort "IMASUS logo leaked into minimal profile" if session.response.body.include?("logo.svg")
+    abort "minimal theme missing" unless session.response.body.include?("--brand-primary: #243B53;")
     abort "enabled Guides card missing" unless session.response.body.include?('data-resource="training"')
     abort "IMASUS resource loom rendered" if session.response.body.include?('data-home-section="imagineering-loom"')
     abort "configured module summary missing" unless session.response.body.include?("enabled resources: Guides")

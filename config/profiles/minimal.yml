@@ -31,6 +31,7 @@ modules:
 
 content:
   root: content
+  workshops: content/example-workshops.yml
   library: content/example-library.yml
   guides: content/example-guides
   prompts: content/example-prompts.yml
@@ -50,22 +51,22 @@ operations:
 
 brand:
   assets:
-    logo: logo.svg
-    compact_mark: /icon.svg
-    email_logo: /icon.png
-    og_image: og-image.png
-    favicon_ico: /favicon.ico
-    favicon_svg: /favicon.svg
-    favicon_png: /favicon-96x96.png
-    apple_touch_icon: /apple-touch-icon.png
-    web_manifest: /site.webmanifest
+    logo:
+    compact_mark:
+    email_logo:
+    og_image:
+    favicon_ico:
+    favicon_svg:
+    favicon_png:
+    apple_touch_icon:
+    web_manifest:
   theme:
-    primary: "#1F3D3F"
-    secondary: "#252645"
-    accent: "#FA3449"
-    success: "#AFE0C7"
-    info: "#AFCEDE"
-    soft: "#FFC2D7"
+    primary: "#243B53"
+    secondary: "#334E68"
+    accent: "#D64545"
+    success: "#9AE6B4"
+    info: "#BEE3F8"
+    soft: "#FEEBC8"
   email:
     from_name: Workshop Commons
     from_address: no-reply@example.org
