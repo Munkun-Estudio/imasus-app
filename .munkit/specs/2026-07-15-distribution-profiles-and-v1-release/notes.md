@@ -24,6 +24,10 @@
   the configuration diagnostic, prepare the migrated test database, and compile
   production assets. Security, JavaScript audit, lint, and IMASUS system tests
   remain shared jobs rather than being duplicated by profile.
+- The isolated minimal smoke test renders the application layout and therefore
+  needs `tailwind.css` before the later production precompile step. CI builds
+  Tailwind immediately before that smoke test so a clean checkout behaves like
+  the locally verified worktree.
 
 ## Open questions
 

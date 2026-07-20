@@ -143,6 +143,13 @@ jobs:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
         run: bin/rails test
 
+      - name: Build Tailwind for minimal-profile smoke test
+        if: matrix.profile == 'minimal'
+        env:
+          APP_PROFILE: minimal
+          RAILS_ENV: test
+        run: bin/rails tailwindcss:build
+
       - name: Run minimal-profile smoke test
         if: matrix.profile == 'minimal'
         env:
