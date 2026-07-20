@@ -135,6 +135,36 @@ en:
         manage_facilitators: "Manage facilitators"
         all_projects: "All projects"
         workshop_emails: "Emails"
+  library_items:
+    reference:
+      retired: "Archived resource — the original reference is preserved."
+    values:
+      yes: "Yes"
+      no: "No"
+    index:
+      lead: "Explore the resources in this library and filter them by the topics that matter to you."
+      search_label: "Search the library"
+      search_placeholder: "Search by title or summary"
+      clear_all: "Clear all filters"
+      empty_state: "No resources match the current filters."
+      loading_more: "Loading more resources"
+      loaded_batch:
+        one: "Loaded 1 more resource"
+        other: "Loaded %{count} more resources"
+      filters_label: "Library filters"
+      item_types: "Resource type"
+    card:
+      media_pending: "Media coming soon"
+    preview:
+      close: "Close preview"
+      open_label: "Preview %{name}"
+      open_full_page: "Open full page →"
+    show:
+      back_to_index: "← Back to %{library}"
+      view_detail: "Open %{name}"
+      gallery_label: "Resource media"
+      resources: "Links and downloads"
+      retired: "This resource is no longer listed, but this address remains available for existing references and bookmarks."
   materials:
     actions:
       edit: "Edit"

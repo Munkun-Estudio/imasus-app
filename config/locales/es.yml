@@ -137,6 +137,36 @@ es:
         manage_facilitators: "Gestionar facilitación"
         all_projects: "Todos los proyectos"
         workshop_emails: "Emails"
+  library_items:
+    reference:
+      retired: "Recurso archivado: se conserva la referencia original."
+    values:
+      yes: "Sí"
+      no: "No"
+    index:
+      lead: "Explora los recursos de esta biblioteca y fíltralos por los temas que te interesan."
+      search_label: "Buscar en la biblioteca"
+      search_placeholder: "Buscar por título o resumen"
+      clear_all: "Borrar todos los filtros"
+      empty_state: "Ningún recurso coincide con los filtros actuales."
+      loading_more: "Cargando más recursos"
+      loaded_batch:
+        one: "Se ha cargado 1 recurso más"
+        other: "Se han cargado %{count} recursos más"
+      filters_label: "Filtros de la biblioteca"
+      item_types: "Tipo de recurso"
+    card:
+      media_pending: "Contenido multimedia próximamente"
+    preview:
+      close: "Cerrar vista previa"
+      open_label: "Vista previa de %{name}"
+      open_full_page: "Abrir página completa →"
+    show:
+      back_to_index: "← Volver a %{library}"
+      view_detail: "Abrir %{name}"
+      gallery_label: "Contenido multimedia del recurso"
+      resources: "Enlaces y descargas"
+      retired: "Este recurso ya no aparece en el listado, pero su dirección sigue disponible para referencias y marcadores existentes."
   materials:
     actions:
       edit: "Editar"

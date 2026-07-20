@@ -12,14 +12,16 @@ materials.each do |material|
   material["supplier_url"] = material["supplier_url"]&.delete("\\")
 end
 
-field = lambda do |id, kind, label, localized: false, options: nil|
+field = lambda do |id, kind, label, localized: false, options: nil, display: "metadata", card: false|
   definition = {
     "id" => id,
     "kind" => kind,
     "localized" => localized,
     "required" => false,
     "cardinality" => "one",
-    "labels" => { "en" => label }
+    "labels" => { "en" => label },
+    "display" => display,
+    "card" => card
   }
   definition["options"] = options if options
   definition
@@ -36,6 +38,7 @@ taxonomies = taxonomy_labels.map do |id, label|
   {
     "id" => id,
     "cardinality" => "many",
+    "filter" => true,
     "labels" => { "en" => label },
     "terms" => taxonomy_groups.fetch(id).map do |tag|
       { "id" => tag.fetch("slug"), "labels" => tag.fetch("name") }
@@ -52,10 +55,11 @@ translated_fields = {
 
 fields = [
   field.call("supplier_name", "string", "Supplier"),
-  field.call("supplier_url", "url", "Supplier website"),
-  field.call("material_of_origin", "string", "Material of origin"),
+  field.call("supplier_url", "url", "Supplier website", display: "hidden"),
+  field.call("material_of_origin", "string", "Material of origin", card: true),
   field.call(
     "availability_status", "select", "Availability",
+    card: true,
     options: {
       "commercial" => { "en" => "Commercial" },
       "in_development" => { "en" => "In development" },
@@ -64,7 +68,7 @@ fields = [
   )
 ]
 translated_fields.each do |id, label|
-  fields << field.call(id, "text", label, localized: true)
+  fields << field.call(id, "text", label, localized: true, display: "body")
 end
 
 items = materials.map do |material|
@@ -96,7 +100,8 @@ items = materials.map do |material|
     end,
     "fields" => custom_fields,
     "taxonomies" => material.fetch("tags", {}),
-    "links" => links
+    "links" => links,
+    "assets" => []
   }
 end
 
@@ -107,7 +112,36 @@ manifest = {
     {
       "id" => "material",
       "labels" => { "en" => "Material" },
-      "fields" => fields
+      "fields" => fields,
+      "media" => [
+        {
+          "id" => "macro",
+          "kind" => "image",
+          "multiple" => true,
+          "placement" => "gallery",
+          "cover" => true,
+          "allowed_types" => %w[image/jpeg image/png image/webp],
+          "max_bytes" => 20 * 1024 * 1024
+        },
+        {
+          "id" => "microscopy",
+          "kind" => "image",
+          "multiple" => true,
+          "placement" => "gallery",
+          "cover" => false,
+          "allowed_types" => %w[image/jpeg image/png image/webp image/tiff],
+          "max_bytes" => 50 * 1024 * 1024
+        },
+        {
+          "id" => "video",
+          "kind" => "video",
+          "multiple" => false,
+          "placement" => "gallery",
+          "cover" => false,
+          "allowed_types" => %w[video/mp4 video/quicktime video/webm],
+          "max_bytes" => 250 * 1024 * 1024
+        }
+      ]
     }
   ],
   "taxonomies" => taxonomies,

@@ -21,7 +21,7 @@ installation and is visually and functionally unchanged.
 - [x] [Manifest-driven guides](specs/2026-07-15-manifest-driven-guides/brief.md)
 - [x] [Configurable prompts and glossary](specs/2026-07-15-configurable-prompts-and-glossary/brief.md)
 - [x] [Generic library schema](specs/2026-07-15-generic-library-schema/brief.md)
-- [ ] [Generic library presentation and media](specs/2026-07-15-generic-library-presentation-and-media/brief.md)
+- [x] [Generic library presentation and media](specs/2026-07-15-generic-library-presentation-and-media/brief.md)
 - [ ] [Distribution profiles and v1 release](specs/2026-07-15-distribution-profiles-and-v1-release/brief.md)
 
 ## Out of Scope (Deferred — record as decisions)

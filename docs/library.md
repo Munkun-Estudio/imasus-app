@@ -44,8 +44,10 @@ only these field kinds:
 | `boolean` | YAML `true` or `false` |
 | `select` | One ID from the field's declared `options` |
 
-Every field explicitly declares `localized`, `required`, and `cardinality` as
-`one` or `many`. Localized values are mappings keyed by an enabled locale; a
+Every field explicitly declares `localized`, `required`, `cardinality` as
+`one` or `many`, `display` as `body`, `metadata`, or `hidden`, and whether it
+appears on cards with `card`. Field order in the manifest is the render order.
+Missing optional values are omitted. Localized values are mappings keyed by an enabled locale; a
 required localized field must include a non-blank fallback-locale value.
 Unknown fields, locales, option IDs, and taxonomy terms stop application boot or
 seeding with their manifest location.
@@ -57,7 +59,8 @@ embedded credentials, or `data:` URLs.
 
 ## Taxonomies, items, and ordering
 
-Taxonomies declare `one` or `many` cardinality and a finite term list. Item
+Taxonomies declare `one` or `many` cardinality, whether they appear as an index
+`filter`, and a finite term list. Item
 selections reference term IDs under their taxonomy ID. Items appear in manifest
 order; the synchronizer persists that position.
 
@@ -78,13 +81,84 @@ Each item declares:
   taxonomies:
     topic: [reflection]
   links: []
+  assets: []
 ```
 
-Run `bin/rails db:seed` after changing the manifest. Synchronization creates
-missing content and fills blank values by default. Set `SEED_LIBRARY=overwrite`
-or `SEED_OVERWRITE_CONTENT=1` for an intentional full refresh. Removed
-manifest-managed items and terms are unpublished rather than deleted, preserving
-relationships and public identity.
+## Images, videos, and downloads
+
+An item type declares a finite `media` list. Each role specifies `kind`
+(`image`, `video`, or `file`), `multiple`, `placement` (`gallery` or
+`download`), whether it is the single card `cover`, an exact `allowed_types`
+MIME list, and `max_bytes` (up to 500 MB). Gallery roles accept images and
+videos; download roles accept files.
+
+```yaml
+media:
+  - id: cover
+    kind: image
+    multiple: false
+    placement: gallery
+    cover: true
+    allowed_types: [image/jpeg, image/png, image/webp]
+    max_bytes: 10485760
+```
+
+Item assets refer to files stored beside the manifest. Paths must be relative,
+must not contain `..`, and must exist. Alternative text is localized and must
+include the fallback locale:
+
+```yaml
+assets:
+  - role: cover
+    path: library-assets/first-reflection.png
+    alt:
+      en: A participant writing in a reflection worksheet
+```
+
+The sync command detects the file's real MIME type, checks its size, computes a
+checksum, and uploads it through the installation's configured Active Storage
+service. The same convention therefore works with local disk in development and
+the production object-storage service. Missing files, mismatched types, unsafe
+paths, and oversized assets stop the dry run with their manifest location or
+source path.
+
+## Previewing and applying content changes
+
+Always review the import plan first:
+
+```bash
+bin/rails library:sync
+```
+
+It validates the complete manifest and media sources and reports each `add`,
+`change`, or `retire` operation without writing. Apply that exact content with:
+
+```bash
+APPLY=1 bin/rails library:sync
+```
+
+The operation is idempotent. Re-running it with unchanged inputs reports no
+changes. Items and taxonomy terms removed from the manifest are unpublished;
+managed assets are marked retired but their attachment and blob are preserved.
+Nothing is silently deleted. Existing bookmarks retain their stored URL and
+receive an updated fallback-locale label when a title changes.
+
+`bin/rails db:seed` remains available for initial setup. It fills blank values
+by default; set `SEED_LIBRARY=overwrite` or `SEED_OVERWRITE_CONTENT=1` for an
+intentional refresh. For routine Library updates, prefer the reviewable sync
+workflow above.
+
+## Public URLs and references
+
+Generic installations use `/library` and `/library/:slug`. The existing
+`/materials/:slug` addresses remain valid for IMASUS and old bookmarks. A
+retired item is removed from indexes but its detail URL remains available with
+`noindex`, so references do not break.
+
+`LibraryItem` is also an Action Text attachable. Project descriptions and
+process-log rich text can store its stable signed identity and render a generic
+reference card. The card reads the current title and summary and marks retired
+content as archived; content updates do not invalidate the stored reference.
 
 ## IMASUS compatibility and rollout
 

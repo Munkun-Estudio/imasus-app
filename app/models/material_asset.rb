@@ -20,4 +20,29 @@ class MaterialAsset < LibraryItemAsset
   alias_attribute :material_id, :library_item_id
 
   belongs_to :material, foreign_key: :library_item_id, inverse_of: :assets
+
+  validates :kind, presence: true
+  before_validation :sync_legacy_role
+
+  private
+
+  # Historical material videos include records imported before MIME-type
+  # enforcement. Keep their established validation contract; generic
+  # manifest-managed assets are validated by LibraryItemAsset.
+  def file_matches_role
+    super if managed_by_manifest?
+  end
+
+  def role_cardinality
+    super
+    errors.add(:kind, :taken) if errors.added?(:role, :taken)
+  end
+
+  def sync_legacy_role
+    if role.present? && kind.blank? && KINDS.include?(role)
+      self.kind = role
+    elsif kind.present?
+      self.role = kind
+    end
+  end
 end

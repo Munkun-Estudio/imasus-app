@@ -140,6 +140,36 @@ it:
         manage_facilitators: "Gestisci facilitatori"
         all_projects: "Tutti i progetti"
         workshop_emails: "Emails"
+  library_items:
+    reference:
+      retired: "Risorsa archiviata: il riferimento originale è conservato."
+    values:
+      yes: "Sì"
+      no: "No"
+    index:
+      lead: "Esplora le risorse di questa biblioteca e filtrale in base agli argomenti che ti interessano."
+      search_label: "Cerca nella biblioteca"
+      search_placeholder: "Cerca per titolo o riepilogo"
+      clear_all: "Cancella tutti i filtri"
+      empty_state: "Nessuna risorsa corrisponde ai filtri attuali."
+      loading_more: "Caricamento di altre risorse"
+      loaded_batch:
+        one: "Caricata un'altra risorsa"
+        other: "Caricate altre %{count} risorse"
+      filters_label: "Filtri della biblioteca"
+      item_types: "Tipo di risorsa"
+    card:
+      media_pending: "Contenuti multimediali in arrivo"
+    preview:
+      close: "Chiudi anteprima"
+      open_label: "Anteprima di %{name}"
+      open_full_page: "Apri la pagina completa →"
+    show:
+      back_to_index: "← Torna a %{library}"
+      view_detail: "Apri %{name}"
+      gallery_label: "Contenuti multimediali della risorsa"
+      resources: "Collegamenti e download"
+      retired: "Questa risorsa non è più elencata, ma il suo indirizzo rimane disponibile per riferimenti e segnalibri esistenti."
   materials:
     actions:
       edit: "Modifica"

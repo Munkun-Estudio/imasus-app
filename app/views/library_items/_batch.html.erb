@@ -1,0 +1,8 @@
+<%# locals: (library_items:, page:, next_page:) %>
+<%= turbo_frame_tag "library_page_#{page}" do %>
+  <% library_items.each do |library_item| %>
+    <div role="listitem"><%= render "library_items/card", library_item:, priority: false %></div>
+  <% end %>
+  <p role="status" class="sr-only"><%= t("library_items.index.loaded_batch", count: library_items.size) %></p>
+  <%= render "library_items/next_page", next_page: %>
+<% end %>

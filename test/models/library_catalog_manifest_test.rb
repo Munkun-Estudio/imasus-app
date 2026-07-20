@@ -17,6 +17,9 @@ class LibraryCatalogManifestTest < ActiveSupport::TestCase
     assert_equal "worksheet", item.item_type
     assert_equal "Participants", item.fields.fetch("audience")
     assert_equal [ "reflection" ], item.taxonomies.fetch("topic")
+    assert_equal "metadata", manifest.item_type("worksheet").field("audience").display
+    assert manifest.item_type("worksheet").field("audience").card
+    assert manifest.taxonomy("topic").filter
   end
 
   test "rejects unknown executable-looking keys" do
@@ -56,6 +59,53 @@ class LibraryCatalogManifestTest < ActiveSupport::TestCase
 
     error = assert_raises(LibraryCatalog::Manifest::Error) { load_payload(payload) }
     assert_includes error.message, "absolute HTTP or HTTPS URL"
+  end
+
+  test "requires bounded presentation hints" do
+    payload = example_payload
+    payload["item_types"].first["fields"].first.delete("display")
+
+    error = assert_raises(LibraryCatalog::Manifest::Error) { load_payload(payload) }
+    assert_includes error.message, "display must be one of"
+  end
+
+  test "rejects incompatible media presentation" do
+    payload = example_payload
+    payload["item_types"].first["media"] = [
+      {
+        "id" => "download",
+        "kind" => "file",
+        "multiple" => true,
+        "placement" => "gallery",
+        "cover" => false,
+        "allowed_types" => [ "application/pdf" ],
+        "max_bytes" => 1.megabyte
+      }
+    ]
+
+    error = assert_raises(LibraryCatalog::Manifest::Error) { load_payload(payload) }
+    assert_includes error.message, "placement is incompatible"
+  end
+
+  test "rejects asset paths that escape the manifest directory" do
+    payload = example_payload
+    payload["item_types"].first["media"] = [
+      {
+        "id" => "cover",
+        "kind" => "image",
+        "multiple" => false,
+        "placement" => "gallery",
+        "cover" => true,
+        "allowed_types" => [ "image/png" ],
+        "max_bytes" => 1.megabyte
+      }
+    ]
+    payload["items"].first["assets"] = [
+      { "role" => "cover", "path" => "../secret.png", "alt" => { "en" => "Cover" } }
+    ]
+
+    error = assert_raises(LibraryCatalog::Manifest::Error) { load_payload(payload) }
+    assert_includes error.message, "must be relative"
   end
 
   private

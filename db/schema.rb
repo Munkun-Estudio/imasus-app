@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_18_140000) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_20_100000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -100,14 +100,25 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_18_140000) do
   end
 
   create_table "library_item_assets", force: :cascade do |t|
+    t.jsonb "alt_text_translations", default: {}, null: false
+    t.jsonb "caption_translations", default: {}, null: false
     t.datetime "created_at", null: false
-    t.integer "kind", null: false
+    t.string "credit"
+    t.integer "kind"
     t.bigint "library_item_id", null: false
+    t.boolean "managed_by_manifest", default: false, null: false
     t.integer "position", default: 0, null: false
+    t.datetime "retired_at"
+    t.string "role", null: false
+    t.string "source_checksum"
+    t.string "source_path"
     t.datetime "updated_at", null: false
     t.index ["library_item_id", "kind", "position"], name: "idx_on_library_item_id_kind_position_f4ea666b5e", unique: true
     t.index ["library_item_id", "kind"], name: "index_material_assets_unique_video_kind", unique: true, where: "(kind = 2)"
+    t.index ["library_item_id", "role", "position"], name: "index_library_assets_on_item_role_position", unique: true
+    t.index ["library_item_id", "role", "source_path"], name: "index_library_assets_on_manifest_source", unique: true, where: "(source_path IS NOT NULL)"
     t.index ["library_item_id"], name: "index_library_item_assets_on_library_item_id"
+    t.index ["retired_at"], name: "index_library_item_assets_on_retired_at"
   end
 
   create_table "library_item_taggings", force: :cascade do |t|

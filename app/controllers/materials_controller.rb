@@ -10,11 +10,13 @@ class MaterialsController < ApplicationController
   BATCH_SIZE = 12
 
   before_action :require_curator, only: [ :edit, :update ]
-  before_action :set_material, only: [ :show, :media, :preview, :edit, :update ]
+  before_action :set_library_resource, only: [ :show, :media, :preview, :edit, :update ]
 
   # GET /materials
   # GET /materials?origin_type=plants,fungi&application=clothing&q=cypress
   def index
+    return generic_index if generic_presentation?
+
     @selected_slugs_by_facet = selected_slugs_by_facet
     @selected_tag_ids_by_facet = resolve_selected_tag_ids(@selected_slugs_by_facet)
     @query = params[:q].to_s.strip
@@ -47,6 +49,7 @@ class MaterialsController < ApplicationController
   # Unknown slug raises `ActiveRecord::RecordNotFound` via `set_material`
   # and surfaces as a 404.
   def show
+    render "library_items/show" if generic_presentation?
   end
 
   # GET /materials/:slug/media?key=macro
@@ -56,6 +59,16 @@ class MaterialsController < ApplicationController
   # and video blob URLs out of the DOM; this action returns one requested
   # media item after user intent.
   def media
+    if generic_presentation?
+      item = helpers.library_gallery_items(@library_item).find { |candidate| candidate[:key] == params[:key].to_s }
+      raise ActiveRecord::RecordNotFound unless item
+
+      render partial: "library_items/gallery_media",
+             locals: { item:, library_item: @library_item, deferred: false },
+             layout: false
+      return
+    end
+
     item = helpers.material_gallery_items(@material).find { |candidate| candidate[:key] == params[:key].to_s }
     raise ActiveRecord::RecordNotFound unless item
 
@@ -70,6 +83,13 @@ class MaterialsController < ApplicationController
   # for the layout-level `<turbo-frame id="preview">` slot. No application
   # layout — same pattern as {GlossaryTermsController#popover}.
   def preview
+    if generic_presentation?
+      render partial: "library_items/preview",
+             locals: { library_item: @library_item },
+             layout: false
+      return
+    end
+
     render partial: "materials/preview",
            locals:  { material: @material },
            layout:  false
@@ -77,11 +97,15 @@ class MaterialsController < ApplicationController
 
   # GET /materials/:slug/edit
   def edit
+    raise ActiveRecord::RecordNotFound if generic_presentation?
+
     @tags_by_facet = Tag.all.group_by(&:facet)
   end
 
   # PATCH /materials/:slug
   def update
+    raise ActiveRecord::RecordNotFound if generic_presentation?
+
     @tags_by_facet = Tag.all.group_by(&:facet)
 
     if @material.update(material_params)
@@ -94,16 +118,99 @@ class MaterialsController < ApplicationController
 
   private
 
-  def set_material
-    @material = Material
-                  .includes(
-                    assets: [
-                      { file_attachment: :blob },
-                      { poster_attachment: :blob }
-                    ],
-                    tags: {}
-                  )
-                  .find_by!(slug: params[:slug])
+  def set_library_resource
+    if generic_presentation?
+      @library_item = LibraryItem
+                        .includes(
+                          :taxonomy_terms,
+                          assets: [
+                            { file_attachment: :blob },
+                            { poster_attachment: :blob }
+                          ]
+                        )
+                        .find_by!(slug: params[:slug])
+    else
+      @material = Material
+                    .includes(
+                      :tags,
+                      assets: [
+                        { file_attachment: :blob },
+                        { poster_attachment: :blob }
+                      ]
+                    )
+                    .find_by!(slug: params[:slug])
+    end
+  end
+
+  def generic_index
+    @query = params[:q].to_s.strip
+    @selected_taxonomies = selected_generic_taxonomies
+    @selected_item_types = Array(params[:type].to_s.split(",")).reject(&:blank?)
+
+    scope = LibraryItem.published
+                       .includes(assets: { file_attachment: :blob })
+                       .order(:position, :slug)
+    scope = scope.where(item_type: @selected_item_types) if @selected_item_types.any?
+    scope = apply_generic_filters(scope, @selected_taxonomies)
+    scope = apply_generic_search(scope, @query)
+
+    @page = page_param
+    @total_library_items = scope.count
+    @library_items = scope.limit(BATCH_SIZE).offset((@page - 1) * BATCH_SIZE).to_a
+    @filter_taxonomies = LibraryCatalog.current.taxonomies.select(&:filter)
+    @terms_by_taxonomy = LibraryTaxonomyTerm.published.order(:position).group_by(&:taxonomy_key)
+    @generic_chip_counts = generic_chip_counts_for(scope)
+    @any_filters_active = @selected_taxonomies.any? || @selected_item_types.any? || @query.present?
+    @next_page = @page + 1 if @page * BATCH_SIZE < @total_library_items
+
+    if turbo_frame_request? && @page > 1
+      render partial: "library_items/batch",
+             locals: { library_items: @library_items, page: @page, next_page: @next_page }
+    else
+      render "library_items/index"
+    end
+  end
+
+  def generic_presentation?
+    ActiveModel::Type::Boolean.new.cast(params[:generic]) ||
+      LibraryCatalog.current.item_type_ids != [ "material" ]
+  end
+
+  def selected_generic_taxonomies
+    LibraryCatalog.current.taxonomies.select(&:filter).each_with_object({}) do |taxonomy, selected|
+      slugs = params[taxonomy.id].to_s.split(",").map(&:strip).reject(&:blank?)
+      selected[taxonomy.id] = slugs if slugs.any?
+    end
+  end
+
+  def apply_generic_filters(scope, selected)
+    selected.each do |taxonomy_key, slugs|
+      term_ids = LibraryTaxonomyTerm.where(taxonomy_key:, slug: slugs).select(:id)
+      scope = scope.where(
+        id: LibraryItemTagging.where(library_taxonomy_term_id: term_ids).select(:library_item_id)
+      )
+    end
+    scope
+  end
+
+  def apply_generic_search(scope, query)
+    return scope if query.blank?
+
+    needle = "%#{ActiveRecord::Base.sanitize_sql_like(query)}%"
+    locale = I18n.locale.to_s
+    fallback = Rails.configuration.site.locales.fallback
+    scope.where(
+      "library_items.title_translations->>:locale ILIKE :needle " \
+      "OR library_items.title_translations->>:fallback ILIKE :needle " \
+      "OR library_items.summary_translations->>:locale ILIKE :needle " \
+      "OR library_items.summary_translations->>:fallback ILIKE :needle",
+      needle:, locale:, fallback:
+    )
+  end
+
+  def generic_chip_counts_for(scope)
+    LibraryItemTagging.where(library_item_id: scope.reselect(:id))
+                      .group(:library_taxonomy_term_id).count
   end
 
   def selected_slugs_by_facet
