@@ -14,7 +14,7 @@ class ActiveStorageCorsConfigurationTest < ActiveSupport::TestCase
     client = FakeS3Client.new
     configuration = ActiveStorageCorsConfiguration.new(
       bucket: "imasus-test",
-      allowed_origins: [ "https://app.imasus.eu" ],
+      allowed_origins: [ "https://workshops.example.org" ],
       client: client
     )
 
@@ -22,7 +22,7 @@ class ActiveStorageCorsConfigurationTest < ActiveSupport::TestCase
 
     assert_equal "imasus-test", client.request[:bucket]
     rule = client.request.dig(:cors_configuration, :cors_rules).first
-    assert_equal [ "https://app.imasus.eu" ], rule[:allowed_origins]
+    assert_equal [ "https://workshops.example.org" ], rule[:allowed_origins]
     assert_equal [ "PUT" ], rule[:allowed_methods]
     assert_includes rule[:allowed_headers], "Content-Type"
     assert_includes rule[:allowed_headers], "Content-MD5"
@@ -34,7 +34,7 @@ class ActiveStorageCorsConfigurationTest < ActiveSupport::TestCase
   test "requires a bucket name" do
     configuration = ActiveStorageCorsConfiguration.new(
       bucket: nil,
-      allowed_origins: [ "https://app.imasus.eu" ],
+      allowed_origins: [ "https://workshops.example.org" ],
       client: FakeS3Client.new
     )
 

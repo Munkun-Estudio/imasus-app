@@ -1,141 +1,203 @@
 # Deployment
 
-Production runs on Fly.io in Paris (`cdg`) with PostgreSQL and Tigris object
-storage. Tigris is S3-compatible, so Rails uses the standard Active Storage
-`amazon` service without committing any secret values.
+The application is provider-portable: it ships as an OCI container, uses
+PostgreSQL, stores uploads through an S3-compatible API, and reads configuration
+from an installation profile plus runtime environment variables.
+
+The reference deployment uses Scaleway services in one European region. This
+keeps the example aligned with data-location and European cloud-sovereignty
+goals without claiming that provider selection alone establishes legal
+compliance. Each operator remains responsible for its region, contracts,
+subprocessors, retention, access controls, and privacy documentation.
+
+Scaleway currently offers regions in Paris, Amsterdam, and Warsaw. Confirm
+product availability in the chosen region before provisioning:
+[Scaleway product availability](https://www.scaleway.com/en/docs/account/reference-content/products-availability/).
+
+## Reference architecture
+
+Use the same region for all stateful services:
+
+| Responsibility | Scaleway service | Application boundary |
+| --- | --- | --- |
+| Web application | Serverless Containers | OCI image; public HTTPS endpoint; `/up` health check |
+| Release migrations | Serverless Jobs | Same immutable image, command `bin/rails db:prepare` |
+| Image registry | Container Registry | Private, versioned images built for `linux/amd64` |
+| Relational data | Managed Database for PostgreSQL | `DATABASE_URL`; automatic and pre-release backups |
+| Uploads | Object Storage | S3-compatible `amazon` Active Storage service |
+| Private connectivity | VPC Private Network | Container-to-database traffic within one region |
+| Transactional mail | Transactional Email | SMTP invitations and password resets |
+
+Serverless Containers have ephemeral local storage. Do not use the container
+filesystem for uploads or durable application state. They support HTTP,
+WebSockets, custom domains, secret environment variables, health checks, and
+Private Network egress. See the official
+[container compatibility notes](https://www.scaleway.com/en/docs/serverless-containers/faq/)
+and [Private Network integration](https://www.scaleway.com/en/docs/serverless-containers/reference-content/containers-private-networks/).
 
 ## Public repository rule
 
-Keep this repository public-safe:
+Commit:
 
-- Commit configuration files such as `fly.toml` and GitHub Actions workflows.
-- Commit secret names, never secret values.
-- Store runtime secrets in Fly.io secrets and GitHub Actions secrets.
-- Do not commit `config/master.key`, `.env*`, database dumps, production logs, or
-  user uploads.
+- installation profiles and non-secret deployment examples;
+- image names, region identifiers, and secret **names**;
+- migration, backup, verification, and rollback procedures.
 
-## Tigris Object Storage
+Never commit API keys, Rails keys, database URLs, SMTP passwords, database
+dumps, production logs, or user uploads. Store sensitive values as Scaleway
+secret environment variables and limit the IAM application used by CI to the
+required project and services.
 
-Create a private Tigris bucket for production uploads:
+## Build and publish the image
 
-```sh
-flyctl storage create --app imasus-app --name imasus-app-production
-```
-
-Do not pass `--public`; uploads should stay private and be served by Rails
-through Active Storage URLs. The command provisions the bucket and sets the
-Fly secrets that Active Storage needs: `AWS_ACCESS_KEY_ID`,
-`AWS_SECRET_ACCESS_KEY`, `AWS_REGION`, `AWS_ENDPOINT_URL_S3`, and `BUCKET_NAME`.
-The app also accepts `AWS_S3_BUCKET` for compatibility with AWS S3.
-
-After the bucket exists and the app has the storage secrets, apply the CORS
-rule required by browser direct uploads from Action Text / Trix:
+Scaleway Serverless Containers require `linux/amd64`. Apple silicon developers
+must not push the default local `arm64` image.
 
 ```sh
-flyctl ssh console --app imasus-app -C "bin/rails active_storage:configure_cors"
+export IMAGE="rg.fr-par.scw.cloud/<namespace>/workshop-app:<git-sha>"
+
+docker buildx build \
+  --platform linux/amd64 \
+  --tag "$IMAGE" \
+  --push \
+  .
 ```
 
-The default allowed origins are `https://app.imasus.eu` and
-`https://imasus-app.fly.dev`. Override them with a comma-separated
-`ACTIVE_STORAGE_CORS_ORIGINS` value if another production origin needs to
-support direct uploads.
+Use an immutable commit SHA or release tag for deployments; do not use `latest`
+as the only rollback reference. Follow Scaleway's
+[Container Registry quickstart](https://www.scaleway.com/en/docs/container-registry/quickstart/)
+for namespace creation and Docker authentication.
 
-## Fly.io
+## PostgreSQL and private networking
 
-Create the app and attach PostgreSQL:
+Create a Managed PostgreSQL database and a VPC Private Network in the same
+region as the container. Attach both resources to that network and use the
+database's private endpoint in `DATABASE_URL`. Remove the initial
+`0.0.0.0/0` public database ACL after private connectivity is verified.
 
-```sh
-flyctl apps create imasus-app --org personal
-flyctl postgres create --name imasus-app-db --region cdg
-flyctl postgres attach --app imasus-app imasus-app-db
-flyctl storage create --app imasus-app --name imasus-app-production
-```
+Managed PostgreSQL supports high availability and automatic backups. Configure
+retention explicitly, test restoration, and create a manual backup immediately
+before a release containing migrations. See
+[database connectivity](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/connect-database-instance/)
+and [backup management](https://www.scaleway.com/en/docs/managed-databases-for-postgresql-and-mysql/how-to/manage-backups/).
 
-Set production secrets:
+## Object Storage
 
-```sh
-flyctl secrets set --app imasus-app RAILS_MASTER_KEY=...
-```
-
-If `config/master.key` is unavailable, set `SECRET_KEY_BASE` as a temporary
-runtime secret instead and recover the real Rails master key before relying on
-encrypted credentials.
-
-## Transactional Email
-
-Production sends facilitator invitations, participant invitations, and password
-reset emails through Amazon SES SMTP in `eu-west-1`. Reuse the verified
-`imasus.eu` SES identity, but keep an app-specific IAM SMTP user so credentials
-can be rotated without affecting the newsletter stack.
-
-Set these Fly secrets:
-
-```sh
-flyctl secrets set --app imasus-app \
-  APP_HOST=app.imasus.eu \
-  MAILER_FROM="IMASUS <no-reply@imasus.eu>" \
-  SMTP_ADDRESS=email-smtp.eu-west-1.amazonaws.com \
-  SMTP_PORT=587 \
-  SMTP_DOMAIN=imasus.eu \
-  SMTP_USERNAME=... \
-  SMTP_PASSWORD=...
-```
-
-Optional overrides:
-
-```sh
-flyctl secrets set --app imasus-app \
-  SMTP_AUTHENTICATION=plain \
-  SMTP_ENABLE_STARTTLS_AUTO=true
-```
-
-`APP_HOST` must be the hostname only, without `https://`; Rails uses it to build
-absolute invitation and password-reset links.
-
-After setting the secrets, redeploy and smoke-test delivery from a production
-console:
-
-```sh
-flyctl deploy --remote-only
-flyctl ssh console --app imasus-app -C "bin/rails runner 'user = User.admin.first || User.first; PasswordResetMailer.reset(user, \"smoke-test-token\").deliver_now'"
-```
-
-The smoke-test command sends a password-reset-shaped email to the selected user
-with a fake token; do not click the link.
-
-After Solid Queue tables are configured, remove the temporary
-`ACTIVE_JOB_QUEUE_ADAPTER = "async"` setting and run a deploy with
-`SOLID_QUEUE_IN_PUMA = "true"` or a separate worker process.
-
-Deploy manually:
-
-```sh
-flyctl deploy --remote-only
-```
-
-Verify the release:
-
-```sh
-flyctl status --app imasus-app
-flyctl releases --app imasus-app
-flyctl logs --app imasus-app
-```
-
-The app should answer at:
+Create a bucket in the selected region and a restricted IAM application for
+that bucket. Configure the container and migration/CORS jobs with:
 
 ```text
-https://imasus-app.fly.dev
-https://imasus-app.fly.dev/up
+ACTIVE_STORAGE_SERVICE=amazon
+AWS_ACCESS_KEY_ID=<secret>
+AWS_SECRET_ACCESS_KEY=<secret>
+AWS_REGION=<object-storage-region>
+AWS_ENDPOINT_URL_S3=https://s3.<object-storage-region>.scw.cloud
+AWS_S3_BUCKET=<bucket-name>
+AWS_PUBLIC_BUCKET=false
+ACTIVE_STORAGE_CORS_ORIGINS=https://workshops.example.org
 ```
 
-## GitHub Actions CD
+`AWS_PUBLIC_BUCKET=false` keeps new installations on signed Active Storage
+URLs and is also the application default. Set it to `true` only when the bucket
+policy and the installation's content model intentionally allow public object
+URLs.
 
-Generate a deploy token and save the full token value as the GitHub repository
-secret `FLY_API_TOKEN`:
+Apply the browser direct-upload CORS policy using the same image and secrets as
+a one-off Serverless Job:
 
 ```sh
-flyctl tokens create deploy --app imasus-app
+bin/rails active_storage:configure_cors
 ```
 
-Pushes to `main` run the existing CI workflow and then deploy through
-`.github/workflows/fly.yml`.
+The task restricts origins to `ACTIVE_STORAGE_CORS_ORIGINS`. Do not use `*` for
+an authenticated production application. Scaleway documents its S3-compatible
+[bucket CORS configuration](https://www.scaleway.com/en/docs/object-storage/api-cli/setting-cors-rules/)
+and [object lifecycle rules](https://www.scaleway.com/en/docs/object-storage/api-cli/lifecycle-rules-api/).
+
+## Runtime configuration and secrets
+
+Set these non-secret variables on the web container:
+
+```text
+APP_PROFILE=my_organisation
+APP_HOST=workshops.example.org
+RAILS_ENV=production
+RAILS_LOG_TO_STDOUT=true
+RAILS_SERVE_STATIC_FILES=true
+ACTIVE_STORAGE_SERVICE=amazon
+SOLID_QUEUE_IN_PUMA=true
+```
+
+Set these as secret variables:
+
+```text
+DATABASE_URL
+RAILS_MASTER_KEY
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+SMTP_USERNAME
+SMTP_PASSWORD
+ADMIN_PASSWORD
+```
+
+Also configure `MAILER_FROM`, `SMTP_ADDRESS`, `SMTP_PORT`, `SMTP_DOMAIN`,
+`SMTP_AUTHENTICATION`, and `SMTP_ENABLE_STARTTLS_AUTO`. For Scaleway
+Transactional Email, the official SMTP host is `smtp.tem.scaleway.com`, port
+587 uses STARTTLS, the username is the Scaleway project ID, and the password is
+an API secret with Transactional Email permission. Serverless Containers block
+third-party SMTP ports, so choose another compute product if a different SMTP
+provider is mandatory. See [Scaleway SMTP configuration](https://www.scaleway.com/en/docs/transactional-email/reference-content/smtp-configuration/).
+
+`APP_HOST` is a bare hostname without `https://`; Rails uses it to create
+invitation and password-reset links. Configure the container as public,
+HTTPS-only, with container port `3000` and an HTTP health check on `/up`.
+Scaleway injects its reserved `PORT` variable, so do not define `PORT` as a
+custom environment variable. Add the custom domain only after its CNAME points
+to the generated container endpoint; Scaleway then provisions TLS. See
+[custom domains](https://www.scaleway.com/en/docs/serverless-containers/how-to/add-a-custom-domain-to-a-container).
+
+## Database queues and minimum capacity
+
+The application uses Solid Queue. Run all database schema preparation before
+enabling it, set `SOLID_QUEUE_IN_PUMA=true`, and keep at least one container
+instance available when queued mail must continue without incoming web traffic.
+If an installation requires independent workers or stronger delivery
+guarantees, deploy the same image on always-on compute with a separate Solid
+Queue process rather than relying on scale-to-zero behavior.
+
+## Release order
+
+For every production release:
+
+1. Build and push one immutable `linux/amd64` image.
+2. Validate the selected profile and precompile assets in CI.
+3. Create and identify a restorable PostgreSQL backup.
+4. Run a Serverless Job from that image with `bin/rails db:prepare`.
+5. Stop if the migration job fails; do not deploy the web revision.
+6. Deploy the same image digest to the Serverless Container.
+7. Verify `/up`, sign-in, one public resource, direct upload, and transactional
+   email.
+8. Retain the previous image digest and database backup until the observation
+   window closes.
+
+For application-only rollback, redeploy the previous image. If migrations are
+not backward-compatible, stop writes, restore the pre-release backup to a new
+database, point the previous image at it, verify, and only then switch traffic.
+Never run a destructive down migration against the only production database.
+
+## Continuous deployment
+
+A generic upstream must not include a live, credential-bound deployment
+workflow. An installation repository should implement this ordered pipeline:
+
+1. run upstream CI for its selected profile;
+2. authenticate a narrowly scoped Scaleway IAM application;
+3. build and push the immutable image;
+4. create/confirm the database backup;
+5. run and await the migration job;
+6. update the web container to the same image digest;
+7. run smoke checks and record the deployed digest.
+
+Scaleway supports console, CLI, Terraform/OpenTofu, and API deployment. Use IaC
+for durable infrastructure and the CLI or API for image rollouts. See
+[deployment methods](https://www.scaleway.com/en/docs/serverless-containers/reference-content/deploy-container/).

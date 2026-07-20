@@ -30,7 +30,7 @@ Every profile declares `version: 1` and all of the following sections:
 | `identity` | Public application, short, and organisation names |
 | `locales` | Ordered locales, display labels, and default/fallback locales |
 | `modules` | Availability and localized labels for resource modules |
-| `content` | Repository-relative content root and Library, Guides, Prompts, and Glossary manifests |
+| `content` | Repository-relative content root and Workshop, Library, Guides, Prompts, and Glossary manifests |
 | `public_urls` | Canonical application, fallback, project, and source URLs |
 | `operations.analytics` | Whether analytics is enabled and its public script URL |
 | `brand.assets` | Logo, compact mark, email/social images, favicons, and manifest |
@@ -90,6 +90,10 @@ missing or invalid.
 Module behaviour and the Guides, Prompts, and Glossary manifests consume this
 boundary. Brand assets, identity, metadata, email defaults, analytics, and
 semantic theme roles also use it while preserving current IMASUS behaviour.
+
+`content.workshops` selects the installation's initial workshop data. Use an
+empty `workshops: []` manifest when workshops will be created through the UI;
+the minimal example does this and therefore never imports IMASUS workshops.
 
 See [Branding an installation](branding.md) for the asset convention, theme
 roles, localized identity placeholders, email defaults, and optional-service

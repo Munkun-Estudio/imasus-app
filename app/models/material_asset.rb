@@ -15,7 +15,7 @@
 # Each row has exactly one Active Storage file attachment. The importer
 # (`lib/material_assets_importer.rb`) is responsible for walking a local
 # folder that mirrors the SMEs' Drive layout and creating rows with files
-# attached; see `.munkit/specs/2026-04-17-materials-database/notes.md`.
+# attached.
 class MaterialAsset < LibraryItemAsset
   alias_attribute :material_id, :library_item_id
 

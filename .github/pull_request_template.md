@@ -8,10 +8,10 @@
 - How was this tested?
 - What should reviewers focus on?
 
-## Munkit Updates
+## Documentation
 
-- [ ] Updated the relevant spec brief or notes
-- [ ] Recorded durable context in memory or decisions when needed
+- [ ] Updated README or the relevant public documentation when needed
+- [ ] Added migration or compatibility notes when needed
 
 ## Follow-ups
 

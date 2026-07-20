@@ -32,7 +32,8 @@ module ImasusApp
       [ locale.to_sym, [ config.site.locales.fallback.to_sym ] ]
     end
 
-    # Direct public URLs — Tigris serves files from its CDN, no Rails proxy needed.
+    # S3-compatible storage may serve direct public or signed URLs according to
+    # the installation's AWS_PUBLIC_BUCKET setting.
     config.active_storage.resolve_model_to_route = :rails_storage_redirect
     config.active_storage.variant_processor = :mini_magick
   end

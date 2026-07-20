@@ -49,6 +49,11 @@ Missing logo-like assets render the configured short name as accessible text.
 Missing favicon, manifest, analytics, and social-image values omit their tags;
 they never generate empty URLs.
 
+The minimal profile deliberately sets every asset to `null` and uses a distinct
+example palette, proving that a new installation does not inherit the IMASUS
+logo, icons, or colours. Add branded files only after copying the profile for
+your installation.
+
 ## Theme
 
 The profile provides six six-digit hexadecimal colour roles:

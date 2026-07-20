@@ -2,7 +2,6 @@ class Workshop < ApplicationRecord
   include Translatable
   include HasLocalizedRichText
 
-  SEED_PATH = Rails.root.join("db", "seeds", "workshops.yml")
   SLUG_MAX_LENGTH = 100
 
   translates :title, :description
@@ -109,16 +108,17 @@ class Workshop < ApplicationRecord
       locales.default
   end
 
-  # Idempotently loads workshops from {SEED_PATH}. By default this is
-  # production-safe: existing records keep edited fields and only blank fields
-  # are filled from the seed. Pass `overwrite: true` or set
+  # Idempotently loads workshops from the selected profile manifest. By default
+  # this is production-safe: existing records keep edited fields and only blank
+  # fields are filled from the seed. Pass `overwrite: true` or set
   # `SEED_OVERWRITE_CONTENT=1` / `SEED_WORKSHOPS=overwrite` to intentionally
   # refresh content from YAML.
   #
   # @param overwrite [Boolean] whether existing content should be replaced
   # @return [void]
-  def self.seed_from_yaml!(overwrite: SeedPolicy.overwrite?(:workshops))
-    payload = YAML.safe_load_file(SEED_PATH, permitted_classes: [ Date ], aliases: true).fetch("workshops")
+  def self.seed_from_yaml!(path: Rails.configuration.site.content.workshops,
+                           overwrite: SeedPolicy.overwrite?(:workshops))
+    payload = YAML.safe_load_file(path, permitted_classes: [ Date ], aliases: true).fetch("workshops")
     seeded_slugs = payload.map { |entry| entry.fetch("slug") }
 
     payload.each do |entry|
