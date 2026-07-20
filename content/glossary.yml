@@ -1,0 +1,977 @@
+---
+version: 1
+resource: glossary
+categories:
+- id: methodology
+  labels:
+    en: Methodology
+    es: Metodología
+    it: Metodologia
+    el: Μεθοδολογία
+- id: application
+  labels:
+    en: Application
+    es: Aplicación
+    it: Applicazione
+    el: Εφαρμογή
+- id: industry
+  labels:
+    en: Industry
+    es: Industria
+    it: Industria
+    el: Βιομηχανία
+- id: science
+  labels:
+    en: Science
+    es: Ciencia
+    it: Scienza
+    el: Επιστήμη
+entries:
+- id: imagineering
+  category: methodology
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Imagineering
+      definition: 'A complexity-informed design discipline — a portmanteau of Imagination and Engineering, developed by Diane Nijs at Breda University of Applied Sciences — that moves beyond conventional problem-solving toward the co-design of new realities through shared vision and emergent action.
+
+'
+      examples:
+      - Imagineering frames the workshop's ABCD design steps
+      - Applying an imagineering lens to the textile industry
+    es:
+      term: Imagineering
+    it:
+      term: Imagineering
+    el:
+      term: Imagineering
+- id: framework
+  category: methodology
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Framework
+      definition: 'A shared structure of concepts, principles, or tools that guides how a challenge is approached. In IMASUS, frameworks include the Imagineering ABCD steps and the four design lenses (zero waste, recyclability, modularity, longevity).
+
+'
+      examples:
+      - The four-lens design framework
+      - An imagineering framework for systemic change
+    es:
+      term: Marco
+    it:
+      term: Quadro
+    el:
+      term: Πλαίσιο
+- id: creative-tension-engine
+  category: methodology
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Creative Tension Engine
+      definition: 'A shared generative vision formulated as three elements — Name, Promise, and Principle — used in Imagineering Step C to reframe a challenge and guide decentralised action by everyone who engages with it.
+
+'
+      examples:
+      - A CTE reframes a broad challenge as a generative direction
+      - 'The team presented their CTE: name, promise, principle'
+    es:
+      term: Motor de Tensión Creativa
+    it:
+      term: Motore di Tensione Creativa
+- id: workshop
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Workshop
+      definition: 'The IMASUS design workshop, spanning before, during, and after a physical session. Participants register via invitation, browse materials and training, create a project, log their process, and publish a public page.
+
+'
+      examples:
+      - The IMASUS Greece workshop runs across several weeks
+      - During the in-person workshop day
+    es:
+      term: Taller
+    it:
+      term: Workshop
+    el:
+      term: Εργαστήριο
+- id: project
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Project
+      definition: 'The central collaborative object of an IMASUS workshop. A project is created by a participant, optionally linked to a challenge, accumulates log entries, and can be published as a public case-study page. It has one or more members.
+
+'
+      examples:
+      - A project belongs to a workshop and accumulates log entries
+      - Publishing the project produces a public case study
+    es:
+      term: Proyecto
+    it:
+      term: Progetto
+    el:
+      term: Έργο
+- id: team
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Team
+      definition: 'The set of participants who are members of a project. Teams are typically formed during the in-person workshop around shared challenges. Membership is open to any registered participant the project owner invites.
+
+'
+      examples:
+      - The team grew from two to four members during the workshop
+      - Team members share access to the project log
+    es:
+      term: Equipo
+    it:
+      term: Squadra
+    el:
+      term: Ομάδα
+- id: log-entry
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Log entry
+      definition: 'A dated item in a project''s process log — rich text with optional photos, videos, and material references — visible to all project members and to the workshop facilitator. Not published unless the team selects it for the public page.
+
+'
+      examples:
+      - The team's first log entry documented the sourcing research
+      - Adding a log entry with a photo of the material sample
+    es:
+      term: Entrada de registro
+    it:
+      term: Voce di registro
+- id: challenge
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Challenge
+      definition: 'One of the industry-framed prompts (C1–C10) derived from the IMASUS Industry Needs Report. A project may optionally pick a challenge as its starting point; teams often form around shared challenges.
+
+'
+      examples:
+      - Challenge C3 frames the recyclability-versus-cost tension
+      - The team picked an industry challenge as their starting point
+    es:
+      term: Desafío
+    it:
+      term: Sfida
+    el:
+      term: Πρόκληση
+- id: facilitator
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Facilitator
+      definition: 'The workshop role responsible for managing a workshop, inviting participants, and coaching projects. Facilitators do not evaluate or grade; they circulate as mentors and can moderate in case of conflict.
+
+'
+      examples:
+      - The facilitator reviewed the team's CTE draft
+      - Participants contact their facilitator for help, not for evaluation
+    es:
+      term: Facilitador
+    it:
+      term: Facilitatore
+    el:
+      term: Διευκολυντής
+- id: participant
+  category: application
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Participant
+      definition: 'The primary workshop role — a student or young professional who joins via invitation from a facilitator, creates projects, and documents their process through log entries. Participants may join multiple workshops.
+
+'
+      examples:
+      - Each participant registers via an invitation link
+      - Participants may join multiple workshops and projects
+    es:
+      term: Participante
+    it:
+      term: Partecipante
+    el:
+      term: Συμμετέχων
+- id: zero-waste-design
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Zero Waste Design
+      definition: 'A design strategy that minimises material waste during patternmaking, cutting, and construction. Roughly 15–30% of fabric is wasted before a garment reaches anyone; zero waste patternmaking drives this toward zero.
+
+'
+      examples:
+      - The Holly McQuillan case study illustrates zero waste patternmaking
+      - A zero waste approach rethinks cutting logic from the start
+    es:
+      term: Diseño Cero Residuos
+    it:
+      term: Progettazione a Zero Rifiuti
+- id: design-for-recyclability
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Design for Recyclability
+      definition: 'A design strategy anchored in end-of-life thinking: choosing fibres, constructions, and components so the finished product can be disassembled and its materials recovered. Less than 1% of textiles are currently recycled into new clothing.
+
+'
+      examples:
+      - The Rifò Lab case study anchors the recyclability module
+      - Mono-material garments are often easier to recycle
+    es:
+      term: Diseño para la Reciclabilidad
+    it:
+      term: Progettazione per la Riciclabilità
+- id: biomaterial
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Biomaterial
+      definition: 'A material derived from biological sources — plant-based fibres, fungal and mycelium networks, bacterial cellulose, protein fibres, seaweed — used as a sustainable alternative to petrochemical feedstocks.
+
+'
+      examples:
+      - Mycelium leather is a biomaterial alternative to animal leather
+      - Bacterial cellulose is a biomaterial grown in a lab
+    es:
+      term: Biomaterial
+    it:
+      term: Biomateriale
+    el:
+      term: Βιοϋλικό
+- id: micrograph
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Micrograph
+      definition: 'A photograph captured through a microscope, typically a Scanning Electron Microscope (SEM). In the IMASUS Materials Database, micrographs produced at CSIC reveal each material''s structure at microscopic level, making its properties tangible.
+
+'
+      examples:
+      - The SEM micrograph revealed the fibre's hollow structure
+      - A material's micrograph can explain its thermal behaviour
+    es:
+      term: Micrografía
+    it:
+      term: Micrografia
+    el:
+      term: Μικρογραφία
+- id: amino-acids
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Amino acids
+      definition: 'Organic compounds that combine to form proteins; essential for biological functions and often involved in bio-based material synthesis.
+
+'
+    es:
+      term: Aminoácidos
+      definition: 'Compuestos orgánicos que se combinan para formar proteínas; son esenciales para las funciones biológicas y a menudo intervienen en la síntesis de materiales de base biológica.
+
+'
+    it:
+      term: Amminoacidi
+      definition: 'Composti organici che si combinano per formare proteine; sono essenziali per le funzioni biologiche e spesso coinvolti nella sintesi di materiali a base biologica.
+
+'
+    el:
+      term: Αμινοξέα
+      definition: 'Οργανικές ενώσεις που συνδυάζονται για να σχηματίσουν πρωτεΐνες· είναι απαραίτητες για τις βιολογικές λειτουργίες και συχνά συμμετέχουν στη σύνθεση υλικών βιολογικής προέλευσης.
+
+'
+- id: antibacterial
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Antibacterial
+      definition: 'A substance or property that prevents bacterial growth or kills bacteria, often used in medical or hygienic materials.
+
+'
+    es:
+      term: Antibacteriano
+      definition: 'Sustancia o propiedad que impide el crecimiento bacteriano o elimina bacterias, utilizada a menudo en materiales médicos o higiénicos.
+
+'
+    it:
+      term: Antibatterico
+      definition: 'Sostanza o proprietà che impedisce la crescita batterica o uccide i batteri, spesso usata in materiali medici o igienici.
+
+'
+    el:
+      term: Αντιβακτηριακό
+      definition: 'Ουσία ή ιδιότητα που εμποδίζει την ανάπτυξη βακτηρίων ή σκοτώνει βακτήρια, και χρησιμοποιείται συχνά σε ιατρικά ή υγιεινά υλικά.
+
+'
+- id: antiseptic
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Antiseptic
+      definition: 'A substance that inhibits the growth and development of microorganisms on living tissues, used for sterilization and wound care.
+
+'
+    es:
+      term: Antiséptico
+      definition: 'Sustancia que inhibe el crecimiento y desarrollo de microorganismos en tejidos vivos, utilizada para la esterilización y el cuidado de heridas.
+
+'
+    it:
+      term: Antisettico
+      definition: 'Sostanza che inibisce la crescita e lo sviluppo di microrganismi sui tessuti viventi, usata per la sterilizzazione e la cura delle ferite.
+
+'
+    el:
+      term: Αντισηπτικό
+      definition: 'Ουσία που αναστέλλει την ανάπτυξη μικροοργανισμών σε ζωντανούς ιστούς, και χρησιμοποιείται για αποστείρωση και φροντίδα τραυμάτων.
+
+'
+- id: bio-based
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Bio-based
+      definition: 'Derived from biological sources, such as plants or microbes, rather than fossil fuels; often used in sustainable materials.
+
+'
+    es:
+      term: De base biológica
+      definition: 'Derivado de fuentes biológicas, como plantas o microbios, en lugar de combustibles fósiles; se utiliza a menudo en materiales sostenibles.
+
+'
+    it:
+      term: A base biologica
+      definition: 'Derivato da fonti biologiche, come piante o microbi, invece che da combustibili fossili; spesso usato nei materiali sostenibili.
+
+'
+    el:
+      term: Βιολογικής προέλευσης
+      definition: 'Προερχόμενο από βιολογικές πηγές, όπως φυτά ή μικρόβια, αντί για ορυκτά καύσιμα· χρησιμοποιείται συχνά σε βιώσιμα υλικά.
+
+'
+- id: biomass
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Biomass
+      definition: 'Organic matter from plants or animals used as a renewable energy source or raw material for bioproducts.
+
+'
+    es:
+      term: Biomasa
+      definition: 'Materia orgánica procedente de plantas o animales utilizada como fuente de energía renovable o como materia prima para bioproductos.
+
+'
+    it:
+      term: Biomassa
+      definition: 'Materia organica proveniente da piante o animali usata come fonte di energia rinnovabile o come materia prima per bioprodotti.
+
+'
+    el:
+      term: Βιομάζα
+      definition: 'Οργανική ύλη από φυτά ή ζώα που χρησιμοποιείται ως ανανεώσιμη πηγή ενέργειας ή ως πρώτη ύλη για βιοπροϊόντα.
+
+'
+- id: biosynthetic-value-chain
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Biosynthetic value chain
+      definition: 'A production chain based on biosynthesis, where biological processes are used to manufacture materials or chemicals.
+
+'
+    es:
+      term: Cadena de valor biosintética
+      definition: 'Cadena de producción basada en la biosíntesis, en la que se utilizan procesos biológicos para fabricar materiales o sustancias químicas.
+
+'
+    it:
+      term: Catena del valore biosintetica
+      definition: 'Catena produttiva basata sulla biosintesi, in cui processi biologici sono usati per produrre materiali o sostanze chimiche.
+
+'
+    el:
+      term: Βιοσυνθετική αλυσίδα αξίας
+      definition: 'Αλυσίδα παραγωγής βασισμένη στη βιοσύνθεση, όπου βιολογικές διεργασίες χρησιμοποιούνται για την παραγωγή υλικών ή χημικών ουσιών.
+
+'
+- id: biosynthesis
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Biosynthesis
+      definition: 'The natural process by which living organisms produce complex molecules from simpler ones using enzymes.
+
+'
+    es:
+      term: Biosíntesis
+      definition: 'Proceso natural mediante el cual los organismos vivos producen moléculas complejas a partir de otras más simples utilizando enzimas.
+
+'
+    it:
+      term: Biosintesi
+      definition: 'Processo naturale attraverso cui gli organismi viventi producono molecole complesse a partire da molecole più semplici usando enzimi.
+
+'
+    el:
+      term: Βιοσύνθεση
+      definition: 'Η φυσική διαδικασία με την οποία οι ζωντανοί οργανισμοί παράγουν σύνθετα μόρια από απλούστερα με τη βοήθεια ενζύμων.
+
+'
+- id: by-products
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: By-products
+      definition: 'Secondary products generated during the manufacture or breakdown of another product, sometimes useful or recyclable.
+
+'
+    es:
+      term: Subproductos
+      definition: 'Productos secundarios generados durante la fabricación o descomposición de otro producto, que a veces pueden ser útiles o reciclables.
+
+'
+    it:
+      term: Sottoprodotti
+      definition: 'Prodotti secondari generati durante la produzione o la degradazione di un altro prodotto, talvolta utili o riciclabili.
+
+'
+    el:
+      term: Παραπροϊόντα
+      definition: 'Δευτερεύοντα προϊόντα που παράγονται κατά την κατασκευή ή τη διάσπαση ενός άλλου προϊόντος, μερικές φορές χρήσιμα ή ανακυκλώσιμα.
+
+'
+- id: chitin
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Chitin
+      definition: 'A natural polymer found in the exoskeletons of crustaceans and insects; used in biodegradable materials and medical applications.
+
+'
+    es:
+      term: Quitina
+      definition: 'Polímero natural presente en los exoesqueletos de crustáceos e insectos; se utiliza en materiales biodegradables y aplicaciones médicas.
+
+'
+    it:
+      term: Chitina
+      definition: 'Polimero naturale presente negli esoscheletri di crostacei e insetti; usato in materiali biodegradabili e applicazioni mediche.
+
+'
+    el:
+      term: Χιτίνη
+      definition: 'Φυσικό πολυμερές που βρίσκεται στους εξωσκελετούς καρκινοειδών και εντόμων· χρησιμοποιείται σε βιοδιασπώμενα υλικά και ιατρικές εφαρμογές.
+
+'
+- id: cow-gut-tissue
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Cow gut tissue
+      definition: 'Biological material derived from cow intestines, historically used for surgical sutures or strings, such as tennis or musical instrument strings.
+
+'
+    es:
+      term: Tejido intestinal bovino
+      definition: 'Material biológico derivado de los intestinos de vaca, utilizado históricamente para suturas quirúrgicas o cuerdas, como las de tenis o de instrumentos musicales.
+
+'
+    it:
+      term: Tessuto intestinale bovino
+      definition: 'Materiale biologico derivato dall''intestino bovino, storicamente usato per suture chirurgiche o corde, come quelle da tennis o per strumenti musicali.
+
+'
+    el:
+      term: Ιστός εντέρου βοοειδών
+      definition: 'Βιολογικό υλικό που προέρχεται από έντερα αγελάδας, ιστορικά χρησιμοποιημένο για χειρουργικά ράμματα ή χορδές, όπως χορδές τένις ή μουσικών οργάνων.
+
+'
+- id: deacetylation
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Deacetylation
+      definition: 'A chemical process that removes acetyl groups from a molecule, often used in modifying biopolymers like chitin into chitosan.
+
+'
+    es:
+      term: Desacetilación
+      definition: 'Proceso químico que elimina grupos acetilo de una molécula, utilizado a menudo para modificar biopolímeros como la quitina y convertirla en quitosano.
+
+'
+    it:
+      term: Deacetilazione
+      definition: 'Processo chimico che rimuove gruppi acetile da una molecola, spesso usato per modificare biopolimeri come la chitina in chitosano.
+
+'
+    el:
+      term: Αποακετυλίωση
+      definition: 'Χημική διεργασία που αφαιρεί ακετυλομάδες από ένα μόριο, συχνά για την τροποποίηση βιοπολυμερών όπως η χιτίνη σε χιτοζάνη.
+
+'
+- id: extrude
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Extrude
+      definition: 'To force a material through a shaped die to form a continuous shape; a process used in plastic and fibre manufacturing.
+
+'
+    es:
+      term: Extruir
+      definition: 'Forzar un material a pasar por una matriz con forma para crear una forma continua; es un proceso utilizado en la fabricación de plásticos y fibras.
+
+'
+    it:
+      term: Estrudere
+      definition: 'Forzare un materiale attraverso una matrice sagomata per formare una forma continua; processo usato nella produzione di plastiche e fibre.
+
+'
+    el:
+      term: Εξώθηση
+      definition: 'Η διέλευση ενός υλικού μέσα από διαμορφωμένη μήτρα για τη δημιουργία συνεχούς σχήματος· διαδικασία που χρησιμοποιείται στην παραγωγή πλαστικών και ινών.
+
+'
+- id: fermentation
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Fermentation
+      definition: 'A metabolic process converting sugars to acids, gases, or alcohol, often used in food, biofuels, and bio-based material production.
+
+'
+    es:
+      term: Fermentación
+      definition: 'Proceso metabólico que convierte azúcares en ácidos, gases o alcohol, y que se utiliza a menudo en alimentos, biocombustibles y producción de materiales de base biológica.
+
+'
+    it:
+      term: Fermentazione
+      definition: 'Processo metabolico che converte zuccheri in acidi, gas o alcol, spesso usato negli alimenti, nei biocarburanti e nella produzione di materiali a base biologica.
+
+'
+    el:
+      term: Ζύμωση
+      definition: 'Μεταβολική διαδικασία που μετατρέπει σάκχαρα σε οξέα, αέρια ή αλκοόλη, και χρησιμοποιείται συχνά σε τρόφιμα, βιοκαύσιμα και παραγωγή υλικών βιολογικής προέλευσης.
+
+'
+- id: genetically-engineered-micro-organisms
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Genetically engineered micro-organisms
+      definition: 'Microbes that have been genetically modified to produce useful substances like enzymes, fibres, or chemicals.
+
+'
+    es:
+      term: Microorganismos modificados genéticamente
+      definition: 'Microbios modificados genéticamente para producir sustancias útiles, como enzimas, fibras o sustancias químicas.
+
+'
+    it:
+      term: Microrganismi geneticamente modificati
+      definition: 'Microbi geneticamente modificati per produrre sostanze utili, come enzimi, fibre o sostanze chimiche.
+
+'
+    el:
+      term: Γενετικά τροποποιημένοι μικροοργανισμοί
+      definition: 'Μικρόβια που έχουν τροποποιηθεί γενετικά για να παράγουν χρήσιμες ουσίες, όπως ένζυμα, ίνες ή χημικές ουσίες.
+
+'
+- id: industrial-granules
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Industrial granules
+      definition: 'Small, often pelletized, particles used as raw material in industrial processes such as molding or extrusion.
+
+'
+    es:
+      term: Gránulos industriales
+      definition: 'Partículas pequeñas, a menudo peletizadas, utilizadas como materia prima en procesos industriales como el moldeo o la extrusión.
+
+'
+    it:
+      term: Granuli industriali
+      definition: 'Piccole particelle, spesso pellettizzate, usate come materia prima in processi industriali come lo stampaggio o l''estrusione.
+
+'
+    el:
+      term: Βιομηχανικοί κόκκοι
+      definition: 'Μικρά, συχνά πελλετοποιημένα σωματίδια που χρησιμοποιούνται ως πρώτη ύλη σε βιομηχανικές διεργασίες όπως η χύτευση ή η εξώθηση.
+
+'
+- id: material-lamination
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Material lamination
+      definition: 'The process of bonding layers of materials together to improve strength, durability, or functionality.
+
+'
+    es:
+      term: Laminación de materiales
+      definition: 'Proceso de unir capas de materiales para mejorar la resistencia, la durabilidad o la funcionalidad.
+
+'
+    it:
+      term: Laminazione dei materiali
+      definition: 'Processo di unione di strati di materiali per migliorare resistenza, durabilità o funzionalità.
+
+'
+    el:
+      term: Πλαστικοποίηση υλικών
+      definition: 'Η διαδικασία συγκόλλησης στρώσεων υλικών μεταξύ τους για τη βελτίωση της αντοχής, της διάρκειας ζωής ή της λειτουργικότητας.
+
+'
+- id: microbial-fermentation
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Microbial fermentation
+      definition: 'The use of microbes to carry out fermentation, often for creating bio-based chemicals, fuels, or fibres.
+
+'
+    es:
+      term: Fermentación microbiana
+      definition: 'Uso de microbios para llevar a cabo fermentación, a menudo con el fin de crear sustancias químicas, combustibles o fibras de base biológica.
+
+'
+    it:
+      term: Fermentazione microbica
+      definition: 'Uso di microbi per realizzare la fermentazione, spesso per creare sostanze chimiche, combustibili o fibre a base biologica.
+
+'
+    el:
+      term: Μικροβιακή ζύμωση
+      definition: 'Η χρήση μικροβίων για την πραγματοποίηση ζύμωσης, συχνά για τη δημιουργία χημικών ουσιών, καυσίμων ή ινών βιολογικής προέλευσης.
+
+'
+- id: mycelium
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Mycelium
+      definition: 'The root-like structure of fungi, used in biofabrication to create sustainable materials such as packaging, leather alternatives, and insulation.
+
+'
+    es:
+      term: Micelio
+      definition: 'Estructura similar a una raíz propia de los hongos, utilizada en biofabricación para crear materiales sostenibles como envases, alternativas al cuero y aislamiento.
+
+'
+    it:
+      term: Micelio
+      definition: 'Struttura dei funghi simile a una radice, usata nella biofabbricazione per creare materiali sostenibili come imballaggi, alternative alla pelle e isolanti.
+
+'
+    el:
+      term: Μυκήλιο
+      definition: 'Η ριζόμορφη δομή των μυκήτων, που χρησιμοποιείται στη βιοκατασκευή για τη δημιουργία βιώσιμων υλικών όπως συσκευασίες, εναλλακτικές του δέρματος και μονώσεις.
+
+'
+- id: myco-fibers
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Myco-fibers
+      definition: 'Fibres derived from fungi, often biodegradable and used in sustainable textiles or composites.
+
+'
+    es:
+      term: Micofibras
+      definition: 'Fibras derivadas de hongos, a menudo biodegradables y utilizadas en textiles o compuestos sostenibles.
+
+'
+    it:
+      term: Micofibre
+      definition: 'Fibre derivate dai funghi, spesso biodegradabili e usate in tessili o compositi sostenibili.
+
+'
+    el:
+      term: Μυκοΐνες
+      definition: 'Ίνες που προέρχονται από μύκητες, συχνά βιοδιασπώμενες και χρησιμοποιούμενες σε βιώσιμα υφάσματα ή σύνθετα υλικά.
+
+'
+- id: pesticides
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Pesticides
+      definition: 'Chemical or biological agents used to kill or control pests, often associated with agriculture and environmental concerns.
+
+'
+    es:
+      term: Pesticidas
+      definition: 'Agentes químicos o biológicos utilizados para eliminar o controlar plagas, asociados a menudo con la agricultura y preocupaciones ambientales.
+
+'
+    it:
+      term: Pesticidi
+      definition: 'Agenti chimici o biologici usati per eliminare o controllare parassiti, spesso associati all''agricoltura e a preoccupazioni ambientali.
+
+'
+    el:
+      term: Φυτοφάρμακα
+      definition: 'Χημικοί ή βιολογικοί παράγοντες που χρησιμοποιούνται για την εξόντωση ή τον έλεγχο επιβλαβών οργανισμών, συχνά συνδεδεμένοι με τη γεωργία και περιβαλλοντικές ανησυχίες.
+
+'
+- id: petrochemicals
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Petrochemicals
+      definition: 'Chemical products derived from petroleum or natural gas, used to manufacture plastics, fibres, and synthetic materials.
+
+'
+    es:
+      term: Petroquímicos
+      definition: 'Productos químicos derivados del petróleo o del gas natural, utilizados para fabricar plásticos, fibras y materiales sintéticos.
+
+'
+    it:
+      term: Petrolchimici
+      definition: 'Prodotti chimici derivati dal petrolio o dal gas naturale, usati per produrre plastiche, fibre e materiali sintetici.
+
+'
+    el:
+      term: Πετροχημικά
+      definition: 'Χημικά προϊόντα που προέρχονται από πετρέλαιο ή φυσικό αέριο και χρησιμοποιούνται για την παραγωγή πλαστικών, ινών και συνθετικών υλικών.
+
+'
+- id: polyamides
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Polyamides
+      definition: 'Polymers with recurring amide groups, including both natural forms such as proteins and synthetic forms such as nylon.
+
+'
+    es:
+      term: Poliamidas
+      definition: 'Polímeros con grupos amida recurrentes, que incluyen formas naturales como las proteínas y formas sintéticas como el nailon.
+
+'
+    it:
+      term: Poliammidi
+      definition: 'Polimeri con gruppi ammide ricorrenti, che includono forme naturali come le proteine e forme sintetiche come il nylon.
+
+'
+    el:
+      term: Πολυαμίδια
+      definition: 'Πολυμερή με επαναλαμβανόμενες αμιδικές ομάδες, που περιλαμβάνουν τόσο φυσικές μορφές όπως οι πρωτεΐνες όσο και συνθετικές μορφές όπως το νάιλον.
+
+'
+- id: polluting-polysaccharides
+  category: science
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Polluting polysaccharides
+      definition: 'Polysaccharide-based substances or waste streams that can become pollutants when released or discarded without recovery.
+
+'
+    es:
+      term: Polisacáridos contaminantes
+      definition: 'Sustancias o flujos de residuos basados en polisacáridos que pueden convertirse en contaminantes cuando se liberan o se desechan sin recuperación.
+
+'
+    it:
+      term: Polisaccaridi inquinanti
+      definition: 'Sostanze o flussi di rifiuti a base di polisaccaridi che possono diventare inquinanti quando vengono rilasciati o smaltiti senza recupero.
+
+'
+    el:
+      term: Ρυπογόνοι πολυσακχαρίτες
+      definition: 'Ουσίες ή ροές αποβλήτων με βάση πολυσακχαρίτες που μπορούν να γίνουν ρύποι όταν απελευθερώνονται ή απορρίπτονται χωρίς ανάκτηση.
+
+'
+- id: post-consumer-waste
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Post-consumer waste
+      definition: 'Materials discarded by end-users after use, often collected for recycling or waste-to-energy processes.
+
+'
+    es:
+      term: Residuos posconsumo
+      definition: 'Materiales desechados por los usuarios finales después de su uso, a menudo recogidos para reciclaje o procesos de valorización energética.
+
+'
+    it:
+      term: Rifiuti post-consumo
+      definition: 'Materiali scartati dagli utenti finali dopo l''uso, spesso raccolti per il riciclo o per processi di recupero energetico dai rifiuti.
+
+'
+    el:
+      term: Απόβλητα μετά την κατανάλωση
+      definition: 'Υλικά που απορρίπτονται από τους τελικούς χρήστες μετά τη χρήση, συχνά συλλεγόμενα για ανακύκλωση ή διεργασίες παραγωγής ενέργειας από απόβλητα.
+
+'
+- id: spandex
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Spandex
+      definition: 'A synthetic fibre known for exceptional elasticity and used in clothing, especially activewear. Also known as elastane, it is made from long-chain synthetic polymers called polyurethanes.
+
+'
+    es:
+      term: Spandex
+      definition: 'Fibra sintética conocida por su excepcional elasticidad y utilizada en prendas de vestir, especialmente ropa deportiva. También conocida como elastano, está hecha de polímeros sintéticos de cadena larga llamados poliuretanos.
+
+'
+    it:
+      term: Spandex
+      definition: 'Fibra sintetica nota per la sua eccezionale elasticità e usata nell''abbigliamento, soprattutto sportivo. Conosciuta anche come elastan, è composta da polimeri sintetici a catena lunga chiamati poliuretani.
+
+'
+    el:
+      term: Σπάντεξ
+      definition: 'Συνθετική ίνα γνωστή για την εξαιρετική ελαστικότητά της και χρησιμοποιούμενη στην ένδυση, ιδιαίτερα στα αθλητικά ρούχα. Είναι επίσης γνωστή ως ελαστάνη και παράγεται από συνθετικά πολυμερή μακράς αλυσίδας που ονομάζονται πολυουρεθάνες.
+
+'
+- id: spinneret
+  category: industry
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      term: Spinneret
+      definition: 'A device with tiny holes through which polymer solutions are extruded to form fibres in synthetic fibre production.
+
+'
+    es:
+      term: Hilera
+      definition: 'Dispositivo con pequeños orificios a través de los cuales se extruyen soluciones poliméricas para formar fibras en la producción de fibras sintéticas.
+
+'
+    it:
+      term: Filiera
+      definition: 'Dispositivo con piccoli fori attraverso cui vengono estruse soluzioni polimeriche per formare fibre nella produzione di fibre sintetiche.
+
+'
+    el:
+      term: Κλωστική μήτρα
+      definition: 'Συσκευή με μικροσκοπικές οπές μέσα από τις οποίες εξωθούνται πολυμερικά διαλύματα για τον σχηματισμό ινών στην παραγωγή συνθετικών ινών.
+
+'

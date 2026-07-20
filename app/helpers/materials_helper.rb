@@ -52,7 +52,7 @@ module MaterialsHelper
   # @return [ActiveSupport::SafeBuffer, nil]
   def material_prose(material, attribute)
     value = material.public_send(:"#{attribute}_in", I18n.locale).presence ||
-            material.public_send(:"#{attribute}_in", Material::BASE_LOCALE)
+            material.public_send(:"#{attribute}_in", Material.base_locale)
     return nil if value.to_s.strip.empty?
 
     value = strip_embedded_data_uri_references(value)
@@ -135,7 +135,7 @@ module MaterialsHelper
   # @return [String, nil]
   def material_meta_description(material)
     value = material.description_in(I18n.locale).presence ||
-            material.description_in(Material::BASE_LOCALE)
+            material.description_in(Material.base_locale)
     return nil if value.to_s.strip.empty?
 
     strip_tags(value).squish.truncate(155, separator: " ")

@@ -1,19 +1,14 @@
 <%# locals: (challenge:, mode: :preview) %>
 <%
-  accent_class = case challenge.category
-                 when "material" then "border-l-imasus-dark-green"
-                 when "design"   then "border-l-imasus-navy"
-                 when "system"   then "border-l-imasus-light-blue"
-                 when "business" then "border-l-imasus-light-pink"
-                 else                 "border-l-imasus-dark-green/20"
-                 end
-  pill_class = case challenge.category
-               when "material" then "bg-imasus-dark-green/10 text-imasus-dark-green"
-               when "design"   then "bg-imasus-navy/10 text-imasus-navy"
-               when "system"   then "bg-imasus-light-blue/30 text-imasus-dark-green"
-               when "business" then "bg-imasus-light-pink/40 text-imasus-dark-green"
-               else                 "bg-imasus-dark-green/10 text-imasus-dark-green"
-               end
+  category_position = Challenge.catalog.category(challenge.category)&.position.to_i
+  accent_class = %w[border-l-brand-primary border-l-brand-secondary border-l-brand-info border-l-brand-soft]
+                   .fetch((category_position - 1) % 4)
+  pill_class = [
+    "bg-brand-primary/10 text-brand-primary",
+    "bg-brand-secondary/10 text-brand-secondary",
+    "bg-brand-info/30 text-brand-primary",
+    "bg-brand-soft/40 text-brand-primary"
+  ].fetch((category_position - 1) % 4)
 
   public_mode = mode == :public
   link_target = public_mode ? challenges_path : preview_challenge_path(challenge.to_param)
@@ -22,7 +17,7 @@
   card = capture do %>
   <article id="<%= challenge.code.downcase %>"
            data-challenge="<%= challenge.code %>"
-           class="group relative flex h-full flex-col gap-3 rounded-lg border border-imasus-dark-green/10 border-l-4 <%= accent_class %> bg-white p-5 shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-imasus-dark-green/40">
+           class="group relative flex h-full flex-col gap-3 rounded-lg border border-brand-primary/10 border-l-4 <%= accent_class %> bg-white p-5 shadow-sm transition hover:shadow-md focus-within:ring-2 focus-within:ring-brand-primary/40">
     <% if logged_in? && !public_mode %>
       <div class="absolute right-2 top-2 z-10">
         <%= bookmark_toggle(
@@ -33,15 +28,15 @@
       </div>
     <% end %>
     <div class="flex items-center gap-2 text-xs">
-      <span class="font-mono font-semibold text-imasus-dark-green">
+      <span class="font-mono font-semibold text-brand-primary">
         <%= challenge.code %>
       </span>
       <span class="inline-flex items-center rounded-full px-2.5 py-0.5 font-medium <%= pill_class %>">
-        <%= t("challenges.categories.#{challenge.category}") %>
+        <%= challenge.category_label %>
       </span>
     </div>
 
-    <h3 class="text-base font-semibold text-imasus-dark-green">
+    <h3 class="text-base font-semibold text-brand-primary">
       <%= link_to link_target,
             aria: { label: t("challenges.card.open_label", code: challenge.code) },
             data: link_data,
@@ -55,7 +50,7 @@
         <%= link_to t("challenges.actions.edit"),
               edit_challenge_path(challenge.to_param),
               data: { role: "edit-challenge", turbo_frame: dom_id(challenge) },
-              class: "relative z-10 rounded-md border border-imasus-dark-green/20 px-3 py-1 text-xs font-medium text-imasus-dark-green hover:bg-imasus-mint/20" %>
+              class: "relative z-10 rounded-md border border-brand-primary/20 px-3 py-1 text-xs font-medium text-brand-primary hover:bg-brand-success/20" %>
       </div>
     <% end %>
   </article>

@@ -1,26 +1,26 @@
 <div data-home-variant="facilitator" class="px-6 py-12 sm:px-10 lg:px-16">
-  <h1 class="text-3xl font-bold tracking-tight text-imasus-dark-green sm:text-4xl">
+  <h1 class="text-3xl font-bold tracking-tight text-brand-primary sm:text-4xl">
     <%= t(".greeting", name: current_user.name) %>
   </h1>
 
   <% if @workshops.any? %>
     <section class="mt-10">
-      <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
+      <h2 class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
         <%= t(".workshops.heading") %>
       </h2>
 
       <div class="mt-4 grid gap-5 lg:grid-cols-2">
         <% @workshops.each do |workshop| %>
           <article data-workshop-card data-slug="<%= workshop.slug %>"
-                   class="flex flex-col rounded-2xl border border-imasus-dark-green/10 bg-white p-5">
-            <h3 class="text-lg font-bold text-imasus-dark-green">
+                   class="flex flex-col rounded-2xl border border-brand-primary/10 bg-white p-5">
+            <h3 class="text-lg font-bold text-brand-primary">
               <%= link_to workshop.title, workshop_path(workshop), class: "hover:underline" %>
             </h3>
-            <p class="mt-1 text-xs font-medium uppercase tracking-wide text-imasus-dark-green/50">
+            <p class="mt-1 text-xs font-medium uppercase tracking-wide text-brand-primary/50">
               <%= workshop.location %>
             </p>
             <% if workshop.starts_on.present? %>
-              <p class="mt-1 text-xs text-imasus-dark-green/60">
+              <p class="mt-1 text-xs text-brand-primary/60">
                 <%= l(workshop.starts_on, format: :long) %>
                 <% if workshop.ends_on.present? && workshop.ends_on != workshop.starts_on %>
                   – <%= l(workshop.ends_on, format: :long) %>
@@ -29,38 +29,38 @@
             <% end %>
 
             <div class="mt-4 grid grid-cols-3 gap-2 text-center">
-              <div data-stat="participants" class="rounded-xl bg-imasus-light-blue/30 px-3 py-2">
-                <span data-count class="block text-lg font-bold text-imasus-dark-green">
+              <div data-stat="participants" class="rounded-xl bg-brand-info/30 px-3 py-2">
+                <span data-count class="block text-lg font-bold text-brand-primary">
                   <%= workshop.participants.count(&:participant?) %>
                 </span>
-                <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.participants") %></span>
+                <span class="block text-xs text-brand-primary/60"><%= t(".stats.participants") %></span>
               </div>
-              <div data-stat="draft_projects" class="rounded-xl bg-imasus-light-pink/30 px-3 py-2">
-                <span data-count class="block text-lg font-bold text-imasus-dark-green">
+              <div data-stat="draft_projects" class="rounded-xl bg-brand-soft/30 px-3 py-2">
+                <span data-count class="block text-lg font-bold text-brand-primary">
                   <%= workshop.projects.count { |p| p.status == "draft" } %>
                 </span>
-                <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.drafts") %></span>
+                <span class="block text-xs text-brand-primary/60"><%= t(".stats.drafts") %></span>
               </div>
-              <div data-stat="published_projects" class="rounded-xl bg-imasus-mint/40 px-3 py-2">
-                <span data-count class="block text-lg font-bold text-imasus-dark-green">
+              <div data-stat="published_projects" class="rounded-xl bg-brand-success/40 px-3 py-2">
+                <span data-count class="block text-lg font-bold text-brand-primary">
                   <%= workshop.projects.count { |p| p.status == "published" } %>
                 </span>
-                <span class="block text-xs text-imasus-dark-green/60"><%= t(".stats.published") %></span>
+                <span class="block text-xs text-brand-primary/60"><%= t(".stats.published") %></span>
               </div>
             </div>
 
             <div class="mt-4 flex flex-wrap gap-2">
               <%= link_to new_workshop_invitation_path(workshop),
-                          class: "inline-flex items-center rounded-full bg-imasus-dark-green px-3 py-1.5 text-xs font-bold text-white transition hover:bg-imasus-navy" do %>
+                          class: "inline-flex items-center rounded-full bg-brand-primary px-3 py-1.5 text-xs font-bold text-white transition hover:bg-brand-secondary" do %>
                 <%= t(".cta.invite_participants") %>
               <% end %>
               <%= link_to workshop_path(workshop),
-                          class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
+                          class: "inline-flex items-center rounded-full border border-brand-primary/15 px-3 py-1.5 text-xs font-bold text-brand-primary transition hover:border-brand-primary/30" do %>
                 <%= t(".cta.open_workshop") %>
               <% end %>
               <% if workshop.manageable_by?(current_user) %>
                 <%= link_to edit_workshop_path(workshop),
-                            class: "inline-flex items-center rounded-full border border-imasus-dark-green/15 px-3 py-1.5 text-xs font-bold text-imasus-dark-green transition hover:border-imasus-dark-green/30" do %>
+                            class: "inline-flex items-center rounded-full border border-brand-primary/15 px-3 py-1.5 text-xs font-bold text-brand-primary transition hover:border-brand-primary/30" do %>
                   <%= t(".cta.edit_workshop") %>
                 <% end %>
               <% end %>
@@ -70,8 +70,8 @@
       </div>
     </section>
   <% else %>
-    <section class="mt-10 rounded-2xl border border-dashed border-imasus-dark-green/15 bg-white px-6 py-10">
-      <p class="text-sm leading-relaxed text-imasus-dark-green/60">
+    <section class="mt-10 rounded-2xl border border-dashed border-brand-primary/15 bg-white px-6 py-10">
+      <p class="text-sm leading-relaxed text-brand-primary/60">
         <%= t(".empty") %>
       </p>
     </section>
@@ -79,13 +79,15 @@
 
   <%= render "home/recent_bookmarks", bookmarks: @recent_bookmarks %>
 
-  <%# Public resources teaser — same styled grid as the visitor home %>
-  <section class="mt-16">
-    <h2 class="text-xs font-bold uppercase tracking-widest text-imasus-dark-green/50">
-      <%= t(".resources.heading") %>
-    </h2>
-    <div class="mt-4">
-      <%= render "shared/resources_grid" %>
-    </div>
-  </section>
+  <% if resource_module_registry.enabled.any? %>
+    <%# Public resources teaser — same styled grid as the visitor home %>
+    <section class="mt-16">
+      <h2 class="text-xs font-bold uppercase tracking-widest text-brand-primary/50">
+        <%= t(".resources.heading") %>
+      </h2>
+      <div class="mt-4">
+        <%= render "shared/resources_grid" %>
+      </div>
+    </section>
+  <% end %>
 </div>

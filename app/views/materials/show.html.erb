@@ -15,21 +15,21 @@
 
 <article class="px-6 py-10 sm:px-10 lg:px-16">
   <%= link_to t("materials.show.back_to_index"), materials_path,
-        class: "inline-flex items-center text-sm font-semibold text-imasus-dark-green/70 hover:text-imasus-dark-green" %>
+        class: "inline-flex items-center text-sm font-semibold text-brand-primary/70 hover:text-brand-primary" %>
 
   <header class="mt-6 flex items-start gap-3">
-    <h1 class="flex-1 text-3xl font-bold text-imasus-dark-green sm:text-4xl">
+    <h1 class="flex-1 text-3xl font-bold text-brand-primary sm:text-4xl">
       <%= @material.trade_name %>
     </h1>
     <% if curator? %>
       <%= link_to t("materials.actions.edit"),
             edit_material_path(@material),
             data: { role: "edit-material" },
-            class: "inline-flex items-center rounded-full border border-imasus-dark-green/20 px-3 py-1.5 text-sm font-semibold text-imasus-dark-green hover:bg-imasus-mint/20" %>
+            class: "inline-flex items-center rounded-full border border-brand-primary/20 px-3 py-1.5 text-sm font-semibold text-brand-primary hover:bg-brand-success/20" %>
     <% end %>
     <%= bookmark_toggle(
-          bookmarkable_type: "Material",
-          resource_key:      @material.id.to_s,
+          bookmarkable_type: "LibraryItem",
+          resource_key:      @material.slug,
           label:             @material.trade_name,
           url:               material_path(@material)) %>
   </header>
@@ -42,7 +42,7 @@
              class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
       <div data-role="gallery-viewer"
            data-material-gallery-target="viewer"
-           class="relative flex-1 overflow-hidden rounded-2xl bg-imasus-mint/20 aspect-[16/10]">
+           class="relative flex-1 overflow-hidden rounded-2xl bg-brand-success/20 aspect-[16/10]">
         <%= render "gallery_media", item: active_item, material: @material, deferred: active_item[:kind] == "video" %>
       </div>
 
@@ -59,7 +59,7 @@
                       data-material-gallery-target="thumb"
                       data-action="material-gallery#select"
                       aria-label="<%= item[:alt] %>"
-                      class="relative block h-20 w-28 overflow-hidden rounded-lg bg-imasus-mint/20 ring-2 ring-transparent transition hover:ring-imasus-dark-green/40 focus:outline-none focus:ring-imasus-dark-green/60 data-[gallery-active=true]:ring-imasus-dark-green">
+                      class="relative block h-20 w-28 overflow-hidden rounded-lg bg-brand-success/20 ring-2 ring-transparent transition hover:ring-brand-primary/40 focus:outline-none focus:ring-brand-primary/60 data-[gallery-active=true]:ring-brand-primary">
                 <% if item[:kind] == "video" %>
                   <% poster = @material.cover_asset %>
                   <% if poster&.file&.attached? %>
@@ -69,7 +69,7 @@
                           class: "h-full w-full object-cover opacity-70" %>
                   <% end %>
                   <span class="absolute inset-0 flex items-center justify-center text-white">
-                    <span class="flex h-8 w-8 items-center justify-center rounded-full bg-imasus-dark-green/80">
+                    <span class="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary/80">
                       <%= heroicon :play, class: "h-4 w-4" %>
                     </span>
                   </span>
@@ -93,13 +93,13 @@
         <% prose = material_prose(@material, attribute) %>
         <% next unless prose %>
         <section data-role="section-<%= attribute %>" class="space-y-3">
-          <h2 class="flex items-center gap-2 border-b border-imasus-dark-green/10 pb-2 text-sm font-semibold uppercase tracking-wide text-imasus-dark-green/70">
-            <span class="text-imasus-dark-green/50">
+          <h2 class="flex items-center gap-2 border-b border-brand-primary/10 pb-2 text-sm font-semibold uppercase tracking-wide text-brand-primary/70">
+            <span class="text-brand-primary/50">
               <%= heroicon section_icons.fetch(attribute), class: "h-4 w-4" %>
             </span>
             <%= t("materials.show.sections.#{attribute}") %>
           </h2>
-          <div class="prose prose-sm max-w-none text-imasus-dark-green/80">
+          <div class="prose prose-sm max-w-none text-brand-primary/80">
             <%= prose %>
           </div>
         </section>
@@ -107,22 +107,22 @@
     </div>
 
     <aside class="space-y-8 lg:sticky lg:top-8 lg:self-start">
-      <dl class="divide-y divide-imasus-dark-green/10 rounded-xl bg-imasus-mint/10 px-5">
+      <dl class="divide-y divide-brand-primary/10 rounded-xl bg-brand-success/10 px-5">
         <% if @material.supplier_name.present? || @material.supplier_url.present? %>
           <div data-role="meta-supplier" class="flex items-start gap-3 py-4">
-            <span class="pt-0.5 text-imasus-dark-green/60">
+            <span class="pt-0.5 text-brand-primary/60">
               <%= heroicon :building_office_2 %>
             </span>
             <div class="flex-1 min-w-0">
-              <dt class="text-xs uppercase tracking-wide text-imasus-dark-green/60">
+              <dt class="text-xs uppercase tracking-wide text-brand-primary/60">
                 <%= t("materials.show.meta.supplier") %>
               </dt>
-              <dd class="mt-0.5 break-words text-sm text-imasus-dark-green">
+              <dd class="mt-0.5 break-words text-sm text-brand-primary">
                 <% label = @material.supplier_name.presence || t("materials.show.open_supplier") %>
                 <% if @material.supplier_url.present? %>
                   <%= link_to @material.supplier_url,
                         target: "_blank", rel: "noopener noreferrer",
-                        class: "inline-flex items-center gap-1 font-medium underline decoration-imasus-dark-green/30 underline-offset-2 hover:decoration-imasus-dark-green" do %>
+                        class: "inline-flex items-center gap-1 font-medium underline decoration-brand-primary/30 underline-offset-2 hover:decoration-brand-primary" do %>
                     <%= label %>
                     <%= heroicon :arrow_top_right_on_square, class: "h-3.5 w-3.5" %>
                   <% end %>
@@ -135,15 +135,15 @@
         <% end %>
 
         <div data-role="meta-availability" class="flex items-start gap-3 py-4">
-          <span class="pt-0.5 text-imasus-dark-green/60">
+          <span class="pt-0.5 text-brand-primary/60">
             <%= heroicon :check_badge %>
           </span>
           <div class="flex-1 min-w-0">
-            <dt class="text-xs uppercase tracking-wide text-imasus-dark-green/60">
+            <dt class="text-xs uppercase tracking-wide text-brand-primary/60">
               <%= t("materials.show.meta.availability") %>
             </dt>
             <dd class="mt-0.5" data-role="availability">
-              <span class="inline-flex items-center rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-imasus-dark-green">
+              <span class="inline-flex items-center rounded-full bg-white px-2.5 py-0.5 text-xs font-medium text-brand-primary">
                 <%= t("materials.index.availability.#{@material.availability_status}") %>
               </span>
             </dd>
@@ -152,14 +152,14 @@
 
         <% if @material.material_of_origin.present? %>
           <div data-role="meta-origin" class="flex items-start gap-3 py-4">
-            <span class="pt-0.5 text-imasus-dark-green/60">
+            <span class="pt-0.5 text-brand-primary/60">
               <%= heroicon :cube %>
             </span>
             <div class="flex-1 min-w-0">
-              <dt class="text-xs uppercase tracking-wide text-imasus-dark-green/60">
+              <dt class="text-xs uppercase tracking-wide text-brand-primary/60">
                 <%= t("materials.show.meta.material_of_origin") %>
               </dt>
-              <dd class="mt-0.5 text-sm text-imasus-dark-green">
+              <dd class="mt-0.5 text-sm text-brand-primary">
                 <%= @material.material_of_origin %>
               </dd>
             </div>
@@ -169,14 +169,14 @@
 
       <% if tag_groups.any? %>
         <section class="space-y-3">
-          <h2 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-imasus-dark-green/60">
+          <h2 class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-brand-primary/60">
             <%= heroicon :tag, class: "h-3.5 w-3.5" %>
             <%= t("materials.show.tags_heading") %>
           </h2>
           <dl class="space-y-3">
             <% tag_groups.each do |facet, tags| %>
               <div data-role="detail-facet-group" data-facet="<%= facet %>">
-                <dt class="text-xs font-medium text-imasus-dark-green/60">
+                <dt class="text-xs font-medium text-brand-primary/60">
                   <%= t("materials.index.facets.#{facet}.title") %>
                 </dt>
                 <dd class="mt-1">
@@ -184,8 +184,8 @@
                       class="flex flex-wrap gap-1.5">
                     <% tags.each do |tag| %>
                       <li>
-                        <span class="inline-flex items-center rounded-full border border-imasus-dark-green/15 bg-white px-2.5 py-0.5 text-xs text-imasus-dark-green/80">
-                          <%= tag.name_in(I18n.locale) || tag.name_in(Tag::BASE_LOCALE) %>
+                        <span class="inline-flex items-center rounded-full border border-brand-primary/15 bg-white px-2.5 py-0.5 text-xs text-brand-primary/80">
+                          <%= tag.name_in(I18n.locale) || tag.name_in(Tag.base_locale) %>
                         </span>
                       </li>
                     <% end %>

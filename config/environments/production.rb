@@ -1,6 +1,7 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  fallback_host = URI.parse(config.site.public_urls.fallback).host
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -24,7 +25,7 @@ Rails.application.configure do
   # Store uploaded files in S3 by default; allow temporary disk storage for launch smoke tests.
   config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", "amazon").to_sym
 
-  # Fly terminates SSL before forwarding requests to the Rails container.
+  # The hosting platform terminates SSL before forwarding requests to Rails.
   config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -54,14 +55,14 @@ Rails.application.configure do
   config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Transactional email is required for facilitator/participant invitations and
-  # password resets. Credentials live in Fly secrets, never in encrypted
-  # credentials, so deploys can be configured without committing secret values.
+  # password resets. Credentials live in the hosting platform's secret store,
+  # so deploys can be configured without committing secret values.
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "imasus-app.fly.dev"),
+    host: ENV.fetch("APP_HOST", fallback_host),
     protocol: "https"
   }
 
@@ -70,7 +71,7 @@ Rails.application.configure do
     config.action_mailer.smtp_settings = {
       address: ENV.fetch("SMTP_ADDRESS"),
       port: ENV.fetch("SMTP_PORT", 587).to_i,
-      domain: ENV.fetch("SMTP_DOMAIN", ENV.fetch("APP_HOST", "imasus-app.fly.dev")),
+      domain: ENV.fetch("SMTP_DOMAIN", ENV.fetch("APP_HOST", fallback_host)),
       user_name: ENV.fetch("SMTP_USERNAME"),
       password: ENV.fetch("SMTP_PASSWORD"),
       authentication: ENV.fetch("SMTP_AUTHENTICATION", "plain").to_sym,
@@ -80,10 +81,6 @@ Rails.application.configure do
     }
   end
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation cannot be found).
-  config.i18n.fallbacks = true
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
@@ -91,7 +88,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts << "imasus-app.fly.dev"
+  config.hosts << fallback_host
   config.hosts << ENV["APP_HOST"] if ENV["APP_HOST"].present?
   #
   # Skip DNS rebinding protection for the default health check endpoint.

@@ -34,18 +34,30 @@ class ChallengesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "GET /challenges hides retired prompts while their historical preview remains available" do
+    retired = Challenge.find_by!(code: "C1")
+    retired.update!(published: false)
+
+    get challenges_url
+    assert_select "a[href=?]", preview_challenge_path(retired.to_param), count: 0
+
+    get preview_challenge_url(retired.to_param)
+    assert_response :success
+  end
+
   test "GET /challenges groups challenges by category in the stable order material → design → system → business" do
     get challenges_url
 
     body = response.body
-    positions = Challenge::CATEGORIES.map { |cat| [ cat, body.index(%r{data-category="#{cat}"}) ] }.to_h
+    category_ids = Challenge.catalog.category_ids
+    positions = category_ids.map { |cat| [ cat, body.index(%r{data-category="#{cat}"}) ] }.to_h
 
     positions.each do |cat, pos|
       assert pos, "expected a section for category '#{cat}' on the index"
     end
 
     ordered = positions.sort_by { |_cat, pos| pos }.map(&:first)
-    assert_equal Challenge::CATEGORIES, ordered,
+    assert_equal category_ids, ordered,
                  "categories should render in the canonical order, got #{ordered.inspect}"
   end
 
@@ -53,8 +65,8 @@ class ChallengesControllerTest < ActionDispatch::IntegrationTest
     get challenges_url
     body = response.body
 
-    material_codes = Challenge.where(category: "material").by_code.pluck(:code)
-    positions = material_codes.map { |code| body.index(code) }
+    material_codes = Challenge.where(category: "material").ordered.pluck(:code)
+    positions = material_codes.map { |code| body.index(%(data-challenge="#{code}")) }
     assert_equal positions, positions.sort,
                  "material challenges should render in numeric code order; got positions #{positions.inspect} for codes #{material_codes.inspect}"
   end
@@ -154,6 +166,13 @@ class ChallengesControllerTest < ActionDispatch::IntegrationTest
     Challenge.find_each do |challenge|
       assert_select "a[data-role='edit-challenge'][href=?]", edit_challenge_path(challenge.to_param)
     end
+  end
+
+  test "signed-in prompt bookmarks use the manifest stable ID" do
+    sign_in(@admin)
+    get challenges_url
+
+    assert_select "input[name='bookmark[resource_key]'][value='C1']"
   end
 
   test "facilitator sees Edit affordance inside the preview drawer" do

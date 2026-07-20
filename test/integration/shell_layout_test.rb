@@ -48,8 +48,8 @@ class ShellLayoutTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "nav[aria-label]" do
-      assert_select "a[href=?].bg-imasus-light-blue", materials_path
-      assert_select "a[href=?].bg-imasus-red", materials_path, count: 0
+      assert_select "a[href=?].bg-brand-info", materials_path
+      assert_select "a[href=?].bg-brand-accent", materials_path, count: 0
     end
   end
 
@@ -58,7 +58,7 @@ class ShellLayoutTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_select "nav[aria-label]" do
-      assert_select "a[href=?].bg-imasus-mint", challenges_path
+      assert_select "a[href=?].bg-brand-success", challenges_path
     end
   end
 

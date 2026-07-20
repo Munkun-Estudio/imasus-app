@@ -1,18 +1,22 @@
-# Public catalogue of the ten framing challenges (C1–C10).
+# Public catalogue of installation-configured prompts.
 #
 # Read surface is the index (`index`) and a sidebar preview drawer
 # (`preview`) — there is no standalone show page. Curator actions
 # (`edit`, `update`) are guarded by {ApplicationController#require_role}
-# and available to admins and facilitators only. The challenge set is fixed
-# at ten items — there is no `new`, `create`, or `destroy`.
+# and available to admins and facilitators only. Entries are added or retired
+# through the installation manifest rather than browser CRUD.
 class ChallengesController < ApplicationController
+  requires_resource_module :prompts
+
   before_action :require_curator, only: [ :edit, :update ]
   before_action :set_challenge,   only: [ :preview, :edit, :update ]
 
   # GET /challenges
   def index
-    @challenges_by_category = Challenge::CATEGORIES.each_with_object({}) do |category, memo|
-      scoped = Challenge.where(category: category).by_code.to_a
+    @prompts_module = resource_module_registry.fetch(:prompts)
+    @catalog = Challenge.catalog
+    @challenges_by_category = @catalog.categories.each_with_object({}) do |category, memo|
+      scoped = Challenge.published.where(category: category.id).ordered.to_a
       memo[category] = scoped if scoped.any?
     end
   end
@@ -29,10 +33,12 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/:code/edit
   def edit
+    @catalog = Challenge.catalog
   end
 
   # PATCH /challenges/:code
   def update
+    @catalog = Challenge.catalog
     if @challenge.update(challenge_params)
       notice = t(".notice", default: "Challenge updated.")
       respond_to do |format|
@@ -61,7 +67,7 @@ class ChallengesController < ApplicationController
   end
 
   # Only category and translation fields are mutable. `code` is the stable
-  # identifier for the fixed set of ten challenges and cannot be changed.
+  # manifest identifier and cannot be changed through the curator form.
   def challenge_params
     locales = I18n.available_locales.map(&:to_s)
     params.require(:challenge).permit(

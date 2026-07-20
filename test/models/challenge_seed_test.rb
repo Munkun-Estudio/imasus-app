@@ -3,7 +3,7 @@ require "test_helper"
 class ChallengeSeedTest < ActiveSupport::TestCase
   test "seed_from_yaml! loads every entry from the default seed file" do
     Challenge.seed_from_yaml!
-    entries = YAML.load_file(Rails.root.join("db", "seeds", "challenges.yml"))
+    entries = YAML.load_file(Rails.configuration.site.content.prompts).fetch("entries")
 
     assert_equal entries.size, Challenge.count
   end
@@ -20,7 +20,22 @@ class ChallengeSeedTest < ActiveSupport::TestCase
     Challenge.seed_from_yaml!
 
     assert_equal 10, Challenge.count
-    assert_equal (1..10).map { |n| "C#{n}" }, Challenge.by_code.pluck(:code)
+    assert_equal (1..10).map { |n| "C#{n}" }, Challenge.ordered.pluck(:code)
+  end
+
+  test "seed marks manifest entries and retires removed entries without deleting references" do
+    Challenge.seed_from_yaml!
+    retired = Challenge.create!(
+      code: "legacy-prompt",
+      category: Challenge.catalog.category_ids.first,
+      question_translations: { "en" => "Legacy question" },
+      description_translations: { "en" => "Legacy description" },
+      managed_by_manifest: true
+    )
+    Challenge.seed_from_yaml!
+
+    assert_not retired.reload.published?
+    assert Challenge.exists?(retired.id)
   end
 
   test "seed covers all four canonical categories" do

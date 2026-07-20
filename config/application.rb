@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require_relative "../lib/site_config"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,10 +25,15 @@ module ImasusApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    config.i18n.available_locales = %i[en es it el]
-    config.i18n.default_locale = :en
+    config.site = SiteConfig.load(root: Pathname(__dir__).join(".."))
+    config.i18n.available_locales = config.site.locales.available.map(&:to_sym)
+    config.i18n.default_locale = config.site.locales.default.to_sym
+    config.i18n.fallbacks = config.site.locales.available.to_h do |locale|
+      [ locale.to_sym, [ config.site.locales.fallback.to_sym ] ]
+    end
 
-    # Direct public URLs — Tigris serves files from its CDN, no Rails proxy needed.
+    # S3-compatible storage may serve direct public or signed URLs according to
+    # the installation's AWS_PUBLIC_BUCKET setting.
     config.active_storage.resolve_model_to_route = :rails_storage_redirect
     config.active_storage.variant_processor = :mini_magick
   end

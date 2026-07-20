@@ -1,0 +1,1797 @@
+---
+version: 1
+resource: library
+item_types:
+- id: material
+  labels:
+    en: Material
+  fields:
+  - id: supplier_name
+    kind: string
+    localized: false
+    required: false
+    cardinality: one
+    labels:
+      en: Supplier
+    display: metadata
+    card: false
+  - id: supplier_url
+    kind: url
+    localized: false
+    required: false
+    cardinality: one
+    labels:
+      en: Supplier website
+    display: hidden
+    card: false
+  - id: material_of_origin
+    kind: string
+    localized: false
+    required: false
+    cardinality: one
+    labels:
+      en: Material of origin
+    display: metadata
+    card: true
+  - id: availability_status
+    kind: select
+    localized: false
+    required: false
+    cardinality: one
+    labels:
+      en: Availability
+    display: metadata
+    card: true
+    options:
+      commercial:
+        en: Commercial
+      in_development:
+        en: In development
+      research_only:
+        en: Research only
+  - id: interesting_properties
+    kind: text
+    localized: true
+    required: false
+    cardinality: one
+    labels:
+      en: Interesting properties
+    display: body
+    card: false
+  - id: structure
+    kind: text
+    localized: true
+    required: false
+    cardinality: one
+    labels:
+      en: Structure
+    display: body
+    card: false
+  - id: sensorial_qualities
+    kind: text
+    localized: true
+    required: false
+    cardinality: one
+    labels:
+      en: Sensorial qualities
+    display: body
+    card: false
+  - id: what_problem_it_solves
+    kind: text
+    localized: true
+    required: false
+    cardinality: one
+    labels:
+      en: What problem it solves
+    display: body
+    card: false
+  media:
+  - id: macro
+    kind: image
+    multiple: true
+    placement: gallery
+    cover: true
+    allowed_types:
+    - image/jpeg
+    - image/png
+    - image/webp
+    max_bytes: 20971520
+  - id: microscopy
+    kind: image
+    multiple: true
+    placement: gallery
+    cover: false
+    allowed_types:
+    - image/jpeg
+    - image/png
+    - image/webp
+    - image/tiff
+    max_bytes: 52428800
+  - id: video
+    kind: video
+    multiple: false
+    placement: gallery
+    cover: false
+    allowed_types:
+    - video/mp4
+    - video/quicktime
+    - video/webm
+    max_bytes: 262144000
+taxonomies:
+- id: origin_type
+  cardinality: many
+  filter: true
+  labels:
+    en: Origin
+  terms:
+  - id: plants
+    labels:
+      en: Plants
+  - id: fungi
+    labels:
+      en: Fungi
+  - id: animals
+    labels:
+      en: Animals
+  - id: recycled_materials
+    labels:
+      en: Recycled materials
+  - id: seaweed
+    labels:
+      en: Seaweed
+  - id: bacteria
+    labels:
+      en: Bacteria
+  - id: protein
+    labels:
+      en: Protein
+  - id: microbial
+    labels:
+      en: Microbial
+- id: textile_imitating
+  cardinality: many
+  filter: true
+  labels:
+    en: Textile imitated
+  terms:
+  - id: leather
+    labels:
+      en: Leather
+  - id: denim
+    labels:
+      en: Denim
+  - id: silk
+    labels:
+      en: Silk
+  - id: wool
+    labels:
+      en: Wool
+  - id: felt
+    labels:
+      en: Felt
+  - id: mesh
+    labels:
+      en: Mesh
+  - id: conventional_cotton
+    labels:
+      en: Conventional cotton
+  - id: conventional_linen
+    labels:
+      en: Conventional linen
+  - id: conventional_nylon
+    labels:
+      en: Conventional nylon
+  - id: conventional_polyester
+    labels:
+      en: Conventional polyester
+  - id: synthetic_fibres
+    labels:
+      en: Synthetic fibres
+  - id: synthetic_rubber
+    labels:
+      en: Synthetic rubber
+- id: application
+  cardinality: many
+  filter: true
+  labels:
+    en: Application
+  terms:
+  - id: clothing
+    labels:
+      en: Clothing
+  - id: accessories
+    labels:
+      en: Accessories
+  - id: footwear
+    labels:
+      en: Footwear
+  - id: filling
+    labels:
+      en: Filling
+  - id: home_textiles
+    labels:
+      en: Home textiles
+  - id: furniture
+    labels:
+      en: Furniture
+  - id: automotive
+    labels:
+      en: Automotive
+  - id: technical_textiles
+    labels:
+      en: Technical textiles
+  - id: safety_equipment
+    labels:
+      en: Safety equipment
+  - id: art
+    labels:
+      en: Art
+items:
+- id: pyratex-musa-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Musa 1
+      summary: The PYRATEX® musa 1 rib is made from organic cotton and abaca fiber, one of the strongest natural fibers. It stands out for its high tensile strength, making it highly durable and longer-lasting than many other fibers.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknribmu001-swatch-pyratex-r-musa-1-74
+    material_of_origin: Abaca
+    availability_status: commercial
+    interesting_properties:
+      en: Abaca comes from a banana plant that grows in the Philippines and is harvested by small local farmers. It is a hardy plant that needs no pesticides or extra irrigation.
+    what_problem_it_solves:
+      en: It is a very resilient plant that requires no pesticides or additional irrigation, making it a sustainable crop.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: Pyratex Musa 1
+    url: https://eshop.pyratex.com/shop/swaknribmu001-swatch-pyratex-r-musa-1-74
+  assets: []
+- id: lifematerials-cypress-denim
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Lifematerials-Cypress Denim
+      summary: Cypress Denim weaves nature into every thread — blending 94% recycled cotton with the essence of Japanese cypress, a tree long revered for its purity and strength. This fabric isn’t just sustainable — it carries the quiet power of ancient forests, offering designers a chance to create garments that feel grounded, clean, and deeply connected to the natural world.
+  fields:
+    supplier_name: LifeMaterials, Cypress denim
+    supplier_url: https://lifematerials.eu/shop/cypress-denim/
+    material_of_origin: Cypress
+    availability_status: commercial
+    interesting_properties:
+      en: Woven with care, Cypress Denim protects as it dresses — its natural antibacterial and antiseptic properties bring wellness into every stitch.
+    structure:
+      en: Structured twill
+    what_problem_it_solves:
+      en: It might offer a new path forward for designers who believe that fashion can heal as well as inspire.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - denim
+    application:
+    - clothing
+    - accessories
+    - home_textiles
+  links:
+  - label: LifeMaterials, Cypress denim
+    url: https://lifematerials.eu/shop/cypress-denim/
+  assets: []
+- id: pyratex-freshness-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Freshness 1
+      summary: PYRATEX® freshness 1 brings together softness and functionality in a textile fabric that helps keep the body fresh and protected, thanks to its antibacterial properties, UV protection, and ability to regulate temperature and enhance breathability. It is made from bamboo viscose and elastane.
+  fields:
+    material_of_origin: Bamboo
+    availability_status: commercial
+    interesting_properties:
+      en: The bamboo comes from Sichuan, China, where it is grown without harsh pesticides and certified by FSC and OEKO-TEX®, ensuring responsible sourcing and a clean production process.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links: []
+  assets: []
+- id: pyratex-seacell-7
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Seacell 7
+      summary: PYRATEX® seacell 7 is a mesh made from seacell, bamboo viscose, and elastane. It is a bio-based alternative to conventional meshes, which are usually made from synthetic fibers or silk. The result is a mesh fabric with a distinctive finish and a more natural origin.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknmescs007-swatch-pyratex-r-seacell-7-54
+    material_of_origin: Bamboo
+    availability_status: commercial
+    what_problem_it_solves:
+      en: PYRATEX® seacell 7 replaces traditional mesh fabrics made from synthetic fibers or silk with a more natural alternative based on seacell, bamboo viscose, and elastane.
+  taxonomies:
+    origin_type:
+    - plants
+    - seaweed
+    textile_imitating:
+    - mesh
+    application:
+    - clothing
+  links:
+  - label: Pyratex Seacell 7
+    url: https://eshop.pyratex.com/shop/swaknmescs007-swatch-pyratex-r-seacell-7-54
+  assets: []
+- id: lifematerials-muskin
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Lifematerials-Muskin
+      summary: MuSkin is not just a material — it's nature's answer to leather. Grown from the cap of the wild Phellinus ellipsoideus fungus, this remarkable vegan alternative transforms something living into something lasting, without harming animals or the planet. Free from oil, toxins, and cruelty. Each piece is one-of-a-kind, shaped by nature’s hand, making your designs not only sustainable but deeply personal. It’s more than fabric — it’s a story, a statement, a future.
+  fields:
+    supplier_name: LifeMaterials MuSkin
+    supplier_url: https://lifematerials.eu/shop/muskin-cruelty-free-and-oil-free-vegan-leatherette-alternative-to-animal-based-leather/
+    material_of_origin: Mushroom
+    availability_status: commercial
+    interesting_properties:
+      en: Naturally breathable, MuSkin allows your designs to feel as alive as they look. With the simple touch of eco-friendly waxes, it transforms — gaining water resistance while staying true to its sustainable roots. It’s protection with purpose, innovation with integrity.
+    structure:
+      en: Numerous filaments in no particular order. Compact filaments.
+    what_problem_it_solves:
+      en: It answers the urgent call for alternatives to leather that are kind to both animals and the planet. Unlike synthetic vegan leathers, which rely on plastics, MuSkin is 100% natural, biodegradable, and free from toxins. It replaces cruelty with care, pollution with purity, and mass production with individuality
+  taxonomies:
+    origin_type:
+    - fungi
+    textile_imitating:
+    - leather
+    application:
+    - footwear
+    - accessories
+    - furniture
+    - home_textiles
+  links:
+  - label: LifeMaterials MuSkin
+    url: https://lifematerials.eu/shop/muskin-cruelty-free-and-oil-free-vegan-leatherette-alternative-to-animal-based-leather/
+  assets: []
+- id: pyratex-element-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Element 1
+      summary: PYRATEX® element 1 is a textile made from a blend of organic cotton and nettle that grows wild in the mountain forests of the Himalayas. Nettle cultivation has a very low environmental impact, as it requires no irrigation or pesticides and is based on regenerative farming that helps maintain soil fertility and local biodiversity.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknjerel001-swatch-pyratex-r-element-1-62
+    material_of_origin: Nettle
+    availability_status: commercial
+    interesting_properties:
+      en: The fiber is mechanically extracted from the plant’s stalk. It also has a positive social impact, providing additional income for local farmers.
+    what_problem_it_solves:
+      en: PYRATEX element 1 addresses the use of high-impact textile fibers by replacing them with nettle and organic cotton.
+  taxonomies:
+    application:
+    - clothing
+  links:
+  - label: Pyratex Element 1
+    url: https://eshop.pyratex.com/shop/swaknjerel001-swatch-pyratex-r-element-1-62
+  assets: []
+- id: lifematerials-kapok
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Lifematerials - Kapok
+      summary: Kapok is a material born from the seeds of the Ceiba tree — nature’s own masterpiece of softness and strength. Composed of hollow cellulose fibres, it feels almost weightless against the skin, like wearing air. Its delicate touch hides powerful insulating properties, offering warmth without bulk. Light, breathable, and beautifully organic, Kapok invites designers to explore a new kind of elegance — one that’s rooted in nature and crafted for comfort.
+  fields:
+    supplier_name: LifeMaterials
+    supplier_url: https://lifematerials.eu/shop/life-materials-full-kit/
+    material_of_origin: Kapok
+    availability_status: commercial
+    interesting_properties:
+      en: Naturally odourless, non-toxic, and hypoallergenic, it offers comfort even to the most sensitive skin. Its hollow fibre structure not only provides exceptional insulation — it also makes the material incredibly buoyant, able to support up to 30 times its own weight. Even after 30 days, it retains 90% of its buoyancy, making it an ideal choice for life-saving designs like life jackets. With Kapol, safety meets softness, and innovation stays beautifully natural.
+    structure:
+      en: Numerous filaments in no order. Scattered filaments.
+    what_problem_it_solves:
+      en: Kapok solves the problem of finding a natural, lightweight, and breathable stuffing material. Unlike synthetic fibers, kapok is eco-friendly and biodegradable, making it a sustainable choice. Its softness and ability to resist moisture help create comfortable pillows and cushions that stay cool and dry.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - filling
+    - safety_equipment
+  links:
+  - label: LifeMaterials
+    url: https://lifematerials.eu/shop/life-materials-full-kit/
+  assets: []
+- id: pyratex-tropic-3
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Tropic 3
+      summary: PYRATEX® tropic 3 is a textile made from a blend of modal and kapok fiber, a plant-based alternative to wool thanks to its insulating, breathable, and quick-drying properties. Similar to cotton, kapok fiber is a type of cellulosic fiber that comes from seeds. It is soft and silky to the touch.
+  fields:
+    material_of_origin: Kapok
+    availability_status: commercial
+    interesting_properties:
+      en: Kapok grows in tropical forests without irrigation, pesticides, or fertilizers, supports biodiversity.
+    what_problem_it_solves:
+      en: PYRATEX® tropic 3 reduces the environmental impact of traditional fibers by avoiding irrigation, pesticides, and intensive processing, as kapok is naturally harvested without harming the tree. It also provides a plant-based alternative to wool.
+  taxonomies:
+    application:
+    - clothing
+  links: []
+  assets: []
+- id: econyl-catalogue
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Econyl catalogue
+      summary: Econyl is more than just a fabric — it’s a chance to design with purpose. Made from recycled industrial and post-consumer waste, Econyl offers the same strength and versatility as traditional nylon, but with a far lighter impact on the planet. Available in a wide range of colors and patterns, it gives fashion students the freedom to create boldly while supporting a circular future. With Econyl, sustainability and style go hand in hand.
+  fields:
+    supplier_name: Econyl
+    supplier_url: https://econyl.aquafil.com/
+    material_of_origin: Recycled nylon
+    availability_status: commercial
+    interesting_properties:
+      en: Offering the same performance as virgin nylon, it’s just as durable, flexible, and waterproof — ready to meet the demands of modern design. For fashion students, it’s an invitation to innovate responsibly, blending high performance with low impact.
+    structure:
+      en: 'Econyl HEE 421, Econyl HDE 101, Econyl HCE406, Econyl EFX004: Disordered filaments of the same size (threads). Econyl-3600-92AE: Clustered filaments, composed of three different types of fibres as they have different thicknesses.'
+    what_problem_it_solves:
+      en: Econyl tackles the growing problem of plastic waste by turning it into a valuable resource. Made from discarded fishing nets, fabric scraps, and other nylon waste, it helps reduce pollution in oceans and landfills. At the same time, it offers designers a sustainable alternative to virgin nylon, without sacrificing quality or performance. Econyl supports a circular fashion model, where materials are reused instead of wasted.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+    - technical_textiles
+    - accessories
+  links:
+  - label: Econyl
+    url: https://econyl.aquafil.com/
+  assets: []
+- id: ecoalf-fishing-nets
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: ECOALF-fishing nets
+      summary: One innovative way to create nylon without using oil is by recycling abandoned fishing nets from the ocean—an approach championed by brands like Ecoalf. Since these nets are limited in supply, recycled nylon also comes from industrial fabric scraps and post-consumer waste. Compared to traditional nylon, it requires fewer production steps, making it a more efficient and eco-friendly alternative.
+  fields:
+    supplier_name: Ecoalf
+    supplier_url: https://ecoalf.com/pages/materiales
+    material_of_origin: Recycled nylon
+    availability_status: commercial
+    interesting_properties:
+      en: This process reduction leads to a reduction in CO2 emissions and water consumption. Recycled nylon can be recycled again when garments reach the end of their useful life
+    what_problem_it_solves:
+      en: Using recycled nylon helps tackle ocean pollution, especially from abandoned fishing nets, which are dangerous to marine life. It also reduces our dependence on oil and lowers the carbon footprint of textile production.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - conventional_nylon
+    application:
+    - clothing
+    - footwear
+  links:
+  - label: Ecoalf
+    url: https://ecoalf.com/pages/materiales
+  assets: []
+- id: revoltech-lovr
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Revoltech LOVR
+      summary: LOVRTM is more than a material — it's a statement of strength and sustainability. Derived from hemp, one of nature’s most resilient plants, LOVR brings durability to the forefront of design. With natural resistance to heat, abrasion, and tension, it empowers designers to push boundaries without compromising the planet. It’s built to endure — just like the bold ideas behind every great fashion revolution.
+  fields:
+    supplier_name: Revoltech LOVRTM
+    supplier_url: https://www.revoltech.com/lovr
+    material_of_origin: Hemp
+    availability_status: commercial
+    interesting_properties:
+      en: Hemp is a sustainability champion — requiring little water, no pesticides, and absorbing large amounts of CO2. Choosing it means designing with purpose, where every material decision supports a healthier planet.
+    structure:
+      en: Structure composed of filaments grouped together with circular holes.
+    what_problem_it_solves:
+      en: 'Compared to traditional leather: LOVR is more water resistant, requires less maintenance. The resulting colours are matt or faded, and have a natural look.'
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - footwear
+    - accessories
+    - clothing
+    - automotive
+  links:
+  - label: Revoltech LOVRTM
+    url: https://www.revoltech.com/lovr
+  assets: []
+- id: pyratex-bio-3
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex bio 3
+      summary: PYRATEX® bio 3 is a textile made with PLA, a bio-based material (Polylactic Acid). PLA makes a real difference, as they are not using any petroleum nor any harmful chemicals in the process. It is made with corn, cassava, sugar cane or beets. The hemp fiber in this fabric is of European origin.
+  fields:
+    supplier_url: https://www.pyratex.com/
+    material_of_origin: Hemp
+    availability_status: commercial
+    what_problem_it_solves:
+      en: PYRATEX® bio 3 reduces the reliance on petroleum-based materials in textiles by replacing them with plant-based PLA and hemp.
+  taxonomies:
+    application:
+    - clothing
+  links:
+  - label: Pyratex bio 3
+    url: https://www.pyratex.com/
+  assets: []
+- id: torne-grup-cothempmat-305
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Torné Grup COTHEMPMAT-305
+      summary: They offer different materials on their website, and material COTHEMPMAT‑305 is composed of 85% organic cotton and 15% hemp
+  fields:
+    supplier_url: https://tntex.es/
+    material_of_origin: Hemp
+    availability_status: commercial
+    interesting_properties:
+      en: TORNE GRUP, through its TNTEX brand, provides an extensive selection of sustainable fabrics and materials designed for the fashion and textile industry. Every product is certified according to the Oeko-Tex® Standard 100, guaranteeing that they are free from harmful substances and safe for people. **Structure:x**
+    what_problem_it_solves:
+      en: This textile helps reduce the environmental impact of textiles by offering a low-impact, natural alternative to synthetic fibers, lowering water use, chemical inputs, and plastic pollution. At the same time, the addition of hemp improves durability and scalability, making it a more viable option for circular and industrial textile applications.
+  taxonomies:
+    origin_type:
+    - plants
+  links:
+  - label: Torné Grup COTHEMPMAT-305
+    url: https://tntex.es/
+  assets: []
+- id: revoltech-mattr
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Revoltech MATTR
+      summary: MATTRTM is more than just a material — it’s a vision of the future. Harvested from algae, it transforms one of nature’s simplest organisms into something revolutionary. With the flexibility to shape bold silhouettes and the strength to endure real-world wear, MATTRTM invites designers to rethink what’s possible. It's not just eco-conscious — it's a creative ally for those who believe fashion should move, feel, and evolve with the planet.
+  fields:
+    supplier_name: Revoltech MATTRTM
+    supplier_url: https://www.revoltech.com/mattr
+    material_of_origin: Algae
+    availability_status: commercial
+    interesting_properties:
+      en: This remarkable algae is a fast-growing, renewable resource — a living solution that captures CO2 and thrives even in wastewater. It’s nature’s quiet rebel, transforming pollution into possibility and proving that sustainability can start from the ground up — or even the water down.
+    structure:
+      en: Clustered filaments, composed of three different types of fibres as they have different thicknesses.
+    what_problem_it_solves:
+      en: Made entirely from plants and designed for circularity, it eliminates plastic, pollution, and compromise.Begin kind to the planet, it empowers designers to create with both beauty and responsibility — proving that innovation and ethics can be woven into every stitch.
+  taxonomies:
+    origin_type:
+    - seaweed
+    textile_imitating:
+    - leather
+    application:
+    - clothing
+    - furniture
+  links:
+  - label: Revoltech MATTRTM
+    url: https://www.revoltech.com/mattr
+  assets: []
+- id: b-zornoza-chitosan
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: B.Zornoza- Chitosan
+      summary: Chitosan is an innovative biopolymer derived from the shells of crustaceans — a natural material being reimagined for the future of fashion. Through a process of transformation, it forms a delicate yellowish membrane with exciting potential in textiles. Still in the early stages of development, chitosan invites bold designers to explore new possibilities at the intersection of science and style. It's not just a material — it's a glimpse into what sustainable fashion could become.
+  fields:
+    material_of_origin: Chitosan
+    availability_status: research_only
+    interesting_properties:
+      en: This forward-thinking project was developed by Beatriz Zonorza, a researcher in the Chemical Engineering Department at the University of Zaragoza. Her work brings science and sustainability together, opening new doors for innovative materials.
+    structure:
+      en: Smooth material which is not composed of fibres, since it is a sheet not obtained by the use of fabric or yarn. In the ESEM images, small defects of unknown composition are visible.
+    what_problem_it_solves:
+      en: Chitosan’s unique membrane-like texture and plastic-like feel make it a promising natural alternative to petroleum-based plastics. It could be used to create sustainable clothing and accessories such as raincoats or bags, offering eco-friendly options that reduce reliance on traditional plastics while maintaining durability and functionality.
+  taxonomies:
+    origin_type:
+    - animals
+  links: []
+  assets: []
+- id: crabyon-fibre
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Crabyon fibre
+      summary: Crabyon Viscose yarn is made from natural cellulose and enriched with chitin, giving it antibacterial and hypoallergenic qualities. Its blend can be adjusted and combined with cotton or wool, offering endless possibilities.This is a reminder that innovation in materials allows us to create fabrics that are healthy, and sustainable.
+  fields:
+    supplier_name: "\\-OMIKENSHI"
+    supplier_url: https://omikenshi.co.jp/pdf/english/CRABYON_English.pdf
+    material_of_origin: Chitosan
+    availability_status: commercial
+    interesting_properties:
+      en: This substance comes from recycling of the shellfish carapace through a particular production process, patented worldwide. Chitosan is the world’s second most abundant polymer and its derivative chitin has a similar structure to cellulose.
+    what_problem_it_solves:
+      en: By using chitin derived from shellfish waste, it reduces industrial waste and promotes the recycling of natural resources. Its antibacterial and hypoallergenic properties make it ideal for healthier textiles, reducing the need for chemical treatments. Additionally, the fibre can be blended with cotton, wool, or other materials, allowing designers to create sustainable, functional, and innovative fabrics while supporting a more circular and eco-conscious textile industry.
+  taxonomies:
+    origin_type:
+    - animals
+    application:
+    - technical_textiles
+    - clothing
+  links:
+  - label: "\\-OMIKENSHI"
+    url: https://omikenshi.co.jp/pdf/english/CRABYON_English.pdf
+  assets: []
+- id: b-zornoza-starch
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: B.Zornoza-Starch
+      summary: Starch is a white, granular compound that stores the energy of plants such as potatoes. From it, thin transparent membranes can be developed with the potential to become new textile materials.Science and fashion come together to create sustainable materials and transform nature into design.
+  fields:
+    supplier_name: "\\- Not available"
+    material_of_origin: Starch
+    availability_status: research_only
+    interesting_properties:
+      en: This innovative project was led by Beatriz Zonorza, a researcher from the Chemical Engineering Department at the University of Zaragoza, who is exploring the hidden potential of everyday materials to inspire the next generation of sustainable fashion.
+    structure:
+      en: Macroscopically smooth surface, although micro images show a multitude of defects that could be related to its synthesis.
+    what_problem_it_solves:
+      en: Starch can provide a sustainable alternative to synthetic materials like plastics in fashion and textiles. It helps reduce environmental impact by using natural, renewable resources to create innovative materials.
+  taxonomies:
+    origin_type:
+    - plants
+  links: []
+  assets: []
+- id: orange-fiber
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Orange fiber
+      summary: Orange Fiber is an Italian brand turning citrus waste into a vision of sustainable luxury. Drawing on “pastazzo” — the peels, seeds, and pulp left over after juice production — the company transforms this often-overlooked by-product into a soft, cellulose-based thread. The resulting fiber can stand alone or be blended with other materials, offering designers a beautiful, biodegradable alternative for conscious fashion. From fruit waste to fabric, Orange Fiber shows how creativity and circularity can reshape the future of textiles.
+  fields:
+    supplier_name: Orange fiber web
+    supplier_url: https://orangefiber.it/contact/
+    material_of_origin: Orange
+    availability_status: commercial
+    interesting_properties:
+      en: Orange Fiber has already caught the attention of major fashion houses, with brands like H\&M and Salvatore Ferragamo incorporating it into past collections. While it's not currently available on the market, its early adoption signals strong potential for future use in sustainable fashion.
+    what_problem_it_solves:
+      en: 'Orange Fiber helps tackle two major problems in the fashion industry: waste and resource overuse. By transforming citrus by-products into textiles, it reduces food industry waste that would otherwise be discarded. At the same time, it offers a sustainable alternative to virgin fibers like cotton or silk, helping lower water use, pesticide reliance, and environmental impact. It''s a step toward a more circular, responsible fashion system.'
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - silk
+    application:
+    - clothing
+    - accessories
+  links:
+  - label: Orange fiber web
+    url: https://orangefiber.it/contact/
+  assets: []
+- id: pyratex-citrea-3
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex citrea 3
+      summary: PYRATEX® citrea 3 is a soft, fluid interlock fabric made from 100% orange fiber. This fiber is derived from discarded orange peels blended with wood pulp through a lyocell-like process, resulting in a luxurious-feel material inspired by nature that transforms organic waste into an innovative textile.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swatch-pyratex-r-citrea-3-933
+    material_of_origin: Orange
+    availability_status: commercial
+    what_problem_it_solves:
+      en: PYRATEX® citrea 3 reduces food industry waste by turning discarded orange peels into textile fiber, giving them a second life instead of becoming waste.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: Pyratex citrea 3
+    url: https://eshop.pyratex.com/shop/swatch-pyratex-r-citrea-3-933
+  assets: []
+- id: squeeze-the-orange
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Squeeze the orange
+      summary: Squeeze The Orange is a project that researches and shares biomaterials made from food waste, creating compostable bioplastics. One of its flagship projects within the Barcelona neighbourhood waste challenge was the creation of a raincoat made from orange waste, a piece that was later presented at the Matter Matters exhibition, showing how waste can be transformed into design objects with cultural and environmental value.
+  fields:
+    material_of_origin: Orange
+    availability_status: commercial
+    interesting_properties:
+      en: |-
+        The project has been recognized with the STARTS Prize of the European Commission (2021) and has been a finalist in S4Fashion (2022) and Foodture Barcelona (2023), as well as featured in the exhibition *Designing with the World* at Hub Barcelona.
+
+        **Structure:XRetails: ** They don’t sell products.
+
+        **x**
+    what_problem_it_solves:
+      en: Transform food waste into biomaterials through an innovative and sustainable approach.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links: []
+  assets: []
+- id: pinatex-ananas-anam
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Piñatex - Ananas Anam
+      summary: Piñatex is an innovative textile born from the transformation of pineapple leaves — a natural by-product turned into a sustainable alternative to leather. Light, flexible, and breathable, it offers designers a cruelty-free material that blends performance with purpose. With Piñatex, waste becomes a possibility, and nature meets innovation in every stitch.
+  fields:
+    supplier_name: Ananas Anam, Piñatex
+    supplier_url: https://store.ananas-anam.com/
+    material_of_origin: Pineapple
+    availability_status: commercial
+    interesting_properties:
+      en: Celebrated as a sustainable alternative to conventional leather, Piñatex requires no additional water or pesticides, making it a low-impact material that respects both the planet and its resources.
+    what_problem_it_solves:
+      en: Piñatex addresses major issues in the fashion and materials industry by providing a sustainable, cruelty-free alternative to conventional leather. It reduces the need for resource-intensive animal farming, which consumes large amounts of water and often relies on pesticides and chemicals. By using pineapple leaf waste, Piñatex also helps reduce agricultural waste that would otherwise go unused or be burned, lowering environmental pollution.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - accessories
+    - clothing
+    - footwear
+    - home_textiles
+    - automotive
+  links:
+  - label: Ananas Anam, Piñatex
+    url: https://store.ananas-anam.com/
+  assets: []
+- id: hiblatech
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Hiblatech
+      summary: HiblaTech transforms pineapple leaf waste into sustainable textiles, creating fibers and innovative materials from what was previously discarded.
+  fields:
+    material_of_origin: Pineapple
+    availability_status: in_development
+    interesting_properties:
+      en: 'Pineapple farming in the Philippines produces over 2.6 million tons of leaf waste.Pineapple fiber is biodegradeable. Pineapple leaf fiber extraction could reduce greenhouse gases otherwise released into the environment when leaves are left to decompose after pineapple fruit is harvested **Structure: X**'
+    what_problem_it_solves:
+      en: HiblaTech converts pineapple leaf waste into sustainable fibers used to produce fibers or textiles.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - wool
+    application:
+    - accessories
+    - clothing
+    - home_textiles
+  links: []
+  assets: []
+- id: lifematerials-banana-skin
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Lifematerials-Banana Skin
+      summary: Banana peel fibers, harvested from fallen banana plants, unlock new creative possibilities by transforming natural waste into a surprisingly strong and versatile material. These fibers provide a durable and eco-friendly resource for innovative fashion designs, supporting sustainable production through the effective reuse of agricultural by-products.
+  fields:
+    supplier_name: LifeMaterials Banana Skin
+    supplier_url: https://lifematerials.eu/shop/banana-skin/
+    material_of_origin: Banana
+    availability_status: commercial
+    interesting_properties:
+      en: Among its properties, it offers resistance to both water and fire, enhancing its durability and expanding its potential applications in fashion and textiles.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - accessories
+    - clothing
+  links:
+  - label: LifeMaterials Banana Skin
+    url: https://lifematerials.eu/shop/banana-skin/
+  assets: []
+- id: banana-plant-waste-pilar-urena
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Banana plant waste-Pilar Ureña
+      summary: Banana fiber is a plant-based material derived from the agricultural waste of banana cultivation in the Canary Islands, Europe’s leading banana-producing region. For every ton of fruit harvested, approximately four times more biomass is generated, revealing a largely untapped resource with strong potential for contemporary design. Its transformation from waste into raw material is carried out manually, with no water or energy consumption, resulting in a fiber that is strong, flexible, and extremely lightweight, featuring a natural chromatic range from beige to chocolate brown. These structural and aesthetic qualities make it particularly suitable for sustainable applications in fashion and design.
+  fields:
+    material_of_origin: Banana
+    availability_status: commercial
+    interesting_properties:
+      en: 'Functional properties Strong and flexible, suitable for fashion, textiles, basketry, and interior design Extremely lightweight and durable Versatile: can be cut, braided, layered, or transformed into thread or panels Aesthetic properties Unique color range: beige to chocolate brown Organic texture, providing visual and tactile richness Corrugated layers allow volume, pattern, and dimensional play Natural variation enhances authenticity and artisanal value'
+    what_problem_it_solves:
+      en: 'Waste valorization: transforms an agricultural by-product into a valuable material Low-impact processing: fully manual, water- and energy-free Biodegradable & chemical-free: 100% natural fiber Circular economy: promotes sustainable design and reuse of local resources'
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+    - footwear
+    - accessories
+    - home_textiles
+  links: []
+  assets: []
+- id: fibras-naturales-canarias-musapiel
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Fibras naturales Canarias - Musapiel
+      summary: Musapiel is a plant-based leather from the Canary Islands, plastic-free, with a neutral water footprint, and compostable. It combines different products, all natural, with 89% being plant-based and derived from the waste of banana plant pseudostems. Our unique formula is key to ensuring we use neither tap water nor distilled water.
+  fields:
+    material_of_origin: Banana
+    availability_status: commercial
+    interesting_properties:
+      en: Banana plantations are one of the largest crops in the world, found on virtually every continent, and are a very abundant food source.
+    what_problem_it_solves:
+      en: Biodegradable/Compostable Product ≥ 90% in 90 days (Home Compost) Sustainable product with low environmental impact, made almost entirely from natural resources.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - clothing
+    - footwear
+    - accessories
+    - home_textiles
+  links: []
+  assets: []
+- id: pyratex-element-4
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex element 4
+      summary: PYRATEX® element 4 is made from organic cotton and banana waste fiber. It uses the stems left over from the food industry, turning them into textile material instead of throwing them away. This reduces agricultural waste and adds value to a natural by-product. Banana fiber has a low environmental impact because the plant needs little water and no pesticides or fertilizers. It can also be grown in the same place every year.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknfleel004-swatch-pyratex-r-element-4-462
+    material_of_origin: Banana
+    availability_status: commercial
+    interesting_properties:
+      en: India is one of the largest banana producers in the world, with over 30 million tonnes per year. For every tonne of fruit, around four tonnes of stem waste are generated, making this agricultural by-product a highly abundant raw material for new fibers.
+    what_problem_it_solves:
+      en: PYRATEX® element 4 solves the issue of large waste generated by the banana industry by turning discarded stems into usable textile fiber. This reduces agricultural waste and avoids the use of extra resources, giving value to a by-product that was previously unused.
+  taxonomies:
+    origin_type:
+    - plants
+  links:
+  - label: Pyratex element 4
+    url: https://eshop.pyratex.com/shop/swaknfleel004-swatch-pyratex-r-element-4-462
+  assets: []
+- id: ecoalf-coffe
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: ECOALF-Coffe
+      summary: By using discarded coffee grounds from coffee shops, we can turn waste into innovation. When mixed with recycled polyester or nylon, these grounds become thread with natural properties like quick-drying, UV protection, and odor resistance—without any extra chemicals. This proves that everyday waste can inspire sustainable, functional, and creative fashion design.
+  fields:
+    supplier_name: "\\-Ecoalf"
+    material_of_origin: Coffee
+    availability_status: in_development
+    interesting_properties:
+      en: This thread carries the natural powers of coffee—quick-drying, UV protection, and odor resistance—without any extra chemicals. It shows how everyday waste can become a source of innovation, encouraging designers to create sustainable, functional, and exciting new fashion materials.
+    what_problem_it_solves:
+      en: Ecoalf transforms used coffee grounds into sustainable fabrics, combined with recycled materials like PET or nylon, creating textiles that dry quickly, offer UV protection, and control odors. This initiative reduces waste and chemical use in clothing, supporting their mission to produce high-quality garments from recycled, low-impact materials.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links: []
+  assets: []
+- id: lenzing
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Lenzing
+      summary: Lyocell, produced from the cellulose of trees like eucalyptus, oak, birch, or bamboo, transforms natural wood pulp into versatile, high-performance fibers. This sustainable material combines innovation and nature, offering remarkable qualities such as antibacterial properties and exceptional water absorption.
+  fields:
+    supplier_name: "\\-Lyocell garments are currently available."
+    supplier_url: https://lenzingpro.com/en/portal/c/TX?query=:relevance:allCategories:TX:fiberType:CLY
+    material_of_origin: Lyocell Tencel
+    availability_status: commercial
+    interesting_properties:
+      en: In addition to being elastic and strong, this material is so light that it does not need ironing.
+    what_problem_it_solves:
+      en: TENCEL is made from sustainably grown trees. It uses little water and chemicals, is biodegradable, and naturally keeps you dry and clean—making it a good, eco-friendly fabric for designers.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: "\\-Lyocell garments are currently available."
+    url: https://lenzingpro.com/en/portal/c/TX?query=:relevance:allCategories:TX:fiberType:CLY
+  assets: []
+- id: organic-linen
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Organic linen
+      summary: Organic linen is a strong, biodegradable natural fiber that requires little water and no dyes. It repels moisture, resists high temperatures, and helps keep skin free from sweat and bacteria—offering a sustainable, versatile canvas to create stylish, eco-conscious designs that respect both people and the planet.
+  fields:
+    supplier_name: "\\-Some shops, like Mango or Ecoalf, now sell organic linen garments on sites certified with GOTS or OEKO-TEX®."
+    supplier_url: https://www.organicfabriccompany.com/collections/linen?srsltid=AfmBOorFba1a3xjtOVt8gXKwBEOZCTN14yPAd9fDFaUgcZ8402696Gl9
+    material_of_origin: Linen
+    availability_status: commercial
+    interesting_properties:
+      en: This type of flax can be grown on low quality soils and 100% of the plant is used.
+    what_problem_it_solves:
+      en: This flax can grow on poor soils, and the whole plant is used—proving that even simple resources can create beautiful, sustainable designs.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - conventional_linen
+    application:
+    - clothing
+  links:
+  - label: "\\-Some shops, like Mango or Ecoalf, now sell organic linen garments on sites certified with GOTS or OEKO-TEX®."
+    url: https://www.organicfabriccompany.com/collections/linen?srsltid=AfmBOorFba1a3xjtOVt8gXKwBEOZCTN14yPAd9fDFaUgcZ8402696Gl9
+  assets: []
+- id: pyratex-lino-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex lino 1
+      summary: PYRATEX® lino is a fabric range made from European flax, a strong and versatile fiber ideal for long-lasting garments. It is produced with European manufacturers to ensure full traceability and close control of the supply chain.
+  fields:
+    supplier_url: https://www.pyratex.com/lino
+    material_of_origin: Linen
+    availability_status: commercial
+    interesting_properties:
+      en: By avoiding the common cottonization process, it remains free from additives with a fully transparent origin.
+    what_problem_it_solves:
+      en: PYRATEX® lino addresses the lack of traceability and the use of industrial processes with additives in conventional linen.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: Pyratex lino 1
+    url: https://www.pyratex.com/lino
+  assets: []
+- id: torne-grup-cottlinmat-236
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Torné Grup COTTLINMAT-236
+      summary: They offer different materials on their website, and material COTLINMAT-236 is composed of 70% organic cotton and 30% linen.
+  fields:
+    material_of_origin: Linen
+    availability_status: commercial
+    interesting_properties:
+      en: 'TORNE GRUP, through its TNTEX brand, provides an extensive selection of sustainable fabrics and materials designed for the fashion and textile industry. Every product is certified according to the Oeko-Tex® Standard 100, guaranteeing that they are free from harmful substances and safe for people. **Structure: x**'
+    what_problem_it_solves:
+      en: It addresses the environmental impact of textiles by combining low-impact, plant-based fibers that require less water and fewer chemicals than conventional materials. The addition of linen enhances strength, breathability, and durability, making it a more sustainable and practical option for scalable textile and interior applications.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+    - accessories
+  links: []
+  assets: []
+- id: vegea
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Vegea
+      summary: Vegea is a next-generation alternative to traditional leather, crafted from the by-products of winemaking—transforming grape skins and seeds into a luxurious, plant-based material. With its standout water-repellent properties and elegant finish, Vegea invites designers to merge sustainability with style, turning waste into wear with purpose and creativity.
+  fields:
+    supplier_name: "\\-"
+    supplier_url: https://www.vegeacompany.com/contacts/
+    material_of_origin: Grapes
+    availability_status: in_development
+    interesting_properties:
+      en: Vegea offers a range of finishes, each with its own unique character—varying in thickness, weight, and texture—giving designers the freedom to explore diverse applications while staying true to sustainable values.
+    what_problem_it_solves:
+      en: Vegea addresses key environmental and ethical problems in the fashion and materials industry. By transforming winemaking by-products into a plant-based leather alternative, it reduces agricultural waste and supports circular production. It also eliminates the need for animal hides and the harsh chemicals used in traditional leather tanning, offering a cruelty-free, low-impact option.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - leather
+    application:
+    - accessories
+    - clothing
+    - footwear
+    - furniture
+    - automotive
+  links:
+  - label: "\\-"
+    url: https://www.vegeacompany.com/contacts/
+  assets: []
+- id: ecoalf-recycled-cotton-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: ECOALF-Recycled cotton 1
+      summary: Cotton is a fiber that comes from the seeds of the cotton plant, one of the most widely used fabrics thanks to its lightness, durability, and breathability. Its versatility and comfort make it a timeless material, inviting creativity while supporting sustainable choices and thoughtful design.
+  fields:
+    supplier_name: Recycled cotton garments are currently available in shops such as Ecoalf.
+    supplier_url: https://ecoalf.com/pages/materiales
+    material_of_origin: Recycled cotton
+    availability_status: commercial
+    interesting_properties:
+      en: Recycled cotton avoids new cultivation, saving water and reducing CO2—turning waste into stylish, sustainable fabric.
+    what_problem_it_solves:
+      en: Recycled cotton helps the environment by using leftover fabric instead of growing new cotton. It saves water, reduces CO₂, and avoids chemicals, turning waste into a useful, eco-friendly material.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - conventional_cotton
+    application:
+    - accessories
+    - clothing
+  links:
+  - label: Recycled cotton garments are currently available in shops such as Ecoalf.
+    url: https://ecoalf.com/pages/materiales
+  assets: []
+- id: ecoalf-recycled-cotton-2
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: ECOALF-Recycled cotton 2
+      summary: Cotton is a fiber that comes from the seeds of the cotton plant, one of the most widely used fabrics thanks to its lightness, durability, and breathability. Its versatility and comfort make it a timeless material, inviting creativity while supporting sustainable choices and thoughtful design.
+  fields:
+    supplier_name: Recycled cotton garments are currently available in shops such as Ecoalf.
+    supplier_url: https://ecoalf.com/pages/materiales
+    material_of_origin: Recycled cotton
+    availability_status: commercial
+    interesting_properties:
+      en: Recycled cotton avoids new cultivation, saving water and reducing CO2—turning waste into stylish, sustainable fabric.
+    what_problem_it_solves:
+      en: Recycled cotton helps the environment by using leftover fabric instead of growing new cotton. It saves water, reduces CO₂, and avoids chemicals, turning waste into a useful, eco-friendly material.
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - conventional_cotton
+    application:
+    - accessories
+    - clothing
+  links:
+  - label: Recycled cotton garments are currently available in shops such as Ecoalf.
+    url: https://ecoalf.com/pages/materiales
+  assets: []
+- id: pyratex-recover-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex recover 1
+      summary: PYRATEX® recover 1 is a fabric developed with Recover using recycled cotton from textile waste and organic cotton. Recover is the company that collects and transforms post-consumer textile waste into new high-quality cotton fibers through mechanical recycling. The fibers are spun and knitted into unique structures by PYRATEX®
+  fields:
+    material_of_origin: Recycled cotton
+    availability_status: commercial
+    interesting_properties:
+      en: PYRATEX®’s collaboration with Recover™ has expanded its ability to offer clients responsible alternatives to conventional fibers through 100% traceable recycled cotton blends.
+    what_problem_it_solves:
+      en: Recover’s advanced recycling process converts textile waste into high-quality, low-impact cotton fiber while using very little water and few chemicals.
+  taxonomies:
+    origin_type:
+    - plants
+  links: []
+  assets: []
+- id: pyratex-upcycled-2
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex upcycled 2
+      summary: PYRATEX® upcycled is a fabric range made from organic cotton and recycled cotton sourced from post-industrial textile waste. Production leftovers are collected and mechanically recycled without chemicals, keeping the fiber as cotton. The process uses a high share of solar energy and avoids the water consumption of virgin cotton.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+    material_of_origin: Recycled cotton
+    availability_status: commercial
+    interesting_properties:
+      en: PYRATEX® upcycled fabrics are made from recycled cotton sourced from post-industrial textile waste collected globally.
+    what_problem_it_solves:
+      en: |-
+        It reduces textile waste by reusing production leftovers that are usually discarded.
+
+        .
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: Pyratex upcycled 2
+    url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+  assets: []
+- id: pyratex-upcycled-5
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex upcycled 5
+      summary: PYRATEX® upcycled is a fabric range made from organic cotton and recycled cotton sourced from post-industrial textile waste. Production leftovers are collected and mechanically recycled without chemicals, keeping the fiber as cotton. The process uses a high share of solar energy and avoids the water consumption of virgin cotton.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+    material_of_origin: Recycled cotton
+    availability_status: commercial
+    interesting_properties:
+      en: PYRATEX® upcycled fabrics are made from recycled cotton sourced from post-industrial textile waste collected globally.
+    what_problem_it_solves:
+      en: |-
+        It reduces textile waste by reusing production leftovers that are usually discarded.
+
+        .
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: Pyratex upcycled 5
+    url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+  assets: []
+- id: torne-grup-r1615abn
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Torné Grup R1615ABN
+      summary: They offer different materials on their website, and material R1615ABN is composed of 60% recycled cotton, 15% recycled polyester and 25% virgin cotton.
+  fields:
+    supplier_name: "[https://tntex.es/](https://tntex.es/)"
+    supplier_url: https://tntex.es/
+    material_of_origin: Recycled cotton
+    availability_status: commercial
+    interesting_properties:
+      en: TORNE GRUP, through its TNTEX brand, provides an extensive selection of sustainable fabrics and materials designed for the fashion and textile industry. Every product is certified according to the Oeko-Tex® Standard 100, guaranteeing that they are free from harmful substances and safe for people. **Structure:x**
+    what_problem_it_solves:
+      en: This textile helps reduce textile waste and resource consumption by incorporating a high percentage of recycled fibers. At the same time, the inclusion of polyester and virgin cotton improves material strength and consistency, making it more suitable for durable, scalable applications while partially lowering reliance on new raw materials.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+  links:
+  - label: "[https://tntex.es/](https://tntex.es/)"
+    url: https://tntex.es/
+  assets: []
+- id: spider-silk
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Spider silk
+      summary: Spider silk is made of amino acid chains, producing fibers that are ultra-light and extremely strong—showing how nature inspires innovative materials.
+  fields:
+    material_of_origin: Silk
+    availability_status: in_development
+    interesting_properties:
+      en: One of the disadvantages of making natural silk is that spiders are difficult to breed as they tend to kill each other. In addition, it takes around 400 spiders to make 0.85 square metres of web.
+  taxonomies:
+    origin_type:
+    - animals
+    textile_imitating:
+    - silk
+  links: []
+  assets: []
+- id: qmilk
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Qmilk
+      summary: "**Qmilk is a unique material made from milk that can’t be consumed.** Instead of letting it go to waste, the milk is repurposed to extract casein, a natural protein, which is then used to create fibers—without the need for any pesticides. The result is a fabric that’s incredibly fine, naturally antibacterial, and soft as silk. It feels gentle on the skin, making it not only comfortable to wear but also safe and skin-friendly."
+  fields:
+    supplier_url: https://www.qmilkfiber.eu/qmilk-faser-modische-anwendung?lang=en
+    material_of_origin: Milk
+    availability_status: in_development
+    interesting_properties:
+      en: Qmilk can be blended with natural fibers like cotton or viscose, unlocking even more possibilities for beautiful, sustainable design. Whether it's used in clothing or home textiles, it brings comfort, elegance, and a touch of innovation to everyday life.
+    what_problem_it_solves:
+      en: Qmilk transforms waste milk into a soft, biodegradable fiber, helping reduce food waste and environmental impact. Its naturally antibacterial, skin-friendly properties make it ideal for sensitive textiles without the need for chemicals.
+  taxonomies:
+    origin_type:
+    - animals
+    textile_imitating:
+    - synthetic_fibres
+    application:
+    - clothing
+  links:
+  - label: Qmilk
+    url: https://www.qmilkfiber.eu/qmilk-faser-modische-anwendung?lang=en
+  assets: []
+- id: bacterial-cellulose
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Bacterial cellulose
+      summary: Bacterial cellulose is made by fermenting microorganisms and is composed of long chains of glucose. It’s biodegradable and clean, giving designers a new material to create sustainable fashion.
+  fields:
+    material_of_origin: Bacteria
+    availability_status: in_development
+    interesting_properties:
+      en: Another property is that it can be dyed with natural pigments.
+    what_problem_it_solves:
+      en: Bacterial cellulose is a sustainable, cruelty-free material that addresses multiple challenges in fashion and design. It is biodegradable, non-toxic, and produced through fermentation, avoiding plastics, harmful chemicals, and animal exploitation.
+  taxonomies:
+    origin_type:
+    - bacteria
+  links: []
+  assets: []
+- id: qmonos
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Qmonos
+      summary: Spiber Inc. has developed Qmonos, a groundbreaking artificial silk inspired by the incredible strength and lightness of spider silk. By harnessing genetically modified bacteria to produce fibroin—the protein that gives natural silk its remarkable qualities—they’ve created a next-generation material that merges biology and technology, opening bold new possibilities for sustainable and high-performance design.
+  fields:
+    material_of_origin: Bacteria
+    availability_status: in_development
+    interesting_properties:
+      en: In 2013, Spiber unveiled a dress made from Qmonos—named after the Japanese word *kumonosu*, meaning "spider’s web." To develop this innovative and resilient fabric, they studied the silk of various spider species, blending nature’s engineering with cutting-edge biotechnology to create fashion rooted in science and imagination.
+    what_problem_it_solves:
+      en: Qmonos tackles major challenges in sustainability and material innovation by offering a biologically produced, cruelty-free alternative to traditional silk and synthetic fibers. It reduces reliance on resource-intensive silk farming and petrochemical-based textiles, cutting down water use, land impact, and harmful chemicals.
+  taxonomies:
+    origin_type:
+    - bacteria
+    textile_imitating:
+    - silk
+  links: []
+  assets: []
+- id: nukak
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Nukak
+      summary: This material is created from recycled tyres. The rubber is carefully separated from the other components and compacted without any glues or adhesives, giving designers a sustainable, versatile material to explore and create with.
+  fields:
+    supplier_name: It is available in Nukak
+    supplier_url: https://www.nukak.es/
+    material_of_origin: Recycled Tyres
+    availability_status: in_development
+    interesting_properties:
+      en: Tyres are made of natural and synthetic rubber, nylon, rayon, or polyester, which makes recycling them complex. Yet, within every challenge lies an opportunity to imagine more sustainable solutions.
+    structure:
+      en: Tyres consist of many components such as natural and synthetic rubber, nylon, rayon or polyester, this mixture complicates its recycling.
+    what_problem_it_solves:
+      en: Recycling tires helps the environment by keeping them out of landfills and reducing pollution. Old tires can be turned into new products like rubber, asphalt, or playground surfaces. It also lowers the risk of fires and turns waste into useful materials, helping us live more sustainably.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - synthetic_rubber
+    application:
+    - footwear
+    - accessories
+  links:
+  - label: It is available in Nukak
+    url: https://www.nukak.es/
+  assets: []
+- id: ecoalf-recycled-polyester-1
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: ECOALF-Recycled polyester 1
+      summary: Unlike conventional polyester, which is obtained from petroleum derivatives, recycled polyester can be obtained from plastic bottles. These are compacted and broken down into small fibres, which are then transformed into fabric. The chance to give new life to what used to be waste, creating thoughtful and sustainable fashion.
+  fields:
+    supplier_name: "\\-Ecoalf"
+    supplier_url: https://ecoalf.com/pages/materiales
+    material_of_origin: Recycled Polyester
+    availability_status: in_development
+    interesting_properties:
+      en: It helps to reduce plastic in landfills and generate less pollution.
+    what_problem_it_solves:
+      en: Recycled polyester helps reduce plastic waste, keeping bottles out of landfills and oceans. It lowers the need for petroleum-based materials, saving resources and cutting emissions. It transforms discarded plastics into usable fabric for fashion and other products.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - conventional_polyester
+    application:
+    - clothing
+  links:
+  - label: "\\-Ecoalf"
+    url: https://ecoalf.com/pages/materiales
+  assets: []
+- id: ecoalf-recycled-polyester-2
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: ECOALF-Recycled polyester 2
+      summary: Unlike conventional polyester, which is obtained from petroleum derivatives, recycled polyester can be obtained from plastic bottles. These are compacted and broken down into small fibres, which are then transformed into fabric. The chance to give new life to what used to be waste, creating thoughtful and sustainable fashion.
+  fields:
+    supplier_name: "\\-Ecoalf"
+    supplier_url: https://ecoalf.com/pages/materiales
+    material_of_origin: Recycled Polyester
+    availability_status: in_development
+    interesting_properties:
+      en: It helps to reduce plastic in landfills and generate less pollution.
+    what_problem_it_solves:
+      en: Recycled polyester helps reduce plastic waste, keeping bottles out of landfills and oceans. It lowers the need for petroleum-based materials, saving resources and cutting emissions. It transforms discarded plastics into usable fabric for fashion and other products.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - conventional_polyester
+    application:
+    - clothing
+  links:
+  - label: "\\-Ecoalf"
+    url: https://ecoalf.com/pages/materiales
+  assets: []
+- id: brewed-protein
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Brewed Protein™
+      summary: Brewed Protein is a registered brand of sustainable proteins developed by Spiber Inc. These proteins are created through microbial fermentation, turning plant sugars into valuable materials with the help of specially designed microorganisms. It’s a reminder that science and creativity can come together to produce innovation.
+  fields:
+    supplier_name: "\\-Spiber Inc."
+    supplier_url: https://spiber.inc/en/protein
+    material_of_origin: Protein
+    availability_status: in_development
+    interesting_properties:
+      en: It is made to be biodegradable in nature, so it can break down without leaving microplastics or harmful chemicals. Because it comes from plant sugars, it also has a much smaller carbon footprint than regular synthetic fibres. It shows that we can make materials that are good for people and the planet.
+    what_problem_it_solves:
+      en: Brewed Protein is made from plant sugars and breaks down naturally without leaving harmful waste. It shows that we can make strong, useful materials that are better for the planet.
+  taxonomies:
+    origin_type:
+    - microbial
+  links:
+  - label: "\\-Spiber Inc."
+    url: https://spiber.inc/en/protein
+  assets: []
+- id: azlon
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Azlon
+      summary: Azlon is a synthetic fiber made from proteins found in natural sources like soy. The raw material is turned into a liquid, which is then pushed through tiny holes in a device called a spinneret to create fibers. These fibers are stretched to line up their molecules for added strength. However, Azlon tends to be weaker when it’s wet.
+  fields:
+    material_of_origin: Protein
+    availability_status: in_development
+    what_problem_it_solves:
+      en: "**-**"
+  taxonomies:
+    origin_type:
+    - protein
+    application:
+    - clothing
+  links: []
+  assets: []
+- id: risa-ueno
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Risa Ueno
+      summary: A bioplastic material made from milk and vegetables that sparks a discussion about the positive and negative aspects of producing and consuming it.
+  fields:
+    supplier_name: 'Available as art: participatory performance'
+    material_of_origin: Protein
+    availability_status: commercial
+    interesting_properties:
+      en: "**Structure:x** It serves multisensory experience through knitted textile using protein based edible plastic yarn that is able to recreate people’s own DNA, re-informing their identity to their selves, inside of their bodies as knitting, eating, using, thus its form of consumption."
+    what_problem_it_solves:
+      en: This could reduce the amount of milk waste as well as plastic waste as it's bioplastic, people can eat. And also It reduces to consume chemically made plastic.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - clothing
+    - footwear
+    - accessories
+    - home_textiles
+    - safety_equipment
+    - art
+  links: []
+  assets: []
+- id: akromid-next-fibres
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: AKROMID® NEXT fibres
+      summary: AKROMID® NEXT is a new generation of nylon materials developed by German company AKRO-PLASTIC GmbH, combining high technical performance with a lower environmental impact. Unlike traditional nylons, it's made using bio-based, biomass-balanced, or chemically recycled raw materials, making it a more sustainable choice. With different formulations—like PA 6.9, PA 5.6, or PA 11—it can be tailored for strength, stiffness, moisture resistance, or thermal stability, depending on the need.
+  fields:
+    supplier_name: AKRO-PLASTIC
+    supplier_url: https://akro-plastic.com/en/compounds/akromid-next
+    material_of_origin: Plants
+    availability_status: commercial
+    interesting_properties:
+      en: It comes in the form of industrial granules and can be reinforced with glass or carbon fibers, making it ideal for high-performance applications in sectors like automotive, electronics, sports, and technical textiles. Some versions can even be processed into fibers, allowing it to be used in sustainable fabrics that offer the durability of nylon—but with a much lower carbon footprint.
+    what_problem_it_solves:
+      en: AKROMID® NEXT helps reduce the environmental impact of high-performance plastics by replacing fossil-based raw materials with bio-based or recycled alternatives. It supports industries that need strong, durable materials—like automotive or electronics—while significantly lowering carbon emissions. By offering a more sustainable nylon alternative, it also helps move technical textiles toward a greener future.
+  taxonomies:
+    origin_type:
+    - plants
+  links:
+  - label: AKRO-PLASTIC
+    url: https://akro-plastic.com/en/compounds/akromid-next
+  assets: []
+- id: oncemore
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: OnceMore®
+      summary: Södra's OnceMore® is an innovation in the textile industry. This Swedish is an iniciative industrial-scale process to recycle fabrics containing fibre blends. This brand combines this recycled material with cellulose from wood (from responsibly managed forests) to produce solvent pulp of textile quality.
+  fields:
+    supplier_name: SÖDRA
+    supplier_url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+    material_of_origin: Recycled materials
+    availability_status: commercial
+    interesting_properties:
+      en: When launched in 2019, OnceMore® had only \~3 % recycled textile content. Now it is already at \~20 % recycled textile content and 80 % renewable wood, but their target is to reach 50 % recycled textile \+ 50 % wood.
+    what_problem_it_solves:
+      en: It allows for the industrial-scale recycling of these fabrics by separating and recovering the cotton, turning it into new textile fibers. This helps reduce landfill waste, lowers the need for virgin cotton, and supports a more circular and sustainable fashion industry.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+  links:
+  - label: SÖDRA
+    url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+  assets: []
+- id: celltexx
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: CellTexx®
+      summary: CellTexx® is a sustainable material made from recycled cotton-based textiles, giving old clothes a second life. Developed by Australian company BlockTexx®, it’s created through their innovative S.O.F.T. (Separation of Fibre Technology) process, which separates cotton and polyester from blended fabrics. The recovered cotton becomes CellTexx®, a regenerated cellulose material, while the polyester is turned into PolyTexx®, a recycled polyester in pellet form.
+  fields:
+    supplier_name: Block Texx®
+    supplier_url: https://www.blocktexx.com/contact
+    material_of_origin: Recycled materials
+    availability_status: commercial
+    interesting_properties:
+      en: The main objective of CellTexx® is to close the textile cycle, preventing tons of clothing from ending up in landfills. This type of innovation is part of the circular economy in the fashion and textile industry.
+    what_problem_it_solves:
+      en: CellTexx® helps tackle the huge problem of textile waste, especially from blended fabrics that are hard to recycle. By recovering cotton from discarded clothing, it reduces landfill pollution, saves natural resources, and supports a circular textile economy. It also gives new value to materials that would otherwise be thrown away.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+  links:
+  - label: Block Texx®
+    url: https://www.blocktexx.com/contact
+  assets: []
+- id: circulose
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: CIRCULOSE®
+      summary: CIRCULOSE is made by Renewcell and comes from recycled materials. It can be turned into fibers like viscose or lyocell, which are then made into yarns and fabrics to create high-quality clothes. It shows how recycling can give old materials a new life in fashion.
+  fields:
+    supplier_name: "\\-Renecell"
+    supplier_url: https://www.renewcell.com/en/contacts/
+    material_of_origin: Recycled materials
+    availability_status: commercial
+    interesting_properties:
+      en: It helps people find high-quality textile products made from recycled materials.
+    what_problem_it_solves:
+      en: CIRCULOSE helps reduce textile waste by turning old clothes into new fibers. These fibers can be made into yarns and fabrics for new clothes. It shows how old materials can get a second life and help the planet.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+  links:
+  - label: "\\-Renecell"
+    url: https://www.renewcell.com/en/contacts/
+  assets: []
+- id: myfi
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: MyFi
+      summary: This European project aims to create myco-fibres with up to 90% chitin. Using leftover materials, they make mycelium fabrics with very low CO2 emissions, using little energy from renewable sources, and recycling most of the water. It shows how we can make sustainable fabrics that are good for both people and the planet.
+  fields:
+    supplier_name: My-Fi project, European Union’s Horizon 2020
+    supplier_url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+    material_of_origin: Mycelium biomass
+    availability_status: research_only
+    interesting_properties:
+      en: Chitin and its derivatives are usually made from shellfish waste using chemical treatments. This process uses a lot of energy and creates toxic waste, which makes it harder to use chitin fibres in some products.
+    what_problem_it_solves:
+      en: MYFI solves several problems in textiles and sustainability. It reduces waste by using residues as raw materials and avoids harmful chemical processes.
+  taxonomies:
+    origin_type:
+    - fungi
+    textile_imitating:
+    - leather
+    application:
+    - automotive
+  links:
+  - label: My-Fi project, European Union’s Horizon 2020
+    url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+  assets: []
+- id: fabric-forest
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Fabric Forest
+      summary: Fabric Forest produces different materials made from 100% paper yarn sourced from Swedish forests. They offer different materials such as LignaTex which can be braided, offering great variation and many possibilities. It gives a natural impression which is ideal for several uses. Other materials produced are; ArborTex, TerraTex, TimbraTex, and Braided String.The unique production technique used, replaces fossil-based products with renewable ones, helping reduce greenhouse gas emissions and mitigate climate change impacts associated with textile manufacturing.
+  fields:
+    supplier_name: Fabric Forest
+    supplier_url: https://fabric-forest.se/en/fabrics-lignatex/fabric-lignatex/
+    material_of_origin: Paper yarn
+    availability_status: commercial
+    interesting_properties:
+      en: These materials have a low carbon footprint of 1.89 kg CO2/kg fabric and requires only 417 litres of water per kg of fabric. This compares favourably to the nearly 10,000 litres of water required to produce one kilo of cotton.
+    what_problem_it_solves:
+      en: Fabric Forest textiles, made from Swedish forest-based raw materials, offer a sustainable alternative to cotton and synthetic fibers. They help reduce reliance on water- and pesticide-intensive crops like cotton, and avoid the use of fossil-based materials. By using renewable, locally sourced wood, they also support forest stewardship and lower the carbon footprint of textile production.
+  taxonomies:
+    origin_type:
+    - plants
+    application:
+    - home_textiles
+    - furniture
+  links:
+  - label: Fabric Forest
+    url: https://fabric-forest.se/en/fabrics-lignatex/fabric-lignatex/
+  assets: []
+- id: wint-design-lab
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: WINT Design Lab
+      summary: This innovative material comes from a design research project that explores cow gut tissue as a source for creating high-performance, sustainable textiles. By using collagen-based fibers, it introduces a new way of making fabrics that’s bio-based, renewable, and aligned with the shift toward more eco-conscious production in fashion. It’s a step toward building a biosynthetic future for the industry—where performance and sustainability go hand in hand.
+  fields:
+    supplier_name: WINT Design Lab
+    supplier_url: https://www.wintdesignlab.de/gold#Footer
+    material_of_origin: Collagen textiles
+    availability_status: research_only
+    interesting_properties:
+      en: Building on traditional textile techniques, the team explored modern fabrication methods like robotic yarn laying and material lamination. Their experiments led to a step-by-step process—a kind of "making map"—which they documented through videos and material samples, offering a clear look at how the materials evolved.
+    what_problem_it_solves:
+      en: Switching from petroleum-based textiles to collagen-based ones tackles the problem of relying on fossil fuels, which contribute to pollution and climate change. Collagen textiles come from renewable, natural sources, reducing harmful environmental impact and waste. They also open up possibilities for biodegradable, skin-friendly fabrics that can make fashion more sustainable and healthier for both people and the planet.
+  taxonomies:
+    origin_type:
+    - animals
+    application:
+    - technical_textiles
+    - art
+    - clothing
+  links:
+  - label: WINT Design Lab
+    url: https://www.wintdesignlab.de/gold#Footer
+  assets: []
+- id: soysilk
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: SOYSILK
+      summary: Soy Silk is a fiber that is made from the waste produced by soy milk and tofu production. Through a heated, wet spinning process, a liquid form of the soy protein, called okara, is forced through a spinneret and cooled to produce filaments. The resulting fiber is slick, smooth, and best spun at a high twist unless blended. It has a stronger tensile strength than wool and a lovely drape. While prone to piling over time, it has the same moisture absorption as cotton.
+  fields:
+    supplier_name: "\\-Unknown"
+    material_of_origin: Soybean residue
+    availability_status: commercial
+    interesting_properties:
+      en: No petrochemicals are used to make this fibre, so it is completely natural and renewable. The chemicals that are used are saved and recycled back into the process.
+    what_problem_it_solves:
+      en: It is renewable, made without chemicals, and helps reduce waste while giving a better option than regular fibres**.**
+  taxonomies:
+    origin_type:
+    - plants
+    textile_imitating:
+    - silk
+    application:
+    - clothing
+  links: []
+  assets: []
+- id: seacell
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: SeaCell™
+      summary: SeaCell™ is a fiber made from cellulose that contains nourishing seaweed. It’s created using only renewable materials like wood and seaweed through a clean, eco-friendly process—similar to how Lyocell is made. The production happens in a closed loop, so no harmful chemicals are released into the environment.
+  fields:
+    supplier_name: DUVALLI
+    supplier_url: https://duvalli.com/es/contactos-es/
+    material_of_origin: Seaweed
+    availability_status: commercial
+    interesting_properties:
+      en: SeaCell™ is carbon neutral and fully biodegradable. A patented high-tech process that guarantees long-lasting quality, even after several washing cycles.
+    what_problem_it_solves:
+      en: As it uses renewable materials like wood and seaweed to create eco-friendly fibers. Its closed-loop process minimizes pollution by avoiding chemical waste. Plus, the seaweed adds natural skin benefits, making it a sustainable and gentle fabric choice.
+  taxonomies:
+    origin_type:
+    - seaweed
+  links:
+  - label: DUVALLI
+    url: https://duvalli.com/es/contactos-es/
+  assets: []
+- id: pyratex-seacell-5
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Seacell 5
+      summary: PYRATEX® seacell 5 is an unbrushed fleece made from organic cotton, recycled cotton, and seaweed-based fiber. This fiber has antioxidant properties that help protect the skin from free radicals. The seaweed is gently harvested without damaging the plant, allowing it to regenerate, and is processed in a low-impact closed-loop system. It is a versatile fabric designed for garments such as hoodies, joggers, and sweatshirts, with added skin benefits.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/swaknflecs005-swatch-pyratex-r-seacell-5-52
+    material_of_origin: Seaweed
+    availability_status: commercial
+    interesting_properties:
+      en: It is a versatile fabric designed for garments such as hoodies, joggers, and sweatshirts, with added skin benefits.
+    what_problem_it_solves:
+      en: PYRATEX® seacell 5 reduces the impact of conventional textiles by using recycled materials and seaweed in a low-impact, chemical-free production system.
+  taxonomies:
+    origin_type:
+    - seaweed
+    application:
+    - clothing
+  links:
+  - label: Pyratex Seacell 5
+    url: https://eshop.pyratex.com/shop/swaknflecs005-swatch-pyratex-r-seacell-5-52
+  assets: []
+- id: pyratex-seacell-6
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Pyratex Seacell 6
+      summary: PYRATEX® seacell 6 is textile made with Seacell, seaweed-based fiber.This fiber has antioxidant properties that help protect the skin from free radicals. The seaweed comes from the Northern Atlantic and is turned into a fiber that improves skin comfort through soothing and anti-irritation properties.
+  fields:
+    supplier_url: https://eshop.pyratex.com/shop/pyratex-r-seacell-6-260
+    material_of_origin: Seaweed
+    availability_status: commercial
+    interesting_properties:
+      en: It also offers a more natural and functional textile alternative, with seaweed benefits that remain even after washing.
+    what_problem_it_solves:
+      en: PYRATEX® seacell 6 improves skin comfort compared to conventional fabrics, helping reduce irritation, itching, and inflammation thanks to seaweed properties.
+  taxonomies:
+    origin_type:
+    - seaweed
+    application:
+    - clothing
+  links:
+  - label: Pyratex Seacell 6
+    url: https://eshop.pyratex.com/shop/pyratex-r-seacell-6-260
+  assets: []
+- id: regenerated-wool
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Regenerated wool
+      summary: Regenerated wool is made by recycling old wool clothes to reduce textile waste. Because the wool is already dyed, new clothes don’t need dyeing, saving water and CO2. It is also kinder to the environment because it doesn’t need extra land for sheep farming.
+  fields:
+    supplier_name: Comistra
+    supplier_url: https://comistra.com/news/regenerated-wool-a-way-to-save-the-planet/
+    material_of_origin: Wool
+    availability_status: commercial
+    interesting_properties:
+      en: Regenerated wool is an extremely environmentally friendly solution, as is part of the slow fashion belief. It also involves a reduction in animal and human exploitation.
+    what_problem_it_solves:
+      en: Regenerated wool solves several problems in fashion and the environment. It reduces textile waste by recycling old wool garments.It also helps reduce animal and human exploitation, supporting a more ethical and eco-friendly fashion industry.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    textile_imitating:
+    - wool
+    application:
+    - clothing
+  links:
+  - label: Comistra
+    url: https://comistra.com/news/regenerated-wool-a-way-to-save-the-planet/
+  assets: []
+- id: eeden-world
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Eeden World
+      summary: Eeden is a technology company based in Germany that is developing advanced solutions for the chemical recycling of cotton and polyester textiles. Their technology makes it possible to separate and recover cellulose and PET monomers, which are then transformed into virgin-quality fibers such as lyocell, viscose, and polyester, contributing to a more circular textile industry.
+  fields:
+    supplier_name: "[https://eeden.world/](https://eeden.world/) Pilot stage"
+    supplier_url: https://eeden.world/
+    material_of_origin: Recycled materials
+    availability_status: in_development
+    what_problem_it_solves:
+      en: Eeden solves the challenge of recycling cotton-polyester blends, which are usually difficult to separate and reuse. Its technology enables the recovery of high-quality materials to create new fibers, supporting circularity.
+  taxonomies:
+    origin_type:
+    - recycled_materials
+    application:
+    - clothing
+  links:
+  - label: "[https://eeden.world/](https://eeden.world/) Pilot stage"
+    url: https://eeden.world/
+  assets: []
+- id: jingyi-yang-algae-based-bioplastic
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Jingyi Yang Algae-based Bioplastic
+      summary: Algae-based bioplastic developed by Jingyi Yang, a material that explores new possibilities in sustainable fashion through natural resources.
+  fields:
+    supplier_name: Pilot stage material system with small-batch production capability.
+    material_of_origin: Seaweed
+    availability_status: in_development
+    interesting_properties:
+      en: One of its environmental benefits is that it is fully biodegradable, water-soluble, and compostable under natural conditions, helping to reduce long-lasting waste in the environment. From a functional and aesthetic perspective, it has a leather-like feel, a semi-translucent appearance, and flexibility that changes depending on thickness.
+    what_problem_it_solves:
+      en: Fully biodegradable, water-soluble, and compostable under natural conditions, helping to reduce long-lasting waste in the environment.
+  taxonomies:
+    origin_type:
+    - seaweed
+    application:
+    - clothing
+    - accessories
+    - home_textiles
+  links: []
+  assets: []
+- id: rustic-wool
+  item_type: material
+  published: true
+  translations:
+    en:
+      title: Rustic Wool
+      summary: Rustic wool is made from wool that is a byproduct of sheep farming and is often discarded or undervalued. By using this existing resource, it helps reduce agricultural waste and makes better use of materials already produced. It also has a lower environmental impact, as it does not require additional processing or new raw material production, while providing a natural, biodegradable alternative to synthetic fibers.
+  fields:
+    supplier_name: By-product of sheep farming
+    material_of_origin: Wool
+    availability_status: commercial
+    interesting_properties:
+      en: In Europe, much of the wool from sheep farming is undervalued and treated as waste due to low market demand and high processing costs. As a result, significant quantities are discarded, burned, or buried, despite being a natural and biodegradable material with potential for sustainable applications.
+    what_problem_it_solves:
+      en: Helps address agricultural waste and underutilized resources by valorizing wool that is often discarded or of low commercial value. It provides a natural, biodegradable, and insulating material, offering a low-impact alternative to synthetic fibers while supporting more circular and regenerative use of animal-based resources.
+  taxonomies:
+    textile_imitating:
+    - wool
+    application:
+    - clothing
+  links: []
+  assets: []

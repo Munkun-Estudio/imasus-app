@@ -1,4 +1,4 @@
-# A multi-facet, multi-select tag used to filter the IMASUS materials
+# A multi-facet, multi-select tag used to filter library materials.
 # catalogue.
 #
 # Tags are grouped by {FACETS} — `origin_type`, `textile_imitating`, and
@@ -9,26 +9,22 @@
 # Slug uniqueness is scoped to `facet` so, for example, a `plants` slug in
 # `origin_type` and a `plants` slug in `application` (were it ever needed)
 # would not collide.
-class Tag < ApplicationRecord
-  include Translatable
-
+class Tag < LibraryTaxonomyTerm
   FACETS = %w[origin_type textile_imitating application].freeze
 
-  BASE_LOCALE = "en"
-
-  SEED_PATH = Rails.root.join("db", "seeds", "material_tags.yml")
+  SEED_PATH = Rails.configuration.site.content.library
 
   enum :facet, FACETS.each_with_index.to_h
 
-  has_many :taggings, class_name: "MaterialTagging", dependent: :destroy
-  has_many :materials, through: :taggings
-
-  translates :name
+  has_many :taggings, class_name: "MaterialTagging", foreign_key: :library_taxonomy_term_id,
+                      dependent: :destroy, inverse_of: :tag
+  has_many :materials, through: :taggings, source: :material
 
   validates :facet, presence: true
   validates :slug,  presence: true, uniqueness: { scope: :facet, case_sensitive: false }
 
   validate :base_locale_name_present
+  before_validation :sync_library_taxonomy
 
   # Existing tags keep edited names by default; pass `overwrite: true` or set
   # `SEED_OVERWRITE_CONTENT=1` / `SEED_TAGS=overwrite` to intentionally refresh
@@ -38,29 +34,27 @@ class Tag < ApplicationRecord
   # @param overwrite [Boolean] whether existing content should be replaced
   # @return [Integer] the number of tags after loading
   def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:tags))
-    entries = YAML.load_file(path)
+    manifest = LibraryCatalog::Manifest.load(path:)
+    LibraryTaxonomyTerm.seed_from_manifest!(manifest:, overwrite:)
+    where(taxonomy_key: FACETS).count
+  end
 
-    entries.each do |entry|
-      facet = entry.fetch("facet")
-      slug  = entry.fetch("slug")
-
-      tag = find_or_initialize_by(facet: facet, slug: slug)
-      tag.name_translations = SeedPolicy.translations(
-        tag.name_translations,
-        entry.fetch("name"),
-        overwrite: overwrite
-      )
-      tag.save!
-    end
-
-    count
+  def sync_legacy_from_library!
+    self.facet = taxonomy_key if FACETS.include?(taxonomy_key)
+    self
   end
 
   private
 
   def base_locale_name_present
-    return if name_in(BASE_LOCALE).to_s.strip.present?
+    return if name_in(self.class.base_locale).to_s.strip.present?
 
     errors.add(:name_translations, :blank)
   end
+
+  def sync_library_taxonomy
+    self.taxonomy_key = facet if taxonomy_key.blank? && facet.present?
+  end
 end
+
+Tag::FACETS.each { |facet| LibraryTaxonomyTerm.register_adapter(facet, Tag) }

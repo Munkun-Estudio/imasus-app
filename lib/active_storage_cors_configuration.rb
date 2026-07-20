@@ -3,7 +3,6 @@ require "aws-sdk-s3"
 # Applies the CORS rule needed by Active Storage direct uploads against the
 # S3-compatible production bucket.
 class ActiveStorageCorsConfiguration
-  DEFAULT_ALLOWED_ORIGINS = [ "https://app.imasus.eu", "https://imasus-app.fly.dev" ].freeze
   DEFAULT_ALLOWED_HEADERS = [
     "Content-Type",
     "Content-MD5",
@@ -42,7 +41,11 @@ class ActiveStorageCorsConfiguration
   end
 
   def self.allowed_origins
-    ENV.fetch("ACTIVE_STORAGE_CORS_ORIGINS", DEFAULT_ALLOWED_ORIGINS.join(","))
+    defaults = [
+      Rails.configuration.site.public_urls.application,
+      Rails.configuration.site.public_urls.fallback
+    ]
+    ENV.fetch("ACTIVE_STORAGE_CORS_ORIGINS", defaults.join(","))
        .split(",")
        .map(&:strip)
        .compact_blank

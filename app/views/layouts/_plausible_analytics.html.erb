@@ -1,6 +1,7 @@
-<% if Rails.env.production? %>
+<% analytics = site_config.operations.analytics %>
+<% if Rails.env.production? && analytics.enabled && analytics.script_url.present? %>
   <!-- Privacy-friendly analytics by Plausible -->
-  <%= javascript_include_tag "https://stats.munkun.com/js/pa-AEv3S9_hJMk___wHOsvRL.js", async: true %>
+  <%= javascript_include_tag analytics.script_url, async: true %>
   <%= javascript_tag do %>
     window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
     plausible.init()

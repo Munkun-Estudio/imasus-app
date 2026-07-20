@@ -3,6 +3,7 @@ require "test_helper"
 class GlossaryTermTest < ActiveSupport::TestCase
   def valid_attributes(overrides = {})
     {
+      slug:                    "framework",
       term_translations:       { "en" => "Framework" },
       definition_translations: { "en" => "A shared structure that guides how something is built or understood." },
       examples_translations:   { "en" => [ "Imagineering framework", "Design framework" ] },
@@ -109,7 +110,7 @@ class GlossaryTermTest < ActiveSupport::TestCase
 
   # --- Slug -------------------------------------------------------------------
 
-  test "generates a URL-safe slug from the base-locale term on create" do
+  test "uses an explicit stable id instead of deriving identity from translated copy" do
     term = GlossaryTerm.create!(valid_attributes)
     assert_equal "framework", term.slug
   end
@@ -126,14 +127,16 @@ class GlossaryTermTest < ActiveSupport::TestCase
     assert_equal term.slug, term.to_param
   end
 
-  test "slug is URL-safe for terms with spaces and punctuation" do
-    term = GlossaryTerm.create!(valid_attributes(term_translations: { "en" => "Creative Tension Engine!" }))
-    assert_equal "creative-tension-engine", term.slug
+  test "slug must be URL-safe" do
+    term = GlossaryTerm.new(valid_attributes(slug: "not safe"))
+    assert_not term.valid?
+    assert term.errors[:slug].any?
   end
 
   test "slug uniqueness is enforced" do
     GlossaryTerm.create!(valid_attributes)
     dup = GlossaryTerm.new(valid_attributes(
+      slug: "framework",
       term_translations: { "en" => "Framework " }, # trailing space same slug, different term-ish
       definition_translations: { "en" => "Dup" }
     ))

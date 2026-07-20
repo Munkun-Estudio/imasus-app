@@ -1,12 +1,17 @@
 class TrainingController < ApplicationController
+  requires_resource_module :guides
+
   def index
     @loader = TrainingModule::Loader.new
-    @modules = @loader.all
+    @guides_module = resource_module_registry.fetch(:guides)
+    @modules = @loader.all(locale: I18n.locale)
     @about = @loader.about(I18n.locale.to_s)
   end
 
   def show
     loader = TrainingModule::Loader.new
+    @guides_module = resource_module_registry.fetch(:guides)
+    @modules = loader.all(locale: I18n.locale)
     @section = loader.section(params[:slug], params[:section], I18n.locale.to_s)
 
     if @section.nil?
@@ -31,7 +36,7 @@ class TrainingController < ApplicationController
   def saved_training_bookmarks(section)
     return {} unless logged_in?
 
-    prefix = "#{section.module_slug}/#{section.volume}/#{I18n.locale}"
+    prefix = "#{section.module_slug}/#{section.volume}/#{section.locale}"
     current_user.bookmarks
                 .by_type("TrainingModule")
                 .where("resource_key LIKE ?", "#{prefix}/%")

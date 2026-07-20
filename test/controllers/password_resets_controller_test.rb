@@ -15,7 +15,7 @@ class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", text: I18n.t("password_resets.new.title")
     assert_select "input[type=email][class*=?]", "border"
-    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
+    assert_select "input[type=submit][class*=?]", "bg-brand-primary"
   end
 
   test "POST create sends email for a known user and shows generic confirmation" do

@@ -1,12 +1,16 @@
 class BookmarksController < ApplicationController
   before_action :require_login
   before_action :set_bookmark, only: :destroy
-
-  GROUPED_TYPES = %w[Material TrainingModule Challenge GlossaryTerm].freeze
+  before_action :require_enabled_bookmark_module, only: :create
 
   def index
-    all = current_user.bookmarks.recent
-    @grouped = GROUPED_TYPES.index_with { |type| all.select { |b| b.bookmarkable_type == type } }
+    modules = resource_module_registry.enabled.select(&:bookmarkable?)
+    all = current_user.bookmarks
+                      .where(bookmarkable_type: modules.flat_map(&:bookmark_types))
+                      .recent
+    @grouped = modules.index_with do |resource_module|
+      all.select { |bookmark| resource_module.bookmark_types.include?(bookmark.bookmarkable_type) }
+    end
   end
 
   def create
@@ -47,6 +51,11 @@ class BookmarksController < ApplicationController
   end
 
   private
+
+  def require_enabled_bookmark_module
+    resource_module = resource_module_registry.for_bookmark_type(bookmark_params[:bookmarkable_type])
+    head :not_found unless resource_module&.enabled?
+  end
 
   def set_bookmark
     @bookmark = current_user.bookmarks.find_by(id: params[:id])

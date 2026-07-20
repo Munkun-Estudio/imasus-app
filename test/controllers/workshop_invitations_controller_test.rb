@@ -40,7 +40,7 @@ class WorkshopInvitationsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h1", text: I18n.t("workshop_invitations.new.title", workshop: @workshop.title)
     assert_select "a[href=?]", workshop_path(@workshop), text: I18n.t("workshop_invitations.new.back_to_workshop")
     assert_select "textarea[class*=?]", "border"
-    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
+    assert_select "input[type=submit][class*=?]", "bg-brand-primary"
     assert_select "div.mx-auto.max-w-2xl", count: 0
   end
 

@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+  def self.requires_resource_module(key)
+    before_action -> { require_resource_module(key) }
+  end
+
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
@@ -7,7 +11,8 @@ class ApplicationController < ActionController::Base
 
   around_action :set_locale
 
-  helper_method :current_user, :logged_in?, :curator?
+  helper_method :current_user, :logged_in?, :curator?,
+                :resource_module_registry, :resource_module_enabled?
 
   # True when the signed-in user may curate shared content (admin or facilitator).
   #
@@ -28,6 +33,14 @@ class ApplicationController < ActionController::Base
   # @return [Boolean] whether a user is signed in for this request
   def logged_in?
     current_user.present?
+  end
+
+  def resource_module_registry
+    @resource_module_registry ||= ResourceModuleRegistry.current
+  end
+
+  def resource_module_enabled?(key)
+    resource_module_registry.enabled?(key)
   end
 
   # Before-action helper. Redirects anonymous requests to the login page and
@@ -68,6 +81,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def require_resource_module(key)
+    head :not_found unless resource_module_enabled?(key)
+  end
 
   def store_return_to
     session[:return_to] = request.fullpath if request.get? || request.head?

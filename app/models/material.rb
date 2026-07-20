@@ -1,4 +1,4 @@
-# A sustainable material featured in the IMASUS catalogue.
+# A sustainable material featured in the installation catalogue.
 #
 # Materials are editorial content: participants browse them for inspiration
 # before and during workshops. The model carries a mix of plain-string metadata
@@ -14,12 +14,8 @@
 # Faceted filtering on the catalogue page is powered by {Tag} associations
 # through {MaterialTagging}, grouped by facet (`origin_type`,
 # `textile_imitating`, `application`).
-class Material < ApplicationRecord
-  include Translatable
-
+class Material < LibraryItem
   AVAILABILITY_STATUSES = %w[commercial in_development research_only].freeze
-
-  BASE_LOCALE = "en"
 
   # Translatable narrative fields rendered as prose sections on the detail
   # page. Ordered for reading: description → sensorial_qualities →
@@ -29,20 +25,25 @@ class Material < ApplicationRecord
     interesting_properties structure
   ].freeze
 
-  SEED_PATH = Rails.root.join("db", "seeds", "materials.yml")
+  SEED_PATH = Rails.configuration.site.content.library
 
   enum :availability_status, AVAILABILITY_STATUSES.each_with_index.to_h
 
-  has_many :taggings, class_name: "MaterialTagging", dependent: :destroy
-  has_many :tags, through: :taggings
+  default_scope { where(item_type: "material", published: true) }
+
+  has_many :taggings, class_name: "MaterialTagging", foreign_key: :library_item_id,
+                      dependent: :destroy, inverse_of: :material
+  has_many :tags, through: :taggings, source: :tag
 
   has_many :assets, -> { order(:kind, :position) },
-           class_name: "MaterialAsset", dependent: :destroy
+           class_name: "MaterialAsset", foreign_key: :library_item_id,
+           dependent: :destroy, inverse_of: :material
 
   translates :description, :interesting_properties, :structure,
              :sensorial_qualities, :what_problem_it_solves
 
   before_validation :generate_slug, on: :create
+  before_validation :sync_library_from_legacy
 
   validates :trade_name,          presence: true
   validates :slug,                presence: true, uniqueness: { case_sensitive: false }
@@ -100,98 +101,28 @@ class Material < ApplicationRecord
     assets.find_by(kind: :video)
   end
 
-  # Idempotent loader that upserts every entry in the seed YAML. Matches each
-  # record by the slug derived from the English `trade_name`, so re-running the
-  # loader never duplicates rows. Existing rows keep edited content by default;
-  # pass `overwrite: true` or set `SEED_OVERWRITE_CONTENT=1` /
-  # `SEED_MATERIALS=overwrite` to intentionally refresh content from YAML.
-  #
-  # @param path [Pathname, String] seed file path
-  # @param overwrite [Boolean] whether existing content should be replaced
-  # @return [Integer] the number of materials after loading
-  # @raise [ActiveRecord::RecordInvalid] if any entry fails validation
-  # @raise [ArgumentError] if a material entry references an unknown tag slug
+  # Compatibility entrypoint. Library content now comes from the generic
+  # manifest configured by the active installation profile.
   def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:materials))
-    entries = YAML.load_file(path)
-
-    entries.each_with_index do |entry, index|
-      trade_name = entry.fetch("trade_name")
-      slug       = entry.fetch("slug") { trade_name.parameterize }
-
-      material = find_or_initialize_by(slug: slug)
-      material.trade_name = SeedPolicy.value(material.trade_name, trade_name, overwrite: overwrite)
-      material.supplier_name = SeedPolicy.value(material.supplier_name, entry["supplier_name"], overwrite: overwrite)
-      material.supplier_url = SeedPolicy.value(material.supplier_url, entry["supplier_url"], overwrite: overwrite)
-      material.material_of_origin = SeedPolicy.value(
-        material.material_of_origin,
-        entry["material_of_origin"],
-        overwrite: overwrite
-      )
-      material.availability_status = SeedPolicy.value(
-        material.availability_status,
-        entry.fetch("availability_status"),
-        overwrite: overwrite
-      )
-      material.position = SeedPolicy.value(material.position, entry.fetch("position", index), overwrite: overwrite)
-
-      material.description_translations = SeedPolicy.translations(
-        material.description_translations,
-        entry.fetch("description", {}),
-        overwrite: overwrite
-      )
-      material.interesting_properties_translations = SeedPolicy.translations(
-        material.interesting_properties_translations,
-        entry.fetch("interesting_properties", {}),
-        overwrite: overwrite
-      )
-      material.structure_translations = SeedPolicy.translations(
-        material.structure_translations,
-        entry.fetch("structure", {}),
-        overwrite: overwrite
-      )
-      material.sensorial_qualities_translations = SeedPolicy.translations(
-        material.sensorial_qualities_translations,
-        entry.fetch("sensorial_qualities", {}),
-        overwrite: overwrite
-      )
-      material.what_problem_it_solves_translations = SeedPolicy.translations(
-        material.what_problem_it_solves_translations,
-        entry.fetch("what_problem_it_solves", {}),
-        overwrite: overwrite
-      )
-
-      material.save!
-
-      apply_tags!(material, entry["tags"] || {}, overwrite: overwrite)
-    end
-
-    count
+    manifest = LibraryCatalog::Manifest.load(path:)
+    LibraryItem.seed_from_manifest!(manifest:, overwrite:)
+    of_type("material").count
   end
 
-  # Replaces the material's taggings with the ones described by the entry.
-  #
-  # @api private
-  # @param material [Material]
-  # @param tags_by_facet [Hash{String => Array<String>}] facet => tag slugs
-  # @raise [ArgumentError] if any tag slug is unknown
-  def self.apply_tags!(material, tags_by_facet, overwrite:)
-    tag_ids = tags_by_facet.flat_map do |facet, slugs|
-      Array(slugs).map { |slug| resolve_tag_id!(facet, slug) }
-    end
-
-    material.taggings.where.not(tag_id: tag_ids).destroy_all if overwrite
-
-    (tag_ids - material.tags.pluck(:id)).each do |tag_id|
-      material.taggings.create!(tag_id: tag_id)
-    end
+  def sync_legacy_from_library!
+    fallback = self.class.base_locale.to_s
+    self.trade_name = title_translations.to_h[fallback]
+    self.description_translations = summary_translations
+    self.supplier_name = custom_fields.to_h["supplier_name"]
+    self.supplier_url = custom_fields.to_h["supplier_url"]
+    self.material_of_origin = custom_fields.to_h["material_of_origin"]
+    self.availability_status = custom_fields.to_h["availability_status"]
+    self.interesting_properties_translations = custom_fields.to_h.fetch("interesting_properties", {})
+    self.structure_translations = custom_fields.to_h.fetch("structure", {})
+    self.sensorial_qualities_translations = custom_fields.to_h.fetch("sensorial_qualities", {})
+    self.what_problem_it_solves_translations = custom_fields.to_h.fetch("what_problem_it_solves", {})
+    self
   end
-
-  def self.resolve_tag_id!(facet, slug)
-    Tag.where(facet: facet, slug: slug).pick(:id) ||
-      raise(ArgumentError, "Unknown tag: facet=#{facet}, slug=#{slug}")
-  end
-
-  private_class_method :apply_tags!, :resolve_tag_id!
 
   private
 
@@ -201,9 +132,49 @@ class Material < ApplicationRecord
     self.slug = trade_name.to_s.parameterize.presence
   end
 
+  def sync_library_from_legacy
+    self.item_type = "material"
+    fallback = self.class.base_locale.to_s
+    if new_record? || will_save_change_to_trade_name?
+      self.title_translations = title_translations.to_h.merge(fallback => trade_name)
+    end
+    if new_record? || will_save_change_to_description_translations?
+      self.summary_translations = description_translations
+    end
+
+    fields = custom_fields.to_h.dup
+    sync_custom_field(fields, "supplier_name", supplier_name)
+    sync_custom_field(fields, "supplier_url", supplier_url)
+    sync_custom_field(fields, "material_of_origin", material_of_origin)
+    sync_custom_field(fields, "availability_status", availability_status)
+    sync_custom_field(fields, "interesting_properties", interesting_properties_translations)
+    sync_custom_field(fields, "structure", structure_translations)
+    sync_custom_field(fields, "sensorial_qualities", sensorial_qualities_translations)
+    sync_custom_field(fields, "what_problem_it_solves", what_problem_it_solves_translations)
+    self.custom_fields = fields
+
+    return unless new_record? || will_save_change_to_supplier_url? || will_save_change_to_supplier_name?
+
+    self.links = if supplier_url.present?
+      [ { "label" => supplier_name.presence || trade_name, "url" => supplier_url } ]
+    else
+      []
+    end
+  end
+
+  def sync_custom_field(fields, key, value)
+    if value.present?
+      fields[key] = value
+    else
+      fields.delete(key)
+    end
+  end
+
   def base_locale_description_present
-    return if description_in(BASE_LOCALE).to_s.strip.present?
+    return if description_in(self.class.base_locale).to_s.strip.present?
 
     errors.add(:description_translations, :blank)
   end
 end
+
+LibraryItem.register_adapter("material", Material)

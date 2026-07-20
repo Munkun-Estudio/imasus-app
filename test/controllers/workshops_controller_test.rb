@@ -317,7 +317,7 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "trix-editor", count: 4
     %w[en es it el].each do |locale|
-      assert_select "input[type=hidden][name=?]", "workshop[agenda_#{locale}]"
+      assert_select "input[type=hidden][name=?]", "workshop[agenda_translations][#{locale}]"
     end
   end
 
@@ -437,14 +437,16 @@ class WorkshopsControllerTest < ActionDispatch::IntegrationTest
     sign_in(make_admin)
     patch workshop_url(@workshop), params: {
       workshop: {
-        agenda_en: "<h2>Spec 14 agenda EN</h2>",
-        agenda_es: "<h2>Agenda ES</h2>"
+        agenda_translations: {
+          en: "<h2>Spec 14 agenda EN</h2>",
+          es: "<h2>Agenda ES</h2>"
+        }
       }
     }
     assert_redirected_to workshop_url(@workshop)
     @workshop.reload
-    assert_includes @workshop.agenda_en.body.to_s, "Spec 14 agenda EN"
-    assert_includes @workshop.agenda_es.body.to_s, "Agenda ES"
+    assert_includes @workshop.agenda_in(:en).body.to_s, "Spec 14 agenda EN"
+    assert_includes @workshop.agenda_in(:es).body.to_s, "Agenda ES"
   end
 
   test "workshop show page renders an Edit workshop link for managers" do

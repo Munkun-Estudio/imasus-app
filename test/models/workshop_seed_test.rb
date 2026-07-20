@@ -13,7 +13,7 @@ class WorkshopSeedTest < ActiveSupport::TestCase
     I18n.with_locale(:es) do
       assert workshop.title.present?
       assert workshop.description.present?
-      assert_includes workshop.agenda_es.body.to_plain_text.to_s, "Sesion 1"
+      assert_includes workshop.agenda_in(:es).body.to_plain_text.to_s, "Sesion 1"
     end
 
     assert_no_difference -> { Workshop.count } do
@@ -35,7 +35,7 @@ class WorkshopSeedTest < ActiveSupport::TestCase
       contact_email: "edited@example.com",
       location: "Edited location"
     )
-    workshop.agenda_es = "<h2>Agenda editada</h2><p>Texto propio.</p>"
+    workshop.assign_localized_rich_text(:agenda, :es, "<h2>Agenda editada</h2><p>Texto propio.</p>")
     workshop.save!
 
     Workshop.seed_from_yaml!
@@ -44,7 +44,7 @@ class WorkshopSeedTest < ActiveSupport::TestCase
     assert_equal "Titulo editado", workshop.title_translations["es"]
     assert_equal "edited@example.com", workshop.contact_email
     assert_equal "Edited location", workshop.location
-    assert_includes workshop.agenda_es.body.to_plain_text.to_s, "Agenda editada"
+    assert_includes workshop.agenda_in(:es).body.to_plain_text.to_s, "Agenda editada"
   end
 
   test "seed_from_yaml overwrites edited agenda and metadata when requested" do
@@ -54,7 +54,7 @@ class WorkshopSeedTest < ActiveSupport::TestCase
       title_translations: { "es" => "Titulo editado" },
       contact_email: "edited@example.com"
     )
-    workshop.agenda_es = "<h2>Agenda editada</h2><p>Texto propio.</p>"
+    workshop.assign_localized_rich_text(:agenda, :es, "<h2>Agenda editada</h2><p>Texto propio.</p>")
     workshop.save!
 
     Workshop.seed_from_yaml!(overwrite: true)
@@ -62,7 +62,7 @@ class WorkshopSeedTest < ActiveSupport::TestCase
 
     assert_equal "Taller IMASUS Espana", workshop.title_translations["es"]
     assert_equal "spain@imasus.eu", workshop.contact_email
-    assert_includes workshop.agenda_es.body.to_plain_text.to_s, "Sesion 1"
+    assert_includes workshop.agenda_in(:es).body.to_plain_text.to_s, "Sesion 1"
   end
 
   test "seed_from_yaml only prunes unseeded workshops when overwriting" do

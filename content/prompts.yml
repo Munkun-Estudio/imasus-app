@@ -1,0 +1,287 @@
+---
+version: 1
+resource: prompts
+categories:
+- id: material
+  labels:
+    en: Material
+    es: Material
+    it: Materiale
+    el: Υλικό
+- id: design
+  labels:
+    en: Design
+    es: Diseño
+    it: Design
+    el: Σχεδιασμός
+- id: system
+  labels:
+    en: System
+    es: Sistema
+    it: Sistema
+    el: Σύστημα
+- id: business
+  labels:
+    en: Business
+    es: Negocio
+    it: Impresa
+    el: Επιχείρηση
+entries:
+- id: C1
+  category: material
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we reduce virgin-material use in textile production?
+      description: 'Framing question for projects focused on substituting, reducing, or rethinking the primary material inputs of textile production — from fibre cultivation to yarn and fabric formation.
+
+'
+    es:
+      question: "¿Cómo podríamos reducir el uso de materias primas vírgenes en la producción textil?"
+      description: 'Pregunta de encuadre para proyectos centrados en sustituir, reducir o repensar los insumos materiales principales de la producción textil, desde el cultivo de la fibra hasta la formación de hilo y tejido.
+
+'
+    it:
+      question: Come potremmo ridurre l'uso di materie prime vergini nella produzione tessile?
+      description: 'Domanda di inquadramento per progetti focalizzati sulla sostituzione, riduzione o ripensamento degli input materiali primari della produzione tessile — dalla coltivazione della fibra alla formazione di filati e tessuti.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να μειώσουμε τη χρήση παρθένων υλικών στην κλωστοϋφαντουργική παραγωγή;
+      description: 'Ερώτηση πλαισίωσης για έργα που επικεντρώνονται στην υποκατάσταση, μείωση ή επανεξέταση των κύριων υλικών εισροών της κλωστοϋφαντουργικής παραγωγής — από την καλλιέργεια ινών έως τη διαμόρφωση νήματος και υφάσματος.
+
+'
+- id: C2
+  category: material
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we recover value from post-industrial textile waste?
+      description: 'Off-cuts, selvedges, yarn waste, and rejected lots produced during manufacturing — how can their material value be captured before it becomes post-consumer waste?
+
+'
+    es:
+      question: "¿Cómo podríamos recuperar valor de los residuos textiles post-industriales?"
+      description: 'Recortes, orillos, desperdicios de hilo y lotes rechazados generados durante la fabricación: ¿cómo puede capturarse su valor material antes de que se conviertan en residuos post-consumo?
+
+'
+    it:
+      question: Come potremmo recuperare valore dagli scarti tessili post-industriali?
+      description: 'Ritagli, cimose, scarti di filato e lotti rifiutati prodotti durante la manifattura — come può essere catturato il loro valore materiale prima che diventino rifiuti post-consumo?
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να ανακτήσουμε αξία από μεταβιομηχανικά κλωστοϋφαντουργικά απόβλητα;
+      description: 'Κομμάτια υφάσματος, σελβέδες, απόβλητα νήματος και απορριφθέντα παρτίδα κατά την παραγωγή — πώς μπορεί να αξιοποιηθεί η υλική τους αξία πριν καταλήξουν σε μεταχρηστιμοποιημένα απόβλητα;
+
+'
+- id: C3
+  category: design
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we design garments for longer use phases?
+      description: 'Durability is both physical and emotional — projects here investigate construction, repairability, and attachment as design levers for extending the life a garment spends in active use.
+
+'
+    es:
+      question: "¿Cómo podríamos diseñar prendas para fases de uso más largas?"
+      description: 'La durabilidad es tanto física como emocional. Los proyectos aquí investigan la construcción, la reparabilidad y el vínculo afectivo como palancas de diseño para extender la vida activa de una prenda.
+
+'
+    it:
+      question: Come potremmo progettare capi d'abbigliamento per fasi d'uso più lunghe?
+      description: 'La durabilità è sia fisica che emotiva — i progetti qui indagano costruzione, riparabilità e attaccamento come leve progettuali per estendere la vita attiva di un capo d''abbigliamento.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να σχεδιάσουμε ενδύματα για μεγαλύτερες φάσεις χρήσης;
+      description: 'Η ανθεκτικότητα είναι τόσο φυσική όσο και συναισθηματική — τα έργα εδώ διερευνούν την κατασκευή, την επισκευασιμότητα και τη συναισθηματική σύνδεση ως μοχλούς σχεδιασμού για την επέκταση της ενεργής ζωής ενός ενδύματος.
+
+'
+- id: C4
+  category: design
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we design for modular repair and adaptation?
+      description: 'Component thinking applied to textile products — separable parts, standard interfaces, and adaptation paths that let a garment evolve with its wearer rather than being discarded.
+
+'
+    es:
+      question: "¿Cómo podríamos diseñar para la reparación modular y la adaptación?"
+      description: 'El pensamiento por componentes aplicado a los productos textiles: piezas separables, interfaces estandarizadas y vías de adaptación que permiten que una prenda evolucione con quien la lleva en lugar de ser desechada.
+
+'
+    it:
+      question: Come potremmo progettare per la riparazione modulare e l'adattamento?
+      description: 'Il pensiero a componenti applicato ai prodotti tessili — parti separabili, interfacce standard e percorsi di adattamento che permettono a un capo di evolversi con chi lo indossa anziché essere scartato.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να σχεδιάσουμε για αρθρωτή επισκευή και προσαρμογή;
+      description: 'Η σκέψη ανά συστατικά εφαρμοσμένη σε κλωστοϋφαντουργικά προϊόντα — αποσπώμενα μέρη, τυποποιημένες διεπαφές και μονοπάτια προσαρμογής που επιτρέπουν σε ένα ένδυμα να εξελίσσεται με τον χρήστη του.
+
+'
+- id: C5
+  category: design
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we design for end-of-life disassembly and recyclability?
+      description: 'What does a garment designed for its next life look like? Projects here address material selection, joining techniques, and labelling that enable mono-material streams at end-of-life.
+
+'
+    es:
+      question: "¿Cómo podríamos diseñar para el desmontaje y la reciclabilidad al final de la vida útil?"
+      description: "¿Cómo es una prenda diseñada para su próxima vida? Los proyectos aquí abordan la selección de materiales, las técnicas de unión y el etiquetado que permiten flujos de material único al final de la vida útil.\n"
+    it:
+      question: Come potremmo progettare per lo smontaggio e la riciclabilità a fine vita?
+      description: 'Come appare un capo progettato per la sua prossima vita? I progetti qui affrontano la selezione dei materiali, le tecniche di giunzione e l''etichettatura che consentono flussi mono-materiale a fine vita.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να σχεδιάσουμε για αποσυναρμολόγηση και ανακυκλωσιμότητα στο τέλος ζωής;
+      description: 'Πώς μοιάζει ένα ένδυμα σχεδιασμένο για την επόμενη ζωή του; Τα έργα εδώ αντιμετωπίζουν την επιλογή υλικών, τις τεχνικές ένωσης και την επισήμανση που επιτρέπουν ροές μονο-υλικού στο τέλος ζωής.
+
+'
+- id: C6
+  category: system
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we close textile material loops at a regional scale?
+      description: 'Collection, sorting, reprocessing — the infrastructure of circularity. Projects investigate what a working regional loop requires in terms of actors, flows, and coordination.
+
+'
+    es:
+      question: "¿Cómo podríamos cerrar los ciclos de material textil a escala regional?"
+      description: 'Recogida, clasificación, reprocesamiento: la infraestructura de la circularidad. Los proyectos investigan qué requiere un ciclo regional funcional en términos de actores, flujos y coordinación.
+
+'
+    it:
+      question: Come potremmo chiudere i cicli dei materiali tessili a scala regionale?
+      description: 'Raccolta, cernita, rielaborazione — l''infrastruttura della circolarità. I progetti indagano cosa richiede un ciclo regionale funzionante in termini di attori, flussi e coordinamento.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να κλείσουμε τους κύκλους υλικών κλωστοϋφαντουργίας σε περιφερειακή κλίμακα;
+      description: 'Συλλογή, διαλογή, επεξεργασία — η υποδομή της κυκλικότητας. Τα έργα διερευνούν τι απαιτεί ένας λειτουργικός περιφερειακός κύκλος ως προς τους παράγοντες, τις ροές και τον συντονισμό.
+
+'
+- id: C7
+  category: system
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we improve traceability across textile supply chains?
+      description: 'From fibre to garment, supply chains are long, opaque, and fragmented. What interventions — technical, procedural, or regulatory — would make material and social conditions visible to downstream actors?
+
+'
+    es:
+      question: "¿Cómo podríamos mejorar la trazabilidad en las cadenas de suministro textil?"
+      description: 'De la fibra a la prenda, las cadenas de suministro son largas, opacas y fragmentadas. ¿Qué intervenciones —técnicas, procedimentales o regulatorias— harían visibles las condiciones materiales y sociales a los actores posteriores de la cadena?
+
+'
+    it:
+      question: Come potremmo migliorare la tracciabilità nelle catene di fornitura tessile?
+      description: 'Dalla fibra al capo, le catene di fornitura sono lunghe, opache e frammentate. Quali interventi — tecnici, procedurali o normativi — renderebbero visibili le condizioni materiali e sociali agli attori a valle?
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να βελτιώσουμε την ιχνηλασιμότητα στις αλυσίδες εφοδιασμού κλωστοϋφαντουργίας;
+      description: 'Από τη ίνα στο ένδυμα, οι αλυσίδες εφοδιασμού είναι μακριές, αδιαφανείς και κατακερματισμένες. Ποιες παρεμβάσεις — τεχνικές, διαδικαστικές ή ρυθμιστικές — θα καθιστούσαν ορατές τις υλικές και κοινωνικές συνθήκες στους παράγοντες κατάντη;
+
+'
+- id: C8
+  category: business
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we build business models around garment longevity instead of volume?
+      description: 'Services, subscriptions, repair offerings, second-hand integration — projects explore value capture that does not depend on producing and selling ever-more new units.
+
+'
+    es:
+      question: "¿Cómo podríamos construir modelos de negocio en torno a la longevidad de las prendas en lugar del volumen?"
+      description: 'Servicios, suscripciones, oferta de reparación, integración de segunda mano: los proyectos exploran la captura de valor que no depende de producir y vender cada vez más unidades nuevas.
+
+'
+    it:
+      question: Come potremmo costruire modelli di business attorno alla longevità dei capi anziché ai volumi?
+      description: 'Servizi, abbonamenti, offerte di riparazione, integrazione del second hand — i progetti esplorano la cattura di valore che non dipende dal produrre e vendere sempre più unità nuove.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να οικοδομήσουμε επιχειρηματικά μοντέλα γύρω από τη μακροζωία ενδυμάτων αντί για τον όγκο;
+      description: 'Υπηρεσίες, συνδρομές, προσφορές επισκευής, ενσωμάτωση μεταχειρισμένων — τα έργα εξερευνούν την απόδοση αξίας που δεν εξαρτάται από την παραγωγή και πώληση ολοένα και περισσότερων νέων μονάδων.
+
+'
+- id: C9
+  category: business
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we make sustainable textile options accessible across price points?
+      description: 'Sustainability is not only for premium segments — projects address cost structures, distribution, and consumer access that make lower- impact choices the default rather than the luxury.
+
+'
+    es:
+      question: "¿Cómo podríamos hacer que las opciones textiles sostenibles sean accesibles en todos los rangos de precio?"
+      description: 'La sostenibilidad no es solo para los segmentos premium. Los proyectos abordan estructuras de coste, distribución y acceso del consumidor que convierten las opciones de menor impacto en la norma, no en el lujo.
+
+'
+    it:
+      question: Come potremmo rendere le opzioni tessili sostenibili accessibili a tutte le fasce di prezzo?
+      description: 'La sostenibilità non è solo per i segmenti premium — i progetti affrontano strutture di costo, distribuzione e accesso dei consumatori che rendono le scelte a minor impatto la norma anziché il lusso.
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να κάνουμε τις βιώσιμες κλωστοϋφαντουργικές επιλογές προσβάσιμες σε όλες τις τιμές;
+      description: 'Η βιωσιμότητα δεν είναι μόνο για τα premium τμήματα — τα έργα αντιμετωπίζουν δομές κόστους, διανομή και πρόσβαση καταναλωτών που καθιστούν τις επιλογές χαμηλότερου αντικτύπου τον κανόνα και όχι την πολυτέλεια.
+
+'
+- id: C10
+  category: business
+  tags: []
+  published: true
+  asset:
+  translations:
+    en:
+      question: How might we align textile business practice with upcoming EU sustainability regulation?
+      description: 'ESPR, Digital Product Passport, the Waste Framework Directive — what does compliant, competitive textile business practice look like under the emerging EU regulatory frame?
+
+'
+    es:
+      question: "¿Cómo podríamos alinear la práctica empresarial textil con la próxima regulación de sostenibilidad de la UE?"
+      description: 'ESPR, Pasaporte Digital de Producto, la Directiva Marco de Residuos: ¿cómo es una práctica empresarial textil conforme y competitiva bajo el marco regulatorio europeo emergente?
+
+'
+    it:
+      question: Come potremmo allineare le pratiche aziendali tessili alla prossima normativa UE sulla sostenibilità?
+      description: 'ESPR, Passaporto Digitale del Prodotto, la Direttiva Quadro sui Rifiuti — come appare una pratica aziendale tessile conforme e competitiva nel quadro normativo UE emergente?
+
+'
+    el:
+      question: Πώς θα μπορούσαμε να ευθυγραμμίσουμε τις επιχειρηματικές πρακτικές κλωστοϋφαντουργίας με την επερχόμενη κανονιστική ρύθμιση της ΕΕ για τη βιωσιμότητα;
+      description: 'ESPR, Ψηφιακό Διαβατήριο Προϊόντος, η Οδηγία-Πλαίσιο για τα Απόβλητα — πώς μοιάζει μια συμμορφούμενη και ανταγωνιστική επιχειρηματική πρακτική κλωστοϋφαντουργίας υπό το αναδυόμενο κανονιστικό πλαίσιο της ΕΕ;
+
+'

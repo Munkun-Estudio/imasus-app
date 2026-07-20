@@ -18,6 +18,7 @@ module GlossaryHighlightHelper
   #   when the input is blank.
   def glossary_highlight(html)
     return html if html.blank?
+    return html unless ResourceModuleRegistry.current.enabled?(:glossary)
 
     highlighted = GlossaryHighlighter.new(html.to_s, terms: glossary_highlight_terms).call
     highlighted.html_safe
@@ -26,6 +27,6 @@ module GlossaryHighlightHelper
   private
 
   def glossary_highlight_terms
-    @glossary_highlight_terms ||= GlossaryTerm.all.to_a
+    @glossary_highlight_terms ||= GlossaryTerm.published.to_a
   end
 end

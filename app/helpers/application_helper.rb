@@ -6,6 +6,55 @@ module ApplicationHelper
     alt class href src target rel
   ].freeze
 
+  def site_config
+    Rails.configuration.site
+  end
+
+  def site_name
+    site_config.identity.name
+  end
+
+  def site_short_name
+    site_config.identity.short_name
+  end
+
+  def site_translation_options
+    {
+      app_name: site_name,
+      short_name: site_short_name,
+      organization: site_config.identity.organization
+    }
+  end
+
+  def locale_label(locale)
+    site_config.locales.label(locale)
+  end
+
+  def resource_module_label(resource_module, locale: I18n.locale)
+    resource_module.label(locale:, locales: site_config.locales)
+  end
+
+  def resource_module_path(resource_module)
+    public_send(resource_module.route_helper)
+  end
+
+  def enabled_resource_module_labels
+    resource_module_registry.enabled.map { |resource_module| resource_module_label(resource_module) }
+  end
+
+  def resource_modules_enabled?(*keys)
+    keys.all? { |key| resource_module_registry.enabled?(key) }
+  end
+
+  def brand_logo_tag(variant: :logo, **options)
+    assets = site_config.brand.assets
+    asset = assets.public_send(variant)
+    asset ||= assets.logo unless variant == :logo
+    return content_tag(:span, site_short_name, **options) if asset.blank?
+
+    image_tag(asset, { alt: site_short_name }.merge(options))
+  end
+
   # Navigation items with their associated swatch color and IA group.
   #
   # Groups:
@@ -13,18 +62,27 @@ module ApplicationHelper
   #   - :community  → Workshops
   #   - :resources  → Materials, Training, Challenges, Glossary
   #
-  # Red is reserved as an accent and is intentionally not used in the sidebar.
+  # The accent role is intentionally not used in the sidebar.
   #
   # @return [Array<Hash>] nav items with :key, :path, :number, :color, :group keys
   def nav_items
-    [
-      { key: "home",      path: root_path,           number: "00", color: "bg-white border border-imasus-dark-green/20", group: :hub },
-      { key: "workshops", path: workshops_path,      number: "01", color: "bg-imasus-dark-green",                         group: :community },
-      { key: "materials", path: materials_path,      number: "02", color: "bg-imasus-light-blue",                         group: :resources },
-      { key: "training",  path: training_index_path, number: "03", color: "bg-imasus-navy",                                group: :resources },
-      { key: "challenges", path: challenges_path,    number: "04", color: "bg-imasus-mint",                                group: :resources },
-      { key: "glossary",  path: glossary_terms_path, number: "05", color: "bg-imasus-light-pink",                          group: :resources }
+    core_items = [
+      { key: "home",       path: root_path,           number: "00", color: "bg-white border border-brand-primary/20", group: :hub },
+      { key: "workshops", path: workshops_path, number: "01", color: "bg-brand-primary", group: :community }
     ]
+
+    resource_items = resource_module_registry.enabled.map do |resource_module|
+      {
+        key: resource_module.legacy_key,
+        label: resource_module_label(resource_module),
+        path: resource_module_path(resource_module),
+        number: resource_module.number,
+        color: resource_module.color,
+        group: :resources
+      }
+    end
+
+    core_items + resource_items
   end
 
   # Returns CSS classes for a swatch-style navigation card.
@@ -32,7 +90,7 @@ module ApplicationHelper
   # nested routes, so `/workshops/spain` still highlights Workshops.
   #
   # @example
-  #   nav_swatch_classes("/materials", "bg-imasus-light-blue")
+  #   nav_swatch_classes("/materials", "bg-brand-info")
   #
   # @param path [String] the path to compare against the current request
   # @param color [String] Tailwind background class for the swatch
@@ -40,7 +98,7 @@ module ApplicationHelper
   def nav_swatch_classes(path, color)
     base = "#{color} block rounded-xl p-4 min-h-[4.5rem] transition-all duration-150"
     if nav_path_active?(path)
-      "#{base} nav-active ring-2 ring-imasus-dark-green ring-offset-2"
+      "#{base} nav-active ring-2 ring-brand-primary ring-offset-2"
     else
       "#{base} hover:scale-[1.03] hover:shadow-md"
     end
@@ -51,7 +109,7 @@ module ApplicationHelper
   # @param color [String] Tailwind background class
   # @return [Boolean]
   def swatch_dark_bg?(color)
-    color.match?(/bg-imasus-(red|navy|dark-green)\b/)
+    color.match?(/bg-brand-(accent|secondary|primary)\b/)
   end
 
   # @param path [String]
@@ -78,6 +136,7 @@ module ApplicationHelper
   # type name and +resource_key+ as the stable identifier (record id or code).
   def bookmark_toggle(bookmarkable_type:, resource_key:, label:, url:)
     return unless logged_in?
+    return unless resource_module_registry.for_bookmark_type(bookmarkable_type)&.enabled?
 
     bookmark = current_bookmark(bookmarkable_type: bookmarkable_type, resource_key: resource_key)
     dom_id   = "bookmark-toggle-#{bookmarkable_type.underscore}-#{resource_key.to_s.parameterize}"

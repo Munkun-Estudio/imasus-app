@@ -1,111 +1,113 @@
-# One of the ten framing challenges (C1–C10) that a participant picks when
-# scoping project work during an IMASUS workshop.
-#
-# Each challenge carries translations for `question` and `description` via the
-# {Translatable} concern, plus a stable `code` (e.g. "C1") and a `category`
-# (one of {CATEGORIES}). The code is the URL-facing identifier — rendered in
-# lowercase via {#to_param} — and is compared case-insensitively for
-# uniqueness.
-#
-# The set is fixed at ten: curators may edit copy, but there is no `new` or
-# `destroy` action. See `.munkit/specs/2026-04-22-challenge-cards/brief.md`.
+# Persisted prompt content synchronized from the active installation manifest.
+# The historical class and table names remain for URL, project, and bookmark
+# compatibility with IMASUS.
 class Challenge < ApplicationRecord
   include Translatable
 
-  # Fixed list of category values. A fifth value would be a one-line change
-  # here plus a colour-mapping update in the `ChallengeCard` partial.
-  CATEGORIES = %w[material design system business].freeze
-
-  # Canonical code format: "C" followed by 1–10.
-  CODE_FORMAT = /\AC([1-9]|10)\z/
-
-  # Source-of-truth locale for presence validation.
-  BASE_LOCALE = "en"
-
-  # Default seed file path. Override via the `path:` argument to {.seed_from_yaml!}.
-  SEED_PATH = Rails.root.join("db", "seeds", "challenges.yml")
+  ID_FORMAT = /\A[a-z0-9]+(?:[a-z0-9-]*[a-z0-9])?\z/i
 
   translates :question, :description
 
   before_validation :normalize_code
+  before_validation :assign_position, on: :create
 
-  validates :code, presence: true, format: { with: CODE_FORMAT }
-  validates :category, presence: true, inclusion: { in: CATEGORIES }
+  validates :code, presence: true, format: { with: ID_FORMAT }
+  validates :category, presence: true, inclusion: { in: ->(_record) { catalog.category_ids } }
+  validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   validate :unique_code_case_insensitive
   validate :base_locale_question_present
   validate :base_locale_description_present
 
-  # Numeric ordering so `C2` sorts before `C10`. Applied explicitly by callers
-  # rather than as a default scope, which would break `distinct` / `pluck`
-  # combinations under PostgreSQL.
-  scope :by_code, -> { order(Arel.sql("(substring(code from 2))::int")) }
+  scope :published, -> { where(published: true) }
+  scope :ordered, -> { order(:position, :id) }
+  scope :by_code, -> { ordered }
 
-  # @return [String] the code lowercased for URL generation
+  def self.catalog
+    @catalog ||= ResourceCatalog.prompts
+  end
+
+  def self.reset_catalog!
+    @catalog = nil
+  end
+
+  def self.seed_from_yaml!(path: Rails.configuration.site.content.prompts,
+                           overwrite: SeedPolicy.overwrite?(:challenges))
+    manifest = path == Rails.configuration.site.content.prompts ? catalog : ResourceCatalog::Manifest.load(
+      path:, resource: "prompts", fields: { "question" => :string, "description" => :string }
+    )
+    imported_ids = []
+
+    transaction do
+      manifest.entries.each do |entry|
+        challenge = where("LOWER(code) = ?", entry.id.downcase).first_or_initialize
+        challenge.code = entry.id
+        challenge.category = entry.category
+        challenge.tags = entry.tags
+        challenge.position = entry.position
+        challenge.published = entry.published
+        challenge.asset_path = entry.asset
+        challenge.managed_by_manifest = true
+        challenge.question_translations = SeedPolicy.translations(
+          challenge.question_translations,
+          translations_for(entry, "question"),
+          overwrite:
+        )
+        challenge.description_translations = SeedPolicy.translations(
+          challenge.description_translations,
+          translations_for(entry, "description"),
+          overwrite:
+        )
+        challenge.save!
+        imported_ids << challenge.id
+      end
+
+      where(managed_by_manifest: true).where.not(id: imported_ids).update_all(published: false, updated_at: Time.current)
+    end
+    count
+  end
+
+  def self.translations_for(entry, field)
+    entry.translations.filter_map do |locale, values|
+      [ locale, values[field] ] if values.key?(field)
+    end.to_h
+  end
+  private_class_method :translations_for
+
   def to_param
     code&.downcase
   end
 
-  # Idempotent loader that upserts every entry in the seed YAML. Each entry is
-  # matched by `code`, so re-running never duplicates rows. Existing rows keep
-  # edited content by default; pass `overwrite: true` or set
-  # `SEED_OVERWRITE_CONTENT=1` / `SEED_CHALLENGES=overwrite` to intentionally
-  # refresh content from YAML.
-  #
-  # @param path [Pathname, String] seed file path (tests override this)
-  # @param overwrite [Boolean] whether existing content should be replaced
-  # @return [Integer] the number of challenges after loading
-  # @raise [ActiveRecord::RecordInvalid] if any entry fails validation
-  def self.seed_from_yaml!(path: SEED_PATH, overwrite: SeedPolicy.overwrite?(:challenges))
-    entries = YAML.load_file(path)
-
-    entries.each do |entry|
-      challenge = find_or_initialize_by(code: entry.fetch("code"))
-      challenge.category = SeedPolicy.value(challenge.category, entry.fetch("category"), overwrite: overwrite)
-      challenge.question_translations = SeedPolicy.translations(
-        challenge.question_translations,
-        entry.fetch("question"),
-        overwrite: overwrite
-      )
-      challenge.description_translations = SeedPolicy.translations(
-        challenge.description_translations,
-        entry.fetch("description"),
-        overwrite: overwrite
-      )
-      challenge.save!
-    end
-
-    count
+  def category_label(locale: I18n.locale)
+    self.class.catalog.category(category)&.label(locale:, locales: Rails.configuration.site.locales) || category.humanize
   end
 
   private
 
   def normalize_code
-    self.code = code.upcase if code.is_a?(String)
+    self.code = code.upcase if code.to_s.match?(/\Ac\d+\z/i)
+  end
+
+  def assign_position
+    self.position ||= self.class.maximum(:position).to_i + 1
   end
 
   def unique_code_case_insensitive
     return if code.blank?
-
     scope = Challenge.unscoped.where("UPPER(code) = ?", code.upcase)
-    scope = scope.where.not(id: id) if persisted?
-
+    scope = scope.where.not(id:) if persisted?
     errors.add(:code, :taken) if scope.exists?
   end
 
   def base_locale_question_present
-    return if base_locale_value(question_translations).present?
-
-    errors.add(:question_translations, :blank)
+    errors.add(:question_translations, :blank) unless base_locale_value(question_translations).present?
   end
 
   def base_locale_description_present
-    return if base_locale_value(description_translations).present?
-
-    errors.add(:description_translations, :blank)
+    errors.add(:description_translations, :blank) unless base_locale_value(description_translations).present?
   end
 
   def base_locale_value(translations)
-    (translations || {})[BASE_LOCALE].to_s.strip
+    (translations || {})[self.class.base_locale].to_s.strip
   end
 end

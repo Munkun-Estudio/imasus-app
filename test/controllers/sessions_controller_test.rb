@@ -15,7 +15,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_select "h1", text: I18n.t("sessions.new.title")
     assert_select "input[type=email][class*=?]", "border"
     assert_select "input[type=password][class*=?]", "border"
-    assert_select "input[type=submit][class*=?]", "bg-imasus-dark-green"
+    assert_select "input[type=submit][class*=?]", "bg-brand-primary"
     assert_select "a", text: I18n.t("sessions.new.forgot")
   end
 

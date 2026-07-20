@@ -39,7 +39,7 @@ class GlossaryHighlighter
   # @param first_occurrence_only [Boolean] when true (default), wraps only the
   #   first occurrence of each term in this call.
   # @param locale [String, Symbol, nil] the locale whose term text is matched.
-  #   Defaults to `I18n.locale`. Falls back to {GlossaryTerm::BASE_LOCALE}
+  #   Defaults to `I18n.locale`. Falls back to {GlossaryTerm.base_locale}
   #   when the per-locale term is blank.
   def initialize(html, terms:, first_occurrence_only: true, locale: nil)
     @html = html.to_s
@@ -82,7 +82,7 @@ class GlossaryHighlighter
 
   def build_lookup
     @terms.each_with_object({}) do |term, acc|
-      text = term.term_in(@locale).presence || term.term_in(GlossaryTerm::BASE_LOCALE)
+      text = term.term_in(@locale).presence || term.term
       next if text.blank?
 
       acc[text.downcase] ||= term.slug

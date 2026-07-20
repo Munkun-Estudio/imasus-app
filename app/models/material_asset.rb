@@ -15,39 +15,34 @@
 # Each row has exactly one Active Storage file attachment. The importer
 # (`lib/material_assets_importer.rb`) is responsible for walking a local
 # folder that mirrors the SMEs' Drive layout and creating rows with files
-# attached; see `.munkit/specs/2026-04-17-materials-database/notes.md`.
-class MaterialAsset < ApplicationRecord
-  KINDS = %w[macro microscopy video].freeze
+# attached.
+class MaterialAsset < LibraryItemAsset
+  alias_attribute :material_id, :library_item_id
 
-  SINGLETON_KINDS = %w[video].freeze
+  belongs_to :material, foreign_key: :library_item_id, inverse_of: :assets
 
-  enum :kind, KINDS.each_with_index.to_h
-
-  belongs_to :material
-
-  has_one_attached :file
-  has_one_attached :poster
-
-  validates :kind,     presence: true
-  validates :position, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :position, uniqueness: { scope: [ :material_id, :kind ] }
-
-  validate :file_must_be_attached
-  validate :singleton_kind_not_duplicated
+  validates :kind, presence: true
+  before_validation :sync_legacy_role
 
   private
 
-  def file_must_be_attached
-    errors.add(:file, :blank) unless file.attached?
+  # Historical material videos include records imported before MIME-type
+  # enforcement. Keep their established validation contract; generic
+  # manifest-managed assets are validated by LibraryItemAsset.
+  def file_matches_role
+    super if managed_by_manifest?
   end
 
-  def singleton_kind_not_duplicated
-    return unless SINGLETON_KINDS.include?(kind)
-    return unless material_id
+  def role_cardinality
+    super
+    errors.add(:kind, :taken) if errors.added?(:role, :taken)
+  end
 
-    scope = self.class.where(material_id: material_id, kind: self.class.kinds[kind])
-    scope = scope.where.not(id: id) if persisted?
-
-    errors.add(:kind, :taken) if scope.exists?
+  def sync_legacy_role
+    if role.present? && kind.blank? && KINDS.include?(role)
+      self.kind = role
+    elsif kind.present?
+      self.role = kind
+    end
   end
 end

@@ -1,17 +1,17 @@
 module BookmarksHelper
-  BOOKMARK_DOT_COLORS = {
-    "TrainingModule" => "bg-imasus-navy",
-    "Material"       => "bg-imasus-light-blue",
-    "Challenge"      => "bg-imasus-mint",
-    "GlossaryTerm"   => "bg-imasus-light-pink"
-  }.freeze
-
   def bookmark_dot_color(bookmark)
-    BOOKMARK_DOT_COLORS.fetch(bookmark.bookmarkable_type, "bg-imasus-dark-green/20")
+    resource_module_registry.for_bookmark_type(bookmark.bookmarkable_type)&.color ||
+      "bg-brand-primary/20"
+  end
+
+  def bookmark_module_label(bookmark)
+    resource_module = resource_module_registry.for_bookmark_type(bookmark.bookmarkable_type)
+    resource_module ? resource_module_label(resource_module) : bookmark.bookmarkable_type.underscore.humanize
   end
 
   def bookmark_preview_image_src(bookmark)
-    return unless bookmark.bookmarkable_type == "TrainingModule"
+    resource_module = resource_module_registry.for_bookmark_type(bookmark.bookmarkable_type)
+    return unless resource_module&.bookmark_preview == :training_image
 
     slug, volume, locale, anchor = bookmark.resource_key.to_s.split("/", 4)
     return unless slug.present? && volume.present? && locale.present? && anchor&.match?(/\A(?:image|p)-\d+\z/)

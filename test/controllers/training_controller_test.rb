@@ -15,6 +15,16 @@ class TrainingControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "index renders manifest titles summaries and covers" do
+    get training_index_url(locale: "es")
+
+    assert_select "[data-guide-list]" do
+      assert_select "a", text: "Diseño para la longevidad"
+      assert_select "p", /prendas que sigan siendo útiles/
+      assert_select "img[src*='design-for-longevity']"
+    end
+  end
+
   test "show renders a module section" do
     get training_show_url(slug: "zero-waste-design", section: "training-module")
     assert_response :success

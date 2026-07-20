@@ -36,10 +36,10 @@ export default class extends Controller {
       const active = tab.dataset.locale === locale
       tab.setAttribute("aria-selected", active ? "true" : "false")
       tab.setAttribute("tabindex", active ? "0" : "-1")
-      tab.classList.toggle("border-imasus-dark-green", active)
-      tab.classList.toggle("text-imasus-dark-green", active)
+      tab.classList.toggle("border-brand-primary", active)
+      tab.classList.toggle("text-brand-primary", active)
       tab.classList.toggle("border-transparent", !active)
-      tab.classList.toggle("text-imasus-dark-green/50", !active)
+      tab.classList.toggle("text-brand-primary/50", !active)
       if (active && focus) tab.focus()
     })
     this.panelTargets.forEach(panel => {

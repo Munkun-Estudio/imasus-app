@@ -1,0 +1,153 @@
+#!/usr/bin/env ruby
+
+require "yaml"
+
+root = File.expand_path("..", __dir__)
+materials = YAML.safe_load_file(File.join(root, "db/seeds/materials.yml"), aliases: false)
+tags = YAML.safe_load_file(File.join(root, "db/seeds/material_tags.yml"), aliases: false)
+
+# A few source URLs came from Markdown and contain escaped underscores. They
+# are valid links once represented as plain YAML strings.
+materials.each do |material|
+  material["supplier_url"] = material["supplier_url"]&.delete("\\")
+end
+
+field = lambda do |id, kind, label, localized: false, options: nil, display: "metadata", card: false|
+  definition = {
+    "id" => id,
+    "kind" => kind,
+    "localized" => localized,
+    "required" => false,
+    "cardinality" => "one",
+    "labels" => { "en" => label },
+    "display" => display,
+    "card" => card
+  }
+  definition["options"] = options if options
+  definition
+end
+
+taxonomy_labels = {
+  "origin_type" => "Origin",
+  "textile_imitating" => "Textile imitated",
+  "application" => "Application"
+}
+
+taxonomy_groups = tags.group_by { |tag| tag.fetch("facet") }
+taxonomies = taxonomy_labels.map do |id, label|
+  {
+    "id" => id,
+    "cardinality" => "many",
+    "filter" => true,
+    "labels" => { "en" => label },
+    "terms" => taxonomy_groups.fetch(id).map do |tag|
+      { "id" => tag.fetch("slug"), "labels" => tag.fetch("name") }
+    end
+  }
+end
+
+translated_fields = {
+  "interesting_properties" => "Interesting properties",
+  "structure" => "Structure",
+  "sensorial_qualities" => "Sensorial qualities",
+  "what_problem_it_solves" => "What problem it solves"
+}
+
+fields = [
+  field.call("supplier_name", "string", "Supplier"),
+  field.call("supplier_url", "url", "Supplier website", display: "hidden"),
+  field.call("material_of_origin", "string", "Material of origin", card: true),
+  field.call(
+    "availability_status", "select", "Availability",
+    card: true,
+    options: {
+      "commercial" => { "en" => "Commercial" },
+      "in_development" => { "en" => "In development" },
+      "research_only" => { "en" => "Research only" }
+    }
+  )
+]
+translated_fields.each do |id, label|
+  fields << field.call(id, "text", label, localized: true, display: "body")
+end
+
+items = materials.map do |material|
+  custom_fields = {
+    "supplier_name" => material["supplier_name"],
+    "supplier_url" => material["supplier_url"],
+    "material_of_origin" => material["material_of_origin"],
+    "availability_status" => material.fetch("availability_status")
+  }.compact
+  translated_fields.each_key do |id|
+    value = material[id]
+    custom_fields[id] = value if value.is_a?(Hash) && value.any?
+  end
+
+  link_label = material["supplier_name"].to_s.strip
+  link_label = material.fetch("trade_name") if link_label.empty?
+  links = if material["supplier_url"].to_s.strip.empty?
+    []
+  else
+    [ { "label" => link_label, "url" => material.fetch("supplier_url") } ]
+  end
+
+  {
+    "id" => material.fetch("slug"),
+    "item_type" => "material",
+    "published" => true,
+    "translations" => material.fetch("description").to_h do |locale, summary|
+      [ locale, { "title" => material.fetch("trade_name"), "summary" => summary } ]
+    end,
+    "fields" => custom_fields,
+    "taxonomies" => material.fetch("tags", {}),
+    "links" => links,
+    "assets" => []
+  }
+end
+
+manifest = {
+  "version" => 1,
+  "resource" => "library",
+  "item_types" => [
+    {
+      "id" => "material",
+      "labels" => { "en" => "Material" },
+      "fields" => fields,
+      "media" => [
+        {
+          "id" => "macro",
+          "kind" => "image",
+          "multiple" => true,
+          "placement" => "gallery",
+          "cover" => true,
+          "allowed_types" => %w[image/jpeg image/png image/webp],
+          "max_bytes" => 20 * 1024 * 1024
+        },
+        {
+          "id" => "microscopy",
+          "kind" => "image",
+          "multiple" => true,
+          "placement" => "gallery",
+          "cover" => false,
+          "allowed_types" => %w[image/jpeg image/png image/webp image/tiff],
+          "max_bytes" => 50 * 1024 * 1024
+        },
+        {
+          "id" => "video",
+          "kind" => "video",
+          "multiple" => false,
+          "placement" => "gallery",
+          "cover" => false,
+          "allowed_types" => %w[video/mp4 video/quicktime video/webm],
+          "max_bytes" => 250 * 1024 * 1024
+        }
+      ]
+    }
+  ],
+  "taxonomies" => taxonomies,
+  "items" => items
+}
+
+output = ARGV.fetch(0, File.join(root, "content/library.yml"))
+File.write(output, YAML.dump(manifest, line_width: -1))
+puts "Wrote #{items.size} items and #{tags.size} taxonomy terms to #{output}"

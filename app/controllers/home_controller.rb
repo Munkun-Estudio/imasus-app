@@ -47,6 +47,9 @@ class HomeController < ApplicationController
   end
 
   def load_recent_bookmarks
-    @recent_bookmarks = current_user.bookmarks.recent.limit(6)
+    @recent_bookmarks = current_user.bookmarks
+                                    .where(bookmarkable_type: resource_module_registry.enabled_bookmark_types)
+                                    .recent
+                                    .limit(6)
   end
 end

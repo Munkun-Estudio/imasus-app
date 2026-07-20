@@ -13,7 +13,7 @@ class FacilitatorInvitationsController < ApplicationController
       sign_in_as(@user)
       redirect_to root_path,
                   notice: t("facilitator_invitations.update.notice",
-                            default: "Welcome to IMASUS. Your account is ready.")
+                            default: "Welcome to %{short_name}. Your account is ready.")
     else
       render :edit, status: :unprocessable_content
     end
@@ -28,7 +28,7 @@ class FacilitatorInvitationsController < ApplicationController
     if @user.nil? || @user.invitation_expired?
       redirect_to new_session_path,
                   alert: t("facilitator_invitations.token_invalid",
-                           default: "That invitation link is invalid or has expired. Please contact the IMASUS administrator.")
+                           default: "That invitation link is invalid or has expired. Please contact the %{short_name} administrator.")
     end
   end
 

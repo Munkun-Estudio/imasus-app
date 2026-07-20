@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       get :preview
     end
   end
+  get "library", to: "materials#index", defaults: { generic: true }, as: :library
+  get "library/:slug", to: "materials#show", defaults: { generic: true }, as: :library_item
+  get "library/:slug/preview", to: "materials#preview", defaults: { generic: true }, as: :preview_library_item
+  get "library/:slug/media", to: "materials#media", defaults: { generic: true }, as: :media_library_item
   resources :training, only: :index
   get "training/:slug/:section", to: "training#show", as: :training_show,
       constraints: { slug: /[a-z0-9-]+/, section: /[a-z0-9-]+/ }

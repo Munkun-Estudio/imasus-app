@@ -1,0 +1,72 @@
+version: 1
+
+identity:
+  name: Workshop Commons
+  short_name: Commons
+  organization: Example Organisation
+  description: A minimal workshop platform installation.
+
+locales:
+  available:
+    - en
+  default: en
+  fallback: en
+  labels:
+    en: English
+
+modules:
+  library: false
+  guides: true
+  prompts: false
+  glossary: false
+  labels:
+    library:
+      en: Library
+    guides:
+      en: Guides
+    prompts:
+      en: Prompts
+    glossary:
+      en: Glossary
+
+content:
+  root: content
+  workshops: content/example-workshops.yml
+  library: content/example-library.yml
+  guides: content/example-guides
+  prompts: content/example-prompts.yml
+  glossary: content/example-glossary.yml
+
+public_urls:
+  application: https://workshops.example.org
+  fallback: https://fallback.example.org
+  project: https://example.org
+  source: https://github.com/example/workshop-commons
+  support:
+
+operations:
+  analytics:
+    enabled: false
+    script_url:
+
+brand:
+  assets:
+    logo:
+    compact_mark:
+    email_logo:
+    og_image:
+    favicon_ico:
+    favicon_svg:
+    favicon_png:
+    apple_touch_icon:
+    web_manifest:
+  theme:
+    primary: "#243B53"
+    secondary: "#334E68"
+    accent: "#D64545"
+    success: "#9AE6B4"
+    info: "#BEE3F8"
+    soft: "#FEEBC8"
+  email:
+    from_name: Workshop Commons
+    from_address: no-reply@example.org

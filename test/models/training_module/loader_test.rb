@@ -16,6 +16,16 @@ class TrainingModule::LoaderTest < ActiveSupport::TestCase
     assert_equal expected, slugs
   end
 
+  test "all follows manifest order and localized metadata" do
+    modules = @loader.all(locale: :es)
+
+    assert_equal %w[design-for-longevity design-for-modularity design-for-recyclability zero-waste-design], modules.map(&:slug)
+    assert_equal "Diseño para la longevidad", modules.first.title
+    assert_includes modules.first.summary, "prendas"
+    assert_equal "/content/training-modules/media/design-for-longevity/en/training-module/media/image1.png",
+                 modules.first.cover
+  end
+
   test "find returns a module by slug" do
     mod = @loader.find("zero-waste-design")
     assert_not_nil mod
@@ -58,8 +68,12 @@ class TrainingModule::LoaderTest < ActiveSupport::TestCase
     assert section.body.index("# 1. Introduction to Design for Recyclability") < section.body.index("# 2. Historical Context")
   end
 
-  test "section returns nil for missing locale" do
-    assert_nil @loader.section("zero-waste-design", "training-module", "fr")
+  test "section falls back for a missing locale and identifies the actual content locale" do
+    section = @loader.section("zero-waste-design", "training-module", "fr")
+
+    assert_equal "en", section.locale
+    assert_equal "fr", section.requested_locale
+    assert section.fallback?
   end
 
   test "section returns nil for missing section" do
@@ -76,7 +90,10 @@ class TrainingModule::LoaderTest < ActiveSupport::TestCase
     assert about.body.present?
   end
 
-  test "about returns nil for missing locale" do
-    assert_nil @loader.about("fr")
+  test "about follows the shared locale fallback contract" do
+    about = @loader.about("fr")
+
+    assert_equal "en", about.locale
+    assert about.fallback?
   end
 end

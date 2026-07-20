@@ -1,4 +1,4 @@
-# Public, multilingual glossary of IMASUS workshop vocabulary.
+# Public, multilingual glossary of workshop vocabulary.
 #
 # Read actions (`index`, `show`) are open to any visitor. Write actions
 # (`new`, `create`, `edit`, `update`, `destroy`) are guarded by
@@ -9,37 +9,45 @@
 # exposes known values, so unknown filters degrade to the full list rather
 # than returning an error.
 class GlossaryTermsController < ApplicationController
+  requires_resource_module :glossary
+
   before_action :require_curator, only: [ :new, :create, :edit, :update, :destroy, :delete_confirmation ]
   before_action :set_glossary_term, only: [ :show, :edit, :update, :destroy, :delete_confirmation, :popover ]
 
   # GET /glossary
   # GET /glossary?category=methodology
   def index
-    scope = GlossaryTerm.all
+    @glossary_module = resource_module_registry.fetch(:glossary)
+    @catalog = GlossaryTerm.catalog
+    scope = GlossaryTerm.published
 
-    if GlossaryTerm::CATEGORIES.include?(params[:category])
+    if @catalog.category_ids.include?(params[:category])
       @active_category = params[:category]
       scope = scope.where(category: @active_category)
     end
 
-    @terms = scope.to_a.sort_by { |term| (term.term_in(GlossaryTerm::BASE_LOCALE) || "").downcase }
+    @terms = scope.ordered.to_a.sort_by { |term| term.term.to_s.downcase }
     @terms_by_letter = @terms.group_by { |term| first_letter(term) }
     @available_letters = @terms_by_letter.keys.to_set
-    @available_categories = GlossaryTerm.distinct.pluck(:category) & GlossaryTerm::CATEGORIES
+    used_categories = GlossaryTerm.published.distinct.pluck(:category)
+    @available_categories = @catalog.categories.select { |category| used_categories.include?(category.id) }
   end
 
   # GET /glossary/:slug
   def show
+    @glossary_module = resource_module_registry.fetch(:glossary)
   end
 
   # GET /glossary/new
   def new
     @glossary_term = GlossaryTerm.new
+    @catalog = GlossaryTerm.catalog
   end
 
   # POST /glossary
   def create
     @glossary_term = GlossaryTerm.new(glossary_term_params)
+    @catalog = GlossaryTerm.catalog
 
     if @glossary_term.save
       redirect_to glossary_term_path(@glossary_term.slug),
@@ -51,10 +59,12 @@ class GlossaryTermsController < ApplicationController
 
   # GET /glossary/:slug/edit
   def edit
+    @catalog = GlossaryTerm.catalog
   end
 
   # PATCH /glossary/:slug
   def update
+    @catalog = GlossaryTerm.catalog
     if @glossary_term.update(glossary_term_params)
       notice = t(".notice", default: "Glossary term updated.")
       respond_to do |format|
@@ -98,7 +108,7 @@ class GlossaryTermsController < ApplicationController
 
   # DELETE /glossary/:slug
   def destroy
-    @glossary_term.destroy
+    @glossary_term.retire!
     notice = t(".notice", default: "Glossary term deleted.")
     respond_to do |format|
       format.turbo_stream do
@@ -141,7 +151,7 @@ class GlossaryTermsController < ApplicationController
   end
 
   def first_letter(term)
-    value = term.term_in(GlossaryTerm::BASE_LOCALE).to_s
+    value = term.term.to_s
     letter = value[0, 1].upcase
     ("A".."Z").cover?(letter) ? letter : "#"
   end

@@ -13,13 +13,15 @@
 # before running `bin/rails db:seed`. In production they come from the host.
 
 overwrite_admin = SeedPolicy.overwrite?(:admin)
-admin_email = ENV.fetch("IMASUS_ADMIN_EMAIL", "admin@imasus.local")
-admin_name  = ENV.fetch("IMASUS_ADMIN_NAME", "IMASUS Admin")
-admin_password = ENV["IMASUS_ADMIN_PASSWORD"].presence ||
+site = Rails.configuration.site
+default_admin_email = site.profile == "imasus" ? "admin@imasus.local" : "admin@example.test"
+admin_email = ENV["ADMIN_EMAIL"].presence || ENV["IMASUS_ADMIN_EMAIL"].presence || default_admin_email
+admin_name  = ENV["ADMIN_NAME"].presence || ENV["IMASUS_ADMIN_NAME"].presence || "#{site.identity.short_name} Admin"
+admin_password = ENV["ADMIN_PASSWORD"].presence || ENV["IMASUS_ADMIN_PASSWORD"].presence ||
                  (Rails.env.development? ? "changeme-dev" : nil)
 
 if admin_password.nil?
-  warn "Skipping admin seed: set IMASUS_ADMIN_PASSWORD to create the admin user."
+  warn "Skipping admin seed: set ADMIN_PASSWORD to create the admin user."
 else
   admin = User.find_or_initialize_by(email: admin_email.downcase)
   if admin.new_record? || overwrite_admin
@@ -44,11 +46,9 @@ puts "Seeded #{GlossaryTerm.count} glossary terms."
 Challenge.seed_from_yaml!
 puts "Seeded #{Challenge.count} challenges."
 
-Tag.seed_from_yaml!
-puts "Seeded #{Tag.count} material tags."
-
-Material.seed_from_yaml!
-puts "Seeded #{Material.count} materials."
+LibraryItem.seed_from_manifest!
+puts "Seeded #{LibraryTaxonomyTerm.count} library terms."
+puts "Seeded #{LibraryItem.published.count} library items."
 
 # Use `bin/rails db:seed:refresh_content` or one of these flags when the
 # repository YAML is intentionally the source of truth for existing rows:
@@ -71,7 +71,7 @@ puts "Seeded #{Material.count} materials."
 # Both demo users share the same dev password as the admin (`changeme-dev`)
 # and re-applying the seed is idempotent: existing records are updated in
 # place, and re-running keeps passwords + workshop attachment in sync.
-if Rails.env.development?
+if Rails.env.development? && site.profile == "imasus"
   workshop = Workshop.find_by(slug: "spain")
 
   if workshop

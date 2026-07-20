@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t imasus_app .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name imasus_app imasus_app
+# This Dockerfile is designed for production, not development. It builds a
+# provider-portable OCI image; select the installation at runtime with
+# APP_PROFILE and inject secrets through the hosting platform.
 
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
@@ -72,6 +72,6 @@ COPY --chown=rails:rails --from=build /rails /rails
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start Puma directly; Fly terminates SSL and serves traffic to PORT.
+# Start Puma directly; the hosting proxy terminates SSL and serves traffic to PORT.
 EXPOSE 3000
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]

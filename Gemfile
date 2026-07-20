@@ -7,7 +7,7 @@ gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+gem "puma", "~> 7.2"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
@@ -70,10 +70,6 @@ group :development do
 
   # Preview outgoing email in the browser during development
   gem "letter_opener"
-
-  # Munkun project context and orchestration tooling
-  gem "munkit", git: "https://github.com/Munkun-Estudio/munkit.git", branch: "main", require: false
-  gem "munkit-symphony", git: "https://github.com/Munkun-Estudio/munkit-symphony.git", require: false
 end
 
 group :test do

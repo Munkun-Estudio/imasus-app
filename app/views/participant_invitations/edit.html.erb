@@ -1,11 +1,11 @@
-<% content_for :title, t("participant_invitations.edit.title", default: "Complete your IMASUS registration") %>
+<% content_for :title, t("participant_invitations.edit.title", default: "Complete your %{short_name} registration") %>
 
 <div class="px-6 py-12 sm:px-10 lg:px-16">
   <header class="max-w-3xl">
     <% if @workshop %>
-      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-imasus-dark-green/50"><%= @workshop.title %></p>
+      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-brand-primary/50"><%= @workshop.title %></p>
     <% end %>
-    <h1 class="mt-3 text-4xl font-bold text-imasus-dark-green"><%= t("participant_invitations.edit.title", default: "Complete your IMASUS registration") %></h1>
+    <h1 class="mt-3 text-4xl font-bold text-brand-primary"><%= t("participant_invitations.edit.title", default: "Complete your %{short_name} registration") %></h1>
   </header>
 
   <% if @user.errors.any? %>
@@ -26,8 +26,8 @@
       <%= f.password_field :password, required: true, autofocus: true, autocomplete: "new-password", class: form_input_classes %>
     </div>
     <div>
-      <div class="border-t border-imasus-dark-green/10 pt-6">
-        <h2 class="text-xl font-semibold text-imasus-dark-green"><%= t("participant_invitations.edit.profile_heading", default: "Profile") %></h2>
+      <div class="border-t border-brand-primary/10 pt-6">
+        <h2 class="text-xl font-semibold text-brand-primary"><%= t("participant_invitations.edit.profile_heading", default: "Profile") %></h2>
         <p class="mt-2 max-w-2xl text-sm leading-6 text-stone-700"><%= t("participant_invitations.edit.profile_lead", default: "At the end of the workshop, the team will publish its work together with short participant profiles.") %></p>
       </div>
     </div>

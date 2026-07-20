@@ -1,0 +1,16 @@
+<%# locals: (library_item:, in_gallery: false) %>
+<article data-library-reference="<%= library_item.slug %>"
+         class="my-3 rounded-lg border border-brand-primary/15 bg-white p-4 not-prose">
+  <p class="text-xs font-semibold uppercase tracking-wide text-brand-primary/50">
+    <%= library_item_type_label(library_item) %>
+  </p>
+  <h3 class="mt-1 text-base font-semibold text-brand-primary">
+    <%= link_to library_item.title, library_item_path(library_item), class: "underline decoration-brand-primary/30 underline-offset-2" %>
+  </h3>
+  <% if library_item.summary.present? %>
+    <p class="mt-2 text-sm leading-relaxed text-brand-primary/70"><%= library_item.summary %></p>
+  <% end %>
+  <% unless library_item.published? %>
+    <p class="mt-2 text-xs font-medium text-amber-800"><%= t("library_items.reference.retired") %></p>
+  <% end %>
+</article>
