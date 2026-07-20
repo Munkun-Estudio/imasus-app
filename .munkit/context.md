@@ -60,7 +60,10 @@ Three roles: **admin**, **facilitator**, **participant**.
 
 - Participants upload photos and videos in log entries.
 - Materials have multiple images (professional photos + micrographs with SEM metadata) and videos.
-- **Image hosting:** AWS S3 via Active Storage (the project already uses AWS for the IMASUS newsletter). CDN strategy for image variants and optimisation to be decided in a dedicated spec, before any image-heavy feature is built.
+- **Image hosting:** S3-compatible object storage via Active Storage. Scaleway
+  Object Storage is the generic European reference; the existing IMASUS/Tigris
+  deployment remains transitional. A CDN is optional and should follow measured
+  installation needs.
 - Micrographs are a large dataset — performance and lazy loading matter.
 
 ### Workshops
@@ -209,9 +212,19 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
 
 ## Deployment
 
-- Target: **Fly.io** with PostgreSQL.
-- Image storage: **AWS S3** via Active Storage (existing AWS relationship from IMASUS newsletter).
-- CDN / image optimisation strategy: TBD (spec 3).
+- Generic reference: **Scaleway** Serverless Containers with Managed PostgreSQL,
+  Object Storage, Private Network, Transactional Email, and one-off Serverless
+  Jobs for migrations, all selected in one European region.
+- Repository topology: this repository is the generic upstream; IMASUS becomes
+  a separate downstream owning its profile, content, legal copy, assets, and
+  production deployment.
+- Transitional production: keep the current IMASUS Fly.io deployment active
+  until the downstream has rehearsed restore/upgrade/rollback and the domain
+  cutover is separately approved.
+- Image storage: **S3-compatible object storage** through Active Storage; the
+  generic reference uses Scaleway Object Storage and the transitional IMASUS
+  deployment keeps its existing Tigris service.
+- CDN remains optional and should be selected from measured installation needs.
 
 ## Concerns
 

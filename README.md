@@ -42,6 +42,9 @@ The default Rails health endpoint is available at `/up`.
 
 See [Adopt the application](docs/adoption.md) for the complete clone,
 customisation, content, validation, and production-readiness walkthrough.
+See [Deployment](docs/deployment.md) for the European Scaleway reference
+architecture and [Repository topology](docs/repository-topology.md) for the
+generic-upstream/installation-downstream boundary.
 
 ## Installation Profile
 

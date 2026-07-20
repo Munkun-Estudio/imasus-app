@@ -295,3 +295,11 @@ The reusable application should be straightforward to adopt and must not impose 
 ## 2026-07-20: Select initial workshops through the installation profile
 
 A reusable profile must not import IMASUS workshop records or demo identities. Selecting the workshop manifest through content.workshops keeps initial data reviewable beside the other profile-owned content, while an empty manifest lets adopters create workshops through the UI. The existing IMASUS manifest remains unchanged at its new profile-selected path.
+
+## 2026-07-20: Keep a generic upstream and a separate IMASUS downstream
+
+The reusable application, profile contract, neutral examples, tests, and release metadata need one canonical home. IMASUS has distinct content, legal text, branding, partner attribution, infrastructure, and production data, so it will consume tagged upstream releases from a separate downstream repository. The existing deployment stays in place until the downstream passes restore and cutover rehearsal.
+
+## 2026-07-20: Use Scaleway as the generic European reference deployment
+
+The generic deployment example should favor European data-location and cloud-sovereignty goals while preserving provider portability. Scaleway supplies OCI container hosting, managed PostgreSQL, S3-compatible Object Storage, Private Networks, transactional email, and one-off migration jobs in European regions. Fly remains only as the transitional IMASUS deployment until cutover.

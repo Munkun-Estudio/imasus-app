@@ -25,7 +25,7 @@ Rails.application.configure do
   # Store uploaded files in S3 by default; allow temporary disk storage for launch smoke tests.
   config.active_storage.service = ENV.fetch("ACTIVE_STORAGE_SERVICE", "amazon").to_sym
 
-  # Fly terminates SSL before forwarding requests to the Rails container.
+  # The hosting platform terminates SSL before forwarding requests to Rails.
   config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
@@ -55,8 +55,8 @@ Rails.application.configure do
   config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Transactional email is required for facilitator/participant invitations and
-  # password resets. Credentials live in Fly secrets, never in encrypted
-  # credentials, so deploys can be configured without committing secret values.
+  # password resets. Credentials live in the hosting platform's secret store,
+  # so deploys can be configured without committing secret values.
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 

@@ -68,11 +68,14 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 - Hotwire with Importmap
 - Solid Queue, Solid Cache, and Solid Cable
 - Munkit and Munkit Symphony as development workflow tooling
-- See `DECISIONS.md` for confirmed stack additions (Action Text, S3, Fly.io, etc.)
+- See `DECISIONS.md` for confirmed stack additions and distribution boundaries.
 
 ## Deployment
 
+- The generic upstream documents Scaleway Serverless Containers, Managed PostgreSQL, Object Storage, Private Network, Transactional Email, and Serverless migration Jobs as its European reference architecture. Other providers remain supported through the same OCI/PostgreSQL/S3/runtime contract.
+- This repository is the canonical generic upstream. IMASUS will become a separate downstream owning its profile, content, legal copy, assets, production infrastructure, and partner attribution; exact repository names remain open until release metadata is finalized.
 - Production target is Fly.io app `imasus-app` in `cdg` (Paris; closest available EU region to Spain), reachable at `https://app.imasus.eu` with `https://imasus-app.fly.dev` kept as the Fly fallback hostname.
+- The Fly target above is transitional operational state, not the generic example. Keep it running until the IMASUS downstream has rehearsed data restoration and accepted the production-domain cutover.
 - Continuous deployment runs from GitHub Actions on pushes to `main` via `flyctl deploy --remote-only` and requires the repository secret `FLY_API_TOKEN`.
 - Production uploads use a private Tigris bucket through Active Storage's S3-compatible `amazon` service. Tigris secrets are set by `flyctl storage create`; the app accepts Fly's `BUCKET_NAME` and AWS-style `AWS_S3_BUCKET`.
 - Browser direct uploads from Action Text/Trix require the Tigris bucket CORS rule from `bin/rails active_storage:configure_cors`; without it, production uploads fail at the S3 preflight before Rails receives the file.

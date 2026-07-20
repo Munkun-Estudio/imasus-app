@@ -28,12 +28,16 @@
   needs `tailwind.css` before the later production precompile step. CI builds
   Tailwind immediately before that smoke test so a clean checkout behaves like
   the locally verified worktree.
+- The generic deployment reference is Scaleway in one European region:
+  Serverless Containers, Container Registry, Managed PostgreSQL, Object
+  Storage, Private Network, Transactional Email, and Serverless Jobs for
+  migrations. Fly remains only as the transitional IMASUS deployment.
+- Repository topology is resolved as generic upstream plus a separate IMASUS
+  downstream. Repository names and the production cutover remain later explicit
+  decisions/actions because they affect stable citation URLs and live service.
 
 ## Open questions
 
-- Choose canonical repository topology (generic upstream plus IMASUS profile or
-  generic upstream plus a thin IMASUS downstream) after the release candidate
-  proves how much profile-specific code remains.
 - Confirm content licensing and partner attribution before generating final
   citation and Zenodo metadata. The original software licence is confirmed as
   MIT, Copyright (c) 2026 Munkun; content, media, names, logos, trademarks, and

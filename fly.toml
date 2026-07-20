@@ -1,3 +1,5 @@
+# Transitional IMASUS deployment. This is not the generic deployment example;
+# move it to the IMASUS downstream before removing it from this repository.
 app = "imasus-app"
 primary_region = "cdg"
 console_command = "/rails/bin/rails console"

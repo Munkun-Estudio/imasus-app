@@ -1,4 +1,6 @@
-name: Fly Deploy
+# Transitional IMASUS deployment. Move this workflow to the IMASUS downstream
+# before removing it from the generic upstream.
+name: IMASUS Legacy Fly Deploy
 
 on:
   workflow_run:

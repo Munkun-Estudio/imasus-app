@@ -1,15 +1,18 @@
 # Image Hosting Strategy
 
-This project uses **AWS S3 via Active Storage** for image and media storage in production.
+This project uses **S3-compatible object storage via Active Storage** for image
+and media storage in production. The generic reference deployment uses
+Scaleway Object Storage; the transitional IMASUS deployment uses Tigris.
 
 ## Decision
 
-- Storage backend: S3 via Active Storage
-- URL mode: `rails_storage_proxy`
+- Storage backend: S3-compatible API via Active Storage
+- URL mode: `rails_storage_redirect`
 - Variant processor: `mini_magick`
-- CDN direction: CloudFront in front of the Rails app or the Active Storage proxy endpoints
+- CDN direction: provider-neutral; add one only after measuring the installation
 
-This keeps the storage layer Rails-native and aligned with the existing AWS relationship in IMASUS, while producing cacheable proxy URLs that can sit behind a CDN later without changing application code.
+This keeps the storage layer Rails-native and portable between compatible
+European providers without changing application code.
 
 ## Why This Shape
 
@@ -19,14 +22,15 @@ S3 + Active Storage + proxy URLs is the simplest durable baseline:
 
 - it uses Rails primitives instead of adding a dedicated image service now
 - it keeps image attachments and variants in one place
-- it allows CloudFront to cache image responses at the edge once deployment wiring is added
+- it allows an optional CDN to cache image responses at the edge once an
+  installation's measured needs justify the extra infrastructure
 
 ### Options considered
 
-- **S3 + CloudFront + Active Storage variants**
-  - Pros: Rails-native, no extra service, fits current AWS usage
+- **S3-compatible storage + Active Storage variants**
+  - Pros: Rails-native, portable, no extra image service
   - Cons: first-request variant generation happens in the app process
-- **S3 + imgproxy**
+- **S3-compatible storage + imgproxy**
   - Pros: faster on-the-fly transforms, strong CDN story
   - Cons: extra infrastructure and operational surface
 - **Managed image service such as Cloudflare Images**
@@ -49,7 +53,7 @@ The app currently keeps the Rails default format behavior: resize the source ima
 - Render images through `image_variant_tag(...)`
 - Use `loading="lazy"` by default
 - Always include explicit `width` and `height`
-- Keep originals in S3; generate variants lazily on first request
+- Keep originals in object storage; generate variants lazily on first request
 
 ## Production Configuration
 
@@ -59,8 +63,13 @@ Set these environment variables:
 - `AWS_SECRET_ACCESS_KEY`
 - `AWS_REGION`
 - `AWS_S3_BUCKET`
+- `AWS_ENDPOINT_URL_S3`
+- `AWS_PUBLIC_BUCKET` (`false` for the generic signed-URL reference)
 
-`config/storage.yml` points production at the `amazon` service, while development and test continue using local/test disk storage.
+`config/storage.yml` points production at the adapter named `amazon`; despite
+that Rails adapter name, it accepts any compatible endpoint. Development and
+test continue using local/test disk storage. See [Deployment](deployment.md)
+for the Scaleway endpoint and CORS setup.
 
 ## Local And CI Requirements
 

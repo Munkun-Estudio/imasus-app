@@ -12,7 +12,9 @@ amazon:
   secret_access_key: <%= ENV["AWS_SECRET_ACCESS_KEY"] %>
   region: <%= ENV.fetch("AWS_REGION", "auto") %>
   bucket: <%= ENV["AWS_S3_BUCKET"].presence || ENV["BUCKET_NAME"] %>
-  public: true
+  # Public-by-default is a temporary IMASUS/Tigris compatibility boundary.
+  # New installations should set AWS_PUBLIC_BUCKET=false and use signed URLs.
+  public: <%= ENV.fetch("AWS_PUBLIC_BUCKET", "true") == "true" %>
   <% if ENV["AWS_ENDPOINT_URL_S3"].present? %>
   endpoint: <%= ENV["AWS_ENDPOINT_URL_S3"] %>
   <% end %>

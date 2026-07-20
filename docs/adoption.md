@@ -112,6 +112,11 @@ minimum, review and replace:
 - database, storage, mail, analytics, host, CORS, backup, and rollback settings
   described in [Deployment](deployment.md).
 
+The upstream deployment example uses Scaleway services in one European region.
+Other providers remain possible when they satisfy the same OCI, PostgreSQL,
+S3-compatible storage, secrets, migrations, health-check, backup, and rollback
+boundaries.
+
 The repository's MIT licence covers original software, not installation
 content, uploaded or bundled media, names, logos, or trademarks unless those
 works state a separate licence.
