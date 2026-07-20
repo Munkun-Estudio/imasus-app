@@ -16,19 +16,19 @@ assets assume IMASUS Material fields and categories.
 ## Acceptance Criteria
 
 
-- [ ] The renderer supports the v1 field kinds with accessible list/card/detail
+- [x] The renderer supports the v1 field kinds with accessible list/card/detail
   output, safe rich text and links, deterministic ordering, and missing-value
   behaviour.
-- [ ] Configured library labels, facets, filters, sorting, empty states, and
+- [x] Configured library labels, facets, filters, sorting, empty states, and
   metadata replace Materials-specific copy and category assumptions.
-- [ ] A documented idempotent import/sync command validates manifests, reports
+- [x] A documented idempotent import/sync command validates manifests, reports
   additions/changes/removals, and does not silently delete published data.
-- [ ] Image and file conventions support local development and the configured
+- [x] Image and file conventions support local development and the configured
   Active Storage service, including alt text, allowed types/sizes, and missing
   asset diagnostics.
-- [ ] Project/log references and bookmarks render generic items and remain valid
+- [x] Project/log references and bookmarks render generic items and remain valid
   across content updates or retired items.
-- [ ] Visual/request/system regression coverage shows the IMASUS library retains
+- [x] Visual/request/system regression coverage shows the IMASUS library retains
   its current content and essential interaction, and an example item type works
   without application-code changes.
 

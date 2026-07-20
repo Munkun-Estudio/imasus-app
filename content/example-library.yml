@@ -13,6 +13,8 @@ item_types:
         cardinality: one
         labels:
           en: Audience
+        display: metadata
+        card: true
       - id: instructions
         kind: text
         localized: true
@@ -20,10 +22,14 @@ item_types:
         cardinality: one
         labels:
           en: Instructions
+        display: body
+        card: false
+    media: []
 
 taxonomies:
   - id: topic
     cardinality: many
+    filter: true
     labels:
       en: Topic
     terms:
@@ -47,3 +53,4 @@ items:
       topic:
         - reflection
     links: []
+    assets: []

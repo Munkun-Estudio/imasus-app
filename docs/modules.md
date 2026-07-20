@@ -5,7 +5,7 @@ stable internal keys are independent from the current IMASUS names:
 
 | Key | IMASUS surface | Route helper | Content source | Bookmark type |
 | --- | --- | --- | --- | --- |
-| `library` | Materials | `materials_path` | Database records | `Material` |
+| `library` | Materials | `materials_path` (`library_path` for generic presentation) | Manifest + database records | `LibraryItem` (`Material` compatible) |
 | `guides` | Training | `training_index_path` | `content.guides` files | `TrainingModule` |
 | `prompts` | Challenges | `challenges_path` | Database records | `Challenge` |
 | `glossary` | Glossary | `glossary_terms_path` | Database records | `GlossaryTerm` |

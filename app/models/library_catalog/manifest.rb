@@ -7,7 +7,8 @@ class LibraryCatalog::Manifest
   class Error < StandardError; end
 
   Field = Data.define(
-    :id, :kind, :localized, :required, :cardinality, :labels, :options
+    :id, :kind, :localized, :required, :cardinality, :labels, :options,
+    :display, :card
   ) do
     def label(locale:, locales:)
       locales.fallback_chain(locale).filter_map { |candidate| labels[candidate] }.first || labels.values.first
@@ -18,13 +19,26 @@ class LibraryCatalog::Manifest
     end
   end
 
-  ItemType = Data.define(:id, :position, :labels, :fields) do
+  Media = Data.define(
+    :id, :position, :kind, :multiple, :placement, :cover, :allowed_types,
+    :max_bytes
+  )
+
+  ItemType = Data.define(:id, :position, :labels, :fields, :media) do
     def label(locale:, locales:)
       locales.fallback_chain(locale).filter_map { |candidate| labels[candidate] }.first || labels.values.first
     end
 
     def field(id)
       fields.find { |candidate| candidate.id == id.to_s }
+    end
+
+    def media_role(id)
+      media.find { |candidate| candidate.id == id.to_s }
+    end
+
+    def cover_role
+      media.find(&:cover)
     end
   end
 
@@ -34,7 +48,7 @@ class LibraryCatalog::Manifest
     end
   end
 
-  Taxonomy = Data.define(:id, :position, :cardinality, :labels, :terms) do
+  Taxonomy = Data.define(:id, :position, :cardinality, :filter, :labels, :terms) do
     def label(locale:, locales:)
       locales.fallback_chain(locale).filter_map { |candidate| labels[candidate] }.first || labels.values.first
     end
@@ -45,22 +59,28 @@ class LibraryCatalog::Manifest
   end
 
   Link = Data.define(:label, :url)
+  Asset = Data.define(:role, :path, :alt)
   Item = Data.define(
     :id, :position, :item_type, :published, :translations, :fields,
-    :taxonomies, :links
+    :taxonomies, :links, :assets
   )
 
   ID_FORMAT = /\A[a-z0-9]+(?:[a-z0-9_-]*[a-z0-9])?\z/
   FIELD_KINDS = %w[string text url number boolean select].freeze
+  FIELD_DISPLAYS = %w[body metadata hidden].freeze
   CARDINALITIES = %w[one many].freeze
+  MEDIA_KINDS = %w[image video file].freeze
+  MEDIA_PLACEMENTS = %w[gallery download].freeze
   TOP_LEVEL_KEYS = %w[version resource item_types taxonomies items].freeze
-  ITEM_TYPE_KEYS = %w[id labels fields].freeze
-  FIELD_KEYS = %w[id kind localized required cardinality labels options].freeze
-  TAXONOMY_KEYS = %w[id cardinality labels terms].freeze
+  ITEM_TYPE_KEYS = %w[id labels fields media].freeze
+  FIELD_KEYS = %w[id kind localized required cardinality labels options display card].freeze
+  MEDIA_KEYS = %w[id kind multiple placement cover allowed_types max_bytes].freeze
+  TAXONOMY_KEYS = %w[id cardinality filter labels terms].freeze
   TERM_KEYS = %w[id labels].freeze
-  ITEM_KEYS = %w[id item_type published translations fields taxonomies links].freeze
+  ITEM_KEYS = %w[id item_type published translations fields taxonomies links assets].freeze
   TRANSLATION_KEYS = %w[title summary].freeze
   LINK_KEYS = %w[label url].freeze
+  ASSET_KEYS = %w[role path alt].freeze
 
   attr_reader :path, :item_types, :taxonomies, :items
 
@@ -123,11 +143,13 @@ class LibraryCatalog::Manifest
       entry = hash!(entry, location)
       keys!(entry, ITEM_TYPE_KEYS, location)
       fields = build_fields(entry["fields"], location: "#{location}.fields")
+      media = build_media(entry["media"], location: "#{location}.media")
       ItemType.new(
         id: id!(entry["id"], "#{location}.id"),
         position: index,
         labels: localized_labels!(entry["labels"], "#{location}.labels"),
-        fields:
+        fields:,
+        media:
       ).freeze
     end
     raise Error, "#{path} must define at least one item type" if items.empty?
@@ -149,11 +171,60 @@ class LibraryCatalog::Manifest
         required: boolean!(entry["required"], "#{field_location}.required"),
         cardinality: enum!(entry["cardinality"], CARDINALITIES, "#{field_location}.cardinality"),
         labels: localized_labels!(entry["labels"], "#{field_location}.labels"),
-        options:
+        options:,
+        display: enum!(entry["display"], FIELD_DISPLAYS, "#{field_location}.display"),
+        card: boolean!(entry["card"], "#{field_location}.card")
       ).freeze
     end
     duplicate!(fields.map(&:id), "field in #{location}")
     fields.freeze
+  end
+
+  def build_media(source, location:)
+    roles = array!(source, location).map.with_index do |entry, index|
+      role_location = "#{location}[#{index}]"
+      entry = hash!(entry, role_location)
+      keys!(entry, MEDIA_KEYS, role_location)
+      kind = enum!(entry["kind"], MEDIA_KINDS, "#{role_location}.kind")
+      allowed_types = media_types!(entry["allowed_types"], kind:, location: "#{role_location}.allowed_types")
+      placement = enum!(entry["placement"], MEDIA_PLACEMENTS, "#{role_location}.placement")
+      if (placement == "gallery" && kind == "file") || (placement == "download" && kind != "file")
+        raise Error, "#{role_location}.placement is incompatible with media kind #{kind.inspect}"
+      end
+      max_bytes = entry["max_bytes"]
+      unless max_bytes.is_a?(Integer) && max_bytes.positive? && max_bytes <= 500.megabytes
+        raise Error, "#{role_location}.max_bytes must be between 1 and 524288000"
+      end
+
+      Media.new(
+        id: id!(entry["id"], "#{role_location}.id"),
+        position: index,
+        kind:,
+        multiple: boolean!(entry["multiple"], "#{role_location}.multiple"),
+        placement:,
+        cover: boolean!(entry["cover"], "#{role_location}.cover"),
+        allowed_types:,
+        max_bytes:
+      ).freeze
+    end
+    duplicate!(roles.map(&:id), "media role in #{location}")
+    raise Error, "#{location} accepts at most one cover role" if roles.count(&:cover) > 1
+    roles.freeze
+  end
+
+  def media_types!(source, kind:, location:)
+    types = array!(source, location).map.with_index do |value, index|
+      type = string!(value, "#{location}[#{index}]", maximum: 100)
+      prefix = type.split("/", 2).first
+      expected = kind == "file" ? nil : kind
+      if !type.match?(/\A[a-z0-9.+-]+\/[a-z0-9.+-]+\z/) || (expected && prefix != expected)
+        raise Error, "#{location}[#{index}] is not an allowed #{kind} MIME type"
+      end
+      type
+    end
+    raise Error, "#{location} must define at least one MIME type" if types.empty?
+    duplicate!(types, "MIME type in #{location}")
+    types.freeze
   end
 
   def options!(source, kind:, location:)
@@ -179,6 +250,7 @@ class LibraryCatalog::Manifest
         id: id!(entry["id"], "#{location}.id"),
         position: index + 1,
         cardinality: enum!(entry["cardinality"], CARDINALITIES, "#{location}.cardinality"),
+        filter: boolean!(entry["filter"], "#{location}.filter"),
         labels: localized_labels!(entry["labels"], "#{location}.labels"),
         terms:
       ).freeze
@@ -219,11 +291,49 @@ class LibraryCatalog::Manifest
         translations: translations!(entry["translations"], "#{location}.translations"),
         fields: validate_fields!(entry["fields"], type:, location: "#{location}.fields"),
         taxonomies: taxonomy_selections!(entry["taxonomies"], "#{location}.taxonomies"),
-        links: links!(entry["links"], "#{location}.links")
+        links: links!(entry["links"], "#{location}.links"),
+        assets: assets!(entry["assets"], type:, location: "#{location}.assets")
       ).freeze
     end
     duplicate!(entries.map(&:id), "item")
     entries
+  end
+
+  def assets!(source, type:, location:)
+    assets = array!(source, location).map.with_index do |entry, index|
+      asset_location = "#{location}[#{index}]"
+      entry = hash!(entry, asset_location)
+      keys!(entry, ASSET_KEYS, asset_location)
+      role = id!(entry["role"], "#{asset_location}.role")
+      definition = type.media_role(role)
+      raise Error, "#{asset_location}.role references unknown media role #{role.inspect}" unless definition
+
+      Asset.new(
+        role:,
+        path: relative_asset_path!(entry["path"], "#{asset_location}.path"),
+        alt: localized_labels!(entry["alt"], "#{asset_location}.alt")
+      ).freeze
+    end
+    duplicate!(assets.map { |asset| [ asset.role, asset.path.to_s ] }, "asset in #{location}")
+    assets.group_by(&:role).each do |role, selected|
+      definition = type.media_role(role)
+      if !definition.multiple && selected.many?
+        raise Error, "#{location} media role #{role.inspect} accepts at most one asset"
+      end
+    end
+    assets.freeze
+  end
+
+  def relative_asset_path!(value, location)
+    relative = Pathname(string!(value, location, maximum: 500))
+    if relative.absolute? || relative.each_filename.include?("..")
+      raise Error, "#{location} must be relative and stay beside the Library manifest"
+    end
+    resolved = path.dirname.join(relative).cleanpath
+    unless resolved.to_s.start_with?("#{path.dirname.cleanpath}/") && resolved.file?
+      raise Error, "#{location} file does not exist: #{resolved}"
+    end
+    resolved.freeze
   end
 
   def translations!(source, location)

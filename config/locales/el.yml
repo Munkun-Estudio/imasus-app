@@ -140,6 +140,36 @@ el:
         manage_facilitators: "Διαχείριση διευκολυντών"
         all_projects: "Όλα τα έργα"
         workshop_emails: "Emails"
+  library_items:
+    reference:
+      retired: "Αρχειοθετημένος πόρος — η αρχική αναφορά διατηρείται."
+    values:
+      yes: "Ναι"
+      no: "Όχι"
+    index:
+      lead: "Εξερευνήστε τους πόρους αυτής της βιβλιοθήκης και φιλτράρετέ τους ανά θέμα."
+      search_label: "Αναζήτηση στη βιβλιοθήκη"
+      search_placeholder: "Αναζήτηση με τίτλο ή περίληψη"
+      clear_all: "Καθαρισμός όλων των φίλτρων"
+      empty_state: "Κανένας πόρος δεν αντιστοιχεί στα τρέχοντα φίλτρα."
+      loading_more: "Φόρτωση περισσότερων πόρων"
+      loaded_batch:
+        one: "Φορτώθηκε 1 ακόμη πόρος"
+        other: "Φορτώθηκαν %{count} ακόμη πόροι"
+      filters_label: "Φίλτρα βιβλιοθήκης"
+      item_types: "Τύπος πόρου"
+    card:
+      media_pending: "Πολυμέσα σύντομα διαθέσιμα"
+    preview:
+      close: "Κλείσιμο προεπισκόπησης"
+      open_label: "Προεπισκόπηση %{name}"
+      open_full_page: "Άνοιγμα πλήρους σελίδας →"
+    show:
+      back_to_index: "← Επιστροφή στη συλλογή %{library}"
+      view_detail: "Άνοιγμα %{name}"
+      gallery_label: "Πολυμέσα πόρου"
+      resources: "Σύνδεσμοι και λήψεις"
+      retired: "Αυτός ο πόρος δεν εμφανίζεται πλέον στη λίστα, αλλά η διεύθυνσή του παραμένει διαθέσιμη για υπάρχουσες αναφορές και σελιδοδείκτες."
   materials:
     actions:
       edit: "Επεξεργασία"

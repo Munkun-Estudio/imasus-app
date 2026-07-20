@@ -1,0 +1,115 @@
+<% content_for :title, @library_item.title %>
+<% meta = library_meta_description(@library_item) %>
+<% content_for(:meta_description, meta) if meta.present? %>
+<% unless @library_item.published? %>
+  <% content_for :head do %><meta name="robots" content="noindex,nofollow"><% end %>
+<% end %>
+
+<% gallery_items = library_gallery_items(@library_item) %>
+<% body_fields = library_detail_fields(@library_item, display: "body") %>
+<% metadata_fields = library_detail_fields(@library_item, display: "metadata") %>
+<% downloads = @library_item.ordered_assets(placement: "download") %>
+
+<article class="px-6 py-10 sm:px-10 lg:px-16">
+  <%= link_to t("library_items.show.back_to_index", library: library_module_label), library_path,
+        class: "inline-flex items-center text-sm font-semibold text-brand-primary/70 hover:text-brand-primary" %>
+
+  <% unless @library_item.published? %>
+    <p class="mt-6 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900" role="status">
+      <%= t("library_items.show.retired") %>
+    </p>
+  <% end %>
+
+  <header class="mt-6 flex items-start gap-3">
+    <div class="flex-1">
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-primary/50"><%= library_item_type_label(@library_item) %></p>
+      <h1 class="mt-1 text-3xl font-bold text-brand-primary sm:text-4xl"><%= @library_item.title %></h1>
+    </div>
+    <%= bookmark_toggle(bookmarkable_type: "LibraryItem", resource_key: @library_item.slug,
+          label: @library_item.title, url: library_item_path(@library_item)) %>
+  </header>
+
+  <% if gallery_items.any? %>
+    <% active_item = gallery_items.first %>
+    <section data-role="library-gallery" data-controller="material-gallery"
+             aria-label="<%= t("library_items.show.gallery_label") %>"
+             class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-stretch">
+      <div data-role="gallery-viewer" data-material-gallery-target="viewer"
+           class="relative aspect-[16/10] flex-1 overflow-hidden rounded-2xl bg-brand-success/20">
+        <%= render "library_items/gallery_media", item: active_item, library_item: @library_item, deferred: active_item[:kind] == "video" %>
+      </div>
+      <% if gallery_items.many? %>
+        <ul class="flex w-full flex-row gap-2 overflow-x-auto sm:w-28 sm:flex-col sm:overflow-y-auto">
+          <% gallery_items.each_with_index do |item, index| %>
+            <li class="shrink-0">
+              <button type="button" data-role="gallery-thumb" data-kind="<%= item[:kind] %>"
+                      data-media-key="<%= item[:key] %>"
+                      data-media-url="<%= media_library_item_path(@library_item, key: item[:key]) %>"
+                      data-gallery-active="<%= index.zero? %>" data-material-gallery-target="thumb"
+                      data-action="material-gallery#select" aria-label="<%= item[:alt] %>"
+                      class="relative block h-20 w-28 overflow-hidden rounded-lg bg-brand-success/20 ring-2 ring-transparent transition hover:ring-brand-primary/40 focus:outline-none focus:ring-brand-primary/60 data-[gallery-active=true]:ring-brand-primary">
+                <% if item[:kind] == "video" %>
+                  <span class="absolute inset-0 flex items-center justify-center bg-brand-primary/70 text-white"><%= heroicon :play, class: "h-5 w-5" %></span>
+                <% else %>
+                  <%= image_variant_tag item[:asset].file, preset: :thumbnail, alt: "", class: "h-full w-full object-cover" %>
+                <% end %>
+              </button>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </section>
+  <% end %>
+
+  <div class="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
+    <div class="max-w-2xl space-y-10">
+      <% if @library_item.summary.present? %>
+        <p class="text-lg leading-relaxed text-brand-primary/80"><%= @library_item.summary %></p>
+      <% end %>
+      <% body_fields.each do |field, value| %>
+        <section data-field="<%= field.id %>" class="space-y-3">
+          <h2 class="border-b border-brand-primary/10 pb-2 text-sm font-semibold uppercase tracking-wide text-brand-primary/70"><%= library_field_label(field) %></h2>
+          <div class="prose prose-sm max-w-none text-brand-primary/80"><%= render_library_field(field, value) %></div>
+        </section>
+      <% end %>
+    </div>
+
+    <aside class="space-y-8 lg:sticky lg:top-8 lg:self-start">
+      <% if metadata_fields.any? %>
+        <dl class="divide-y divide-brand-primary/10 rounded-xl bg-brand-success/10 px-5">
+          <% metadata_fields.each do |field, value| %>
+            <div data-field="<%= field.id %>" class="py-4">
+              <dt class="text-xs uppercase tracking-wide text-brand-primary/60"><%= library_field_label(field) %></dt>
+              <dd class="mt-1 break-words text-sm text-brand-primary"><%= render_library_field(field, value) %></dd>
+            </div>
+          <% end %>
+        </dl>
+      <% end %>
+
+      <% LibraryCatalog.current.taxonomies.each do |taxonomy| %>
+        <% terms = @library_item.taxonomy_terms_for(taxonomy.id) %>
+        <% next if terms.empty? %>
+        <section data-taxonomy="<%= taxonomy.id %>">
+          <h2 class="text-xs font-semibold uppercase tracking-wide text-brand-primary/60"><%= library_taxonomy_label(taxonomy) %></h2>
+          <ul class="mt-2 flex flex-wrap gap-1.5">
+            <% terms.each do |term| %><li class="rounded-full border border-brand-primary/15 bg-white px-2.5 py-0.5 text-xs text-brand-primary/80"><%= library_term_label(term) %></li><% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <% if @library_item.links.any? || downloads.any? %>
+        <section>
+          <h2 class="text-xs font-semibold uppercase tracking-wide text-brand-primary/60"><%= t("library_items.show.resources") %></h2>
+          <ul class="mt-2 space-y-2 text-sm">
+            <% @library_item.links.each do |link| %>
+              <li><%= library_safe_link(link.fetch("label"), link.fetch("url")) %></li>
+            <% end %>
+            <% downloads.each do |asset| %>
+              <li><%= link_to(asset.caption.presence || asset.file.filename.to_s, rails_blob_path(asset.file, disposition: "attachment"), class: "font-medium text-brand-primary underline") %></li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+    </aside>
+  </div>
+</article>

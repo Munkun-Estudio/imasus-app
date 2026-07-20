@@ -13,6 +13,8 @@ item_types:
     cardinality: one
     labels:
       en: Supplier
+    display: metadata
+    card: false
   - id: supplier_url
     kind: url
     localized: false
@@ -20,6 +22,8 @@ item_types:
     cardinality: one
     labels:
       en: Supplier website
+    display: hidden
+    card: false
   - id: material_of_origin
     kind: string
     localized: false
@@ -27,6 +31,8 @@ item_types:
     cardinality: one
     labels:
       en: Material of origin
+    display: metadata
+    card: true
   - id: availability_status
     kind: select
     localized: false
@@ -34,6 +40,8 @@ item_types:
     cardinality: one
     labels:
       en: Availability
+    display: metadata
+    card: true
     options:
       commercial:
         en: Commercial
@@ -48,6 +56,8 @@ item_types:
     cardinality: one
     labels:
       en: Interesting properties
+    display: body
+    card: false
   - id: structure
     kind: text
     localized: true
@@ -55,6 +65,8 @@ item_types:
     cardinality: one
     labels:
       en: Structure
+    display: body
+    card: false
   - id: sensorial_qualities
     kind: text
     localized: true
@@ -62,6 +74,8 @@ item_types:
     cardinality: one
     labels:
       en: Sensorial qualities
+    display: body
+    card: false
   - id: what_problem_it_solves
     kind: text
     localized: true
@@ -69,9 +83,44 @@ item_types:
     cardinality: one
     labels:
       en: What problem it solves
+    display: body
+    card: false
+  media:
+  - id: macro
+    kind: image
+    multiple: true
+    placement: gallery
+    cover: true
+    allowed_types:
+    - image/jpeg
+    - image/png
+    - image/webp
+    max_bytes: 20971520
+  - id: microscopy
+    kind: image
+    multiple: true
+    placement: gallery
+    cover: false
+    allowed_types:
+    - image/jpeg
+    - image/png
+    - image/webp
+    - image/tiff
+    max_bytes: 52428800
+  - id: video
+    kind: video
+    multiple: false
+    placement: gallery
+    cover: false
+    allowed_types:
+    - video/mp4
+    - video/quicktime
+    - video/webm
+    max_bytes: 262144000
 taxonomies:
 - id: origin_type
   cardinality: many
+  filter: true
   labels:
     en: Origin
   terms:
@@ -101,6 +150,7 @@ taxonomies:
       en: Microbial
 - id: textile_imitating
   cardinality: many
+  filter: true
   labels:
     en: Textile imitated
   terms:
@@ -142,6 +192,7 @@ taxonomies:
       en: Synthetic rubber
 - id: application
   cardinality: many
+  filter: true
   labels:
     en: Application
   terms:
@@ -199,6 +250,7 @@ items:
   links:
   - label: Pyratex Musa 1
     url: https://eshop.pyratex.com/shop/swaknribmu001-swatch-pyratex-r-musa-1-74
+  assets: []
 - id: lifematerials-cypress-denim
   item_type: material
   published: true
@@ -229,6 +281,7 @@ items:
   links:
   - label: LifeMaterials, Cypress denim
     url: https://lifematerials.eu/shop/cypress-denim/
+  assets: []
 - id: pyratex-freshness-1
   item_type: material
   published: true
@@ -247,6 +300,7 @@ items:
     application:
     - clothing
   links: []
+  assets: []
 - id: pyratex-seacell-7
   item_type: material
   published: true
@@ -271,6 +325,7 @@ items:
   links:
   - label: Pyratex Seacell 7
     url: https://eshop.pyratex.com/shop/swaknmescs007-swatch-pyratex-r-seacell-7-54
+  assets: []
 - id: lifematerials-muskin
   item_type: material
   published: true
@@ -302,6 +357,7 @@ items:
   links:
   - label: LifeMaterials MuSkin
     url: https://lifematerials.eu/shop/muskin-cruelty-free-and-oil-free-vegan-leatherette-alternative-to-animal-based-leather/
+  assets: []
 - id: pyratex-element-1
   item_type: material
   published: true
@@ -323,6 +379,7 @@ items:
   links:
   - label: Pyratex Element 1
     url: https://eshop.pyratex.com/shop/swaknjerel001-swatch-pyratex-r-element-1-62
+  assets: []
 - id: lifematerials-kapok
   item_type: material
   published: true
@@ -350,6 +407,7 @@ items:
   links:
   - label: LifeMaterials
     url: https://lifematerials.eu/shop/life-materials-full-kit/
+  assets: []
 - id: pyratex-tropic-3
   item_type: material
   published: true
@@ -368,6 +426,7 @@ items:
     application:
     - clothing
   links: []
+  assets: []
 - id: econyl-catalogue
   item_type: material
   published: true
@@ -396,6 +455,7 @@ items:
   links:
   - label: Econyl
     url: https://econyl.aquafil.com/
+  assets: []
 - id: ecoalf-fishing-nets
   item_type: material
   published: true
@@ -423,6 +483,7 @@ items:
   links:
   - label: Ecoalf
     url: https://ecoalf.com/pages/materiales
+  assets: []
 - id: revoltech-lovr
   item_type: material
   published: true
@@ -454,6 +515,7 @@ items:
   links:
   - label: Revoltech LOVRTM
     url: https://www.revoltech.com/lovr
+  assets: []
 - id: pyratex-bio-3
   item_type: material
   published: true
@@ -473,6 +535,7 @@ items:
   links:
   - label: Pyratex bio 3
     url: https://www.pyratex.com/
+  assets: []
 - id: torne-grup-cothempmat-305
   item_type: material
   published: true
@@ -494,6 +557,7 @@ items:
   links:
   - label: Torné Grup COTHEMPMAT-305
     url: https://tntex.es/
+  assets: []
 - id: revoltech-mattr
   item_type: material
   published: true
@@ -523,6 +587,7 @@ items:
   links:
   - label: Revoltech MATTRTM
     url: https://www.revoltech.com/mattr
+  assets: []
 - id: b-zornoza-chitosan
   item_type: material
   published: true
@@ -543,6 +608,7 @@ items:
     origin_type:
     - animals
   links: []
+  assets: []
 - id: crabyon-fibre
   item_type: material
   published: true
@@ -568,6 +634,7 @@ items:
   links:
   - label: "\\-OMIKENSHI"
     url: https://omikenshi.co.jp/pdf/english/CRABYON_English.pdf
+  assets: []
 - id: b-zornoza-starch
   item_type: material
   published: true
@@ -589,6 +656,7 @@ items:
     origin_type:
     - plants
   links: []
+  assets: []
 - id: orange-fiber
   item_type: material
   published: true
@@ -616,6 +684,7 @@ items:
   links:
   - label: Orange fiber web
     url: https://orangefiber.it/contact/
+  assets: []
 - id: pyratex-citrea-3
   item_type: material
   published: true
@@ -637,6 +706,7 @@ items:
   links:
   - label: Pyratex citrea 3
     url: https://eshop.pyratex.com/shop/swatch-pyratex-r-citrea-3-933
+  assets: []
 - id: squeeze-the-orange
   item_type: material
   published: true
@@ -662,6 +732,7 @@ items:
     application:
     - clothing
   links: []
+  assets: []
 - id: pinatex-ananas-anam
   item_type: material
   published: true
@@ -692,6 +763,7 @@ items:
   links:
   - label: Ananas Anam, Piñatex
     url: https://store.ananas-anam.com/
+  assets: []
 - id: hiblatech
   item_type: material
   published: true
@@ -716,6 +788,7 @@ items:
     - clothing
     - home_textiles
   links: []
+  assets: []
 - id: lifematerials-banana-skin
   item_type: material
   published: true
@@ -739,6 +812,7 @@ items:
   links:
   - label: LifeMaterials Banana Skin
     url: https://lifematerials.eu/shop/banana-skin/
+  assets: []
 - id: banana-plant-waste-pilar-urena
   item_type: material
   published: true
@@ -762,6 +836,7 @@ items:
     - accessories
     - home_textiles
   links: []
+  assets: []
 - id: fibras-naturales-canarias-musapiel
   item_type: material
   published: true
@@ -787,6 +862,7 @@ items:
     - accessories
     - home_textiles
   links: []
+  assets: []
 - id: pyratex-element-4
   item_type: material
   published: true
@@ -808,6 +884,7 @@ items:
   links:
   - label: Pyratex element 4
     url: https://eshop.pyratex.com/shop/swaknfleel004-swatch-pyratex-r-element-4-462
+  assets: []
 - id: ecoalf-coffe
   item_type: material
   published: true
@@ -829,6 +906,7 @@ items:
     application:
     - clothing
   links: []
+  assets: []
 - id: lenzing
   item_type: material
   published: true
@@ -853,6 +931,7 @@ items:
   links:
   - label: "\\-Lyocell garments are currently available."
     url: https://lenzingpro.com/en/portal/c/TX?query=:relevance:allCategories:TX:fiberType:CLY
+  assets: []
 - id: organic-linen
   item_type: material
   published: true
@@ -879,6 +958,7 @@ items:
   links:
   - label: "\\-Some shops, like Mango or Ecoalf, now sell organic linen garments on sites certified with GOTS or OEKO-TEX®."
     url: https://www.organicfabriccompany.com/collections/linen?srsltid=AfmBOorFba1a3xjtOVt8gXKwBEOZCTN14yPAd9fDFaUgcZ8402696Gl9
+  assets: []
 - id: pyratex-lino-1
   item_type: material
   published: true
@@ -902,6 +982,7 @@ items:
   links:
   - label: Pyratex lino 1
     url: https://www.pyratex.com/lino
+  assets: []
 - id: torne-grup-cottlinmat-236
   item_type: material
   published: true
@@ -923,6 +1004,7 @@ items:
     - clothing
     - accessories
   links: []
+  assets: []
 - id: vegea
   item_type: material
   published: true
@@ -953,6 +1035,7 @@ items:
   links:
   - label: "\\-"
     url: https://www.vegeacompany.com/contacts/
+  assets: []
 - id: ecoalf-recycled-cotton-1
   item_type: material
   published: true
@@ -980,6 +1063,7 @@ items:
   links:
   - label: Recycled cotton garments are currently available in shops such as Ecoalf.
     url: https://ecoalf.com/pages/materiales
+  assets: []
 - id: ecoalf-recycled-cotton-2
   item_type: material
   published: true
@@ -1007,6 +1091,7 @@ items:
   links:
   - label: Recycled cotton garments are currently available in shops such as Ecoalf.
     url: https://ecoalf.com/pages/materiales
+  assets: []
 - id: pyratex-recover-1
   item_type: material
   published: true
@@ -1025,6 +1110,7 @@ items:
     origin_type:
     - plants
   links: []
+  assets: []
 - id: pyratex-upcycled-2
   item_type: material
   published: true
@@ -1051,6 +1137,7 @@ items:
   links:
   - label: Pyratex upcycled 2
     url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+  assets: []
 - id: pyratex-upcycled-5
   item_type: material
   published: true
@@ -1077,6 +1164,7 @@ items:
   links:
   - label: Pyratex upcycled 5
     url: https://eshop.pyratex.com/shop/swaknfleup002-swatch-pyratex-r-upcycled-2-80
+  assets: []
 - id: torne-grup-r1615abn
   item_type: material
   published: true
@@ -1101,6 +1189,7 @@ items:
   links:
   - label: "[https://tntex.es/](https://tntex.es/)"
     url: https://tntex.es/
+  assets: []
 - id: spider-silk
   item_type: material
   published: true
@@ -1119,6 +1208,7 @@ items:
     textile_imitating:
     - silk
   links: []
+  assets: []
 - id: qmilk
   item_type: material
   published: true
@@ -1144,6 +1234,7 @@ items:
   links:
   - label: Qmilk
     url: https://www.qmilkfiber.eu/qmilk-faser-modische-anwendung?lang=en
+  assets: []
 - id: bacterial-cellulose
   item_type: material
   published: true
@@ -1162,6 +1253,7 @@ items:
     origin_type:
     - bacteria
   links: []
+  assets: []
 - id: qmonos
   item_type: material
   published: true
@@ -1182,6 +1274,7 @@ items:
     textile_imitating:
     - silk
   links: []
+  assets: []
 - id: nukak
   item_type: material
   published: true
@@ -1211,6 +1304,7 @@ items:
   links:
   - label: It is available in Nukak
     url: https://www.nukak.es/
+  assets: []
 - id: ecoalf-recycled-polyester-1
   item_type: material
   published: true
@@ -1237,6 +1331,7 @@ items:
   links:
   - label: "\\-Ecoalf"
     url: https://ecoalf.com/pages/materiales
+  assets: []
 - id: ecoalf-recycled-polyester-2
   item_type: material
   published: true
@@ -1263,6 +1358,7 @@ items:
   links:
   - label: "\\-Ecoalf"
     url: https://ecoalf.com/pages/materiales
+  assets: []
 - id: brewed-protein
   item_type: material
   published: true
@@ -1285,6 +1381,7 @@ items:
   links:
   - label: "\\-Spiber Inc."
     url: https://spiber.inc/en/protein
+  assets: []
 - id: azlon
   item_type: material
   published: true
@@ -1303,6 +1400,7 @@ items:
     application:
     - clothing
   links: []
+  assets: []
 - id: risa-ueno
   item_type: material
   published: true
@@ -1329,6 +1427,7 @@ items:
     - safety_equipment
     - art
   links: []
+  assets: []
 - id: akromid-next-fibres
   item_type: material
   published: true
@@ -1351,6 +1450,7 @@ items:
   links:
   - label: AKRO-PLASTIC
     url: https://akro-plastic.com/en/compounds/akromid-next
+  assets: []
 - id: oncemore
   item_type: material
   published: true
@@ -1375,6 +1475,7 @@ items:
   links:
   - label: SÖDRA
     url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+  assets: []
 - id: celltexx
   item_type: material
   published: true
@@ -1397,6 +1498,7 @@ items:
   links:
   - label: Block Texx®
     url: https://www.blocktexx.com/contact
+  assets: []
 - id: circulose
   item_type: material
   published: true
@@ -1421,6 +1523,7 @@ items:
   links:
   - label: "\\-Renecell"
     url: https://www.renewcell.com/en/contacts/
+  assets: []
 - id: myfi
   item_type: material
   published: true
@@ -1447,6 +1550,7 @@ items:
   links:
   - label: My-Fi project, European Union’s Horizon 2020
     url: https://www.sodra.com/en/global/about-us/innovation/oncemore/contact-us/
+  assets: []
 - id: fabric-forest
   item_type: material
   published: true
@@ -1472,6 +1576,7 @@ items:
   links:
   - label: Fabric Forest
     url: https://fabric-forest.se/en/fabrics-lignatex/fabric-lignatex/
+  assets: []
 - id: wint-design-lab
   item_type: material
   published: true
@@ -1498,6 +1603,7 @@ items:
   links:
   - label: WINT Design Lab
     url: https://www.wintdesignlab.de/gold#Footer
+  assets: []
 - id: soysilk
   item_type: material
   published: true
@@ -1521,6 +1627,7 @@ items:
     application:
     - clothing
   links: []
+  assets: []
 - id: seacell
   item_type: material
   published: true
@@ -1543,6 +1650,7 @@ items:
   links:
   - label: DUVALLI
     url: https://duvalli.com/es/contactos-es/
+  assets: []
 - id: pyratex-seacell-5
   item_type: material
   published: true
@@ -1566,6 +1674,7 @@ items:
   links:
   - label: Pyratex Seacell 5
     url: https://eshop.pyratex.com/shop/swaknflecs005-swatch-pyratex-r-seacell-5-52
+  assets: []
 - id: pyratex-seacell-6
   item_type: material
   published: true
@@ -1589,6 +1698,7 @@ items:
   links:
   - label: Pyratex Seacell 6
     url: https://eshop.pyratex.com/shop/pyratex-r-seacell-6-260
+  assets: []
 - id: regenerated-wool
   item_type: material
   published: true
@@ -1615,6 +1725,7 @@ items:
   links:
   - label: Comistra
     url: https://comistra.com/news/regenerated-wool-a-way-to-save-the-planet/
+  assets: []
 - id: eeden-world
   item_type: material
   published: true
@@ -1637,6 +1748,7 @@ items:
   links:
   - label: "[https://eeden.world/](https://eeden.world/) Pilot stage"
     url: https://eeden.world/
+  assets: []
 - id: jingyi-yang-algae-based-bioplastic
   item_type: material
   published: true
@@ -1660,6 +1772,7 @@ items:
     - accessories
     - home_textiles
   links: []
+  assets: []
 - id: rustic-wool
   item_type: material
   published: true
@@ -1681,3 +1794,4 @@ items:
     application:
     - clothing
   links: []
+  assets: []

@@ -1,6 +1,7 @@
 # Generic, manifest-defined content item in an installation's Library.
 class LibraryItem < ApplicationRecord
   include Translatable
+  include ActionText::Attachable
 
   attr_accessor :validation_manifest
 
@@ -9,7 +10,7 @@ class LibraryItem < ApplicationRecord
   has_many :taggings, class_name: "LibraryItemTagging", dependent: :destroy,
                       inverse_of: :library_item
   has_many :taxonomy_terms, through: :taggings, source: :library_taxonomy_term
-  has_many :assets, -> { order(:kind, :position) },
+  has_many :assets, -> { active.order(:position) },
            class_name: "LibraryItemAsset", dependent: :destroy,
            inverse_of: :library_item
 
@@ -112,8 +113,16 @@ class LibraryItem < ApplicationRecord
     slug
   end
 
+  def to_attachable_partial_path
+    "library_items/reference"
+  end
+
+  def attachable_plain_text_representation(caption = nil)
+    caption.presence || title
+  end
+
   def field_value(field_id, locale: I18n.locale)
-    field = LibraryCatalog.current.item_type(item_type)&.field(field_id)
+    field = item_type_definition&.field(field_id)
     return unless field
 
     value = custom_fields.to_h[field.id]
@@ -122,6 +131,26 @@ class LibraryItem < ApplicationRecord
     Rails.configuration.site.locales.fallback_chain(locale)
          .filter_map { |candidate| value[candidate] }
          .first
+  end
+
+  def item_type_definition
+    LibraryCatalog.current.item_type(item_type)
+  end
+
+  def taxonomy_terms_for(taxonomy_key)
+    taxonomy_terms.where(taxonomy_key: taxonomy_key.to_s).order(:position)
+  end
+
+  def cover_asset
+    role = item_type_definition&.cover_role&.id
+    role ? assets.find { |asset| asset.role == role && asset.file.attached? } : nil
+  end
+
+  def ordered_assets(placement: "gallery")
+    roles = item_type_definition&.media.to_a.select { |role| role.placement == placement }
+    positions = roles.map.with_index.to_h { |role, index| [ role.id, index ] }
+    assets.select { |asset| positions.key?(asset.role) && asset.file.attached? }
+          .sort_by { |asset| [ positions.fetch(asset.role), asset.position ] }
   end
 
   private

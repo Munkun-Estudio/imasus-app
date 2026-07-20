@@ -38,7 +38,8 @@ IMASUS App is the participant-facing workshop application for the IMASUS project
 
 - Library content uses the strict profile-selected `content.library` v1 manifest. Common identity/type/publication/order columns and normalized taxonomies are indexed; item-type custom fields use bounded validated JSONB kinds. Keep stable item IDs independent of translated copy. Removed manifest-managed entries are unpublished.
 
-- IMASUS Materials are compatibility adapters over generic `library_*` tables. Preserve `/materials` slugs and the Material import/media vocabulary until the presentation spec replaces it. The expand-first migration retains legacy columns and SQL views, aliases Active Storage attachment rows to existing blobs, and converts bookmarks to `LibraryItem` plus stable slug. Run `bin/rails library:verify_migration` before retiring any compatibility storage.
+- IMASUS Materials are compatibility adapters over generic `library_*` tables. Preserve `/materials` slugs, views, edit/import paths, and the Material media vocabulary; generic installations use the schema-driven `/library` presentation. The expand-first migration retains legacy columns and SQL views, aliases Active Storage attachment rows to existing blobs, and converts bookmarks to `LibraryItem` plus stable slug. Run `bin/rails library:verify_migration` before retiring any compatibility storage.
+- Generic Library presentation is bounded manifest data, not arbitrary templates: fields declare body/metadata/hidden and card placement, taxonomies opt into filters, and item types declare validated media roles. `library:sync` previews changes by default and `APPLY=1` applies them; removal unpublishes items/terms or retires managed assets without deleting stable references or blobs.
 
 ## Gotchas
 

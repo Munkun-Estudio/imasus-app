@@ -283,3 +283,7 @@ taxonomy fits the three legacy facets; otherwise it refuses rather than discard
 generic data. Legacy storage cannot be retired until
 `library:verify_migration` reports matching fields, relationships, attachments,
 manifest identities, and bookmark resolution.
+
+## 2026-07-20: Use bounded presentation hints and a compatibility facade for the Library
+
+Generic item types need reusable cards, details, filters, media, and rich-text references without allowing executable templates. Finite field display hints, taxonomy filter flags, and validated media roles keep the v1 contract safe and predictable. A generic /library facade can use that contract while /materials and the Material adapters preserve all existing IMASUS URLs, editing, imports, and deployment compatibility.
