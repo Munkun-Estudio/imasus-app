@@ -43,8 +43,7 @@ The default Rails health endpoint is available at `/up`.
 See [Adopt the application](docs/adoption.md) for the complete clone,
 customisation, content, validation, and production-readiness walkthrough.
 See [Deployment](docs/deployment.md) for the European Scaleway reference
-architecture and [Repository topology](docs/repository-topology.md) for the
-generic-upstream/installation-downstream boundary.
+architecture.
 
 ## Installation Profile
 
@@ -73,8 +72,9 @@ localized categories, publication and the database synchronization workflow.
 Before making non-trivial changes:
 
 1. Read [AGENTS.md](AGENTS.md).
-2. Review the active spec under [.munkit/specs](.munkit/specs).
-3. Update the relevant `.munkit/` files when you introduce durable project knowledge.
+2. Add or update tests for shared behaviour.
+3. Update the relevant public documentation when you introduce durable project
+   knowledge.
 
 Repository conventions:
 
@@ -94,14 +94,10 @@ bin/ci
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and collaboration expectations.
 
-## Credits
-
-Agent skill definitions under `.munkit/skills/` are adapted from [igmarin/rails-agent-skills](https://github.com/igmarin/rails-agent-skills) (MIT-licensed, Copyright (c) 2026 Ismael G Marin C). They have been translated to Minitest, pruned to the skills relevant to this project, and rewritten to fit the Munkit-based workflow used here. Upstream attribution, the derivation commit, and a summary of modifications are in [NOTICE](NOTICE).
-
 ## License
 
 The original software in this repository is licensed under the [MIT License](LICENSE), Copyright (c) 2026 Munkun.
 
 The MIT License does not apply automatically to installation content, uploaded or bundled media, project names, logos, or trademarks. Those assets retain their stated licences and ownership; when no separate licence is stated, no additional rights are granted.
 
-The `NOTICE` file tracks attribution for third-party material included in this repository, independently of the project's own license.
+Third-party code or content must retain its own licence and attribution.

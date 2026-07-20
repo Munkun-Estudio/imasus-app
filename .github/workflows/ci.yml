@@ -13,13 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Strip private git gems
-        run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -36,13 +31,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Strip private git gems
-        run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -57,13 +47,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Strip private git gems
-        run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -113,13 +98,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Strip private git gems
-        run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
@@ -191,13 +171,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Strip private git gems
-        run: sed -i '/munkit/d' Gemfile && rm -f Gemfile.lock
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
-        env:
-          BUNDLE_FROZEN: "false"
         with:
           bundler-cache: true
 
