@@ -81,7 +81,14 @@ jobs:
         run: bin/rubocop -f github
 
   test:
+    name: test (${{ matrix.profile }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile:
+          - imasus
+          - minimal
 
     services:
       postgres:
@@ -116,13 +123,40 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run tests
+      - name: Validate installation profile
         env:
+          APP_PROFILE: ${{ matrix.profile }}
+        run: bin/site-config
+
+      - name: Prepare test database
+        env:
+          APP_PROFILE: ${{ matrix.profile }}
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: bin/rails db:test:prepare
+
+      - name: Run IMASUS compatibility suite
+        if: matrix.profile == 'imasus'
+        env:
+          APP_PROFILE: imasus
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+        run: bin/rails test
+
+      - name: Run minimal-profile smoke test
+        if: matrix.profile == 'minimal'
+        env:
+          APP_PROFILE: minimal
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432
+        run: bin/rails test test/integration/minimal_profile_test.rb
+
+      - name: Compile assets for installation profile
+        env:
+          APP_PROFILE: ${{ matrix.profile }}
+          RAILS_ENV: production
+          SECRET_KEY_BASE_DUMMY: "1"
+        run: bin/rails assets:precompile
 
   system-test:
     runs-on: ubuntu-latest

@@ -19,6 +19,11 @@
 - Generic `ADMIN_EMAIL`, `ADMIN_NAME`, and `ADMIN_PASSWORD` seed variables are
   the documented interface. Existing `IMASUS_ADMIN_*` names remain compatible
   for the deployed profile.
+- CI uses two explicit application profiles. IMASUS runs the full historical
+  compatibility suite; minimal runs its isolated smoke test. Both profiles run
+  the configuration diagnostic, prepare the migrated test database, and compile
+  production assets. Security, JavaScript audit, lint, and IMASUS system tests
+  remain shared jobs rather than being duplicated by profile.
 
 ## Open questions
 
