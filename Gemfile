@@ -70,10 +70,6 @@ group :development do
 
   # Preview outgoing email in the browser during development
   gem "letter_opener"
-
-  # Munkun project context and orchestration tooling
-  gem "munkit", git: "https://github.com/Munkun-Estudio/munkit.git", branch: "main", require: false
-  gem "munkit-symphony", git: "https://github.com/Munkun-Estudio/munkit-symphony.git", require: false
 end
 
 group :test do

@@ -1,8 +1,8 @@
 # Image Hosting Strategy
 
 This project uses **S3-compatible object storage via Active Storage** for image
-and media storage in production. The generic reference deployment uses
-Scaleway Object Storage; the transitional IMASUS deployment uses Tigris.
+and media storage in production. The reference deployment uses Scaleway Object
+Storage, while the adapter accepts other S3-compatible providers.
 
 ## Decision
 

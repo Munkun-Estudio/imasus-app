@@ -98,9 +98,9 @@ ACTIVE_STORAGE_CORS_ORIGINS=https://workshops.example.org
 ```
 
 `AWS_PUBLIC_BUCKET=false` keeps new installations on signed Active Storage
-URLs. The default remains public temporarily for compatibility with the
-existing IMASUS/Tigris deployment; that downstream must set its intended value
-explicitly before the compatibility default is removed.
+URLs and is also the application default. Set it to `true` only when the bucket
+policy and the installation's content model intentionally allow public object
+URLs.
 
 Apply the browser direct-upload CORS policy using the same image and secrets as
 a one-off Serverless Job:
@@ -201,25 +201,3 @@ workflow. An installation repository should implement this ordered pipeline:
 Scaleway supports console, CLI, Terraform/OpenTofu, and API deployment. Use IaC
 for durable infrastructure and the CLI or API for image rollouts. See
 [deployment methods](https://www.scaleway.com/en/docs/serverless-containers/reference-content/deploy-container/).
-
-## Transitional IMASUS deployment
-
-`fly.toml` and `.github/workflows/fly.yml` remain temporarily because this
-repository still deploys `app.imasus.eu`. They are **not** the generic reference
-and must not be copied by adopters. The planned replacement for that public URL
-is the static `imasus-app-static` archive on Netlify, not another always-on Rails
-deployment.
-
-Before changing DNS, create verified database and object-store backups, complete
-the static export and privacy review, and test a Netlify preview on a temporary
-hostname. After the DNS change, disable the automatic Fly workflow and stop the
-Rails compute/database for a rollback window. Delete each Fly resource only
-after that window; retain or migrate Tigris separately because the static
-archive currently references its public object URLs.
-
-The private
-[`Munkun-Estudio/imasus-workshop-app`](https://github.com/Munkun-Estudio/imasus-workshop-app)
-Rails downstream remains deployment-ready but dormant for future workshops. Its
-CI tests every change, while provisioning and deployment require an explicit
-manual action. Future runtimes should normally use a workshop-specific hostname
-so `app.imasus.eu` continues to identify the static archive.
