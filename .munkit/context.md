@@ -216,14 +216,18 @@ These grew out of the work above and live under `.munkit/specs/` by slug only.
   Object Storage, Private Network, Transactional Email, and one-off Serverless
   Jobs for migrations, all selected in one European region.
 - Repository topology: this repository is the generic upstream; IMASUS becomes
-  a separate downstream owning its profile, content, legal copy, assets, and
-  production deployment.
-- Transitional production: keep the current IMASUS Fly.io deployment active
-  until the downstream has rehearsed restore/upgrade/rollback and the domain
-  cutover is separately approved.
+  a separate deployment-ready but dormant Rails downstream owning its profile,
+  content, legal copy, assets, infrastructure templates, and recovery runbook.
+- Public transition: deploy `/Users/pablo/projects/imasus-app-static` to Netlify
+  at `app.imasus.eu`, then stop and eventually retire the Fly Rails
+  compute/database after a verified export, DNS cutover, and rollback window.
+- Future workshops: provision the IMASUS downstream only through an explicit
+  manual deployment, normally on a workshop-specific hostname. Keep automatic
+  CI, but no push-triggered infrastructure creation while it is dormant.
 - Image storage: **S3-compatible object storage** through Active Storage; the
   generic reference uses Scaleway Object Storage and the transitional IMASUS
-  deployment keeps its existing Tigris service.
+  archive keeps its existing Tigris service until those public objects are
+  migrated or the bucket is intentionally retained.
 - CDN remains optional and should be selected from measured installation needs.
 
 ## Concerns

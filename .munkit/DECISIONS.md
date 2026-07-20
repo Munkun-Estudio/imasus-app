@@ -303,3 +303,7 @@ The reusable application, profile contract, neutral examples, tests, and release
 ## 2026-07-20: Use Scaleway as the generic European reference deployment
 
 The generic deployment example should favor European data-location and cloud-sovereignty goals while preserving provider portability. Scaleway supplies OCI container hosting, managed PostgreSQL, S3-compatible Object Storage, Private Networks, transactional email, and one-off migration jobs in European regions. Fly remains only as the transitional IMASUS deployment until cutover.
+
+## 2026-07-20: Replace live IMASUS Rails with a static archive and dormant revival repository
+
+The completed project needs a low-cost public archive, while future workshops need recoverable application capability rather than continuously running infrastructure. Netlify will serve imasus-app-static at app.imasus.eu after export and preview verification. The separate IMASUS Rails downstream will retain configuration, tests, infrastructure templates, and a manual revival runbook; verified database and object-store backups remain outside Git. Fly compute and PostgreSQL can be retired after the rollback window, but Tigris must remain or be migrated while the archive references its objects.

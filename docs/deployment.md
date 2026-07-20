@@ -206,7 +206,19 @@ for durable infrastructure and the CLI or API for image rollouts. See
 
 `fly.toml` and `.github/workflows/fly.yml` remain temporarily because this
 repository still deploys `app.imasus.eu`. They are **not** the generic reference
-and must not be copied by adopters. Once the IMASUS downstream repository has
-its profile, content, secrets, data, and domain verified, move that workflow to
-the downstream and remove both Fly-specific files from this upstream in a
-separately approved cutover.
+and must not be copied by adopters. The planned replacement for that public URL
+is the static `imasus-app-static` archive on Netlify, not another always-on Rails
+deployment.
+
+Before changing DNS, create verified database and object-store backups, complete
+the static export and privacy review, and test a Netlify preview on a temporary
+hostname. After the DNS change, disable the automatic Fly workflow and stop the
+Rails compute/database for a rollback window. Delete each Fly resource only
+after that window; retain or migrate Tigris separately because the static
+archive currently references its public object URLs.
+
+The separate IMASUS Rails downstream remains deployment-ready but dormant for
+future workshops. Its CI tests every change, while provisioning and deployment
+require an explicit manual action. Future runtimes should normally use a
+workshop-specific hostname so `app.imasus.eu` continues to identify the static
+archive.
