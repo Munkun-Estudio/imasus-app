@@ -13,8 +13,8 @@ public installation while `minimal` provides a neutral adoption example.
 
 ## Status
 
-The v1.0.0 abstraction is being prepared on an integration branch. The current
-repository includes:
+Version 1.0.0 is the first stable release of the configurable application
+foundation. The repository includes:
 
 - a complete workshop, project, process-log, and publication workflow;
 - selectable installation profiles and optional resource modules;
