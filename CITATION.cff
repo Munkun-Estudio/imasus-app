@@ -4,8 +4,7 @@ title: "IMASUS App"
 abstract: >-
   A configurable open-source Rails platform for collaborative workshops, with
   installation-owned branding, languages, resource modules, and multilingual
-  content. Munkun SL conceived the original project and designed and developed
-  the software platform.
+  content. Munkun SL conceived, designed, and developed the software platform.
 type: software
 authors:
   - name: "Munkun SL"

@@ -1,6 +1,6 @@
 {
   "title": "IMASUS App: a configurable platform for collaborative workshops",
-  "description": "<p>IMASUS App is a configurable open-source Rails platform for collaborative workshops, with installation-owned branding, languages, resource modules, and multilingual content.</p><p>Munkun SL conceived the original IMASUS project in 2023, wrote the project proposal, led the product and experience design, and designed and developed the software platform. The materials research was carried out by the Institute of Nanoscience and Materials of Aragón (INMA). The research underpinning the training modules and challenges was carried out by Lottozero.</p><p>The platform was developed through the EU-funded IMASUS project under Erasmus+ grant 2024-1-ES01-KA220-VET-000257495.</p>",
+  "description": "<p>IMASUS App is a configurable open-source Rails platform for collaborative workshops, with installation-owned branding, languages, resource modules, and multilingual content.</p><p>Munkun SL conceived, designed, and developed the software platform created for the IMASUS project. The materials research was carried out by the Institute of Nanoscience and Materials of Aragón (INMA). The research underpinning the training modules and challenges was carried out by Lottozero.</p><p>The platform was developed through the EU-funded IMASUS project under Erasmus+ grant 2024-1-ES01-KA220-VET-000257495.</p>",
   "creators": [
     {
       "name": "Munkun SL"

@@ -6,10 +6,9 @@ contributions that made it possible. This document records that provenance.
 
 ## Origin and software authorship
 
-Munkun SL conceived the original IMASUS project in 2023 and wrote the project
-proposal. Munkun led the product and experience design and designed and
-developed the software platform that became IMASUS App. Munkun SL remains the
-author and steward of the reusable open-source application.
+Munkun SL conceived, designed, and developed the software platform created for
+the IMASUS project. Munkun SL remains the author and steward of the reusable
+open-source application.
 
 The principal creators are:
 
