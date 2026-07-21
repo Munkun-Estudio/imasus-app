@@ -1,0 +1,56 @@
+{
+  "title": "IMASUS App: a configurable platform for collaborative workshops",
+  "description": "<p>IMASUS App is a configurable open-source Rails platform for collaborative workshops, with installation-owned branding, languages, resource modules, and multilingual content.</p><p>Munkun SL conceived the original IMASUS project in 2023, wrote the project proposal, led the product and experience design, and designed and developed the software platform. The materials research was carried out by the Institute of Nanoscience and Materials of Aragón (INMA). The research underpinning the training modules and challenges was carried out by Lottozero.</p><p>The platform was developed through the EU-funded IMASUS project under Erasmus+ grant 2024-1-ES01-KA220-VET-000257495.</p>",
+  "creators": [
+    {
+      "name": "Munkun SL"
+    },
+    {
+      "name": "Jimeno Pérez, Pablo",
+      "affiliation": "Munkun SL",
+      "orcid": "0009-0002-0588-7715"
+    },
+    {
+      "name": "Orduña, Guillermo",
+      "affiliation": "Munkun SL",
+      "orcid": "0009-0001-0114-6138"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Institute of Nanoscience and Materials of Aragón (INMA)",
+      "type": "ResearchGroup"
+    },
+    {
+      "name": "Lottozero",
+      "type": "ResearchGroup"
+    }
+  ],
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "publication_date": "2026-07-21",
+  "keywords": [
+    "collaborative workshops",
+    "education",
+    "Erasmus+",
+    "open-source software",
+    "Ruby on Rails",
+    "sustainable fashion",
+    "vocational education and training"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Munkun-Estudio/imasus-app",
+      "relation": "isAlternateIdentifier"
+    },
+    {
+      "identifier": "https://imasus.eu/",
+      "relation": "isDocumentedBy"
+    },
+    {
+      "identifier": "https://imasus.eu/results/",
+      "relation": "isDocumentedBy"
+    }
+  ]
+}

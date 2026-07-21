@@ -11,6 +11,25 @@ participants use an imagineering approach inspired by
 to explore sustainable material futures. The `imasus` profile preserves that
 public installation while `minimal` provides a neutral adoption example.
 
+## Origin and stewardship
+
+Munkun SL conceived the original IMASUS project in 2023, wrote the project
+proposal, led the product and experience design, and designed and developed this
+software platform. Munkun SL remains the author and steward of the open-source
+application, with [Pablo Jimeno Pérez](https://orcid.org/0009-0002-0588-7715)
+and [Guillermo Orduña](https://orcid.org/0009-0001-0114-6138) named as its
+principal creators.
+
+The materials research was carried out by the Institute of Nanoscience and
+Materials of Aragón (INMA). The research underpinning the training modules and
+challenges was carried out by Lottozero. The work was developed through the
+EU-funded IMASUS project under Erasmus+ grant
+`2024-1-ES01-KA220-VET-000257495`.
+
+See [Credits](CREDITS.md) for the project provenance and contribution record,
+the [IMASUS website](https://imasus.eu/), and the project's
+[results](https://imasus.eu/results/).
+
 ## Status
 
 Version 1.0.0 is the first stable release of the configurable application
@@ -94,9 +113,15 @@ bin/ci
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and collaboration expectations.
 
+## Citation
+
+If you use this software in research, education, or another project, please use
+the metadata in [CITATION.cff](CITATION.cff). A DOI will be added after the
+software has been archived in Zenodo.
+
 ## License
 
-The original software in this repository is licensed under the [MIT License](LICENSE), Copyright (c) 2026 Munkun.
+The original software in this repository is licensed under the [MIT License](LICENSE), Copyright (c) 2026 Munkun SL.
 
 The MIT License does not apply automatically to installation content, uploaded or bundled media, project names, logos, or trademarks. Those assets retain their stated licences and ownership; when no separate licence is stated, no additional rights are granted.
 

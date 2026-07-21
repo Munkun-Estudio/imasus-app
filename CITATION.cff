@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+title: "IMASUS App"
+abstract: >-
+  A configurable open-source Rails platform for collaborative workshops, with
+  installation-owned branding, languages, resource modules, and multilingual
+  content. Munkun SL conceived the original project and designed and developed
+  the software platform.
+type: software
+authors:
+  - name: "Munkun SL"
+    website: "https://munkun.com/"
+  - family-names: "Jimeno Pérez"
+    given-names: "Pablo"
+    affiliation: "Munkun SL"
+    orcid: "https://orcid.org/0009-0002-0588-7715"
+  - family-names: "Orduña"
+    given-names: "Guillermo"
+    affiliation: "Munkun SL"
+    orcid: "https://orcid.org/0009-0001-0114-6138"
+contact:
+  - name: "Munkun SL"
+    website: "https://munkun.com/"
+version: 1.0.0
+date-released: 2026-07-21
+license: MIT
+repository-code: "https://github.com/Munkun-Estudio/imasus-app"
+url: "https://imasus.eu/"
+keywords:
+  - collaborative workshops
+  - education
+  - Erasmus+
+  - open-source software
+  - Ruby on Rails
+  - sustainable fashion
+  - vocational education and training
