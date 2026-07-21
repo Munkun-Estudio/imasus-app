@@ -13,9 +13,8 @@ public installation while `minimal` provides a neutral adoption example.
 
 ## Origin and stewardship
 
-Munkun SL conceived the original IMASUS project in 2023, wrote the project
-proposal, led the product and experience design, and designed and developed this
-software platform. Munkun SL remains the author and steward of the open-source
+Munkun SL conceived, designed, and developed the software platform created for
+the IMASUS project. Munkun SL remains the author and steward of the open-source
 application, with [Pablo Jimeno Pérez](https://orcid.org/0009-0002-0588-7715)
 and [Guillermo Orduña](https://orcid.org/0009-0001-0114-6138) named as its
 principal creators.
