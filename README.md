@@ -1,5 +1,7 @@
 # IMASUS App
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21476449.svg)](https://doi.org/10.5281/zenodo.21476449)
+
 IMASUS App is a configurable Rails platform for collaborative workshops. An
 organisation can provide its own identity, languages, resource modules,
 workshops, guides, library, prompts, and glossary through checked-in profiles
@@ -115,8 +117,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for setup and collaboration expectations.
 ## Citation
 
 If you use this software in research, education, or another project, please use
-the metadata in [CITATION.cff](CITATION.cff). A DOI will be added after the
-software has been archived in Zenodo.
+the metadata in [CITATION.cff](CITATION.cff). The DOI
+[`10.5281/zenodo.21476449`](https://doi.org/10.5281/zenodo.21476449) always
+resolves to the latest archived version; see the
+[Zenodo record for v1.0.1](https://doi.org/10.5281/zenodo.21476450) to cite that
+specific release.
 
 ## License
 

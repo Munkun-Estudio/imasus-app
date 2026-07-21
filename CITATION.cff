@@ -22,6 +22,7 @@ contact:
     website: "https://munkun.com/"
 version: 1.0.1
 date-released: 2026-07-21
+doi: "10.5281/zenodo.21476450"
 license: MIT
 repository-code: "https://github.com/Munkun-Estudio/imasus-app"
 url: "https://imasus.eu/"
